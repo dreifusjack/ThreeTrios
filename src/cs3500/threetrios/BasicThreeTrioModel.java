@@ -4,8 +4,8 @@ package cs3500.threetrios;
  * First variant model of Three Trio model implementation.
  */
 public class BasicThreeTrioModel implements ThreeTriosModel {
-  Card[][] grid;
-  Player turn;
+  GridCell[][] grid;
+  Player playerTurn;
   Player redPlayer;
   Player bluePlayer;
   boolean gameOver;
@@ -19,7 +19,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   public void startGame() {
     redPlayer = new ThreeTriosPlayer(TeamColor.RED);
     bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
-    turn = redPlayer;
+    playerTurn = redPlayer;
     // We will then read from the files and replace this files with our "grid" (we need to decide if we should initialize this in the constructor of the startGame().
     //+first line will take the row and col and the rest of the lines will be the cards in the grid (then pass the row + col + cards after we read to a createGrid to make a grid for our model)
     // **After thinking about it, I think we should initialize everything in the constructor as we have the isGameOver, so we should initialize the fields so that this method can be used.
@@ -35,11 +35,16 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
       throw new IllegalArgumentException("Invalid inputs for row and col");
     }
 
-    Card playingCard = turn.getHand().get(handIdx);
-    grid[row][col] = playingCard;
-    turn.removeCard(handIdx);
+    // get the card played from player
+    Card playingCard = playerTurn.getHand().get(handIdx);
+    // add card to grid
+    grid[row][col].addCard(playingCard);
+    // remove card from player hand
+    playerTurn.removeCard(handIdx);
+    // battle cards at posn of new card
     battleCards(row, col);
-    turn = turn == redPlayer ? bluePlayer : redPlayer;
+    // update player turn
+    playerTurn = playerTurn == redPlayer ? bluePlayer : redPlayer;
   }
 
   @Override
@@ -51,13 +56,16 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   // and there no way to determine if a cell is a null card cell or a null hole.
   @Override
   public boolean isGameOver() {
-   /* for (Card[] rows : grid) {
-      for (Card card : rows) {
-        if (card == null) {
-          return false;
+    for (GridCell[] row : grid) {
+      for (GridCell cell : row) {
+        try {
+          if (cell.getCard() == null) {
+            return false;
+          }
+        } catch (IllegalStateException ignored) { // case where cell is a hole
         }
       }
-    }*/ // if we init the game correctly shouldnt the game only end when this condition is hit?
+    }
     return redPlayer.getHand().isEmpty() || bluePlayer.getHand().isEmpty();
   }
 
@@ -70,15 +78,16 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     int redCount = 0;
     int blueCount = 0;
 
-    for (Card[] rows : grid) {
-      for (Card card : rows) {
-        if (card != null) {
-          TeamColor color = card.getColor();
-          if (color == TeamColor.RED) {
+    for (GridCell[] rows : grid) {
+      for (GridCell cell : rows) {
+        try {
+          Card currentCard = cell.getCard();
+          if (currentCard.getColor() == TeamColor.RED) {
             redCount++;
-          } else if (color == TeamColor.BLUE) {
+          } else if (currentCard.getColor() == TeamColor.BLUE) {
             blueCount++;
           }
+        } catch (IllegalStateException ignored) { // case where cell is null
         }
       }
     }

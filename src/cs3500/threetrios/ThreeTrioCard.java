@@ -16,12 +16,12 @@ public class ThreeTrioCard implements Card {
     }
   }
 
-  String name;
-  TeamColor color;
-  CardValue north;
-  CardValue east;
-  CardValue south;
-  CardValue west;
+  private final String name;
+  private TeamColor color;
+  private final CardValue north;
+  private final CardValue east;
+  private final CardValue south;
+  private final CardValue west;
 
   public ThreeTrioCard(String name, TeamColor color, CardValue north,
                        CardValue east, CardValue south, CardValue west) {
@@ -68,5 +68,15 @@ public class ThreeTrioCard implements Card {
   @Override
   public String getName() {
     return this.name;
+  }
+
+  @Override
+  public void changeColor() {
+    this.color = this.color == TeamColor.RED ? TeamColor.BLUE : TeamColor.RED;
+  }
+
+  @Override
+  public Card clone() {
+    return new ThreeTrioCard(this.name, this.color, this.north, this.east, this.south, this.west);
   }
 }

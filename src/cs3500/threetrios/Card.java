@@ -34,4 +34,17 @@ public interface Card {
    * @return the name of this card.
    */
   public String getName();
+
+  /**
+   * Changes the TeamColor of this Card.
+   */
+  public void changeColor();
+
+  /**
+   * Creates a copy of this card. In order to not return the exact
+   * instance of this card to the client.
+   *
+   * @return Card with the same fields as this card
+   */
+  public Card clone();
 }

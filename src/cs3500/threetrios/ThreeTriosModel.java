@@ -67,7 +67,7 @@ public interface ThreeTriosModel {
 
   /**
    * Returns a copy winning player after the game is over. Modifying this returning object will
-   * have no effect on the game.
+   * have no effect on the game. If the game ends in a tie returns null.
    *
    * @return the winning player
    * @throws IllegalStateException if the game has not started or the game is not over
