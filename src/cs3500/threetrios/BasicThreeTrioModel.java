@@ -10,6 +10,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   Player bluePlayer;
   boolean gameOver;
 
+
   public BasicThreeTrioModel() {
 
   }
@@ -49,7 +50,35 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 
   @Override
   public void battleCards(int row, int col) {
+    Card placedCard = grid[row][col].getCard();
 
+    for (Direction dir : Direction.values()) {
+      int adjRow = row + getRowHelper(dir);
+      int adjCol = col + getColHelper(dir);
+
+      if (isValidCoordinate(adjRow, adjCol)) {
+        try {
+          Card adjCard = grid[adjRow][adjCol].getCard();
+          if (adjCard != null) {
+            battleHelper(dir, adjCard, placedCard, adjRow, adjCol);
+          }
+        } catch (IllegalStateException ignored) {
+        }
+      }
+    }
+  }
+
+  private void battleHelper(Direction dir, Card adjCard, Card placedCard, int adjRow, int adjCol) {
+    if (adjCard.getColor() != placedCard.getColor()) {
+      if (placedCard.compare(adjCard, dir)) {
+        adjCard.changeColor();
+        battleCards(adjRow, adjCol);
+      }
+    }
+  }
+
+  private boolean isValidCoordinate(int row, int col) {
+    return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
   }
 
   // we need to init all cards cells to be something other than null bc all cells rn are null
@@ -102,4 +131,28 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     }
     return null; // representing a tie
   }
+
+
+  private int getRowHelper(Direction dir) {
+    switch (dir) {
+      case NORTH:
+        return -1;
+      case SOUTH:
+        return 1;
+      default:
+        return 0;
+    }
+  }
+
+  private int getColHelper(Direction dir) {
+    switch (dir) {
+      case EAST:
+        return 1;
+      case WEST:
+        return -1;
+      default:
+        return 0;
+    }
+  }
 }
+
