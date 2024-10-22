@@ -51,13 +51,13 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   // and there no way to determine if a cell is a null card cell or a null hole.
   @Override
   public boolean isGameOver() {
-    for (Card[] rows : grid) {
+   /* for (Card[] rows : grid) {
       for (Card card : rows) {
         if (card == null) {
           return false;
         }
       }
-    }
+    }*/ // if we init the game correctly shouldnt the game only end when this condition is hit?
     return redPlayer.getHand().isEmpty() || bluePlayer.getHand().isEmpty();
   }
 
