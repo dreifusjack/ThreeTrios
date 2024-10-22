@@ -18,7 +18,7 @@ public interface ThreeTriosModel {
   /**
    * Responsibilities:
    * <li>
-   *   deal hands for each player
+   * deal hands for each player
    * </li>
    */
   public void startGame();
@@ -72,5 +72,5 @@ public interface ThreeTriosModel {
    * @return the winning player
    * @throws IllegalStateException if the game has not started or the game is not over
    */
-  //public Player getWinner();
+  public Player getWinner();
 }
