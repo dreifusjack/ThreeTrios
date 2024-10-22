@@ -21,4 +21,18 @@ public class ThreeTriosPlayer implements Player {
   public List<Card> getHand() {
     return new ArrayList<>(hand);
   }
+
+  @Override
+  public void removeCard(int cardInx) {
+    if (cardInx >= 0 && cardInx < hand.size()) {
+      hand.remove(cardInx);
+    } else {
+      throw new IllegalArgumentException("Invalid card index");
+    }
+  }
+
+  @Override
+  public String toString() {
+    return this.team.toString();
+  }
 }

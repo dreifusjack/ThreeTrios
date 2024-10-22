@@ -41,6 +41,28 @@ public class ThreeTrioCard implements Card {
 
   @Override
   public boolean compare(Card other, Direction direction) {
-    return false;
+    ThreeTrioCard otherCard = (ThreeTrioCard) other;
+    switch (direction) {
+      case NORTH:
+        return this.south.getValue() > otherCard.north.getValue();
+      case SOUTH:
+        return this.north.getValue() > otherCard.south.getValue();
+      case EAST:
+        return this.west.getValue() > otherCard.east.getValue();
+      case WEST:
+        return this.east.getValue() > otherCard.west.getValue();
+      default:
+        throw new IllegalArgumentException("Invalid direction");
+    }
+  }
+
+  @Override
+  public TeamColor getColor() {
+    return this.color;
+  }
+
+  @Override
+  public String getName() {
+    return this.name;
   }
 }

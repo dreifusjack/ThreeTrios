@@ -21,4 +21,17 @@ public interface Card {
    * @return true iff this card is higher the given card in terms of the direction
    */
   public boolean compare(Card other, Direction direction);
+
+
+  /**
+   * Return the TeamColor of this Card.
+   * @return the TeamColor of this Card
+   */
+  public TeamColor getColor();
+
+  /**
+   * Return the name of this card.
+   * @return the name of this card.
+   */
+  public String getName();
 }

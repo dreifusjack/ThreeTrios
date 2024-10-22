@@ -26,5 +26,17 @@ public interface Player {
    *
    * @return this players hand
    */
+
+  /**
+   * Return a hand of cards of this player.
+   * @return a List of Card.
+   */
   public List<Card> getHand();
+
+  /**
+   * Remove a card from the inputted cardInx.
+   * @param cardInx is the index of a card in the player's hand we want to remove.
+   */
+  public void removeCard(int cardInx);
+
 }
