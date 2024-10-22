@@ -1,29 +1,54 @@
 package cs3500.threetrios;
 
+import java.io.FileReader;
+import java.util.List;
+
 /**
  * First variant model of Three Trio model implementation.
  */
 public class BasicThreeTrioModel implements ThreeTriosModel {
-  GridCell[][] grid;
-  Player playerTurn;
-  Player redPlayer;
-  Player bluePlayer;
-  boolean gameOver;
+  private GridCell[][] grid;
+  private Player playerTurn;
+  private final Player redPlayer;
+  private final  Player bluePlayer;
+  private final GridFileReader gridFileReader;
+  private final CardFileReader cardFileReader;
 
 
-  public BasicThreeTrioModel() {
-
+  public BasicThreeTrioModel(String gridFileName, String cardFileName) {
+    gridFileReader = new GridFileReader(gridFileName);
+    cardFileReader = new CardFileReader(cardFileName);
+    grid = null;
+    redPlayer = new ThreeTriosPlayer(TeamColor.RED);
+    bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
+    playerTurn = redPlayer;
   }
 
 
   @Override
   public void startGame() {
-    redPlayer = new ThreeTriosPlayer(TeamColor.RED);
-    bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
-    playerTurn = redPlayer;
-    // We will then read from the files and replace this files with our "grid" (we need to decide if we should initialize this in the constructor of the startGame().
-    //+first line will take the row and col and the rest of the lines will be the cards in the grid (then pass the row + col + cards after we read to a createGrid to make a grid for our model)
-    // **After thinking about it, I think we should initialize everything in the constructor as we have the isGameOver, so we should initialize the fields so that this method can be used.
+    List<Integer> gridCords = gridFileReader.gridCords;
+    // init the size of the board
+    grid = new GridCell[gridCords.get(0)][gridCords.get(1)];
+    // init the cells in the board
+    for (int row = 0; row < gridFileReader.gridCells.get(0).size(); row++) {
+      for (int col = 0; col < gridFileReader.gridCells.get(row).size(); col++) {
+        grid[row][col] = gridFileReader.gridCells.get(row).get(col);
+      }
+    }
+
+    // init the playing cards
+    int minNumOfCardsPerPlayer = (gridFileReader.numOfCardCells + 1) / 2;
+    int numOfCardsPerPlayer = cardFileReader.cards.size() / 2;
+    if (numOfCardsPerPlayer > minNumOfCardsPerPlayer) {
+      throw new IllegalArgumentException("not enough cards");
+    }
+    for (int index = 0; index < numOfCardsPerPlayer; index++) {
+      redPlayer.addToHand(cardFileReader.cards.remove(index));
+    }
+    for (int index = 0; index < numOfCardsPerPlayer; index++) {
+      bluePlayer.addToHand(cardFileReader.cards.remove(index));
+    }
   }
 
   @Override

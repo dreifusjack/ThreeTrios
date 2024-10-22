@@ -14,6 +14,33 @@ public class ThreeTrioCard implements Card {
     public int getValue() {
       return value;
     }
+
+    public static CardValue fromString(String value) throws IllegalArgumentException {
+      switch (value.toUpperCase()) {
+        case "ONE":
+          return ONE;
+        case "TWO":
+          return TWO;
+        case "THREE":
+          return THREE;
+        case "FOUR":
+          return FOUR;
+        case "FIVE":
+          return FIVE;
+        case "SIX":
+          return SIX;
+        case "SEVEN":
+          return SEVEN;
+        case "EIGHT":
+          return EIGHT;
+        case "NINE":
+          return NINE;
+        case "A":
+          return A;
+        default:
+          throw new IllegalArgumentException("Invalid CardValue");
+      }
+    }
   }
 
   private final String name;
