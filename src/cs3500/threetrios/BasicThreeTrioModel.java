@@ -35,19 +35,11 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
       throw new IllegalArgumentException("Invalid inputs for row and col");
     }
 
-    if (turn == redPlayer) {
-      Card card = redPlayer.getHand().get(handIdx);
-      grid[row][col] = card;
-      redPlayer.removeCard(handIdx);
-      battleCards(row, col);
-      turn = bluePlayer;
-    } else {
-      Card card = bluePlayer.getHand().get(handIdx);
-      grid[row][col] = card;
-      bluePlayer.removeCard(handIdx);
-      battleCards(row, col);
-      turn = redPlayer;
-    }
+    Card playingCard = turn.getHand().get(handIdx);
+    grid[row][col] = playingCard;
+    turn.removeCard(handIdx);
+    battleCards(row, col);
+    turn = turn == redPlayer ? bluePlayer : redPlayer;
   }
 
   @Override
@@ -55,11 +47,13 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 
   }
 
+  // we need to init all cards cells to be something other than null bc all cells rn are null
+  // and there no way to determine if a cell is a null card cell or a null hole.
   @Override
   public boolean isGameOver() {
     for (Card[] rows : grid) {
-      for (int c = 0; c < grid[0].length; c++) {
-        if (rows[c] == null) {
+      for (Card card : rows) {
+        if (card == null) {
           return false;
         }
       }
@@ -88,14 +82,15 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
         }
       }
     }
+    redCount += redPlayer.getHand().size();
+    blueCount += bluePlayer.getHand().size();
 
     if (redCount > blueCount) {
       return redPlayer;
-    } else if (blueCount > redCount) {
-      return bluePlayer;
-    } else {
-      return null; // I think we should return null if the game is tie right??
     }
+    if (blueCount > redCount) {
+      return bluePlayer;
+    }
+    return null; // representing a tie
   }
-
 }

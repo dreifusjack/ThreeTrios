@@ -35,7 +35,11 @@ public class ThreeTrioCard implements Card {
 
   @Override
   public String toString() {
-    return "";
+    return this.name
+            + " " + this.north
+            + " " + this.south
+            + " " + this.east
+            + " " + this.west;
   }
 
 

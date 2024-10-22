@@ -33,6 +33,6 @@ public class ThreeTriosPlayer implements Player {
 
   @Override
   public String toString() {
-    return this.team.toString();
+    return "Player: " + this.team.toString();
   }
 }

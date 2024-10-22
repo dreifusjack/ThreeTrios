@@ -24,17 +24,13 @@ public interface Player {
    * Returns a list of cards from this player's hand. Modifying this list will have no event
    * of the field in this class.
    *
-   * @return this players hand
-   */
-
-  /**
-   * Return a hand of cards of this player.
-   * @return a List of Card.
+   * @return a List of Cards
    */
   public List<Card> getHand();
 
   /**
    * Remove a card from the inputted cardInx.
+   *
    * @param cardInx is the index of a card in the player's hand we want to remove.
    */
   public void removeCard(int cardInx);
