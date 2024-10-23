@@ -28,4 +28,10 @@ public interface GridCell {
    * @throws IllegalStateException if this cell is a hole.
    */
   public Card getCard();
+
+  /**
+   * Check if this cell is a hole where no card can be placed.
+   * @return true if this cell is a hole and false if it is not.
+   */
+  boolean isHole();
 }

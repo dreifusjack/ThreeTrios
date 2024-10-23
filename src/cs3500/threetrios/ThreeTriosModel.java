@@ -1,5 +1,7 @@
 package cs3500.threetrios;
 
+import java.util.List;
+
 /**
  * Behaviors for a game of ThreeTrios.
  * The game consists of the following structures:
@@ -73,4 +75,8 @@ public interface ThreeTriosModel {
    * @throws IllegalStateException if the game has not started or the game is not over
    */
   public Player getWinner();
+
+  public Player getCurrentPlayer();
+
+  public List<List<GridCell>> getGridCell();
 }

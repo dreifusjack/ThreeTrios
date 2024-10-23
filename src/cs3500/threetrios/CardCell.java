@@ -30,4 +30,9 @@ public class CardCell implements GridCell {
   public Card getCard() {
     return card.clone();
   }
+
+  @Override
+  public boolean isHole() {
+    return false;
+  }
 }

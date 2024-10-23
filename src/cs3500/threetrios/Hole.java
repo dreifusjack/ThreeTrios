@@ -18,4 +18,9 @@ public class Hole implements GridCell {
   public Card getCard() {
     throw new IllegalStateException("Holes have no cards");
   }
+
+  @Override
+  public boolean isHole() {
+    return true;
+  }
 }

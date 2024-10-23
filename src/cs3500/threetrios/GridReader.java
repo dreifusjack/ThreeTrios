@@ -13,5 +13,8 @@ public interface GridReader {
 
   public List<Integer> coordinates();
 
-  public List<List<GridCell>> cells();
+  public List<List<GridCell>> getCells();
+
+  public String getFilename();
+  public int getNumberOfCards();
 }

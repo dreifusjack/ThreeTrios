@@ -1,6 +1,8 @@
 package cs3500.threetrios;
 
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,9 +17,11 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   private final CardFileReader cardFileReader;
 
 
-  public BasicThreeTrioModel(String gridFileName, String cardFileName) {
+  public BasicThreeTrioModel(String gridFileName, String cardFileName) throws IOException {
     gridFileReader = new GridFileReader(gridFileName);
+    gridFileReader.readFile();
     cardFileReader = new CardFileReader(cardFileName);
+    cardFileReader.readFile();
     grid = null;
     redPlayer = new ThreeTriosPlayer(TeamColor.RED);
     bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
@@ -27,27 +31,27 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 
   @Override
   public void startGame() {
-    List<Integer> gridCords = gridFileReader.gridCords;
+    List<Integer> gridCords = gridFileReader.coordinates();
     // init the size of the board
     grid = new GridCell[gridCords.get(0)][gridCords.get(1)];
     // init the cells in the board
-    for (int row = 0; row < gridFileReader.gridCells.get(0).size(); row++) {
-      for (int col = 0; col < gridFileReader.gridCells.get(row).size(); col++) {
-        grid[row][col] = gridFileReader.gridCells.get(row).get(col);
+    for (int row = 0; row < gridFileReader.getCells().get(0).size(); row++) {
+      for (int col = 0; col < gridFileReader.getCells().get(row).size(); col++) {
+        grid[row][col] = gridFileReader.getCells().get(row).get(col);
       }
     }
 
     // init the playing cards
-    int minNumOfCardsPerPlayer = (gridFileReader.numOfCardCells + 1) / 2;
-    int numOfCardsPerPlayer = cardFileReader.cards.size() / 2;
+    int minNumOfCardsPerPlayer = (gridFileReader.getNumberOfCards() + 1) / 2;
+    int numOfCardsPerPlayer = cardFileReader.getCards().size() / 2;
     if (numOfCardsPerPlayer > minNumOfCardsPerPlayer) {
       throw new IllegalArgumentException("not enough cards");
     }
     for (int index = 0; index < numOfCardsPerPlayer; index++) {
-      redPlayer.addToHand(cardFileReader.cards.remove(index));
+      redPlayer.addToHand(cardFileReader.getCards().remove(index));
     }
     for (int index = 0; index < numOfCardsPerPlayer; index++) {
-      bluePlayer.addToHand(cardFileReader.cards.remove(index));
+      bluePlayer.addToHand(cardFileReader.getCards().remove(index));
     }
   }
 
@@ -155,6 +159,25 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
       return bluePlayer;
     }
     return null; // representing a tie
+  }
+
+  @Override
+  public Player getCurrentPlayer() {
+    return this.playerTurn;
+  }
+
+  @Override
+  public List<List<GridCell>> getGridCell() {
+    List<List<GridCell>> gridCopy = new ArrayList<>();
+
+    for (int row = 0; row < grid.length; row++) {
+      List<GridCell> rowCopy = new ArrayList<>();
+      for (int col = 0; col < grid[row].length; col++) {
+        rowCopy.add(grid[row][col]);
+      }
+      gridCopy.add(rowCopy);
+    }
+    return gridCopy;
   }
 
 
