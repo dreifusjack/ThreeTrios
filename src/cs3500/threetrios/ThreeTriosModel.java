@@ -14,14 +14,12 @@ import java.util.List;
  * has played all of their cards to the grid.
  */
 public interface ThreeTriosModel {
-
-  //TODO: fill this out (determine what needs to be init in the constructor and what in this method)
-
   /**
-   * Responsibilities:
-   * <li>
-   * deal hands for each player
-   * </li>
+   * Initialize the grid to specified size and cells filling the grid by the user created grid file
+   * this model will read from. Deals cards to each player using information by the user created
+   * card file this model will read from.
+   *
+   * @throws IllegalStateException if this game has started
    */
   public void startGame();
 
@@ -78,5 +76,5 @@ public interface ThreeTriosModel {
 
   public Player getCurrentPlayer();
 
-  public List<List<GridCell>> getGridCell();
+  public List<List<GridCell>> getGrid();
 }

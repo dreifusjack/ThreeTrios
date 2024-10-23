@@ -15,7 +15,7 @@ public class ThreeTrioTextView implements ThreeTrioView{
 
     sb.append(model.getCurrentPlayer().toString()).append("\n");
 
-    List<List<GridCell>> grid = model.getGridCell();
+    List<List<GridCell>> grid = model.getGrid();
     for (List<GridCell> row : grid) {
       for (GridCell cell : row) {
         if (cell.isHole()) {

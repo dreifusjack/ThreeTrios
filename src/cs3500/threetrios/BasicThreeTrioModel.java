@@ -1,8 +1,8 @@
 package cs3500.threetrios;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,7 +12,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   private GridCell[][] grid;
   private Player playerTurn;
   private final Player redPlayer;
-  private final  Player bluePlayer;
+  private final Player bluePlayer;
   private final GridFileReader gridFileReader;
   private final CardFileReader cardFileReader;
 
@@ -28,9 +28,13 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     playerTurn = redPlayer;
   }
 
+//TODO: adding constructors for AI player(s)
 
   @Override
   public void startGame() {
+    if (grid != null) {
+      throw new IllegalStateException("Game already started");
+    }
     List<Integer> gridCords = gridFileReader.coordinates();
     // init the size of the board
     grid = new GridCell[gridCords.get(0)][gridCords.get(1)];
@@ -42,29 +46,21 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     }
 
     // init the playing cards
-    int minNumOfCardsPerPlayer = (gridFileReader.getNumberOfCards() + 1) / 2;
+    int minNumOfCardsPerPlayer = (gridFileReader.getNumberOfCardCells() + 1) / 2;
     int numOfCardsPerPlayer = cardFileReader.getCards().size() / 2;
     if (numOfCardsPerPlayer > minNumOfCardsPerPlayer) {
       throw new IllegalArgumentException("not enough cards");
     }
-    for (int index = 0; index < numOfCardsPerPlayer; index++) {
-      redPlayer.addToHand(cardFileReader.getCards().remove(index));
-    }
-    for (int index = 0; index < numOfCardsPerPlayer; index++) {
-      bluePlayer.addToHand(cardFileReader.getCards().remove(index));
-    }
+    dealCards(numOfCardsPerPlayer, redPlayer);
+    dealCards(numOfCardsPerPlayer, bluePlayer);
   }
 
   @Override
   public void playToGrid(int row, int col, int handIdx) {
-    if (isGameOver()) {
-      throw new IllegalStateException("Game is over");
-    }
-
+    isGameNotInPlay();
     if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length) {
       throw new IllegalArgumentException("Invalid inputs for row and col");
     }
-
     // get the card played from player
     Card playingCard = playerTurn.getHand().get(handIdx);
     // add card to grid
@@ -77,13 +73,14 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     playerTurn = playerTurn == redPlayer ? bluePlayer : redPlayer;
   }
 
+
   @Override
   public void battleCards(int row, int col) {
     Card placedCard = grid[row][col].getCard();
 
     for (Direction dir : Direction.values()) {
-      int adjRow = row + getRowHelper(dir);
-      int adjCol = col + getColHelper(dir);
+      int adjRow = row + Direction.getRowHelper(dir);
+      int adjCol = col + Direction.getColHelper(dir);
 
       if (isValidCoordinate(adjRow, adjCol)) {
         try {
@@ -97,21 +94,6 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     }
   }
 
-  private void battleHelper(Direction dir, Card adjCard, Card placedCard, int adjRow, int adjCol) {
-    if (adjCard.getColor() != placedCard.getColor()) {
-      if (placedCard.compare(adjCard, dir)) {
-        adjCard.changeColor();
-        battleCards(adjRow, adjCol);
-      }
-    }
-  }
-
-  private boolean isValidCoordinate(int row, int col) {
-    return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
-  }
-
-  // we need to init all cards cells to be something other than null bc all cells rn are null
-  // and there no way to determine if a cell is a null card cell or a null hole.
   @Override
   public boolean isGameOver() {
     for (GridCell[] row : grid) {
@@ -163,44 +145,74 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 
   @Override
   public Player getCurrentPlayer() {
-    return this.playerTurn;
+    return this.playerTurn.clone();
   }
 
   @Override
-  public List<List<GridCell>> getGridCell() {
+  public List<List<GridCell>> getGrid() {
     List<List<GridCell>> gridCopy = new ArrayList<>();
 
-    for (int row = 0; row < grid.length; row++) {
+    for (GridCell[] gridCells : grid) {
       List<GridCell> rowCopy = new ArrayList<>();
-      for (int col = 0; col < grid[row].length; col++) {
-        rowCopy.add(grid[row][col]);
-      }
+      Collections.addAll(rowCopy, gridCells);
       gridCopy.add(rowCopy);
     }
     return gridCopy;
   }
 
-
-  private int getRowHelper(Direction dir) {
-    switch (dir) {
-      case NORTH:
-        return -1;
-      case SOUTH:
-        return 1;
-      default:
-        return 0;
+  /**
+   * Deals the given number of cards to the given player's list of cards to play with.
+   *
+   * @param numOfCardsPerPlayer amount of cards to be dealt.
+   * @param player              player receiving cards
+   */
+  private void dealCards(int numOfCardsPerPlayer, Player player) {
+    for (int index = 0; index < numOfCardsPerPlayer; index++) {
+      player.addToHand(cardFileReader.getCards().remove(index));
     }
   }
 
-  private int getColHelper(Direction dir) {
-    switch (dir) {
-      case EAST:
-        return 1;
-      case WEST:
-        return -1;
-      default:
-        return 0;
+
+  /**
+   * Error checker if the game is not in play for various game functionality methods.
+   *
+   * @throws IllegalStateException if game is not in play
+   */
+  private void isGameNotInPlay() {
+    if (grid == null || isGameOver()) {
+      throw new IllegalStateException("Game not in play");
     }
+  }
+
+  /**
+   * Battles the user placed card with the given adjacent card at the specified direction if the
+   * adjacent card belongs to the opposite team. If placed card wins the battle, adjacent changes
+   * team and battles all adjacent cards to it.
+   *
+   * @param dir
+   * @param adjCard
+   * @param placedCard
+   * @param adjRow
+   * @param adjCol
+   */
+  private void battleHelper(Direction dir, Card adjCard, Card placedCard, int adjRow, int adjCol) {
+    if (adjCard.getColor() != placedCard.getColor()) {
+      if (placedCard.compare(adjCard, dir)) {
+        adjCard.changeColor();
+        battleCards(adjRow, adjCol);
+      }
+    }
+  }
+
+  /**
+   * Determines if the given row and col are valid indexes of the grid.
+   *
+   * @param row row input
+   * @param col column input
+   * @return true iff the coordinates are valid indexes of the grid
+   */
+  private boolean isValidCoordinate(int row, int col) {
+    return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
   }
 }
 

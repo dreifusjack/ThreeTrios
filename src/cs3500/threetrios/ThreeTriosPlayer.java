@@ -32,6 +32,15 @@ public class ThreeTriosPlayer implements Player {
   }
 
   @Override
+  public Player clone() {
+    Player clone = new ThreeTriosPlayer(team);
+    for (Card card : hand) {
+      clone.addToHand(card);
+    }
+    return clone;
+  }
+
+  @Override
   public String toString() {
     return "Player: " + this.team.toString();
   }

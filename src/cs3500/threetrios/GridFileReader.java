@@ -93,7 +93,7 @@ public class GridFileReader implements GridReader {
   }
 
   @Override
-  public int getNumberOfCards() {
+  public int getNumberOfCardCells() {
     return this.numOfCardCells;
   }
 }

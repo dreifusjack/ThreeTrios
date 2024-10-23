@@ -35,4 +35,10 @@ public interface Player {
    */
   public void removeCard(int cardInx);
 
+  /**
+   * Produces a copy of this player to prevent client modification.
+   *
+   * @return a copy of this player with all the same fields.
+   */
+  public Player clone();
 }
