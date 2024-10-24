@@ -1,4 +1,4 @@
-CorruptKing 7 3 9 A
-AngryDragon 2 8 9 9
-WindBird 7 2 5 3
-HeroKnight A 2 4 4
+CorruptKing seven three nine A
+AngryDragon two eight nine nine
+WindBird seven two five three
+HeroKnight A two four four

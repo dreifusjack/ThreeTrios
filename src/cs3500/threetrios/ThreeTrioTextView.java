@@ -22,8 +22,6 @@ public class ThreeTrioTextView implements ThreeTrioView {
       }
       sb.append("\n");
     }
-    sb.append("\n");
-
     sb.append("Hand:\n");
 
     Player currentPlayer = model.getCurrentPlayer();

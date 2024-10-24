@@ -47,8 +47,8 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     // init the grid
     List<Integer> gridCords = gridFileReader.coordinates();
     grid = new GridCell[gridCords.get(0)][gridCords.get(1)];
-    for (int row = 0; row < gridFileReader.getCells().get(0).size(); row++) {
-      for (int col = 0; col < gridFileReader.getCells().get(row).size(); col++) {
+    for (int row = 0; row < gridCords.get(0); row++) {
+      for (int col = 0; col < gridCords.get(1); col++) {
         grid[row][col] = gridFileReader.getCells().get(row).get(col);
       }
     }
