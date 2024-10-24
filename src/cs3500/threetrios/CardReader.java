@@ -6,5 +6,4 @@ import java.util.List;
 public interface CardReader {
   public void readFile() throws IOException;
   public List<Card> getCards();
-  public String getFilename();
 }

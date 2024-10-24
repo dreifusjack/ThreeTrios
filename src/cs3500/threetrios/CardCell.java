@@ -16,7 +16,7 @@ public class CardCell implements GridCell {
   @Override
   public void addCard(Card card) {
     if (this.card != null) {
-      throw new IllegalStateException("This cell has already been added.");
+      throw new IllegalStateException("This cell already has a card added.");
     }
     this.card = card;
   }
@@ -28,6 +28,9 @@ public class CardCell implements GridCell {
 
   @Override
   public Card getCard() {
+    if (card == null) {
+      throw new IllegalStateException("This cell does not have a card added.");
+    }
     return card.clone();
   }
 

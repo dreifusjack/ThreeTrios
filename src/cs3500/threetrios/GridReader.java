@@ -15,6 +15,5 @@ public interface GridReader {
 
   public List<List<GridCell>> getCells();
 
-  public String getFilename();
   public int getNumberOfCardCells();
 }

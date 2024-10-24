@@ -16,12 +16,17 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   private final GridFileReader gridFileReader;
   private final CardFileReader cardFileReader;
 
-
-  public BasicThreeTrioModel(String gridFileName, String cardFileName) throws IOException {
+  /**
+   * Constructs a BasicThreeTrioModel in terms of the names of the grid file and card file
+   * it will read from to instantiate the game.
+   *
+   * @param gridFileName name of the file with grid construction
+   * @param cardFileName name of the file with card construction
+   * @throws IllegalArgumentException cannot find a file for either file name
+   */
+  public BasicThreeTrioModel(String gridFileName, String cardFileName) {
     gridFileReader = new GridFileReader(gridFileName);
-    gridFileReader.readFile();
     cardFileReader = new CardFileReader(cardFileName);
-    cardFileReader.readFile();
     grid = null;
     redPlayer = new ThreeTriosPlayer(TeamColor.RED);
     bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
@@ -31,25 +36,26 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 //TODO: adding constructors for AI player(s)
 
   @Override
-  public void startGame() {
+  public void startGame() throws IOException {
     if (grid != null) {
       throw new IllegalStateException("Game already started");
     }
+    // readers gather data from files (throws exceptions if necessary)
+    gridFileReader.readFile();
+    cardFileReader.readFile();
+    // init the grid
     List<Integer> gridCords = gridFileReader.coordinates();
-    // init the size of the board
     grid = new GridCell[gridCords.get(0)][gridCords.get(1)];
-    // init the cells in the board
     for (int row = 0; row < gridFileReader.getCells().get(0).size(); row++) {
       for (int col = 0; col < gridFileReader.getCells().get(row).size(); col++) {
         grid[row][col] = gridFileReader.getCells().get(row).get(col);
       }
     }
-
-    // init the playing cards
+    // init hands for each player
     int minNumOfCardsPerPlayer = (gridFileReader.getNumberOfCardCells() + 1) / 2;
     int numOfCardsPerPlayer = cardFileReader.getCards().size() / 2;
     if (numOfCardsPerPlayer > minNumOfCardsPerPlayer) {
-      throw new IllegalArgumentException("not enough cards");
+      throw new IllegalArgumentException("Not enough playing cards");
     }
     dealCards(numOfCardsPerPlayer, redPlayer);
     dealCards(numOfCardsPerPlayer, bluePlayer);
@@ -58,24 +64,28 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   @Override
   public void playToGrid(int row, int col, int handIdx) {
     isGameNotInPlay();
-    if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length) {
-      throw new IllegalArgumentException("Invalid inputs for row and col");
+    if (playerTurn.getHand().size() <= handIdx || handIdx < 0) {
+      throw new IllegalArgumentException("Hand index out of bounds");
     }
-    // get the card played from player
+    if (!isValidCoordinate(row, col)) {
+      throw new IllegalArgumentException("Coordinate out of bounds");
+    }
     Card playingCard = playerTurn.getHand().get(handIdx);
-    // add card to grid
-    grid[row][col].addCard(playingCard);
-    // remove card from player hand
+    grid[row][col].addCard(playingCard); // throws exceptions if invalid cell
     playerTurn.removeCard(handIdx);
-    // battle cards at posn of new card
     battleCards(row, col);
-    // update player turn
-    playerTurn = playerTurn == redPlayer ? bluePlayer : redPlayer;
+    if (!isGameOver()) {
+      playerTurn = playerTurn == redPlayer ? bluePlayer : redPlayer;
+    }
   }
 
 
   @Override
   public void battleCards(int row, int col) {
+    isGameNotInPlay();
+    if (!isValidCoordinate(row, col)) {
+      throw new IllegalArgumentException("Coordinate out of bounds");
+    }
     Card placedCard = grid[row][col].getCard();
 
     for (Direction dir : Direction.values()) {
@@ -88,7 +98,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
           if (adjCard != null) {
             battleHelper(dir, adjCard, placedCard, adjRow, adjCol);
           }
-        } catch (IllegalStateException ignored) {
+        } catch (IllegalStateException ignored) { // case where cell is a hole
         }
       }
     }
@@ -96,6 +106,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 
   @Override
   public boolean isGameOver() {
+    isGameNotStarted();
     for (GridCell[] row : grid) {
       for (GridCell cell : row) {
         try {
@@ -111,26 +122,14 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 
   @Override
   public Player getWinner() {
+    isGameNotStarted();
     if (!isGameOver()) {
       throw new IllegalStateException("The game is not over yet");
     }
 
     int redCount = 0;
     int blueCount = 0;
-
-    for (GridCell[] rows : grid) {
-      for (GridCell cell : rows) {
-        try {
-          Card currentCard = cell.getCard();
-          if (currentCard.getColor() == TeamColor.RED) {
-            redCount++;
-          } else if (currentCard.getColor() == TeamColor.BLUE) {
-            blueCount++;
-          }
-        } catch (IllegalStateException ignored) { // case where cell is null
-        }
-      }
-    }
+    countPlacedCards(redCount, blueCount);
     redCount += redPlayer.getHand().size();
     blueCount += bluePlayer.getHand().size();
 
@@ -145,11 +144,13 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 
   @Override
   public Player getCurrentPlayer() {
+    isGameNotStarted();
     return this.playerTurn.clone();
   }
 
   @Override
   public List<List<GridCell>> getGrid() {
+    isGameNotStarted();
     List<List<GridCell>> gridCopy = new ArrayList<>();
 
     for (GridCell[] gridCells : grid) {
@@ -172,7 +173,6 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     }
   }
 
-
   /**
    * Error checker if the game is not in play for various game functionality methods.
    *
@@ -185,19 +185,52 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   }
 
   /**
+   * Error check if the game is not started for various game functionality methods.
+   *
+   * @throws IllegalStateException if startGame has not been called on this game
+   */
+  private void isGameNotStarted() {
+    if (grid == null) {
+      throw new IllegalStateException("The game has not been started");
+    }
+  }
+
+  /**
+   * Iterates over the grid and adds placed cards to the corresponding given counter.
+   *
+   * @param redCount  counter for red cards
+   * @param blueCount counter for blue cards
+   */
+  private void countPlacedCards(int redCount, int blueCount) {
+    for (GridCell[] rows : grid) {
+      for (GridCell cell : rows) {
+        try {
+          Card currentCard = cell.getCard();
+          if (currentCard.getColor() == TeamColor.RED) {
+            redCount++;
+          } else if (currentCard.getColor() == TeamColor.BLUE) {
+            blueCount++;
+          }
+        } catch (IllegalStateException ignored) { // case where cell is a hole
+        }
+      }
+    }
+  }
+
+  /**
    * Battles the user placed card with the given adjacent card at the specified direction if the
    * adjacent card belongs to the opposite team. If placed card wins the battle, adjacent changes
    * team and battles all adjacent cards to it.
    *
-   * @param dir
-   * @param adjCard
-   * @param placedCard
-   * @param adjRow
-   * @param adjCol
+   * @param dir        direction the placed card is battling from
+   * @param adjCard    card the placed card is battling against
+   * @param battleCard card to battle with
+   * @param adjRow     row of the card being battled against
+   * @param adjCol     column of the card being battled against
    */
-  private void battleHelper(Direction dir, Card adjCard, Card placedCard, int adjRow, int adjCol) {
-    if (adjCard.getColor() != placedCard.getColor()) {
-      if (placedCard.compare(adjCard, dir)) {
+  private void battleHelper(Direction dir, Card adjCard, Card battleCard, int adjRow, int adjCol) {
+    if (adjCard.getColor() != battleCard.getColor()) {
+      if (battleCard.compare(adjCard, dir)) {
         adjCard.changeColor();
         battleCards(adjRow, adjCol);
       }

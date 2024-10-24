@@ -19,9 +19,13 @@ public interface ThreeTriosModel {
    * this model will read from. Deals cards to each player using information by the user created
    * card file this model will read from.
    *
-   * @throws IllegalStateException if this game has started
+   * @throws IllegalStateException    if this game has started
+   * @throws IllegalArgumentException if while reading from grid file or
+   *                                  card file the format of that file is invalid or incorrect
+   * @throws IllegalArgumentException if the number of playing cards is not enough
+   *                                  to fill each players hand and all card cells on the grid
    */
-  public void startGame();
+  public void startGame() throws Exception;
 
 
   /**
@@ -39,6 +43,7 @@ public interface ThreeTriosModel {
    *                                  to the number of rows in the grid.
    * @throws IllegalArgumentException if col < 0 or greater than or equal
    *                                  to the number of columns in the grid.
+   * @throws IllegalStateException    if the specified coordinate already has a card or is a hole.
    */
   public void playToGrid(int row, int col, int handIdx);
 
@@ -54,6 +59,7 @@ public interface ThreeTriosModel {
    *                                  to the number of rows in the grid.
    * @throws IllegalArgumentException if col < 0 or greater than or equal
    *                                  to the number of columns in the grid.
+   * @throws IllegalStateException    if the specified coordinate does not have a card or is a hole.
    */
   public void battleCards(int row, int col);
 
@@ -74,7 +80,21 @@ public interface ThreeTriosModel {
    */
   public Player getWinner();
 
+  /**
+   * Returns a copy of the current player. Modifying this player will have no effect on the game
+   * state.
+   *
+   * @return the player whose turn it is, or the last player to play if the game is over
+   * @throws IllegalStateException if the game has not started
+   */
   public Player getCurrentPlayer();
 
+  /**
+   * Returns a copy of the grid. Modifying this grid will have no effect on the game
+   * state.
+   *
+   * @return a 2D array list representing the current playing grid.
+   * @throws IllegalStateException if the game has not started
+   */
   public List<List<GridCell>> getGrid();
 }
