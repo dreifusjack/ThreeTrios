@@ -3,9 +3,9 @@ package cs3500.threetrios;
 import java.util.List;
 
 public class ThreeTrioTextView implements ThreeTrioView {
-  private final ThreeTriosModel model;
+  private final ReadOnlyThreeTriosModel model;
 
-  public ThreeTrioTextView(ThreeTriosModel model) {
+  public ThreeTrioTextView(ReadOnlyThreeTriosModel model) {
     this.model = model;
   }
 

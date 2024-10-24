@@ -13,7 +13,7 @@ import java.util.List;
  * The goal of the game is to have the most amount of cards after one player
  * has played all of their cards to the grid.
  */
-public interface ThreeTriosModel {
+public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
   /**
    * Initialize the grid to specified size and cells filling the grid by the user created grid file
    * this model will read from. Deals cards to each player using information by the user created
@@ -62,39 +62,4 @@ public interface ThreeTriosModel {
    * @throws IllegalStateException    if the specified coordinate does not have a card or is a hole.
    */
   public void battleCards(int row, int col);
-
-  /**
-   * Determines if the game is over by the behaviors of the game.
-   *
-   * @return true iff the game is over
-   * @throws IllegalStateException if the game has not started
-   */
-  public boolean isGameOver();
-
-  /**
-   * Returns a copy winning player after the game is over. Modifying this returning object will
-   * have no effect on the game. If the game ends in a tie returns null.
-   *
-   * @return the winning player
-   * @throws IllegalStateException if the game has not started or the game is not over
-   */
-  public Player getWinner();
-
-  /**
-   * Returns a copy of the current player. Modifying this player will have no effect on the game
-   * state.
-   *
-   * @return the player whose turn it is, or the last player to play if the game is over
-   * @throws IllegalStateException if the game has not started
-   */
-  public Player getCurrentPlayer();
-
-  /**
-   * Returns a copy of the grid. Modifying this grid will have no effect on the game
-   * state.
-   *
-   * @return a 2D array list representing the current playing grid.
-   * @throws IllegalStateException if the game has not started
-   */
-  public List<List<GridCell>> getGrid();
 }
