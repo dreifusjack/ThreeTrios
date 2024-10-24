@@ -17,23 +17,23 @@ public class ThreeTrioCard implements Card {
 
     public static CardValue fromString(String value) throws IllegalArgumentException {
       switch (value.toUpperCase()) {
-        case "ONE":
+        case "1":
           return ONE;
-        case "TWO":
+        case "2":
           return TWO;
-        case "THREE":
+        case "3":
           return THREE;
-        case "FOUR":
+        case "4":
           return FOUR;
-        case "FIVE":
+        case "5":
           return FIVE;
-        case "SIX":
+        case "6":
           return SIX;
-        case "SEVEN":
+        case "7":
           return SEVEN;
-        case "EIGHT":
+        case "8":
           return EIGHT;
-        case "NINE":
+        case "9":
           return NINE;
         case "A":
           return A;
