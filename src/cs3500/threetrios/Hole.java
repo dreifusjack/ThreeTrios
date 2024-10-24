@@ -20,7 +20,7 @@ public class Hole implements GridCell {
   }
 
   @Override
-  public boolean isHole() {
-    return true;
+  public String toString() {
+    return  " ";
   }
 }

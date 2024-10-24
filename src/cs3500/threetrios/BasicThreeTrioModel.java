@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * First variant model of Three Trio model implementation.
+ * First variant model of Three Trio model implementation. Implementation of the behaviors
+ * of the ThreeTriosModel interface.
  */
 public class BasicThreeTrioModel implements ThreeTriosModel {
   private GridCell[][] grid;

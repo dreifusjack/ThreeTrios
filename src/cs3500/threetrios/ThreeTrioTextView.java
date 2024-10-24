@@ -2,7 +2,7 @@ package cs3500.threetrios;
 
 import java.util.List;
 
-public class ThreeTrioTextView implements ThreeTrioView{
+public class ThreeTrioTextView implements ThreeTrioView {
   private final ThreeTriosModel model;
 
   public ThreeTrioTextView(ThreeTriosModel model) {
@@ -18,14 +18,7 @@ public class ThreeTrioTextView implements ThreeTrioView{
     List<List<GridCell>> grid = model.getGrid();
     for (List<GridCell> row : grid) {
       for (GridCell cell : row) {
-        if (cell.isHole()) {
-          sb.append("  ");
-        } else if (cell.getCard() != null) {
-          Card card = cell.getCard();
-          sb.append(card.getColor().toStringAbbreviation()).append(card.getColor().toStringAbbreviation()).append(" ");
-        } else {
-          sb.append("_ ");
-        }
+        sb.append(cell.toString());
       }
       sb.append("\n");
     }

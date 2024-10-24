@@ -30,8 +30,11 @@ public interface GridCell {
   public Card getCard();
 
   /**
-   * Check if this cell is a hole where no card can be placed.
-   * @return true if this cell is a hole and false if it is not.
+   * Textual representation of this cell.
+   * Hole: ' '
+   * EmptyCardCell: '_'
+   * FilledCardCell: 'R' or 'B'
+   * @return string format of this cell
    */
-  boolean isHole();
+  public String toString();
 }

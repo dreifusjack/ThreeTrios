@@ -35,7 +35,11 @@ public class CardCell implements GridCell {
   }
 
   @Override
-  public boolean isHole() {
-    return false;
+  public String toString() {
+    if (card == null) {
+      return "_";
+    } else {
+      return card.getColor().toStringAbbreviation();
+    }
   }
 }
