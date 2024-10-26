@@ -37,7 +37,7 @@ public class CardCell implements GridCell {
   @Override
   public String toString() {
     if (card == null) {
-      return "_";
+      return " ";
     } else {
       return card.getColor().toStringAbbreviation();
     }

@@ -35,7 +35,7 @@ public class CardFileReader implements CardReader {
       ThreeTrioCard.CardValue east = ThreeTrioCard.CardValue.fromString(line[3]);
       ThreeTrioCard.CardValue west = ThreeTrioCard.CardValue.fromString(line[4]);
 
-      ThreeTrioCard newCard = new ThreeTrioCard(cardName, null, north, south, east, west);
+      ThreeTrioCard newCard = new ThreeTrioCard(cardName, null, north, east, south, west); // we had this as north, south, east, west which is in the wrong form
       cards.add(newCard);
     }
   }
@@ -43,6 +43,6 @@ public class CardFileReader implements CardReader {
 
   @Override
   public List<Card> getCards() {
-    return new ArrayList<>(cards);
+    return this.cards;
   }
 }

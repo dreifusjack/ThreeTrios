@@ -47,4 +47,7 @@ public interface Card {
    * @return Card with the same fields as this card
    */
   public Card clone();
+
+
+  public void setColor(TeamColor color);
 }

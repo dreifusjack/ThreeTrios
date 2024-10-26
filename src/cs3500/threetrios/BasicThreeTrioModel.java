@@ -58,8 +58,8 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     if (numOfCardsPerPlayer < minNumOfCardsPerPlayer) {
       throw new IllegalArgumentException("Not enough playing cards");
     }
-    dealCards(numOfCardsPerPlayer, redPlayer);
-    dealCards(numOfCardsPerPlayer, bluePlayer);
+    dealCards(numOfCardsPerPlayer, redPlayer, TeamColor.RED);
+    dealCards(numOfCardsPerPlayer, bluePlayer, TeamColor.BLUE);
   }
 
   @Override
@@ -84,7 +84,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   @Override
   public void battleCards(int row, int col) {
     isGameNotInPlay();
-    if (!isValidCoordinate(row, col)) {
+    if (!isValidCoordinate(row, col)) {  ///I think we don't need this exception as playToGrid will handle this so it won't ever get to this.
       throw new IllegalArgumentException("Coordinate out of bounds");
     }
     Card placedCard = grid[row][col].getCard();
@@ -168,9 +168,11 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
    * @param numOfCardsPerPlayer amount of cards to be dealt.
    * @param player              player receiving cards
    */
-  private void dealCards(int numOfCardsPerPlayer, Player player) {
+  private void dealCards(int numOfCardsPerPlayer, Player player, TeamColor color) {
     for (int index = 0; index < numOfCardsPerPlayer; index++) {
-      player.addToHand(cardFileReader.getCards().remove(index));
+      Card card = cardFileReader.getCards().remove(0);
+      card.setColor(color); // After we assign a card to a player, we have to assign a card color to it as we don't want to get NullException when we playToGrid.
+      player.addToHand(card);
     }
   }
 

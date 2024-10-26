@@ -1,5 +1,7 @@
 package cs3500.threetrios;
 
+import java.util.Objects;
+
 public class ThreeTrioCard implements Card {
 
   public enum CardValue {
@@ -74,13 +76,13 @@ public class ThreeTrioCard implements Card {
   public boolean compare(Card other, Direction direction) {
     ThreeTrioCard otherCard = (ThreeTrioCard) other;
     switch (direction) {
-      case NORTH:
-        return this.south.getValue() > otherCard.north.getValue();
       case SOUTH:
+        return this.south.getValue() > otherCard.north.getValue();   // all of the cases are switched up:))))
+      case NORTH:
         return this.north.getValue() > otherCard.south.getValue();
-      case EAST:
-        return this.west.getValue() > otherCard.east.getValue();
       case WEST:
+        return this.west.getValue() > otherCard.east.getValue();
+      case EAST:
         return this.east.getValue() > otherCard.west.getValue();
       default:
         throw new IllegalArgumentException("Invalid direction");
@@ -104,6 +106,30 @@ public class ThreeTrioCard implements Card {
 
   @Override
   public Card clone() {
-    return new ThreeTrioCard(this.name, this.color, this.north, this.east, this.south, this.west);
+    return this;
+  } //// We have to return this here and not a copy as for example whenever you call getCard() in battleCard, this will create a new copy and make change on it but not on the original state of a adjacent card.
+
+  @Override
+  public void setColor(TeamColor color) {
+    this.color = color;
+  }// We
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    ThreeTrioCard card = (ThreeTrioCard) obj;
+    return name.equals(card.name) &&
+            color == card.color &&
+            north == card.north &&
+            east == card.east &&
+            south == card.south &&
+            west == card.west;
   }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, color, north, east, south, west);
+  }
+
 }
