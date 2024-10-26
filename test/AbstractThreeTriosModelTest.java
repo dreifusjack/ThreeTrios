@@ -34,7 +34,7 @@ public abstract class AbstractThreeTriosModelTest {
     model5x7 = createModel("src/cs3500/threetrios/world1.txt", "src/cs3500/threetrios/card1.txt");
     model2x2 = createModel("src/cs3500/threetrios/world2x2.txt", "src/cs3500/threetrios/cards2x2.txt");
     model3x3 = createModel("src/cs3500/threetrios/world3x3.txt", "src/cs3500/threetrios/cards3x3.txt");
-    modelWithNotEnoughCards = createModel("src/cs3500/threetrios/world3x3.txt", "src/cs3500/threetrios/cards2x2.txt");
+    modelWithNotEnoughCards = createModel("src/cs3500/threetrios/world3x3.txt", "src/cs3500/threetrios/3cardsonly.txt");
     ONE = ThreeTrioCard.CardValue.ONE;
     TWO = ThreeTrioCard.CardValue.TWO;
     THREE = ThreeTrioCard.CardValue.THREE;
@@ -58,7 +58,7 @@ public abstract class AbstractThreeTriosModelTest {
   }
 
   //Throw exception when do startGame when the game does not have enough of cards.
-  @Test(expected = IllegalStateException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testStartGameNotEnoughCards() throws Exception {
     modelWithNotEnoughCards.startGame();
   }
@@ -196,34 +196,34 @@ public void testStartGameSuccessfully() throws Exception {
   // playToGrid and trigger a color change on an adjacent card
   @Test
   public void testPlayToGridChangeAdjacentColor() throws Exception {
-    model2x2.startGame();
-    model2x2.playToGrid(0, 0, 0);
+    model3x3.startGame();
+    model3x3.playToGrid(0, 0, 0);
 
-    model2x2.playToGrid(0, 1, 0);
+    model3x3.playToGrid(0, 1, 2);
 
-    Assert.assertEquals(TeamColor.BLUE, model2x2.getGrid().get(0).get(0).getCard().getColor()); // 4 > 2
+    Assert.assertEquals(TeamColor.BLUE, model3x3.getGrid().get(0).get(0).getCard().getColor()); // 2 > 1
   }
 
   // playToGrid without changing the color of an adjacent card
   @Test
   public void testPlayToGridNoAdjacentColorChange() throws Exception {
-    model2x2.startGame();
-    model2x2.playToGrid(0, 0, 0);
+    model3x3.startGame();
+    model3x3.playToGrid(0, 0, 2);
 
-    model2x2.playToGrid(1, 0, 0);
+    model3x3.playToGrid(0, 1, 0);
 
-    Assert.assertEquals(TeamColor.RED, model2x2.getGrid().get(0).get(0).getCard().getColor()); // 1 is not larger than 3
+    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(0).get(0).getCard().getColor()); // 1 is not larger than 3
   }
 
   // playToGrid with tie in value, ensuring no color change
   @Test
   public void testPlayToGridTieNoColorChange() throws Exception {
-    model2x2.startGame();
-    model2x2.playToGrid(0, 0, 0);
+    model3x3.startGame();
+    model3x3.playToGrid(0, 0, 0);
 
-    model2x2.playToGrid(1, 0, 0);
+    model3x3.playToGrid(0, 1, 0);
 
-    Assert.assertEquals(TeamColor.RED, model2x2.getGrid().get(0).get(0).getCard().getColor()); // 3 is not larger than 3
+    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(0).get(0).getCard().getColor()); // 1 is not larger than 1
   }
 
   // Test: playToGrid triggers a combo move.
