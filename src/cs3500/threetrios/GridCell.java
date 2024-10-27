@@ -37,4 +37,6 @@ public interface GridCell {
    * @return string format of this cell
    */
   public String toString();
+
+  public boolean isHole();
 }

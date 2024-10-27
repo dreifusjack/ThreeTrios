@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ThreeTriosPlayer implements Player {
-  List<Card> hand;
-  TeamColor team;
+  private List<Card> hand;
+  private TeamColor team;
 
   public ThreeTriosPlayer(TeamColor team) {
     this.team = team;
@@ -38,6 +38,11 @@ public class ThreeTriosPlayer implements Player {
       clone.addToHand(card);
     }
     return clone;
+  }
+
+  @Override
+  public TeamColor getColor() {
+    return this.team;
   }
 
   @Override

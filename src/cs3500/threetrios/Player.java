@@ -41,4 +41,10 @@ public interface Player {
    * @return a copy of this player with all the same fields.
    */
   public Player clone();
+
+  /**
+   * Return the TeamColor of a Player.
+   * @return a TeamColor.
+   */
+  public TeamColor getColor();
 }

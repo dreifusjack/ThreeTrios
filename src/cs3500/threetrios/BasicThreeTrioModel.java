@@ -83,8 +83,8 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 
   @Override
   public void battleCards(int row, int col) {
-    isGameNotInPlay();
-    if (!isValidCoordinate(row, col)) {  ///I think we don't need this exception as playToGrid will handle this so it won't ever get to this.
+//    isGameNotInPlay(); /// we cannot put this into our code I tested with isGameOver and this messed up the logic. (and I think we should not too, it is not needed)
+    if (!isValidCoordinate(row, col)) {
       throw new IllegalArgumentException("Coordinate out of bounds");
     }
     Card placedCard = grid[row][col].getCard();
@@ -108,18 +108,30 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   @Override
   public boolean isGameOver() {
     isGameNotStarted();
+    boolean allCellsFilled = true;
+
     for (GridCell[] row : grid) {
       for (GridCell cell : row) {
+
+        if(cell.isHole()) {
+          continue;
+        }
+
         try {
-          if (cell.getCard() == null) {
-            return false;
-          }
-        } catch (IllegalStateException ignored) { // case where cell is a hole
+          cell.getCard();
+        } catch (IllegalStateException e) {
+          allCellsFilled = false;
+          break;
         }
       }
+      if (!allCellsFilled) break;
     }
-    return redPlayer.getHand().isEmpty() || bluePlayer.getHand().isEmpty();
+
+    return allCellsFilled || redPlayer.getHand().isEmpty() || bluePlayer.getHand().isEmpty();
   }
+
+
+
 
   @Override
   public Player getWinner() {
@@ -128,11 +140,9 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
       throw new IllegalStateException("The game is not over yet");
     }
 
-    int redCount = 0;
-    int blueCount = 0;
-    countPlacedCards(redCount, blueCount);
-    redCount += redPlayer.getHand().size();
-    blueCount += bluePlayer.getHand().size();
+    int[] counts = countPlacedCards(); //// new implementation to fix the bug where redCount and blueCount reset to 0 after we do countPlacedCards.
+    int redCount = counts[0] + redPlayer.getHand().size();
+    int blueCount = counts[1] + bluePlayer.getHand().size();
 
     if (redCount > blueCount) {
       return redPlayer;
@@ -183,7 +193,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
    */
   private void isGameNotInPlay() {
     if (grid == null || isGameOver()) {
-      throw new IllegalStateException("Game not in play");
+      throw new IllegalStateException("Game not in play or game has ended");
     }
   }
 
@@ -201,10 +211,11 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   /**
    * Iterates over the grid and adds placed cards to the corresponding given counter.
    *
-   * @param redCount  counter for red cards
-   * @param blueCount counter for blue cards
    */
-  private void countPlacedCards(int redCount, int blueCount) {
+  private int[] countPlacedCards() { //// I fixed this one too as it messed up the return redCount and blueCount
+    int redCount = 0;
+    int blueCount = 0;
+
     for (GridCell[] rows : grid) {
       for (GridCell cell : rows) {
         try {
@@ -214,10 +225,11 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
           } else if (currentCard.getColor() == TeamColor.BLUE) {
             blueCount++;
           }
-        } catch (IllegalStateException ignored) { // case where cell is a hole
+        } catch (IllegalStateException ignored) {
         }
       }
     }
+    return new int[]{redCount, blueCount};
   }
 
   /**

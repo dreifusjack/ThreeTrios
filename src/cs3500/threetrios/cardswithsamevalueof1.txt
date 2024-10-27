@@ -1,0 +1,7 @@
+CorruptKing 1 1 1 1
+AngryDragon 1 1 1 1
+WindBird 1 1 1 1
+HeroKnight 1 1 1 1
+SkyWhale 1 1 1 1
+FirePhoenix 1 1 1 1
+ThunderTiger 1 1 1 1

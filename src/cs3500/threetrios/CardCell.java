@@ -42,4 +42,9 @@ public class CardCell implements GridCell {
       return card.getColor().toStringAbbreviation();
     }
   }
+
+  @Override
+  public boolean isHole() {
+    return false;
+  }
 }
