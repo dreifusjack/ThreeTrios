@@ -50,8 +50,8 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     // init the grid
     List<Integer> gridCords = gridFileReader.coordinates();
     grid = new GridCell[gridCords.get(0)][gridCords.get(1)];
-    for (int row = 0; row < gridCords.get(0); row++) {
-      for (int col = 0; col < gridCords.get(1); col++) {
+    for (int row = 0; row < grid.length; row++) {
+      for (int col = 0; col < grid[0].length; col++) {
         grid[row][col] = gridFileReader.getCells().get(row).get(col);
       }
     }
@@ -61,8 +61,8 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     if (numOfCardsPerPlayer < minNumOfCardsPerPlayer) {
       throw new IllegalArgumentException("Not enough playing cards");
     }
-    dealCards(numOfCardsPerPlayer, redPlayer, TeamColor.RED);
-    dealCards(numOfCardsPerPlayer, bluePlayer, TeamColor.BLUE);
+    dealCards(numOfCardsPerPlayer, redPlayer);
+    dealCards(numOfCardsPerPlayer, bluePlayer);
   }
 
   @Override
@@ -86,7 +86,6 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 
   @Override
   public void battleCards(int row, int col) {
-//    isGameNotInPlay(); /// we cannot put this into our code I tested with isGameOver and this messed up the logic. (and I think we should not too, it is not needed)
     if (!isValidCoordinate(row, col)) {
       throw new IllegalArgumentException("Coordinate out of bounds");
     }
@@ -111,29 +110,20 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   @Override
   public boolean isGameOver() {
     isGameNotStarted();
-    boolean allCellsFilled = true;
 
     for (GridCell[] row : grid) {
       for (GridCell cell : row) {
-
-        if(cell.isHole()) {
-          continue;
-        }
-
         try {
-          cell.getCard();
-        } catch (IllegalStateException e) {
-          allCellsFilled = false;
-          break;
+          if (cell.getCard() == null) {
+           return false;
+          }
+        } catch (IllegalStateException ignored) { // hole cell case
         }
       }
-      if (!allCellsFilled) break;
     }
 
-    return allCellsFilled || redPlayer.getHand().isEmpty() || bluePlayer.getHand().isEmpty();
+    return true;
   }
-
-
 
 
   @Override
@@ -181,10 +171,10 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
    * @param numOfCardsPerPlayer amount of cards to be dealt.
    * @param player              player receiving cards
    */
-  private void dealCards(int numOfCardsPerPlayer, Player player, TeamColor color) {
+  private void dealCards(int numOfCardsPerPlayer, Player player) {
     for (int index = 0; index < numOfCardsPerPlayer; index++) {
-      Card card = cardFileReader.getCards().remove(0);
-      card.setColor(color); // After we assign a card to a player, we have to assign a card color to it as we don't want to get NullException when we playToGrid.
+      Card card = cardFileReader.removeCard();
+      card.setColor(player.getColor());
       player.addToHand(card);
     }
   }
@@ -213,7 +203,6 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 
   /**
    * Iterates over the grid and adds placed cards to the corresponding given counter.
-   *
    */
   private int[] countPlacedCards() { //// I fixed this one too as it messed up the return redCount and blueCount
     int redCount = 0;
@@ -223,10 +212,12 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
       for (GridCell cell : rows) {
         try {
           Card currentCard = cell.getCard();
-          if (currentCard.getColor() == TeamColor.RED) {
-            redCount++;
-          } else if (currentCard.getColor() == TeamColor.BLUE) {
-            blueCount++;
+          if (currentCard != null) {
+            if (currentCard.getColor() == TeamColor.RED) {
+              redCount++;
+            } else if (currentCard.getColor() == TeamColor.BLUE) {
+              blueCount++;
+            }
           }
         } catch (IllegalStateException ignored) {
         }

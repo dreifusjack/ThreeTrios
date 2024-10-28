@@ -21,11 +21,6 @@ public class Hole implements GridCell {
 
   @Override
   public String toString() {
-    return  "_";
-  }
-
-  @Override
-  public boolean isHole() {
-    return true;
+    return  " ";
   }
 }

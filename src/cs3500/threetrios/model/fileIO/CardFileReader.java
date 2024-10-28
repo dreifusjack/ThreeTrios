@@ -47,6 +47,14 @@ public class CardFileReader implements CardReader {
 
   @Override
   public List<Card> getCards() {
-    return this.cards;
+    return new ArrayList<>(cards);
+  }
+
+  @Override
+  public Card removeCard() {
+    if (cards.isEmpty()) {
+      throw new IllegalArgumentException("No cards to remove");
+    }
+    return cards.remove(0);
   }
 }

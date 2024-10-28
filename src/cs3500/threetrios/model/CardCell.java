@@ -28,23 +28,15 @@ public class CardCell implements GridCell {
 
   @Override
   public Card getCard() {
-    if (card == null) {
-      throw new IllegalStateException("This cell does not have a card added.");
-    }
-    return card.clone();
+    return card;
   }
 
   @Override
   public String toString() {
     if (card == null) {
-      return " ";
+      return "_";
     } else {
       return card.getColor().toStringAbbreviation();
     }
-  }
-
-  @Override
-  public boolean isHole() {
-    return false;
   }
 }
