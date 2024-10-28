@@ -76,7 +76,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
       throw new IllegalArgumentException("Coordinate out of bounds");
     }
     Card playingCard = playerTurn.getHand().get(handIdx);
-    grid[row][col].addCard(playingCard); // throws exceptions if invalid cell
+    grid[row][col].addCard(playingCard); // assuming throws exceptions if cell is hole or occupied
     playerTurn.removeCard(handIdx);
     battleCards(row, col);
     if (!isGameOver()) {
@@ -138,7 +138,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
       throw new IllegalStateException("The game is not over yet");
     }
 
-    int[] counts = countPlacedCards(); //// new implementation to fix the bug where redCount and blueCount reset to 0 after we do countPlacedCards.
+    int[] counts = countPlacedCards();
     int redCount = counts[0] + redPlayer.getHand().size();
     int blueCount = counts[1] + bluePlayer.getHand().size();
 

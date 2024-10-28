@@ -1,3 +1,5 @@
+package cs3500.threetrios;
+
 import cs3500.threetrios.model.BasicThreeTrioModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 

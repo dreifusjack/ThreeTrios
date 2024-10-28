@@ -1,3 +1,5 @@
+package cs3500.threetrios;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
