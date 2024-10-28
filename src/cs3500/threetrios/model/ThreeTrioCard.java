@@ -77,7 +77,7 @@ public class ThreeTrioCard implements Card {
     ThreeTrioCard otherCard = (ThreeTrioCard) other;
     switch (direction) {
       case SOUTH:
-        return this.south.getValue() > otherCard.north.getValue();   // all of the cases are switched up:))))
+        return this.south.getValue() > otherCard.north.getValue();
       case NORTH:
         return this.north.getValue() > otherCard.south.getValue();
       case WEST:
@@ -95,24 +95,14 @@ public class ThreeTrioCard implements Card {
   }
 
   @Override
-  public String getName() {
-    return this.name;
-  }
-
-  @Override
   public void changeColor() {
     this.color = this.color == TeamColor.RED ? TeamColor.BLUE : TeamColor.RED;
   }
 
   @Override
-  public Card clone() {
-    return this;
-  } //// We have to return this here and not a copy as for example whenever you call getCard() in battleCard, this will create a new copy and make change on it but not on the original state of a adjacent card.
-
-  @Override
   public void setColor(TeamColor color) {
     this.color = color;
-  }// We
+  }
 
   @Override
   public boolean equals(Object obj) {
@@ -131,5 +121,4 @@ public class ThreeTrioCard implements Card {
   public int hashCode() {
     return Objects.hash(name, color, north, east, south, west);
   }
-
 }

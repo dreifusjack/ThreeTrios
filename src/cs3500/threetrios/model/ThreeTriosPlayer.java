@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ThreeTriosPlayer implements Player {
-  private List<Card> hand;
-  private TeamColor team;
+  private final List<Card> hand;
+  private final TeamColor team;
 
   public ThreeTriosPlayer(TeamColor team) {
     this.team = team;

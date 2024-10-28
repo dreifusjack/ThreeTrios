@@ -4,7 +4,6 @@ package cs3500.threetrios.model;
  * Behaviors of a card in the three trios game.
  */
 public interface Card {
-
   /**
    * Provides a textual view of this card.
    *
@@ -22,18 +21,12 @@ public interface Card {
    */
   public boolean compare(Card other, Direction direction);
 
-
   /**
    * Return the TeamColor of this Card.
+   *
    * @return the TeamColor of this Card
    */
   public TeamColor getColor();
-
-  /**
-   * Return the name of this card.
-   * @return the name of this card.
-   */
-  public String getName();
 
   /**
    * Changes the TeamColor of this Card.
@@ -41,13 +34,9 @@ public interface Card {
   public void changeColor();
 
   /**
-   * Creates a copy of this card. In order to not return the exact
-   * instance of this card to the client.
+   * Sets the color of this card.
    *
-   * @return Card with the same fields as this card
+   * @param color color to update this cards field with
    */
-  public Card clone();
-
-
   public void setColor(TeamColor color);
 }

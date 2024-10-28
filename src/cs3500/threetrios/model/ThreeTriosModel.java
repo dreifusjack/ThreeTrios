@@ -25,7 +25,6 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
    */
   public void startGame() throws Exception;
 
-
   /**
    * The player whose turn it is plays a card from their hand at the given hand index
    * to the grid at the given row and col. Plays the player's card to the grid if it is a

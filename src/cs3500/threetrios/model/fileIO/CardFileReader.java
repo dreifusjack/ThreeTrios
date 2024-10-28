@@ -3,8 +3,10 @@ package cs3500.threetrios.model.fileIO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.ThreeTrioCard;
@@ -26,6 +28,8 @@ public class CardFileReader implements CardReader {
 
   @Override
   public void readFile() {
+    Set<String> cardNames = new HashSet<>();
+
     while (fileScan.hasNextLine()) {
       String[] line = fileScan.nextLine().split(" ");
 
@@ -34,12 +38,17 @@ public class CardFileReader implements CardReader {
       }
 
       String cardName = line[0];
-      ThreeTrioCard.CardValue north = ThreeTrioCard.CardValue.fromString(line[1]); //i check the documentation so after you slit a line, you can access each slitted component in that line with [index you want to access].
+
+      if (!cardNames.add(cardName)) {
+        throw new IllegalArgumentException("Duplicate card name: " + cardName);
+      }
+
+      ThreeTrioCard.CardValue north = ThreeTrioCard.CardValue.fromString(line[1]);
       ThreeTrioCard.CardValue south = ThreeTrioCard.CardValue.fromString(line[2]);
       ThreeTrioCard.CardValue east = ThreeTrioCard.CardValue.fromString(line[3]);
       ThreeTrioCard.CardValue west = ThreeTrioCard.CardValue.fromString(line[4]);
 
-      ThreeTrioCard newCard = new ThreeTrioCard(cardName, null, north, east, south, west); // we had this as north, south, east, west which is in the wrong form
+      ThreeTrioCard newCard = new ThreeTrioCard(cardName, null, north, east, south, west);
       cards.add(newCard);
     }
   }
