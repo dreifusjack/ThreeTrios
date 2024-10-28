@@ -22,7 +22,8 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 
   /**
    * Constructs a BasicThreeTrioModel in terms of the names of the grid file and card file
-   * it will read from to instantiate the game.
+   * it will read from to instantiate the game. We are assumed we cannot construct/start a game
+   * without configuration files to build the game off of.
    *
    * @param gridFileName name of the file with grid construction
    * @param cardFileName name of the file with card construction
@@ -44,7 +45,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     if (grid != null) {
       throw new IllegalStateException("Game already started");
     }
-    // readers gather data from files (throws exceptions if necessary)
+    // readers gather data from files (assuming throws exceptions if necessary)
     gridFileReader.readFile();
     cardFileReader.readFile();
     // init the grid
@@ -86,10 +87,14 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 
   @Override
   public void battleCards(int row, int col) {
+    isGameNotStarted();
     if (!isValidCoordinate(row, col)) {
       throw new IllegalArgumentException("Coordinate out of bounds");
     }
     Card placedCard = grid[row][col].getCard();
+    if (placedCard == null) {
+      throw new IllegalStateException("Empty card cell tried to battle");
+    }
 
     for (Direction dir : Direction.values()) {
       int adjRow = row + Direction.getRowHelper(dir);

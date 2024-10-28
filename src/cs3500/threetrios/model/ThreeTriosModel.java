@@ -47,11 +47,12 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
   /**
    * Battles the given card with all adjacent cards opposing cards, if any adjacent cards are
    * defeated then they are changed to the opposite color and a chain reaction occurs. Cards
-   * are battled by comparing their directions values that are adjacent to each other.
+   * are battled by comparing their directions values that are adjacent to each other. Last
+   * card battle occurs after the current player plays game ending move.
    *
    * @param row row value of the grid
    * @param col column value of the grid
-   * @throws IllegalStateException    if the game is over or has not started yet
+   * @throws IllegalStateException    if the game has not started yet
    * @throws IllegalArgumentException if row < 0 or greater than or equal
    *                                  to the number of rows in the grid.
    * @throws IllegalArgumentException if col < 0 or greater than or equal
