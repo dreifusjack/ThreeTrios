@@ -57,13 +57,13 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
       }
     }
     // init hands for each player
-    int minNumOfCardsPerPlayer = (gridFileReader.getNumberOfCardCells() + 1) / 2;
-    int numOfCardsPerPlayer = cardFileReader.getCards().size() / 2;
-    if (numOfCardsPerPlayer < minNumOfCardsPerPlayer) {
+    int minNumOfCards = gridFileReader.getNumberOfCardCells() + 1;
+    int numOfCards = cardFileReader.getCards().size();
+    if (numOfCards < minNumOfCards) {
       throw new IllegalArgumentException("Not enough playing cards");
     }
-    dealCards(numOfCardsPerPlayer, redPlayer);
-    dealCards(numOfCardsPerPlayer, bluePlayer);
+    dealCards(minNumOfCards / 2, redPlayer);
+    dealCards(minNumOfCards / 2, bluePlayer);
   }
 
   @Override

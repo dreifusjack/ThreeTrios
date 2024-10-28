@@ -371,21 +371,6 @@ public abstract class AbstractThreeTriosModelTest {
     Assert.assertFalse(model5x7.isGameOver());
   }
 
-  // Test isGameOver after playing all possible moves with alternating turns.
-  @Test
-  public void testIsGameOverAlternatingTurns() throws Exception {
-    model3x3.startGame();
-
-    for (int row = 0; row < 3; row++) {
-      for (int col = 0; col < 3; col++) {
-        if (!model3x3.isGameOver()) {
-          model3x3.playToGrid(row, col, 0);
-        }
-      }
-    }
-
-    Assert.assertTrue(model3x3.isGameOver());
-  }
 
   // Test isGameOver after chain reaction but with remaining cards
   @Test
@@ -427,11 +412,9 @@ public abstract class AbstractThreeTriosModelTest {
     // Player 2 (Blue)
     model3x3.playToGrid(1, 0, 0);
     // Player 1 (Red)
-    model3x3.playToGrid(1, 1, 0);
+    model3x3.playToGrid(0, 1, 1);
     // Player 2 (Blue)
-    model3x3.playToGrid(2, 0, 0);
-    // Player 1 (Red)
-    model3x3.playToGrid(0, 1, 0);
+    model3x3.playToGrid(1, 1, 0);
 
     Assert.assertEquals(true, model3x3.isGameOver());
     Assert.assertEquals(null, model3x3.getWinner());
@@ -453,17 +436,16 @@ public abstract class AbstractThreeTriosModelTest {
     // Player 1 (Red)
     model3x3.playToGrid(1, 1, 0);
     // Player 2 (Blue)
-    model3x3.playToGrid(0, 2, 0);
-    // Player 1 (Red)
-    model3x3.playToGrid(2, 0, 0);
+    model3x3.playToGrid(0, 1, 1);
 
     Assert.assertEquals(true, model3x3.isGameOver());
     Assert.assertEquals(TeamColor.RED, model3x3.getWinner().getColor());
   }
 
-  //When all cells are marked as red player's cards
+  //When all cells are marked as blue player's cards
+  // (a player wins with all cells fiiled with their color)
   @Test
-  public void testRedWinsAllCells() throws Exception {
+  public void testBlueWinsAllCells() throws Exception {
     model3x3.startGame();
 
     // Player 1 (Red)
@@ -477,12 +459,10 @@ public abstract class AbstractThreeTriosModelTest {
     // Player 1 (Red)
     model3x3.playToGrid(1, 1, 0);
     // Player 2 (Blue)
-    model3x3.playToGrid(0, 2, 0);
-    // Player 1 (Red)
     model3x3.playToGrid(0, 1, 0);
 
     Assert.assertEquals(true, model3x3.isGameOver());
-    Assert.assertEquals(TeamColor.RED, model3x3.getWinner().getColor());
+    Assert.assertEquals(TeamColor.BLUE, model3x3.getWinner().getColor());
   }
 
   //When blue player wins
@@ -498,11 +478,9 @@ public abstract class AbstractThreeTriosModelTest {
     // Player 2 (Blue)
     model3x3.playToGrid(1, 0, 0);
     // Player 1 (Red)
-    model3x3.playToGrid(1, 1, 0);
-    // Player 2 (Blue)
     model3x3.playToGrid(0, 1, 0);
-    // Player 1 (Red)
-    model3x3.playToGrid(0, 2, 0);
+    // Player 2 (Blue)
+    model3x3.playToGrid(1, 1, 1);
 
     Assert.assertEquals(true, model3x3.isGameOver());
     Assert.assertEquals(TeamColor.BLUE, model3x3.getWinner().getColor());

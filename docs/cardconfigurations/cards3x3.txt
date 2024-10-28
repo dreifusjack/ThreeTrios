@@ -4,5 +4,5 @@ WindBird 2 5 5 A
 HeroKnight A 2 4 4
 WorldDragon 1 2 5 1
 SkyWhale 3 1 1 1
-FirePhoenix 2 3 9 2
-ThunderTiger 6 7 5 8
+FirePhoenix 2 3 4 2
+ThunderTiger 3 1 5 4
