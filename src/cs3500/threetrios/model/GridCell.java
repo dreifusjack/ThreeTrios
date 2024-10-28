@@ -1,4 +1,4 @@
-package cs3500.threetrios;
+package cs3500.threetrios.model;
 
 /**
  * Representing a single cell in the grid of ThreeTrios game.

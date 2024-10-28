@@ -1,4 +1,4 @@
-package cs3500.threetrios;
+package cs3500.threetrios.model;
 
 /**
  * Represents cells in the ThreeTrio grid that can have cards placed on.

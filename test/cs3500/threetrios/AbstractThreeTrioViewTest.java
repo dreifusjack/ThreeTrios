@@ -4,6 +4,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import cs3500.threetrios.model.ThreeTrioCard;
+import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.view.ThreeTrioTextView;
+import cs3500.threetrios.view.ThreeTrioView;
+
 public abstract class AbstractThreeTrioViewTest {
 
   protected abstract ThreeTriosModel createModel(String gridFileName, String cardFileName);

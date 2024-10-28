@@ -1,7 +1,9 @@
-package cs3500.threetrios;
+package cs3500.threetrios.model.fileIO;
 
 import java.io.IOException;
 import java.util.List;
+
+import cs3500.threetrios.model.GridCell;
 
 /**
  * Reads data from a textual file. Is responsible for returning that data to the model to

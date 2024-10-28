@@ -1,5 +1,5 @@
-import cs3500.threetrios.BasicThreeTrioModel;
-import cs3500.threetrios.ThreeTriosModel;
+import cs3500.threetrios.model.BasicThreeTrioModel;
+import cs3500.threetrios.model.ThreeTriosModel;
 
 public class ThreeTriosModelTest extends AbstractThreeTriosModelTest {
   @Override

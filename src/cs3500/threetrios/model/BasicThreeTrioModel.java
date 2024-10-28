@@ -1,9 +1,12 @@
-package cs3500.threetrios;
+package cs3500.threetrios.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import cs3500.threetrios.model.fileIO.CardFileReader;
+import cs3500.threetrios.model.fileIO.GridFileReader;
 
 /**
  * First variant model of Three Trio model implementation. Implementation of the behaviors

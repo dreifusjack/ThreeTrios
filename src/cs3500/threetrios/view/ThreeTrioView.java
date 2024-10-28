@@ -1,4 +1,4 @@
-package cs3500.threetrios;
+package cs3500.threetrios.view;
 
 /**
  * Interface representing a view for the Three Trios game.

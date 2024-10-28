@@ -1,4 +1,4 @@
-package cs3500.threetrios;
+package cs3500.threetrios.model;
 
 /**
  * Behaviors of a card in the three trios game.

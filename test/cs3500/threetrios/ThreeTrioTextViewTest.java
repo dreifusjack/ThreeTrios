@@ -1,6 +1,7 @@
 package cs3500.threetrios;
 
-import junit.framework.TestCase;
+import cs3500.threetrios.model.BasicThreeTrioModel;
+import cs3500.threetrios.model.ThreeTriosModel;
 
 public class ThreeTrioTextViewTest extends AbstractThreeTrioViewTest {
 

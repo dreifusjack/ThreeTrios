@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cs3500.threetrios.Card;
-import cs3500.threetrios.CardCell;
-import cs3500.threetrios.GridCell;
-import cs3500.threetrios.TeamColor;
-import cs3500.threetrios.ThreeTrioCard;
-import cs3500.threetrios.ThreeTriosModel;
+import cs3500.threetrios.model.Card;
+import cs3500.threetrios.model.CardCell;
+import cs3500.threetrios.model.GridCell;
+import cs3500.threetrios.model.TeamColor;
+import cs3500.threetrios.model.ThreeTrioCard;
+import cs3500.threetrios.model.ThreeTriosModel;
 
 public abstract class AbstractThreeTriosModelTest {
   protected abstract ThreeTriosModel createModel(String gridFileName, String cardFileName);
@@ -32,12 +32,12 @@ public abstract class AbstractThreeTriosModelTest {
 
   @Before
   public void setUp() {
-    model5x7 = createModel("src/cs3500/threetrios/world1.txt", "src/cs3500/threetrios/card1.txt");
-    model2x2 = createModel("src/cs3500/threetrios/world2x2.txt", "src/cs3500/threetrios/cards2x2.txt");
-    model3x3 = createModel("src/cs3500/threetrios/world3x3.txt", "src/cs3500/threetrios/cards3x3.txt");
-    modelWithNotEnoughCards = createModel("src/cs3500/threetrios/world3x3.txt", "src/cs3500/threetrios/3cardsonly.txt");
-    model2x2SameValueOf1 = createModel("src/cs3500/threetrios/world2x2ver2.txt", "src/cs3500/threetrios/cardswithsamevalueof1.txt");
-    model2x2SameValueOf1Ver2 = createModel("src/cs3500/threetrios/world2x2ver3.txt", "src/cs3500/threetrios/cardswithsamevalueof1.txt");
+    model5x7 = createModel("world1.txt", "card1.txt");
+    model2x2 = createModel("world2x2.txt", "cards2x2.txt");
+    model3x3 = createModel("world3x3.txt", "cards3x3.txt");
+    modelWithNotEnoughCards = createModel("world3x3.txt", "3cardsonly.txt");
+    model2x2SameValueOf1 = createModel("world2x2ver2.txt", "cardswithsamevalueof1.txt");
+    model2x2SameValueOf1Ver2 = createModel("world2x2ver3.txt", "cardswithsamevalueof1.txt");
 
     ONE = ThreeTrioCard.CardValue.ONE;
     TWO = ThreeTrioCard.CardValue.TWO;

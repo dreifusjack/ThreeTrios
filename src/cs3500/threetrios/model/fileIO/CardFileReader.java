@@ -1,4 +1,4 @@
-package cs3500.threetrios;
+package cs3500.threetrios.model.fileIO;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,13 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import cs3500.threetrios.model.Card;
+import cs3500.threetrios.model.ThreeTrioCard;
+
 public class CardFileReader implements CardReader {
   private final Scanner fileScan;
   private final List<Card> cards;
 
   public CardFileReader(String filename) {
     try {
-      File file = new File(filename);
+      String path = "docs" + File.separator + "cardconfigurations" + File.separator + filename;
+      File file = new File(path);
       fileScan = new Scanner(file);
     } catch (FileNotFoundException e) {
       throw new IllegalArgumentException("File not found: " + filename);

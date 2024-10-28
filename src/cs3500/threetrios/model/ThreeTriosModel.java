@@ -1,6 +1,4 @@
-package cs3500.threetrios;
-
-import java.util.List;
+package cs3500.threetrios.model;
 
 /**
  * Behaviors for a game of ThreeTrios.
