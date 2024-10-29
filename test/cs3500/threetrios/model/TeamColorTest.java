@@ -3,6 +3,9 @@ package cs3500.threetrios.model;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Tests for TeamColors.
+ */
 public class TeamColorTest {
 
   // Test abbreviation for RED

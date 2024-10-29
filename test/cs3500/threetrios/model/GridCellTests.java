@@ -5,6 +5,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tests for the GridCell interface.
+ */
 public class GridCellTests {
   private GridCell hole;
   private GridCell emptyCell;

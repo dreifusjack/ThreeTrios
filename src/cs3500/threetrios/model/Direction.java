@@ -1,5 +1,8 @@
 package cs3500.threetrios.model;
 
+/**
+ * Enumeration representing the four compass directions.
+ */
 public enum Direction {
   NORTH, EAST, SOUTH, WEST;
 

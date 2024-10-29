@@ -3,6 +3,9 @@ package cs3500.threetrios.model;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Tests for directions.
+ */
 public class DirectionTest {
 
   // Test getRowHelper for each direction.

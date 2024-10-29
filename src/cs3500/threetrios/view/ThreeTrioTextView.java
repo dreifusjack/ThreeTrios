@@ -2,7 +2,6 @@ package cs3500.threetrios.view;
 
 import java.util.List;
 
-import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;

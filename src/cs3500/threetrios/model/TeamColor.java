@@ -1,5 +1,8 @@
 package cs3500.threetrios.model;
 
+/**
+ * Enumeration for the two team colors in ThreeTrios.
+ */
 public enum TeamColor {
   RED, BLUE;
 

@@ -140,7 +140,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
           if (cell.getCard() == null) {
             return false;
           }
-        } catch (IllegalStateException ignored) { // hole cell case
+        } catch (IllegalStateException ignored) { // case where cell is a hole
         }
       }
     }
