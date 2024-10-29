@@ -67,10 +67,12 @@ public abstract class AbstractThreeTrioViewTest {
             + "__ \n"
             + "__ \n"
             + "_ _\n"
+            + " _ \n"
             + "Hand:\n"
             + "WorldDragon 1 6 5 1\n"
-            + "HeroKnight A 2 4 1\n"
-            + "CorruptKing 3 1 1 2\n";
+            + "HeroKnight A 4 4 1\n"
+            + "CorruptKing 3 1 1 2\n"
+            + "FirePhoenix 2 3 4 2\n";
 
     Assert.assertEquals(expectedView, view.toString());
   }
@@ -86,10 +88,12 @@ public abstract class AbstractThreeTrioViewTest {
             + "__ \n"
             + "__ \n"
             + "_ R\n"
+            + " _ \n"
             + "Hand:\n"
-            + "FirePhoenix 2 3 4 2\n"
             + "ThunderTiger 3 9 5 4\n"
-            + "WindBird 2 5 5 A\n";
+            + "WindBird 2 5 5 A\n"
+            + "AngryDragon 5 7 1 4\n"
+            + "SkyWhale 3 1 1 2\n";
 
     Assert.assertEquals(expectedView, view.toString());
   }
@@ -113,11 +117,13 @@ public abstract class AbstractThreeTrioViewTest {
 
     ThreeTrioView view = new ThreeTrioTextView(model3x3);
 
-    String expectedView = "Player: BLUE\n"
+    String expectedView = "Player: RED\n"
             + "BB \n"
             + "BB \n"
             + "R R\n"
-            + "Hand:\n";
+            + " _ \n"
+            + "Hand:\n"
+            + "FirePhoenix 2 3 4 2\n";
 
     Assert.assertEquals(expectedView, view.toString());
 
@@ -142,11 +148,13 @@ public abstract class AbstractThreeTrioViewTest {
 
     ThreeTrioView view = new ThreeTrioTextView(model3x3);
 
-    String expectedView = "Player: BLUE\n"
+    String expectedView = "Player: RED\n"
             + "RR \n"
             + "BR \n"
             + "B B\n"
-            + "Hand:\n";
+            + " _ \n"
+            + "Hand:\n"
+            + "FirePhoenix 2 3 4 2\n";
 
     Assert.assertEquals(expectedView, view.toString());
   }
