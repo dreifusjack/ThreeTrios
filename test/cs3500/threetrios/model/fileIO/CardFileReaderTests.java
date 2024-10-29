@@ -34,11 +34,6 @@ public class CardFileReaderTests {
     new CardFileReader("non-existing-file");
   }
 
-  @Test(expected = IllegalStateException.class)
-  public void testRemovingCardFromEmptyList() {
-    cardFileReader.removeCard();
-  }
-
   @Test
   public void testGetCardMutation() {
     assertEquals(List.of(), cardFileReader.getCards());
@@ -62,8 +57,6 @@ public class CardFileReaderTests {
             ThreeTrioCard.CardValue.TWO, ThreeTrioCard.CardValue.THREE));
     // testing get cards method
     assertEquals(expected, cardFileReader.getCards());
-    // testing remove card method
-    assertEquals(expected.remove(0), cardFileReader.removeCard());
   }
 
   @Test(expected = IllegalArgumentException.class)

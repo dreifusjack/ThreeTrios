@@ -30,10 +30,13 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * @param gridFileName name of the file with grid construction
    * @param cardFileName name of the file with card construction
    * @throws IllegalArgumentException cannot find a file for either file name
+   * @throws IllegalArgumentException if gridFileName or cardFileName are null
    */
   public BasicThreeTriosModel(String gridFileName, String cardFileName) {
     gridFileReader = new GridFileReader(gridFileName);
     cardFileReader = new CardFileReader(cardFileName);
+    // Assuming both file readers ensure given names are not null, and are found in their
+    // corresponding config file locations.
     grid = null;
     redPlayer = new ThreeTriosPlayer(TeamColor.RED);
     bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
@@ -41,6 +44,16 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     random = new Random();
   }
 
+  /**
+   * Constructs a BasicThreeTrioModel that same as before but takes a Random object to seed
+   * randomness for testing purposes.
+   *
+   * @param gridFileName name of the file with grid construction
+   * @param cardFileName name of the file with card construction
+   * @param rand         seed for testing
+   * @throws IllegalArgumentException cannot find a file for either file name
+   * @throws IllegalArgumentException if gridFileName or cardFileName are null
+   */
   public BasicThreeTriosModel(String gridFileName, String cardFileName, Random rand) {
     gridFileReader = new GridFileReader(gridFileName);
     cardFileReader = new CardFileReader(cardFileName);
@@ -51,16 +64,17 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     random = rand;
   }
 
-//TODO: adding constructors for AI player(s)
-
   @Override
   public void startGame() {
     if (grid != null) {
       throw new IllegalStateException("Game already started");
     }
-    // readers gather data from files (assuming throws exceptions if necessary)
+    // readers gather data from files
     gridFileReader.readFile();
     cardFileReader.readFile();
+    // assuming readers through exceptions for all invalid file cases
+    // (refer to readers interfaces for all cases)
+
     // init the grid
     List<Integer> gridCords = gridFileReader.specifiedSizes();
     grid = new GridCell[gridCords.get(0)][gridCords.get(1)];
@@ -70,7 +84,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       }
     }
     // init hands for each player
-    int minNumOfCards = gridFileReader.getNumberOfCardCells() + 1;
+    int minNumOfCards = gridFileReader.getNumberOfCardCells() + 1; // N+1
     int numOfCards = cardFileReader.getCards().size();
     if (numOfCards < minNumOfCards) {
       throw new IllegalArgumentException("Not enough playing cards");
@@ -80,8 +94,8 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     List<Card> deck = new ArrayList<>(cardFileReader.getCards());
     Collections.shuffle(deck, random);
 
-    dealCards(minNumOfCards / 2, redPlayer, TeamColor.RED, deck);
-    dealCards(minNumOfCards / 2, bluePlayer, TeamColor.BLUE, deck);
+    dealCards(minNumOfCards / 2, redPlayer, TeamColor.RED, deck); // (N+1)/2
+    dealCards(minNumOfCards / 2, bluePlayer, TeamColor.BLUE, deck); // (N+1)/2
   }
 
   @Override
@@ -94,14 +108,15 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       throw new IllegalArgumentException("Coordinate out of bounds");
     }
     Card playingCard = playerTurn.getHand().get(handIdx);
-    grid[row][col].addCard(playingCard); // assuming throws exceptions if cell is hole or occupied
+    grid[row][col].addCard(playingCard);
+    // Assuming addCard throws exceptions if GridCell is hole or occupied card cell
     playerTurn.removeCard(handIdx);
+    // Assuming removeCard throws exceptions if index out of bounds
     battleCards(row, col);
     if (!isGameOver()) {
       playerTurn = playerTurn == redPlayer ? bluePlayer : redPlayer;
     }
   }
-
 
   @Override
   public void battleCards(int row, int col) {
@@ -110,6 +125,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       throw new IllegalArgumentException("Coordinate out of bounds");
     }
     Card placedCard = grid[row][col].getCard();
+    // Assuming getCard throws exception if cell is a hole
     if (placedCard == null) {
       throw new IllegalStateException("Empty card cell tried to battle");
     }
@@ -133,7 +149,6 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   @Override
   public boolean isGameOver() {
     isGameNotStarted();
-
     for (GridCell[] row : grid) {
       for (GridCell cell : row) {
         try {
@@ -144,7 +159,6 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
         }
       }
     }
-
     return true;
   }
 
@@ -172,7 +186,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   @Override
   public Player getCurrentPlayer() {
     isGameNotStarted();
-    return this.playerTurn.clone();
+    return playerTurn.clone(); // Assuming .clone returns a copy of the player
   }
 
   @Override

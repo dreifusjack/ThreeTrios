@@ -31,12 +31,4 @@ public interface CardReader {
    * @return list of cards representing the card configuration
    */
   public List<Card> getCards();
-
-  /**
-   * Returns the first card in this CardReader's cards. AFFECT: removes the first card in this
-   * CardReader's cards.
-   *
-   * @return the first card in the list of cards
-   */
-  public Card removeCard();
 }

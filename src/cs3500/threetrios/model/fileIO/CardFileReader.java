@@ -76,12 +76,4 @@ public class CardFileReader implements CardReader {
   public List<Card> getCards() {
     return new ArrayList<>(cards);
   }
-
-  @Override
-  public Card removeCard() {
-    if (cards.isEmpty()) {
-      throw new IllegalStateException("No cards to remove");
-    }
-    return cards.remove(0);
-  }
 }

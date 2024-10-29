@@ -36,9 +36,9 @@ public class ThreeTriosPlayer implements Player {
   }
 
   @Override
-  public void removeCard(int cardInx) {
-    if (cardInx >= 0 && cardInx < hand.size()) {
-      hand.remove(cardInx);
+  public void removeCard(int handIdx) {
+    if (handIdx >= 0 && handIdx < hand.size()) {
+      hand.remove(handIdx);
     } else {
       throw new IllegalArgumentException("Invalid card index");
     }

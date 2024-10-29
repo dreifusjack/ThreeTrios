@@ -30,11 +30,12 @@ public interface Player {
   public List<Card> getHand();
 
   /**
-   * Remove a card from the inputted cardInx.
+   * Remove a card from the inputted handIdx.
    *
-   * @param cardInx is the index of a card in the player's hand we want to remove.
+   * @param handIdx is the index of a card in the player's hand we want to remove.
+   * @throws IllegalArgumentException if handIdx is out of bounds
    */
-  public void removeCard(int cardInx);
+  public void removeCard(int handIdx);
 
   /**
    * Produces a copy of this player to prevent client modification.
