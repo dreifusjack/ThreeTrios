@@ -32,7 +32,7 @@ public interface GridReader {
    *
    * @return a list of size two, [specified number of rows, specified number of cols]
    */
-  public List<Integer> coordinates();
+  public List<Integer> specifiedSizes();
 
   /**
    * Return a copy of this GridReader's grid. This grid is only initialized after it is read
@@ -41,7 +41,7 @@ public interface GridReader {
    *
    * @return a 2D arraylist of grid cells for the model to operate on
    */
-  public List<List<GridCell>> getCells();
+  public List<List<GridCell>> getGrid();
 
   /**
    * Returns the number of card cells in the grid. This is updated after the GridReader reads from

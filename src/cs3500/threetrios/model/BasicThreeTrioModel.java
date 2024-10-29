@@ -62,11 +62,11 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     gridFileReader.readFile();
     cardFileReader.readFile();
     // init the grid
-    List<Integer> gridCords = gridFileReader.coordinates();
+    List<Integer> gridCords = gridFileReader.specifiedSizes();
     grid = new GridCell[gridCords.get(0)][gridCords.get(1)];
     for (int row = 0; row < grid.length; row++) {
       for (int col = 0; col < grid[0].length; col++) {
-        grid[row][col] = gridFileReader.getCells().get(row).get(col);
+        grid[row][col] = gridFileReader.getGrid().get(row).get(col);
       }
     }
     // init hands for each player

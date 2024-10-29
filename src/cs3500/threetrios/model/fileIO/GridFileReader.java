@@ -16,11 +16,14 @@ import cs3500.threetrios.model.Hole;
  */
 public class GridFileReader implements GridReader {
   private final Scanner fileScan;
-  private final List<Integer> gridCords; // first int is row second int is col
-  private final List<List<GridCell>> gridCells;
+  private final List<Integer> gridSizes; // first int is row second int is col
+  private final List<List<GridCell>> grid;
   private int numOfCardCells;
 
   public GridFileReader(String filename) {
+    if (filename == null) {
+      throw new IllegalArgumentException("filename cannot be null");
+    }
     try {
       String path = "docs" + File.separator + "gridconfigurations" + File.separator + filename;
       File file = new File(path);
@@ -28,30 +31,19 @@ public class GridFileReader implements GridReader {
     } catch (FileNotFoundException e) {
       throw new IllegalArgumentException("File not found: " + filename);
     }
-    this.gridCords = new ArrayList<>();
-    this.gridCells = new ArrayList<>();
+    this.gridSizes = new ArrayList<>();
+    this.grid = new ArrayList<>();
     this.numOfCardCells = 0;
   }
 
   @Override
   public void readFile() throws IOException {
-    if (fileScan.hasNextLine()) {
-      String[] firstLineInFile = fileScan.nextLine().split(" ");
-      if (firstLineInFile.length != 2) {
-        throw new IllegalArgumentException("Invalid grid file format");
-      }
-      int row = Integer.parseInt(firstLineInFile[0]);
-      int col = Integer.parseInt(firstLineInFile[1]);
-      gridCords.add(row);
-      gridCords.add(col);
-    } else {
-      throw new IllegalArgumentException("Grid file is empty");
-    }
+    getBoardSize();
 
     int rowCount = 0;
     while (fileScan.hasNextLine()) {
       String line = fileScan.nextLine(); // the second line in the file
-      if (line.length() != gridCords.get(1)) {
+      if (line.length() != gridSizes.get(1)) {
         throw new IllegalArgumentException("Col length fails to match file specified col length.");
       }
       List<GridCell> cellRow = new ArrayList<>();
@@ -66,10 +58,10 @@ public class GridFileReader implements GridReader {
           throw new IllegalArgumentException("Invalid cell type");
         }
       }
-      gridCells.add(cellRow);
+      grid.add(cellRow);
       rowCount++;
     }
-    if (rowCount != gridCords.get(0)) {
+    if (rowCount != gridSizes.get(0)) {
       throw new IllegalArgumentException("Row length fails to match file specified row length.");
     }
     if (numOfCardCells % 2 == 0) {
@@ -77,16 +69,38 @@ public class GridFileReader implements GridReader {
     }
   }
 
+  /**
+   * Reads from the scanner to add the specified row and col to this GridFileReader's gridCords
+   * list. The order must be [row, col] and must be size 2.
+   *
+   * @throws IllegalArgumentException if the format is not a specified row then column
+   * @throws IllegalArgumentException if the file is empty
+   */
+  private void getBoardSize() {
+    if (fileScan.hasNextLine()) {
+      String[] firstLineInFile = fileScan.nextLine().split(" ");
+      if (firstLineInFile.length != 2) {
+        throw new IllegalArgumentException("Invalid grid file format");
+      }
+      int row = Integer.parseInt(firstLineInFile[0]);
+      int col = Integer.parseInt(firstLineInFile[1]);
+      gridSizes.add(row);
+      gridSizes.add(col);
+    } else {
+      throw new IllegalArgumentException("Grid file is empty");
+    }
+  }
+
 
   @Override
-  public List<Integer> coordinates() {
-    return new ArrayList<>(gridCords);
+  public List<Integer> specifiedSizes() {
+    return new ArrayList<>(gridSizes);
   }
 
   @Override
-  public List<List<GridCell>> getCells() {
+  public List<List<GridCell>> getGrid() {
     List<List<GridCell>> result = new ArrayList<>();
-    for (List<GridCell> cellRow : gridCells) {
+    for (List<GridCell> cellRow : grid) {
       result.add(new ArrayList<>(cellRow));
     }
     return result;
@@ -94,6 +108,6 @@ public class GridFileReader implements GridReader {
 
   @Override
   public int getNumberOfCardCells() {
-    return this.numOfCardCells;
+    return numOfCardCells;
   }
 }
