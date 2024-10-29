@@ -10,6 +10,7 @@ public interface GridCell {
    * @param card Card to be added to the cell
    * @throws IllegalStateException if this cell is a hole.
    * @throws IllegalStateException if this cell already has a card.
+   * @throws IllegalArgumentException if the given card is null
    */
   public void addCard(Card card);
 
@@ -22,7 +23,8 @@ public interface GridCell {
 
   /**
    * Returns the card occupied by this cell. If no card is present return null, if cell is a hole
-   * throws an exception.
+   * throws an exception. Needs to return the direct card because that instance is the card
+   * that is occupied on the grid.
    *
    * @return Card that occupies this cell.
    * @throws IllegalStateException if this cell is a hole.
