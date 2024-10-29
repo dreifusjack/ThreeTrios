@@ -69,6 +69,9 @@ public class GridFileReader implements GridReader {
     if (rowCount != gridCords.get(0)) {
       throw new IllegalArgumentException("Row length fails to match file specified row length.");
     }
+    if (numOfCardCells % 2 == 0) {
+      throw new IllegalArgumentException("Number of card cells must be odd.");
+    }
   }
 
 
