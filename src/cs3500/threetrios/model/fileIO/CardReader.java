@@ -15,7 +15,6 @@ public interface CardReader {
    * Creates an instance of a card with the given params from the config file and adds it to
    * this CardReader's cards. This list will be used for the model to use in dealing cards.
    *
-   * @throws IOException              if the scanner cannot read from the card configuration
    * @throws IllegalArgumentException if card file has no contents
    * @throws IllegalArgumentException if the format of the card configuration is incorrect,
    *                                  must follow: CARDNAME CARDVALUE CARDVALUE CARDVALUE CARDVALUE
@@ -24,7 +23,7 @@ public interface CardReader {
    *                                  ASSUME: CardValue enum @throws IllegalArgument if card
    *                                  config writes and invalid CardValue
    */
-  public void readFile() throws IOException;
+  public void readFile();
 
   /**
    * Returns a copy of this CardReader's saved cards after reading from their file. Mutating this

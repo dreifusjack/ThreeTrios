@@ -12,7 +12,8 @@ import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.Hole;
 
 /**
- *
+ * Implements the behaviors of the GridReader. Reads from a grid configuration file
+ * and if successful, saves data about the grid, the sizes, and the number of empty card cells.
  */
 public class GridFileReader implements GridReader {
   private final Scanner fileScan;
@@ -20,6 +21,14 @@ public class GridFileReader implements GridReader {
   private final List<List<GridCell>> grid;
   private int numOfCardCells;
 
+  /**
+   * Constructs a GridFileReader in terms of the given filename. Creates a file path in a specified
+   * location using the file nam. Assuming all grid configs are in docs/gridconfiguration/.
+   *
+   * @param filename String filename
+   * @throws IllegalArgumentException if filename is null
+   * @throws IllegalArgumentException if file is not found in assumed location
+   */
   public GridFileReader(String filename) {
     if (filename == null) {
       throw new IllegalArgumentException("filename cannot be null");
@@ -37,7 +46,7 @@ public class GridFileReader implements GridReader {
   }
 
   @Override
-  public void readFile() throws IOException {
+  public void readFile() {
     getBoardSize();
 
     int rowCount = 0;

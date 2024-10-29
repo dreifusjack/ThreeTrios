@@ -14,7 +14,6 @@ public interface GridReader {
    * Reads from this GridReader's scanner that has be initialized to a specified grid configuration.
    * Creates an instance of a 2DGrid of GridCell's for the model to use as its internal grid.
    *
-   * @throws IOException              if scanner fails to read from grid file
    * @throws IllegalArgumentException if the first line of the grid config fails to specify
    *                                  row and cols, first line must be rows(int) cols(int)
    * @throws IllegalArgumentException if the card config is empty
@@ -24,11 +23,12 @@ public interface GridReader {
    *                                  or empty card cell
    * @throws IllegalArgumentException if the number of empty card cells is even
    */
-  public void readFile() throws IOException;
+  public void readFile();
 
   /**
-   * Returns a copy of the configurations of the grid. List length is always size 2, row comes first,
-   * columns comes second. Modifying this list has no effect on this GridReader's coordinates.
+   * Returns a copy of the configurations of the grid. List length is always size 2,
+   * row comes first, columns comes second. Modifying this list has no effect on this
+   * GridReader's coordinates.
    *
    * @return a list of size two, [specified number of rows, specified number of cols]
    */
