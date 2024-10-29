@@ -68,9 +68,9 @@ public abstract class AbstractThreeTrioViewTest {
             + "__ \n"
             + "_ _\n"
             + "Hand:\n"
-            + "WorldDragon ONE SIX FIVE ONE\n"
-            + "HeroKnight A TWO FOUR ONE\n"
-            + "CorruptKing THREE ONE ONE TWO\n";
+            + "WorldDragon 1 6 5 1\n"
+            + "HeroKnight A 2 4 1\n"
+            + "CorruptKing 3 1 1 2\n";
 
     Assert.assertEquals(expectedView, view.toString());
   }
@@ -87,9 +87,9 @@ public abstract class AbstractThreeTrioViewTest {
             + "__ \n"
             + "_ R\n"
             + "Hand:\n"
-            + "FirePhoenix TWO THREE FOUR TWO\n"
-            + "ThunderTiger THREE NINE FIVE FOUR\n"
-            + "WindBird TWO FIVE FIVE A\n";
+            + "FirePhoenix 2 3 4 2\n"
+            + "ThunderTiger 3 9 5 4\n"
+            + "WindBird 2 5 5 A\n";
 
     Assert.assertEquals(expectedView, view.toString());
   }

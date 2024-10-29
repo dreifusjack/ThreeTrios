@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import cs3500.threetrios.model.fileIO.CardFileReader;
 import cs3500.threetrios.model.fileIO.GridFileReader;
@@ -19,6 +20,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
   private final Player bluePlayer;
   private final GridFileReader gridFileReader;
   private final CardFileReader cardFileReader;
+  private Random random;
 
   /**
    * Constructs a BasicThreeTrioModel in terms of the names of the grid file and card file
@@ -36,6 +38,17 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     redPlayer = new ThreeTriosPlayer(TeamColor.RED);
     bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
     playerTurn = redPlayer;
+    random = new Random();
+  }
+
+  public BasicThreeTrioModel(String gridFileName, String cardFileName, Random rand) {
+    gridFileReader = new GridFileReader(gridFileName);
+    cardFileReader = new CardFileReader(cardFileName);
+    grid = null;
+    redPlayer = new ThreeTriosPlayer(TeamColor.RED);
+    bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
+    playerTurn = redPlayer;
+    random = rand;
   }
 
 //TODO: adding constructors for AI player(s)
@@ -62,8 +75,13 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     if (numOfCards < minNumOfCards) {
       throw new IllegalArgumentException("Not enough playing cards");
     }
-    dealCards(minNumOfCards / 2, redPlayer);
-    dealCards(minNumOfCards / 2, bluePlayer);
+
+    // Shuffle the deck using the Random instance
+    List<Card> deck = new ArrayList<>(cardFileReader.getCards());
+    Collections.shuffle(deck, random);
+
+    dealCards(minNumOfCards / 2, redPlayer, TeamColor.RED, deck);
+    dealCards(minNumOfCards / 2, bluePlayer, TeamColor.BLUE, deck);
   }
 
   @Override
@@ -176,10 +194,10 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
    * @param numOfCardsPerPlayer amount of cards to be dealt.
    * @param player              player receiving cards
    */
-  private void dealCards(int numOfCardsPerPlayer, Player player) {
-    for (int index = 0; index < numOfCardsPerPlayer; index++) {
-      Card card = cardFileReader.removeCard();
-      card.setColor(player.getColor());
+  private void dealCards(int numOfCardsPerPlayer, Player player, TeamColor color, List<Card> deck) {
+    for (int i = 0; i < numOfCardsPerPlayer; i++) {
+      Card card = deck.remove(0);
+      card.setColor(color);
       player.addToHand(card);
     }
   }
