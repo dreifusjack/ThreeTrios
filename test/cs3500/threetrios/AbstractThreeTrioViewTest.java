@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Random;
+
 import cs3500.threetrios.model.ThreeTrioCard;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.view.ThreeTrioTextView;
@@ -12,6 +14,9 @@ import cs3500.threetrios.view.ThreeTrioView;
 public abstract class AbstractThreeTrioViewTest {
 
   protected abstract ThreeTriosModel createModel(String gridFileName, String cardFileName);
+
+  protected abstract ThreeTriosModel createModelWithRandom(String gridFileName, String cardFileName, Random random);
+
 
   protected ThreeTriosModel model5x7;
 
@@ -27,14 +32,18 @@ public abstract class AbstractThreeTrioViewTest {
 
   private ThreeTrioCard.CardValue ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, A;
 
+  private Random rand1;
+
   @Before
   public void setUp() {
-    model5x7 = createModel("src/cs3500/threetrios/world1.txt", "src/cs3500/threetrios/card1.txt");
-    model2x2 = createModel("src/cs3500/threetrios/world2x2.txt", "src/cs3500/threetrios/cards2x2.txt");
-    model3x3 = createModel("src/cs3500/threetrios/world3x3.txt", "src/cs3500/threetrios/cards3x3.txt");
-    modelWithNotEnoughCards = createModel("src/cs3500/threetrios/world3x3.txt", "src/cs3500/threetrios/3cardsonly.txt");
-    model2x2SameValueOf1 = createModel("src/cs3500/threetrios/world2x2ver2.txt", "src/cs3500/threetrios/cardswithsamevalueof1.txt");
-    model2x2SameValueOf1Ver2 = createModel("src/cs3500/threetrios/world2x2ver3.txt", "src/cs3500/threetrios/cardswithsamevalueof1.txt");
+    rand1 = new Random(2);
+
+    model5x7 = createModelWithRandom("world1.txt", "card1.txt", rand1);
+    model2x2 = createModelWithRandom("world2x2.txt", "cards2x2.txt", rand1);
+    model3x3 = createModelWithRandom("world3x3.txt", "cards3x3.txt", rand1);
+    modelWithNotEnoughCards = createModelWithRandom("world3x3.txt", "3cardsonly.txt", rand1);
+    model2x2SameValueOf1 = createModelWithRandom("world2x2ver2.txt", "cardswithsamevalueof1.txt", rand1);
+    model2x2SameValueOf1Ver2 = createModelWithRandom("world2x2ver3.txt", "cardswithsamevalueof1.txt", rand1);
 
     ONE = ThreeTrioCard.CardValue.ONE;
     TWO = ThreeTrioCard.CardValue.TWO;
@@ -55,14 +64,13 @@ public abstract class AbstractThreeTrioViewTest {
     ThreeTrioView view = new ThreeTrioTextView(model3x3);
 
     String expectedView = "Player: RED\n"
-            + "   \n"
-            + "   \n"
-            + " _ \n"
+            + "__ \n"
+            + "__ \n"
+            + "_ _\n"
             + "Hand:\n"
-            + "CorruptKing THREE ONE ONE ONE\n"
-            + "AngryDragon FOUR SEVEN ONE FOUR\n"
-            + "WindBird TWO FIVE FIVE A\n"
-            + "HeroKnight A TWO FOUR FOUR\n";
+            + "WorldDragon ONE SIX FIVE ONE\n"
+            + "HeroKnight A TWO FOUR ONE\n"
+            + "CorruptKing THREE ONE ONE TWO\n";
 
     Assert.assertEquals(expectedView, view.toString());
   }
@@ -75,14 +83,13 @@ public abstract class AbstractThreeTrioViewTest {
     ThreeTrioView view = new ThreeTrioTextView(model3x3);
 
     String expectedView = "Player: BLUE\n"
-            + "   \n"
-            + "   \n"
-            + " _R\n"
+            + "__ \n"
+            + "__ \n"
+            + "_ R\n"
             + "Hand:\n"
-            + "WorldDragon ONE TWO FIVE ONE\n"
-            + "SkyWhale THREE ONE ONE ONE\n"
-            + "FirePhoenix TWO THREE NINE TWO\n"
-            + "ThunderTiger SIX SEVEN FIVE EIGHT\n";
+            + "FirePhoenix TWO THREE FOUR TWO\n"
+            + "ThunderTiger THREE NINE FIVE FOUR\n"
+            + "WindBird TWO FIVE FIVE A\n";
 
     Assert.assertEquals(expectedView, view.toString());
   }
@@ -92,26 +99,24 @@ public abstract class AbstractThreeTrioViewTest {
   public void testViewPlayAndWin() throws Exception {
     model3x3.startGame();
     // Player 1 (Red)
-    model3x3.playToGrid(2, 2, 0);
+    model3x3.playToGrid(1, 0, 0);
     // Player 2 (Blue)
     model3x3.playToGrid(0, 0, 0);
     // Player 1 (Red)
-    model3x3.playToGrid(1, 2, 0);
+    model3x3.playToGrid(2, 2, 0);
     // Player 2 (Blue)
-    model3x3.playToGrid(1, 0, 0);
-    // Player 1 (Red)
-    model3x3.playToGrid(1, 1, 0);
-    // Player 2 (Blue)
-    model3x3.playToGrid(0, 2, 0);
+    model3x3.playToGrid(0, 1, 0);
     // Player 1 (Red)
     model3x3.playToGrid(2, 0, 0);
+    // Player 2 (Blue)
+    model3x3.playToGrid(1, 1, 0);
 
     ThreeTrioView view = new ThreeTrioTextView(model3x3);
 
-    String expectedView = "Player: RED\n"
-            + "R B\n"
-            + "RRR\n"
-            + "R_R\n"
+    String expectedView = "Player: BLUE\n"
+            + "BB \n"
+            + "BB \n"
+            + "R R\n"
             + "Hand:\n";
 
     Assert.assertEquals(expectedView, view.toString());
@@ -123,26 +128,24 @@ public abstract class AbstractThreeTrioViewTest {
   public void testViewPlayAndThenTie() throws Exception {
     model3x3.startGame();
     // Player 1 (Red)
-    model3x3.playToGrid(2, 2, 0);
-    // Player 2 (Blue)
     model3x3.playToGrid(0, 0, 0);
-    // Player 1 (Red)
-    model3x3.playToGrid(1, 2, 0);
     // Player 2 (Blue)
-    model3x3.playToGrid(1, 0, 0);
+    model3x3.playToGrid(2, 2, 0);
+    // Player 1 (Red)
+    model3x3.playToGrid(1, 0, 1);
+    // Player 2 (Blue)
+    model3x3.playToGrid(0, 1, 0);
     // Player 1 (Red)
     model3x3.playToGrid(1, 1, 0);
     // Player 2 (Blue)
     model3x3.playToGrid(2, 0, 0);
-    // Player 1 (Red)
-    model3x3.playToGrid(0, 1, 0);
 
     ThreeTrioView view = new ThreeTrioTextView(model3x3);
 
-    String expectedView = "Player: RED\n"
+    String expectedView = "Player: BLUE\n"
+            + "RR \n"
             + "BR \n"
-            + "BRR\n"
-            + "B_R\n"
+            + "B B\n"
             + "Hand:\n";
 
     Assert.assertEquals(expectedView, view.toString());
