@@ -23,7 +23,7 @@ public class CardCell implements GridCell {
 
   @Override
   public void changeCardColor() {
-    card.changeColor();
+    card.toggleColor();
   }
 
   @Override

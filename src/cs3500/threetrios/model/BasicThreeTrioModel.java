@@ -120,7 +120,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
       for (GridCell cell : row) {
         try {
           if (cell.getCard() == null) {
-           return false;
+            return false;
           }
         } catch (IllegalStateException ignored) { // hole cell case
         }
@@ -243,11 +243,9 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
    * @param adjCol     column of the card being battled against
    */
   private void battleHelper(Direction dir, Card adjCard, Card battleCard, int adjRow, int adjCol) {
-    if (adjCard.getColor() != battleCard.getColor()) {
-      if (battleCard.compare(adjCard, dir)) {
-        adjCard.changeColor();
-        battleCards(adjRow, adjCol);
-      }
+    if (battleCard.compare(adjCard, dir)) {
+      adjCard.toggleColor();
+      battleCards(adjRow, adjCol);
     }
   }
 

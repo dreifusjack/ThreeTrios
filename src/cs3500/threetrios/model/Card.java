@@ -18,6 +18,7 @@ public interface Card {
    * @param other     Card to be compared with this one.
    * @param direction direction of adjacency for comparing values
    * @return true iff this card is higher the given card in terms of the direction
+   * @throws IllegalArgumentException if either parameter is null
    */
   public boolean compare(Card other, Direction direction);
 
@@ -29,9 +30,10 @@ public interface Card {
   public TeamColor getColor();
 
   /**
-   * Changes the TeamColor of this Card.
+   * Changes the TeamColor of this Card. If this card was on red team and toggleColor is called,
+   * the card is now on blue team.
    */
-  public void changeColor();
+  public void toggleColor();
 
   /**
    * Sets the color of this card.
