@@ -1,6 +1,5 @@
 package cs3500.threetrios.model;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +12,7 @@ import cs3500.threetrios.model.fileIO.GridFileReader;
  * First variant model of Three Trio model implementation. Implementation of the behaviors
  * of the ThreeTriosModel interface.
  */
-public class BasicThreeTrioModel implements ThreeTriosModel {
+public class BasicThreeTriosModel implements ThreeTriosModel {
   private GridCell[][] grid;
   //CLASS INVARIANT: playerTurn is one of redPlayer or bluePlayer (more details in README)
   private final Player redPlayer;
@@ -32,7 +31,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
    * @param cardFileName name of the file with card construction
    * @throws IllegalArgumentException cannot find a file for either file name
    */
-  public BasicThreeTrioModel(String gridFileName, String cardFileName) {
+  public BasicThreeTriosModel(String gridFileName, String cardFileName) {
     gridFileReader = new GridFileReader(gridFileName);
     cardFileReader = new CardFileReader(cardFileName);
     grid = null;
@@ -42,7 +41,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
     random = new Random();
   }
 
-  public BasicThreeTrioModel(String gridFileName, String cardFileName, Random rand) {
+  public BasicThreeTriosModel(String gridFileName, String cardFileName, Random rand) {
     gridFileReader = new GridFileReader(gridFileName);
     cardFileReader = new CardFileReader(cardFileName);
     grid = null;
@@ -55,7 +54,7 @@ public class BasicThreeTrioModel implements ThreeTriosModel {
 //TODO: adding constructors for AI player(s)
 
   @Override
-  public void startGame() throws IOException {
+  public void startGame() {
     if (grid != null) {
       throw new IllegalStateException("Game already started");
     }

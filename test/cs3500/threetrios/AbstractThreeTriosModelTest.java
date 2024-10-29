@@ -17,6 +17,9 @@ import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTrioCard;
 import cs3500.threetrios.model.ThreeTriosModel;
 
+/**
+ * Responsible for testing the behaviors of the ThreeTrioModel interface.
+ */
 public abstract class AbstractThreeTriosModelTest {
   protected abstract ThreeTriosModel createModel(String gridFileName, String cardFileName);
 
@@ -67,48 +70,48 @@ public abstract class AbstractThreeTriosModelTest {
   //---------startGame---------------
   //Throw exception when do startGame when the game has started.
   @Test(expected = IllegalStateException.class)
-  public void testStartGameWhenGameHasStarted() throws Exception {
+  public void testStartGameWhenGameHasStarted()  {
     model5x7.startGame();
     model5x7.startGame();
   }
 
   //Throw exception when do startGame when the game does not have enough of cards.
   @Test(expected = IllegalArgumentException.class)
-  public void testStartGameNotEnoughCards() throws Exception {
+  public void testStartGameNotEnoughCards()  {
     modelWithNotEnoughCards.startGame();
   }
 
   //--------playToGrid------------------------
   //Throw exception when do playToGrid when the game has not started.
   @Test(expected = IllegalStateException.class)
-  public void testPlayToGridWhenGameNotStarted() throws Exception {
+  public void testPlayToGridWhenGameNotStarted()  {
     model5x7.playToGrid(5, 2, 2);
   }
 
   //Throw exception when handIdx is larger than the size of player's hand size.
   @Test(expected = IllegalArgumentException.class)
-  public void testPlayToGridHandOutBound() throws Exception {
+  public void testPlayToGridHandOutBound()  {
     model5x7.startGame();
     model5x7.playToGrid(0, 0, 20);
   }
 
   //Throw exception when playing to a cell that is out of bound.
   @Test(expected = IllegalArgumentException.class)
-  public void testPlayToGridCoordinateOutBound() throws Exception {
+  public void testPlayToGridCoordinateOutBound()  {
     model5x7.startGame();
     model5x7.playToGrid(-5, 5, 3);
   }
 
   //Throw exception when playToGrid to a Hole cell
   @Test(expected = IllegalStateException.class)
-  public void testPlayToGridToHoleCell() throws Exception {
+  public void testPlayToGridToHoleCell()  {
     model5x7.startGame();
     model5x7.playToGrid(0, 2, 3);
   }
 
   //Throw exception when playToGrid to a cell that has a card already.
   @Test(expected = IllegalStateException.class)
-  public void testPlayToGridOnAnotherCard() throws Exception {
+  public void testPlayToGridOnAnotherCard()  {
     model5x7.startGame();
     model5x7.playToGrid(0, 0, 3);
     model5x7.playToGrid(0, 0, 5);
@@ -117,14 +120,14 @@ public abstract class AbstractThreeTriosModelTest {
   //----------battleCards-------------
   //Throw exception when do battleCards when the game has not started.
 //  @Test(expected = IllegalStateException.class)
-//  public void testBattleCardsWhenGameNotStarted() throws Exception {
+//  public void testBattleCardsWhenGameNotStarted()  {
 //    model5x7.battleCards(5, 2);
 //  }
 
   //-----------isGameOver-----------
   //Throw exception when do isGameOver when the game has not started.
   @Test(expected = IllegalStateException.class)
-  public void testIsGameOverWhenGameNotStarted() throws Exception {
+  public void testIsGameOverWhenGameNotStarted()  {
     model5x7.isGameOver();
   }
 
@@ -132,28 +135,28 @@ public abstract class AbstractThreeTriosModelTest {
 
   //Throw exception when the game is not over yet
   @Test(expected = IllegalStateException.class)
-  public void testGetWinnerWhenGameNotOver() throws Exception {
+  public void testGetWinnerWhenGameNotOver()  {
     model5x7.startGame();
     model5x7.getWinner();
   }
 
   //Throw exception when do getWinner when the game has not started.
   @Test(expected = IllegalStateException.class)
-  public void testGetWinnerWhenGameNotStarted() throws Exception {
+  public void testGetWinnerWhenGameNotStarted()  {
     model5x7.getWinner();
   }
 
   //--------------getCurrentPlayer--------
   //Throw exception when do getCurrentPlayer when the game has not started.
   @Test(expected = IllegalStateException.class)
-  public void testGetCurrentPlayerWhenGameNotStarted() throws Exception {
+  public void testGetCurrentPlayerWhenGameNotStarted()  {
     model5x7.getCurrentPlayer();
   }
 
   //--------------getGrid---------------
   //Throw exception when do getGrid when the game has not started.
   @Test(expected = IllegalStateException.class)
-  public void testGetGridWhenGameNotStarted() throws Exception {
+  public void testGetGridWhenGameNotStarted()  {
     model5x7.getGrid();
   }
 
@@ -163,7 +166,7 @@ public abstract class AbstractThreeTriosModelTest {
   //---------startGame---------------
 //Test if we can startGame successfully.
   @Test
-  public void testStartGameSuccessfully() throws Exception {
+  public void testStartGameSuccessfully()  {
     model3x3.startGame();
 
     List<List<GridCell>> expectedGrid = new ArrayList<>();
@@ -199,7 +202,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // playToGrid on a CardCell without any battles
   @Test
-  public void testPlayToGridOnEmptyCardCell() throws Exception {
+  public void testPlayToGridOnEmptyCardCell()  {
     model3x3.startGame();
     model3x3.playToGrid(0, 0, 2);
     ThreeTrioCard corruptKing = new ThreeTrioCard("CorruptKing", TeamColor.RED, THREE, ONE, ONE, TWO);
@@ -209,7 +212,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // playToGrid and trigger a color change on an adjacent card
   @Test
-  public void testPlayToGridChangeAdjacentColor() throws Exception {
+  public void testPlayToGridChangeAdjacentColor()  {
     model3x3.startGame();
     model3x3.playToGrid(0, 0, 0);
 
@@ -220,7 +223,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // playToGrid without changing the color of an adjacent card
   @Test
-  public void testPlayToGridNoAdjacentColorChange() throws Exception {
+  public void testPlayToGridNoAdjacentColorChange()  {
     model3x3.startGame();
     model3x3.playToGrid(0, 0, 0);
     System.out.println(model3x3.getCurrentPlayer().getHand());
@@ -232,7 +235,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // playToGrid with tie in value, ensuring no color change
   @Test
-  public void testPlayToGridTieNoColorChange() throws Exception {
+  public void testPlayToGridTieNoColorChange()  {
     model3x3.startGame();
     model3x3.playToGrid(0, 0, 1);
 
@@ -246,7 +249,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // playToGrid triggers a combo move.
   @Test
-  public void testPlayToGridChainReaction() throws Exception {
+  public void testPlayToGridChainReaction()  {
     model3x3.startGame();
 
     // Player 1 (Red)
@@ -268,7 +271,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // battleCards with no adjacent opponent cards.
   @Test
-  public void testBattleCardsNoAdjacentOpponents() throws Exception {
+  public void testBattleCardsNoAdjacentOpponents()  {
     model3x3.startGame();
 
     Card redCard = new ThreeTrioCard("HeroKnight", TeamColor.RED, SEVEN, FIVE, TWO, THREE);
@@ -281,7 +284,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // battleCards triggers a color change on a weaker adjacent card.
   @Test
-  public void testBattleCardsWeakerAdjacentOpponent() throws Exception {
+  public void testBattleCardsWeakerAdjacentOpponent()  {
     model3x3.startGame();
 
     Card redCard = new ThreeTrioCard("HeroKnight", TeamColor.RED, SEVEN, FIVE, TWO, THREE);
@@ -296,7 +299,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // battleCards does not change color on a stronger adjacent card.
   @Test
-  public void testBattleCardsStrongerAdjacentOpponent() throws Exception {
+  public void testBattleCardsStrongerAdjacentOpponent()  {
     model3x3.startGame();
 
     Card redCard = new ThreeTrioCard("HeroKnight", TeamColor.RED, THREE, FIVE, TWO, THREE);
@@ -312,7 +315,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // battleCards encounters a tie with an adjacent card.
   @Test
-  public void testBattleCardsTieWithAdjacentOpponent() throws Exception {
+  public void testBattleCardsTieWithAdjacentOpponent()  {
     model3x3.startGame();
 
     Card redCard = new ThreeTrioCard("HeroKnight", TeamColor.RED, FIVE, FIVE, FIVE, FIVE);
@@ -329,7 +332,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // battleCards triggers a chain reaction of color changes.
   @Test
-  public void testBattleCardsChainReaction() throws Exception {
+  public void testBattleCardsChainReaction()  {
     model3x3.startGame();
 
     Card redCard = new ThreeTrioCard("HeroKnight", TeamColor.RED, SEVEN, SEVEN, SEVEN, SEVEN);
@@ -351,7 +354,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // Test isGameOver when one player's hand is empty and all the cells are filled
   @Test
-  public void testIsGameOverWhenHandEmpty() throws Exception {
+  public void testIsGameOverWhenHandEmpty()  {
     model2x2SameValueOf1.startGame();
 
     model2x2SameValueOf1.playToGrid(0, 0, 0);
@@ -363,7 +366,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // Test isGameOver when the grid is full (no empty card cells left)
   @Test
-  public void testIsGameOverWhenGridIsFull() throws Exception {
+  public void testIsGameOverWhenGridIsFull()  {
     model2x2SameValueOf1Ver2.startGame();
 
     model2x2SameValueOf1Ver2.playToGrid(0, 0, 0);
@@ -373,7 +376,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // Test isGameOver when both players still have cards and there are empty cells
   @Test
-  public void testIsGameOverWhenMovesRemain() throws Exception {
+  public void testIsGameOverWhenMovesRemain()  {
     model5x7.startGame();
 
     model5x7.playToGrid(0, 0, 0);
@@ -385,7 +388,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // Test isGameOver after chain reaction but with remaining cards
   @Test
-  public void testIsGameOverAfterChainReactionWithMovesLeft() throws Exception {
+  public void testIsGameOverAfterChainReactionWithMovesLeft()  {
     model3x3.startGame();
 
     model3x3.playToGrid(2, 2, 0);
@@ -396,7 +399,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // Test isGameOver when it's a tie situation (both hands empty, grid full)
   @Test
-  public void testIsGameOverWhenPlayersTie() throws Exception {
+  public void testIsGameOverWhenPlayersTie()  {
     model3x3.startGame();
 
     // Player 1 (Red)
@@ -422,7 +425,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   //When there is a tie.
   @Test
-  public void testTie() throws Exception {
+  public void testTie()  {
     model3x3.startGame();
 
     // Player 1 (Red)
@@ -446,7 +449,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // When red wins.
   @Test
-  public void testRedWins() throws Exception {
+  public void testRedWins()  {
     model3x3.startGame();
 
     // Player 1 (Red)
@@ -479,7 +482,7 @@ public abstract class AbstractThreeTriosModelTest {
   //When all cells are marked as red player's cards
   // (a player wins with all cells fiiled with their color)
   @Test
-  public void testRedWinsAllCells() throws Exception {
+  public void testRedWinsAllCells()  {
     model3x3.startGame();
 
     // Player 1 (Red)
@@ -510,7 +513,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   //When blue player wins
   @Test
-  public void testBlueWins() throws Exception {
+  public void testBlueWins()  {
     model3x3.startGame();
     // Player 1 (Red)
     model3x3.playToGrid(1, 0, 0);
@@ -541,7 +544,7 @@ public abstract class AbstractThreeTriosModelTest {
   //--------------getCurrentPlayer--------
   // Test for getCurrentPlayer when red player is the current player
   @Test
-  public void testGetCurrentPlayerRed() throws Exception {
+  public void testGetCurrentPlayerRed()  {
     model3x3.startGame();
 
     Assert.assertEquals(TeamColor.RED, model3x3.getCurrentPlayer().getColor());
@@ -549,7 +552,7 @@ public abstract class AbstractThreeTriosModelTest {
 
   // Test for getCurrentPlayer when blue player is the current player
   @Test
-  public void testGetCurrentPlayerBlue() throws Exception {
+  public void testGetCurrentPlayerBlue()  {
     model3x3.startGame();
     model3x3.playToGrid(2, 2, 0);
 
@@ -559,7 +562,7 @@ public abstract class AbstractThreeTriosModelTest {
   //--------------getGrid---------------
   // Get a copy of the grid of the game.
   @Test
-  public void testGetGrid() throws Exception {
+  public void testGetGrid()  {
     model2x2.startGame();
 
     List<List<GridCell>> expectedGrid = new ArrayList<>();

@@ -7,10 +7,24 @@ import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 
+/**
+ * Implements the behaviors of ThreeTrioView. Responsible for transforming a read only model into
+ * a textual view representation.
+ */
 public class ThreeTrioTextView implements ThreeTrioView {
   private final ReadOnlyThreeTriosModel model;
 
+  /**
+   * Constructs ThreeTrioView in terms of the given ReadOnlyThreeTriosModel, so the view
+   * does not have access to model operations.
+   *
+   * @param model read only model
+   * @throws IllegalArgumentException if model is null
+   */
   public ThreeTrioTextView(ReadOnlyThreeTriosModel model) {
+    if (model == null) {
+      throw new IllegalArgumentException("model cannot be null");
+    }
     this.model = model;
   }
 

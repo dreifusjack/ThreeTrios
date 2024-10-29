@@ -1,19 +1,29 @@
 package cs3500.threetrios;
 
+import org.junit.Test;
+
 import java.util.Random;
 
-import cs3500.threetrios.model.BasicThreeTrioModel;
+import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.view.ThreeTrioTextView;
 
+/**
+ * Testing class for test cases specific to ThreeTriosTextView.
+ */
 public class ThreeTrioTextViewTest extends AbstractThreeTrioViewTest {
+  @Test(expected = IllegalArgumentException.class)
+  public void testNullModel() {
+    new ThreeTrioTextView(null);
+  }
 
   @Override
   protected ThreeTriosModel createModel(String gridFileName, String cardFileName) {
-    return new BasicThreeTrioModel(gridFileName, cardFileName);
+    return new BasicThreeTriosModel(gridFileName, cardFileName);
   }
 
   @Override
   protected ThreeTriosModel createModelWithRandom(String gridFileName, String cardFileName, Random random) {
-    return new BasicThreeTrioModel(gridFileName, cardFileName, random);
+    return new BasicThreeTriosModel(gridFileName, cardFileName, random);
   }
 }

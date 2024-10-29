@@ -11,6 +11,9 @@ import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.view.ThreeTrioTextView;
 import cs3500.threetrios.view.ThreeTrioView;
 
+/**
+ * Responsible for testing the behaviors of the ThreeTrioView interface.
+ */
 public abstract class AbstractThreeTrioViewTest {
 
   protected abstract ThreeTriosModel createModel(String gridFileName, String cardFileName);
@@ -59,7 +62,7 @@ public abstract class AbstractThreeTrioViewTest {
 
   @Test
   //Test view to show the normal of the game (starting state)
-  public void testViewNormalState() throws Exception {
+  public void testViewNormalState() {
     model3x3.startGame();
     ThreeTrioView view = new ThreeTrioTextView(model3x3);
 
@@ -79,7 +82,7 @@ public abstract class AbstractThreeTrioViewTest {
 
   @Test
   //Test view to show the change of the stage after playToGrid
-  public void testViewAfterPlayToGrid() throws Exception {
+  public void testViewAfterPlayToGrid() {
     model3x3.startGame();
     model3x3.playToGrid(2, 2, 0);
     ThreeTrioView view = new ThreeTrioTextView(model3x3);
@@ -100,7 +103,7 @@ public abstract class AbstractThreeTrioViewTest {
 
   //Test view to show a standard gameplay and win
   @Test
-  public void testViewPlayAndWin() throws Exception {
+  public void testViewPlayAndWin() {
     model3x3.startGame();
     // Player 1 (Red)
     model3x3.playToGrid(1, 0, 0);
@@ -131,7 +134,7 @@ public abstract class AbstractThreeTrioViewTest {
 
   //Test view to show a standard gameplay and tie
   @Test
-  public void testViewPlayAndThenTie() throws Exception {
+  public void testViewPlayAndThenTie() {
     model3x3.startGame();
     // Player 1 (Red)
     model3x3.playToGrid(0, 0, 0);
@@ -158,5 +161,4 @@ public abstract class AbstractThreeTrioViewTest {
 
     Assert.assertEquals(expectedView, view.toString());
   }
-
 }

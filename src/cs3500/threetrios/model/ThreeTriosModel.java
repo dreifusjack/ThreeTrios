@@ -23,7 +23,7 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
    * @throws IllegalArgumentException if the number of playing cards is not enough
    *                                  to fill each players hand and all card cells on the grid
    */
-  public void startGame() throws Exception;
+  public void startGame();
 
   /**
    * The player whose turn it is plays a card from their hand at the given hand index
