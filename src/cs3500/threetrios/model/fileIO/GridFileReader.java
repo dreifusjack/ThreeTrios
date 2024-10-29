@@ -11,6 +11,9 @@ import cs3500.threetrios.model.CardCell;
 import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.Hole;
 
+/**
+ *
+ */
 public class GridFileReader implements GridReader {
   private final Scanner fileScan;
   private final List<Integer> gridCords; // first int is row second int is col
