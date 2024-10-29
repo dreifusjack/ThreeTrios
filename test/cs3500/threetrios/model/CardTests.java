@@ -7,6 +7,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests the functionality of the Card interface and CardValue enum within the model.
+ */
 public class CardTests {
   private Card king;
   private Card dragon;
