@@ -51,4 +51,11 @@ classes that are used within the model, leading to a more modular design.
 * tests for public interfaces (model, view) in cs3500.threetrios, testing the properties of client used interfaces. 
 * tests for model package-private implementations within a new model package in cs3500.threetrios package
 
-
+## Class Invariant
+**playerTurn is one of redPlayer or bluePlayer**
+* This is a logical statment, true or false.
+* This can always be checked in real-time: simply check if playerTurn is either redPlayer or bluePlayer
+* Ensured by the constructor by initializing playerTurn to redPlayer (since Red team always goes first)
+* Preserved by the methods because the only method that re-assignes playerTurn is playToGrid. In this method we re-assign playerTurn with the following logic. 
+If the player has successfully played to grid, the battle phase is complete, and the game is not over "playerTurn = playerTurn == redPlayer ? bluePlayer : redPlayer;". 
+This condition only allows playerTurn to be assigned to redPlayer or bluePlayer, it effectively toggles between the players after each move. 

@@ -15,12 +15,13 @@ import cs3500.threetrios.model.fileIO.GridFileReader;
  */
 public class BasicThreeTrioModel implements ThreeTriosModel {
   private GridCell[][] grid;
-  private Player playerTurn;
+  //CLASS INVARIANT: playerTurn is one of redPlayer or bluePlayer (more details in README)
   private final Player redPlayer;
+  private Player playerTurn;
   private final Player bluePlayer;
   private final GridFileReader gridFileReader;
   private final CardFileReader cardFileReader;
-  private Random random;
+  private final Random random;
 
   /**
    * Constructs a BasicThreeTrioModel in terms of the names of the grid file and card file

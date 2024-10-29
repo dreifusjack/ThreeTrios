@@ -30,9 +30,9 @@ public class ThreeTrioTextView implements ThreeTrioView {
     sb.append("Hand:\n");
 
     Player currentPlayer = model.getCurrentPlayer();
-    for (Card card : currentPlayer.getHand()) {
+  /*  for (Card card : currentPlayer.getHand()) {
       sb.append(card.toString()).append("\n");
-    }
+    }*/
 
     return sb.toString();
   }

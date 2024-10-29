@@ -61,5 +61,6 @@ public class ThreeTriosPlayer implements Player {
   @Override
   public String toString() {
     return "Player: " + this.team;
+    // add cards to this toString
   }
 }
