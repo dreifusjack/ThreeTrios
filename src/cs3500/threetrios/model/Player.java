@@ -44,6 +44,7 @@ public interface Player {
 
   /**
    * Return the TeamColor of a Player.
+   *
    * @return a TeamColor.
    */
   public TeamColor getColor();

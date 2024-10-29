@@ -3,11 +3,24 @@ package cs3500.threetrios.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of the behaviors of the player interface. A Player has a team
+ * and a list of cards representing its playing hand.
+ */
 public class ThreeTriosPlayer implements Player {
   private final List<Card> hand;
   private final TeamColor team;
 
+  /**
+   * Constructs a ThreeTriosPlayer in terms of its team. Playing hand is initialized to empty.
+   *
+   * @param team red or blue
+   * @throws IllegalArgumentException if team is null
+   */
   public ThreeTriosPlayer(TeamColor team) {
+    if (team == null) {
+      throw new IllegalArgumentException("Team color cannot be null");
+    }
     this.team = team;
     hand = new ArrayList<>();
   }
@@ -47,6 +60,6 @@ public class ThreeTriosPlayer implements Player {
 
   @Override
   public String toString() {
-    return "Player: " + this.team.toString();
+    return "Player: " + this.team;
   }
 }
