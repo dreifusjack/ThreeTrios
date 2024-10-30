@@ -74,9 +74,9 @@ public class PlayerTests {
 
   @Test
   public void testToString() {
-    String expected = "Player: BLUE";
+    String expected = "Player: BLUE\n";
     assertEquals(expected, blue.toString());
-    String expected2 = "Player: RED";
+    String expected2 = "Player: RED\n";
     assertEquals(expected2, red.toString());
   }
 }

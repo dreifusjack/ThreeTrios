@@ -11,8 +11,8 @@ import java.util.Random;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.CardCell;
-import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.Hole;
+import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTrioCard;
 import cs3500.threetrios.model.ThreeTriosModel;
@@ -169,9 +169,9 @@ public abstract class AbstractThreeTriosModelTest {
   public void testStartGameSuccessfully()  {
     model3x3.startGame();
 
-    List<List<GridCell>> expectedGrid = new ArrayList<>();
+    List<List<ReadOnlyGridCell>> expectedGrid = new ArrayList<>();
     for (int i = 0; i < 2; i++) {
-      List<GridCell> row = new ArrayList<>();
+      List<ReadOnlyGridCell> row = new ArrayList<>();
       for (int j = 0; j < 2; j++) {
         row.add(new CardCell());
       }
@@ -179,11 +179,11 @@ public abstract class AbstractThreeTriosModelTest {
     }
 
     // compare each cell in the grid individually
-    List<List<GridCell>> actualGrid = model3x3.getGrid();
+    List<List<ReadOnlyGridCell>> actualGrid = model3x3.getGrid();
     for (int row = 0; row < expectedGrid.size(); row++) {
       for (int col = 0; col < expectedGrid.get(row).size(); col++) {
-        GridCell expectedCell = expectedGrid.get(row).get(col);
-        GridCell actualCell = actualGrid.get(row).get(col);
+        ReadOnlyGridCell expectedCell = expectedGrid.get(row).get(col);
+        ReadOnlyGridCell actualCell = actualGrid.get(row).get(col);
         Assert.assertEquals(expectedCell.getClass(), actualCell.getClass());
       }
     }
@@ -197,6 +197,7 @@ public abstract class AbstractThreeTriosModelTest {
     Assert.assertEquals(expectedRedHand, model3x3.getCurrentPlayer().getHand());
   }
 
+
 //--------playToGrid--------------
 
 
@@ -207,7 +208,7 @@ public abstract class AbstractThreeTriosModelTest {
     model3x3.playToGrid(0, 0, 2);
     ThreeTrioCard corruptKing = new ThreeTrioCard("CorruptKing", TeamColor.RED, THREE, ONE, ONE, TWO);
 
-    Assert.assertEquals(corruptKing, model3x3.getGrid().get(0).get(0).getCard());
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString());
   }
 
   // playToGrid and trigger a color change on an adjacent card
@@ -218,7 +219,7 @@ public abstract class AbstractThreeTriosModelTest {
 
     model3x3.playToGrid(0, 1, 1);
 
-    Assert.assertEquals(TeamColor.BLUE, model3x3.getGrid().get(0).get(0).getCard().getColor()); // A > 1
+    Assert.assertEquals("B", model3x3.getGrid().get(0).get(0).toString()); // A > 1
   }
 
   // playToGrid without changing the color of an adjacent card
@@ -230,7 +231,7 @@ public abstract class AbstractThreeTriosModelTest {
 
     model3x3.playToGrid(0, 1, 0);
 
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(0).get(0).getCard().getColor()); // 2 is not larger than 5
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString()); // 2 is not larger than 5
   }
 
   // playToGrid with tie in value, ensuring no color change
@@ -239,10 +240,9 @@ public abstract class AbstractThreeTriosModelTest {
     model3x3.startGame();
     model3x3.playToGrid(0, 0, 1);
 
-    System.out.println(model3x3.getCurrentPlayer().getHand().get(0));
-//    model3x3.playToGrid(0, 1, 1);
+    model3x3.playToGrid(0, 1, 0);
 
-//    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(0).get(0).getCard().getColor());
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString());
     // 4 is not larger than 4
 
   }
@@ -260,10 +260,10 @@ public abstract class AbstractThreeTriosModelTest {
     model3x3.playToGrid(0, 1, 0);
     // Player 2 (Blue)
     model3x3.playToGrid(1, 0, 1);
-    List<List<GridCell>> grid = model3x3.getGrid();
+    List<List<ReadOnlyGridCell>> grid = model3x3.getGrid();
 
-    Assert.assertEquals(TeamColor.BLUE, grid.get(0).get(0).getCard().getColor()); // Was Red
-    Assert.assertEquals(TeamColor.BLUE, grid.get(0).get(1).getCard().getColor()); // Was Red
+    Assert.assertEquals("B", grid.get(0).get(0).toString()); // Was Red
+    Assert.assertEquals("B", grid.get(0).get(1).toString()); // Was Red
   }
 
 
@@ -274,12 +274,11 @@ public abstract class AbstractThreeTriosModelTest {
   public void testBattleCardsNoAdjacentOpponents()  {
     model3x3.startGame();
 
-    Card redCard = new ThreeTrioCard("HeroKnight", TeamColor.RED, SEVEN, FIVE, TWO, THREE);
-    model3x3.getGrid().get(1).get(1).addCard(redCard);
+    model3x3.playToGrid(0, 0, 0);
 
-    model3x3.battleCards(1, 1);
+    model3x3.battleCards(0, 0);
 
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(1).get(1).getCard().getColor());
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString());
   }
 
   // battleCards triggers a color change on a weaker adjacent card.
@@ -287,14 +286,13 @@ public abstract class AbstractThreeTriosModelTest {
   public void testBattleCardsWeakerAdjacentOpponent()  {
     model3x3.startGame();
 
-    Card redCard = new ThreeTrioCard("HeroKnight", TeamColor.RED, SEVEN, FIVE, TWO, THREE);
-    Card blueCard = new ThreeTrioCard("ShadowBeast", TeamColor.BLUE, THREE, TWO, FIVE, A);
-    model3x3.getGrid().get(0).get(0).addCard(redCard);
-    model3x3.getGrid().get(0).get(1).addCard(blueCard);
 
-    model3x3.battleCards(0, 1);
+    model3x3.playToGrid(0, 0 ,0); //RED 1 6 5 1
+    model3x3.playToGrid(0, 1 ,3); //BLUE 3 2 1 1
 
-    Assert.assertEquals(TeamColor.BLUE, model3x3.getGrid().get(0).get(0).getCard().getColor());
+    model3x3.battleCards(0, 0);
+
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(1).toString());
   }
 
   // battleCards does not change color on a stronger adjacent card.
@@ -302,15 +300,13 @@ public abstract class AbstractThreeTriosModelTest {
   public void testBattleCardsStrongerAdjacentOpponent()  {
     model3x3.startGame();
 
-    Card redCard = new ThreeTrioCard("HeroKnight", TeamColor.RED, THREE, FIVE, TWO, THREE);
-    Card blueCard = new ThreeTrioCard("CorruptKing", TeamColor.BLUE, SEVEN, NINE, THREE, A);
-    model3x3.getGrid().get(1).get(1).addCard(redCard);
 
-    model3x3.getGrid().get(1).get(0).addCard(blueCard);
+    model3x3.playToGrid(0, 0 ,0); //RED 1 6 5 1
+    model3x3.playToGrid(0, 1 ,3); //BLUE 3 2 1 1
 
-    model3x3.battleCards(1, 1);
+    model3x3.battleCards(0, 1);
 
-    Assert.assertEquals(TeamColor.BLUE, model3x3.getGrid().get(1).get(0).getCard().getColor());
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString());
   }
 
   // battleCards encounters a tie with an adjacent card.
@@ -318,16 +314,16 @@ public abstract class AbstractThreeTriosModelTest {
   public void testBattleCardsTieWithAdjacentOpponent()  {
     model3x3.startGame();
 
-    Card redCard = new ThreeTrioCard("HeroKnight", TeamColor.RED, FIVE, FIVE, FIVE, FIVE);
-    Card blueCard = new ThreeTrioCard("ShadowBeast", TeamColor.BLUE, FIVE, FIVE, FIVE, FIVE);
-    model3x3.getGrid().get(1).get(1).addCard(redCard);
 
-    model3x3.getGrid().get(1).get(0).addCard(blueCard);
+    model3x3.playToGrid(0, 0 ,1); //RED A 4 4 1
+    model3x3.playToGrid(0, 1 ,0); //BLUE 3 9 5 4
 
-    model3x3.battleCards(1, 1);
+    model3x3.battleCards(0, 0);
 
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(1).get(1).getCard().getColor());
-    Assert.assertEquals(TeamColor.BLUE, model3x3.getGrid().get(1).get(0).getCard().getColor());
+
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString());
+    Assert.assertEquals("B", model3x3.getGrid().get(0).get(1).toString());
+
   }
 
   // battleCards triggers a chain reaction of color changes.
@@ -335,22 +331,19 @@ public abstract class AbstractThreeTriosModelTest {
   public void testBattleCardsChainReaction()  {
     model3x3.startGame();
 
-    Card redCard = new ThreeTrioCard("HeroKnight", TeamColor.RED, SEVEN, SEVEN, SEVEN, SEVEN);
-    Card blueCard1 = new ThreeTrioCard("ShadowBeast", TeamColor.BLUE, THREE, THREE, THREE, THREE);
-    Card blueCard2 = new ThreeTrioCard("WindBird", TeamColor.BLUE, THREE, THREE, THREE, THREE);
-    model3x3.getGrid().get(1).get(1).addCard(redCard);
-    model3x3.getGrid().get(1).get(0).addCard(blueCard1);
-    model3x3.getGrid().get(0).get(1).addCard(blueCard2);
+    model3x3.playToGrid(2, 0 ,3); //RED 2 3 2 4
+    model3x3.playToGrid(0, 1 ,3); //BLUE 3 2 1 1
+    model3x3.playToGrid(1, 0 ,0); //RED 1 6 5 1
+    model3x3.playToGrid(1, 1 ,0); //BLUE 3 9 5 4
 
-    model3x3.battleCards(1, 1);
+    model3x3.battleCards(1, 0);
 
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(1).get(0).getCard().getColor());
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(0).get(1).getCard().getColor());
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(1).toString());
+    Assert.assertEquals("R", model3x3.getGrid().get(1).get(1).toString());
   }
 
 
 //-----------isGameOver--------------
-
 
   // Test isGameOver when one player's hand is empty and all the cells are filled
   @Test
@@ -467,13 +460,13 @@ public abstract class AbstractThreeTriosModelTest {
     // Player 1 (Red)
     model3x3.playToGrid(3, 1, 0);
 
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(0).get(0).getCard().getColor());
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(0).get(1).getCard().getColor());
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(1).get(0).getCard().getColor());
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(1).get(1).getCard().getColor());
-    Assert.assertEquals(TeamColor.BLUE, model3x3.getGrid().get(2).get(0).getCard().getColor());
-    Assert.assertEquals(TeamColor.BLUE, model3x3.getGrid().get(2).get(2).getCard().getColor());
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(3).get(1).getCard().getColor());
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString());
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(1).toString());
+    Assert.assertEquals("R", model3x3.getGrid().get(1).get(0).toString());
+    Assert.assertEquals("R", model3x3.getGrid().get(1).get(1).toString());
+    Assert.assertEquals("B", model3x3.getGrid().get(2).get(0).toString());
+    Assert.assertEquals("B", model3x3.getGrid().get(2).get(2).toString());
+    Assert.assertEquals("R", model3x3.getGrid().get(3).get(1).toString());
 
     Assert.assertEquals(true, model3x3.isGameOver());
     Assert.assertEquals(TeamColor.RED, model3x3.getWinner().getColor());
@@ -500,12 +493,12 @@ public abstract class AbstractThreeTriosModelTest {
     // Player 1 (Red)
     model3x3.playToGrid(0, 1, 0);
 
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(0).get(0).getCard().getColor());
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(0).get(1).getCard().getColor());
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(1).get(0).getCard().getColor());
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(1).get(1).getCard().getColor());
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(2).get(0).getCard().getColor());
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(2).get(2).getCard().getColor());
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString());
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(1).toString());
+    Assert.assertEquals("R", model3x3.getGrid().get(1).get(0).toString());
+    Assert.assertEquals("R", model3x3.getGrid().get(1).get(1).toString());
+    Assert.assertEquals("R", model3x3.getGrid().get(2).get(0).toString());
+    Assert.assertEquals("R", model3x3.getGrid().get(2).get(2).toString());
 
     Assert.assertEquals(true, model3x3.isGameOver());
     Assert.assertEquals(TeamColor.RED, model3x3.getWinner().getColor());
@@ -530,12 +523,12 @@ public abstract class AbstractThreeTriosModelTest {
     // Player 1 (Red)
     model3x3.playToGrid(3, 1, 0);
 
-    Assert.assertEquals(TeamColor.BLUE, model3x3.getGrid().get(0).get(0).getCard().getColor());
-    Assert.assertEquals(TeamColor.BLUE, model3x3.getGrid().get(0).get(1).getCard().getColor());
-    Assert.assertEquals(TeamColor.BLUE, model3x3.getGrid().get(1).get(0).getCard().getColor());
-    Assert.assertEquals(TeamColor.BLUE, model3x3.getGrid().get(1).get(1).getCard().getColor());
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(2).get(0).getCard().getColor());
-    Assert.assertEquals(TeamColor.RED, model3x3.getGrid().get(2).get(2).getCard().getColor());
+    Assert.assertEquals("B", model3x3.getGrid().get(0).get(0).toString());
+    Assert.assertEquals("B", model3x3.getGrid().get(0).get(1).toString());
+    Assert.assertEquals("B", model3x3.getGrid().get(1).get(0).toString());
+    Assert.assertEquals("B", model3x3.getGrid().get(1).get(1).toString());
+    Assert.assertEquals("R", model3x3.getGrid().get(2).get(0).toString());
+    Assert.assertEquals("R", model3x3.getGrid().get(2).get(2).toString());
 
     Assert.assertEquals(true, model3x3.isGameOver());
     Assert.assertEquals(TeamColor.BLUE, model3x3.getWinner().getColor());
@@ -565,11 +558,11 @@ public abstract class AbstractThreeTriosModelTest {
   public void testGetGrid()  {
     model2x2.startGame();
 
-    List<List<GridCell>> expectedGrid = new ArrayList<>();
+    List<List<ReadOnlyGridCell>> expectedGrid = new ArrayList<>();
     expectedGrid.add(Arrays.asList(new CardCell(), new Hole()));
     expectedGrid.add(Arrays.asList(new CardCell(), new CardCell()));
 
-    List<List<GridCell>> actualGrid = model2x2.getGrid();
+    List<List<ReadOnlyGridCell>> actualGrid = model2x2.getGrid();
     for (int row = 0; row < expectedGrid.size(); row++) {
       for (int col = 0; col < expectedGrid.get(row).size(); col++) {
         Assert.assertEquals(expectedGrid.get(row).get(col).getClass(), actualGrid.get(row).get(col).getClass());

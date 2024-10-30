@@ -1,4 +1,4 @@
-package cs3500.threetrios.model.fileIO;
+package cs3500.threetrios.model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,9 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-
-import cs3500.threetrios.model.Card;
-import cs3500.threetrios.model.ThreeTrioCard;
 
 /**
  * Responsible for reading card configuration files and saving data about the cards for the

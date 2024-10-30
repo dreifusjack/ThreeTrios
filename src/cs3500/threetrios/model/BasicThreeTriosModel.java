@@ -5,9 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import cs3500.threetrios.model.fileIO.CardFileReader;
-import cs3500.threetrios.model.fileIO.GridFileReader;
-
 /**
  * First variant model of Three Trio model implementation. Implementation of the behaviors
  * of the ThreeTriosModel interface.
@@ -190,17 +187,18 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   }
 
   @Override
-  public List<List<GridCell>> getGrid() {
+  public List<List<ReadOnlyGridCell>> getGrid() {
     isGameNotStarted();
-    List<List<GridCell>> gridCopy = new ArrayList<>();
+    List<List<ReadOnlyGridCell>> gridCopy = new ArrayList<>();
 
     for (GridCell[] gridCells : grid) {
-      List<GridCell> rowCopy = new ArrayList<>();
+      List<ReadOnlyGridCell> rowCopy = new ArrayList<>();
       Collections.addAll(rowCopy, gridCells);
       gridCopy.add(rowCopy);
     }
     return gridCopy;
   }
+
 
   /**
    * Deals the given number of cards to the given player's list of cards to play with.

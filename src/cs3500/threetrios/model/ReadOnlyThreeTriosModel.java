@@ -39,5 +39,5 @@ public interface ReadOnlyThreeTriosModel {
    * @return a 2D array list representing the current playing grid.
    * @throws IllegalStateException if the game has not started
    */
-  public List<List<GridCell>> getGrid();
+  public List<List<ReadOnlyGridCell>> getGrid();
 }

@@ -1,4 +1,4 @@
-package cs3500.threetrios.model.fileIO;
+package cs3500.threetrios.model;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs3500.threetrios.model.Card;
+import cs3500.threetrios.model.CardFileReader;
 import cs3500.threetrios.model.ThreeTrioCard;
 
 import static org.junit.Assert.assertEquals;

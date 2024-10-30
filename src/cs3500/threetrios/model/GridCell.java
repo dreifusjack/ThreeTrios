@@ -3,7 +3,7 @@ package cs3500.threetrios.model;
 /**
  * Representing a single cell in the grid of ThreeTrios game.
  */
-public interface GridCell {
+interface GridCell extends ReadOnlyGridCell{
   /**
    * Adds the given card to this GridCell.
    *
@@ -30,13 +30,4 @@ public interface GridCell {
    * @throws IllegalStateException if this cell is a hole.
    */
   public Card getCard();
-
-  /**
-   * Textual representation of this cell.
-   * Hole: ' '
-   * EmptyCardCell: '_'
-   * FilledCardCell: 'R' or 'B'
-   * @return string format of this cell
-   */
-  public String toString();
 }

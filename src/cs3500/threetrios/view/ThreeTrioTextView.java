@@ -2,8 +2,8 @@ package cs3500.threetrios.view;
 
 import java.util.List;
 
-import cs3500.threetrios.model.GridCell;
-import cs3500.threetrios.model.Player;
+import cs3500.threetrios.model.Card;
+import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 
 /**
@@ -31,22 +31,25 @@ public class ThreeTrioTextView implements ThreeTrioView {
   public String toString() {
     StringBuilder sb = new StringBuilder();
 
-    sb.append(model.getCurrentPlayer().toString()).append("\n");
+    // Append the current player's color
+    sb.append("Player: ").append(model.getCurrentPlayer().getColor()).append("\n");
 
-    List<List<GridCell>> grid = model.getGrid();
-    for (List<GridCell> row : grid) {
-      for (GridCell cell : row) {
+    // Append the grid
+    List<List<ReadOnlyGridCell>> grid = model.getGrid();
+    for (List<ReadOnlyGridCell> row : grid) {
+      for (ReadOnlyGridCell cell : row) {
         sb.append(cell.toString());
       }
       sb.append("\n");
     }
-    sb.append("Hand:\n");
 
-    Player currentPlayer = model.getCurrentPlayer();
-  /*  for (Card card : currentPlayer.getHand()) {
+    // Append the hand
+    sb.append("Hand:\n");
+    for (Card card : model.getCurrentPlayer().getHand()) {
       sb.append(card.toString()).append("\n");
-    }*/
+    }
 
     return sb.toString();
   }
+
 }

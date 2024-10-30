@@ -60,7 +60,13 @@ public class ThreeTriosPlayer implements Player {
 
   @Override
   public String toString() {
-    return "Player: " + this.team;
-    // add cards to this toString
+    StringBuilder sb = new StringBuilder();
+    sb.append("Player: ").append(team.toString()).append("\n");
+
+    for (Card card : hand) {
+      sb.append(card.toString()).append("\n");
+    }
+    return sb.toString();
   }
+
 }

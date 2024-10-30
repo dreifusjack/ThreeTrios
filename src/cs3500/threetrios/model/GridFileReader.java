@@ -1,14 +1,10 @@
-package cs3500.threetrios.model.fileIO;
+package cs3500.threetrios.model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import cs3500.threetrios.model.CardCell;
-import cs3500.threetrios.model.GridCell;
-import cs3500.threetrios.model.Hole;
 
 /**
  * Implements the behaviors of the GridReader. Reads from a grid configuration file

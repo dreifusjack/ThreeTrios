@@ -1,4 +1,4 @@
-package cs3500.threetrios.model.fileIO;
+package cs3500.threetrios.model;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +7,7 @@ import java.util.List;
 
 import cs3500.threetrios.model.CardCell;
 import cs3500.threetrios.model.GridCell;
+import cs3500.threetrios.model.GridFileReader;
 import cs3500.threetrios.model.Hole;
 
 import static org.junit.Assert.assertEquals;

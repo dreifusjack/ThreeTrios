@@ -1,8 +1,6 @@
-package cs3500.threetrios.model.fileIO;
+package cs3500.threetrios.model;
 
 import java.util.List;
-
-import cs3500.threetrios.model.GridCell;
 
 /**
  * Behaviors for a grid configuration reader. Responsible for reading from a grid configuration,
