@@ -18,7 +18,8 @@ public abstract class AbstractThreeTrioViewTest {
 
   protected abstract ThreeTriosModel createModel(String gridFileName, String cardFileName);
 
-  protected abstract ThreeTriosModel createModelWithRandom(String gridFileName, String cardFileName, Random random);
+  protected abstract ThreeTriosModel createModelWithRandom(String gridFileName,
+                                                           String cardFileName, Random random);
 
 
   protected ThreeTriosModel model5x7;
@@ -33,8 +34,6 @@ public abstract class AbstractThreeTrioViewTest {
 
   protected ThreeTriosModel model2x2SameValueOf1Ver2;
 
-  private ThreeTrioCard.CardValue ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, A;
-
   private Random rand1;
 
   @Before
@@ -44,20 +43,13 @@ public abstract class AbstractThreeTrioViewTest {
     model5x7 = createModelWithRandom("world1.txt", "card1.txt", rand1);
     model2x2 = createModelWithRandom("world2x2.txt", "cards2x2.txt", rand1);
     model3x3 = createModelWithRandom("world3x3.txt", "cards3x3.txt", rand1);
-    modelWithNotEnoughCards = createModelWithRandom("world3x3.txt", "3cardsonly.txt", rand1);
-    model2x2SameValueOf1 = createModelWithRandom("world2x2ver2.txt", "cardswithsamevalueof1.txt", rand1);
-    model2x2SameValueOf1Ver2 = createModelWithRandom("world2x2ver3.txt", "cardswithsamevalueof1.txt", rand1);
+    modelWithNotEnoughCards = createModelWithRandom("world3x3.txt",
+            "3cardsonly.txt", rand1);
+    model2x2SameValueOf1 = createModelWithRandom("world2x2ver2.txt",
+            "cardswithsamevalueof1.txt", rand1);
+    model2x2SameValueOf1Ver2 = createModelWithRandom("world2x2ver3.txt",
+            "cardswithsamevalueof1.txt", rand1);
 
-    ONE = ThreeTrioCard.CardValue.ONE;
-    TWO = ThreeTrioCard.CardValue.TWO;
-    THREE = ThreeTrioCard.CardValue.THREE;
-    FOUR = ThreeTrioCard.CardValue.FOUR;
-    FIVE = ThreeTrioCard.CardValue.FIVE;
-    SIX = ThreeTrioCard.CardValue.SIX;
-    SEVEN = ThreeTrioCard.CardValue.SEVEN;
-    EIGHT = ThreeTrioCard.CardValue.EIGHT;
-    NINE = ThreeTrioCard.CardValue.NINE;
-    A = ThreeTrioCard.CardValue.A;
   }
 
   @Test

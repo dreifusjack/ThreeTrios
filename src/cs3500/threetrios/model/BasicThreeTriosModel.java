@@ -9,6 +9,7 @@ import java.util.Random;
  * First variant model of Three Trio model implementation. Implementation of the behaviors
  * of the ThreeTriosModel interface.
  */
+
 public class BasicThreeTriosModel implements ThreeTriosModel {
   private GridCell[][] grid;
   //CLASS INVARIANT: playerTurn is one of redPlayer or bluePlayer (more details in README)
@@ -239,7 +240,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   /**
    * Iterates over the grid and adds placed cards to the corresponding given counter.
    */
-  private int[] countPlacedCards() { //// I fixed this one too as it messed up the return redCount and blueCount
+  private int[] countPlacedCards() {
     int redCount = 0;
     int blueCount = 0;
 

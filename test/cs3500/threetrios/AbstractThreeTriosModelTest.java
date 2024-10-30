@@ -23,7 +23,8 @@ import cs3500.threetrios.model.ThreeTriosModel;
 public abstract class AbstractThreeTriosModelTest {
   protected abstract ThreeTriosModel createModel(String gridFileName, String cardFileName);
 
-  protected abstract ThreeTriosModel createModelWithRandom(String gridFileName, String cardFileName, Random random);
+  protected abstract ThreeTriosModel createModelWithRandom(String gridFileName,
+                                                           String cardFileName, Random random);
 
   protected ThreeTriosModel model5x7;
 
@@ -37,8 +38,6 @@ public abstract class AbstractThreeTriosModelTest {
 
   protected ThreeTriosModel model2x2SameValueOf1Ver2;
 
-  private ThreeTrioCard.CardValue ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, A;
-
   private Random rand1;
 
   @Before
@@ -48,20 +47,13 @@ public abstract class AbstractThreeTriosModelTest {
     model5x7 = createModelWithRandom("world1.txt", "card1.txt", rand1);
     model2x2 = createModelWithRandom("world2x2.txt", "cards2x2.txt", rand1);
     model3x3 = createModelWithRandom("world3x3.txt", "cards3x3.txt", rand1);
-    modelWithNotEnoughCards = createModelWithRandom("world3x3.txt", "3cardsonly.txt", rand1);
-    model2x2SameValueOf1 = createModelWithRandom("world2x2ver2.txt", "cardswithsamevalueof1.txt", rand1);
-    model2x2SameValueOf1Ver2 = createModelWithRandom("world2x2ver3.txt", "cardswithsamevalueof1.txt", rand1);
+    modelWithNotEnoughCards = createModelWithRandom("world3x3.txt",
+            "3cardsonly.txt", rand1);
+    model2x2SameValueOf1 = createModelWithRandom("world2x2ver2.txt",
+            "cardswithsamevalueof1.txt", rand1);
+    model2x2SameValueOf1Ver2 = createModelWithRandom("world2x2ver3.txt",
+            "cardswithsamevalueof1.txt", rand1);
 
-    ONE = ThreeTrioCard.CardValue.ONE;
-    TWO = ThreeTrioCard.CardValue.TWO;
-    THREE = ThreeTrioCard.CardValue.THREE;
-    FOUR = ThreeTrioCard.CardValue.FOUR;
-    FIVE = ThreeTrioCard.CardValue.FIVE;
-    SIX = ThreeTrioCard.CardValue.SIX;
-    SEVEN = ThreeTrioCard.CardValue.SEVEN;
-    EIGHT = ThreeTrioCard.CardValue.EIGHT;
-    NINE = ThreeTrioCard.CardValue.NINE;
-    A = ThreeTrioCard.CardValue.A;
 
   }
 
@@ -190,10 +182,18 @@ public abstract class AbstractThreeTriosModelTest {
 
     // check the hands of the red player
     List<Card> expectedRedHand = Arrays.asList(
-            new ThreeTrioCard("WorldDragon", TeamColor.RED, ONE, FIVE, SIX, ONE),
-            new ThreeTrioCard("HeroKnight", TeamColor.RED, A, FOUR, FOUR, ONE),
-            new ThreeTrioCard("CorruptKing", TeamColor.RED, THREE, ONE, ONE, TWO),
-            new ThreeTrioCard("FirePhoenix", TeamColor.RED, TWO, FOUR, THREE, TWO));
+            new ThreeTrioCard("WorldDragon", TeamColor.RED, ThreeTrioCard.CardValue.ONE,
+                    ThreeTrioCard.CardValue.FIVE, ThreeTrioCard.CardValue.SIX,
+                    ThreeTrioCard.CardValue.ONE),
+            new ThreeTrioCard("HeroKnight", TeamColor.RED, ThreeTrioCard.CardValue.A,
+                    ThreeTrioCard.CardValue.FOUR,
+                    ThreeTrioCard.CardValue.FOUR, ThreeTrioCard.CardValue.ONE),
+            new ThreeTrioCard("CorruptKing", TeamColor.RED, ThreeTrioCard.CardValue.THREE,
+                    ThreeTrioCard.CardValue.ONE, ThreeTrioCard.CardValue.ONE,
+                    ThreeTrioCard.CardValue.TWO),
+            new ThreeTrioCard("FirePhoenix", TeamColor.RED,
+                    ThreeTrioCard.CardValue.TWO, ThreeTrioCard.CardValue.FOUR,
+                    ThreeTrioCard.CardValue.THREE, ThreeTrioCard.CardValue.TWO));
     Assert.assertEquals(expectedRedHand, model3x3.getCurrentPlayer().getHand());
   }
 
@@ -206,7 +206,9 @@ public abstract class AbstractThreeTriosModelTest {
   public void testPlayToGridOnEmptyCardCell()  {
     model3x3.startGame();
     model3x3.playToGrid(0, 0, 2);
-    ThreeTrioCard corruptKing = new ThreeTrioCard("CorruptKing", TeamColor.RED, THREE, ONE, ONE, TWO);
+    ThreeTrioCard corruptKing = new ThreeTrioCard("CorruptKing", TeamColor.RED,
+            ThreeTrioCard.CardValue.THREE, ThreeTrioCard.CardValue.ONE,
+            ThreeTrioCard.CardValue.ONE, ThreeTrioCard.CardValue.TWO);
 
     Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString());
   }
@@ -231,7 +233,8 @@ public abstract class AbstractThreeTriosModelTest {
 
     model3x3.playToGrid(0, 1, 0);
 
-    Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString()); // 2 is not larger than 5
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString());
+    // 2 is not larger than 5
   }
 
   // playToGrid with tie in value, ensuring no color change
@@ -565,7 +568,8 @@ public abstract class AbstractThreeTriosModelTest {
     List<List<ReadOnlyGridCell>> actualGrid = model2x2.getGrid();
     for (int row = 0; row < expectedGrid.size(); row++) {
       for (int col = 0; col < expectedGrid.get(row).size(); col++) {
-        Assert.assertEquals(expectedGrid.get(row).get(col).getClass(), actualGrid.get(row).get(col).getClass());
+        Assert.assertEquals(expectedGrid.get(row).get(col).getClass(),
+                actualGrid.get(row).get(col).getClass());
       }
     }
   }

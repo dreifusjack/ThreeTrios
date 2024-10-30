@@ -174,16 +174,21 @@ public class ThreeTrioCard implements Card {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null || getClass() != obj.getClass()) return false;
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
     ThreeTrioCard card = (ThreeTrioCard) obj;
-    return name.equals(card.name) &&
-            color == card.color &&
-            north == card.north &&
-            east == card.east &&
-            south == card.south &&
-            west == card.west;
+    return name.equals(card.name)
+            && color == card.color
+            && north == card.north
+            && east == card.east
+            && south == card.south
+            && west == card.west;
   }
+
   @Override
   public int hashCode() {
     return Objects.hash(name, color, north, east, south, west);

@@ -11,7 +11,7 @@ package cs3500.threetrios.model;
  * The goal of the game is to have the most amount of cards after one player
  * has played all of their cards to the grid.
  */
- public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
+public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
   /**
    * Initialize the grid to specified size and cells filling the grid by the user created grid file
    * this model will read from. Deals cards to each player using information by the user created
