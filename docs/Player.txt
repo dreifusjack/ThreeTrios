@@ -1,0 +1,36 @@
+This file is a design document of our plan of implementing both human-players and AI-players.
+
+Player interface:
+    Our interface will have the following methods: gameSetup, playMove, exitGame.
+    gameSetup: we will have a list of game configurations that the player can choose from.
+They will pass in some index, which chooses a configuration for the game and constructs the model
+as well as called model.startGame.
+    playMove: this will take a row and column and call model.playToGrid with those parameters. Assuming
+we have created the opposing player in this players constructor (which will always be AI per the instructions)
+call opposingPlayer.playToGrid the row in column parameters do no matter because the AI player
+ignores its input and randomly will play a valid move.
+    exitGame: will force quit out of the program.
+
+HumanPlayer class implements Player:
+    Constructor: creates a new instance of model, and new instance of AIPlayer
+and saves those as fields (model and opposingPlayer).
+    gameSetup: initializes the model as specified.
+    playMove: takes user input (human), will be implemented in a helper, and plays to the models
+grid with that input then calls their opposing AIPlayer(field).playMove().This pattern will continue
+until the game ends, or the program has been exited.
+    exitGame: closes the program.
+
+AIPlayer class implements Player:
+    Constructor: takes as parameter opposing player, sets opposing player to a field,
+creates a new instance of model, creates a random object and saves those as fields (model, rand, opposingPlayer).
+    gameSetup: randomly picks index for model configurations and initializes the model.
+    playMove: randomly picks valid row and column index and plays to the models grid with that input
+then calls their opposingPlayer.playMove(). This pattern will continue until the game ends,
+regardless if the AIPlayer is playing a human or another AIPlayer.
+    exitGame: does not do anything AIPlayers do not quit.
+
+
+Overall, both player-types will take a model to operate on (play the game) but the human player
+require inputs, whereas the AI player uses randomness. The pattern of the game will alternate
+between this player and this player's opposingPlayer back and forth until the game ends, or
+the game is exited.

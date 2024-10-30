@@ -22,7 +22,7 @@ that encapulates a flexible implementation while still having meaning an intent.
 * ```Run Main file```
 
 
-## High-level Components come back to! 
+## High-level Components
 **1 Model:**
 * The model contains the game logic, grid setup, player actions (playToGrid), turn switching, and battle cards logic.
 * It includes configuration file support, reading the initial board and card setups from external files via file readers
@@ -37,7 +37,7 @@ that encapulates a flexible implementation while still having meaning an intent.
 * Handles file reading and parsing of configuration files to set up the initial grid and card information.
 * It provides the model with structured data from external files, making it possible to reconfigure / allow the player to play.
 
-## Key Subcomponents come back to!
+## Key Subcomponents
 
 **1 Player:**
 
@@ -71,6 +71,7 @@ that encapulates a flexible implementation while still having meaning an intent.
 
 **docs:** 
 * README user documentation file with docs. 
+* Player.txt includes our design approach to human and AI player interations with the model. 
 * card-configurations sub-directory within docs. This sub-directory holds all card configuration files for our 
 model to use in setting up the player cards for the Blue and Red players. 
 * grid-configurations sub-directory within docs. This sub-directory hold all grid configuration files 
@@ -79,9 +80,9 @@ for our model to use in setting up the playing board for the players to play car
 **src:** 
 * all implementations are in the cs3500.threetrios package within the src directory. 
 * Main file is used for quick testing of model and view interacts, does not affect any implementation or reduce any unit testing. 
-* model package within cs3500.threetrios includes public interface describing the behaviors of the model, as well as a basic implementation of that interface. The rest of the files are package-private 
-classes that are used within the model, leading to a more modular design. 
-* fileIO package within model package, handles logic of reading from configuration files and passing that data to the model. 
+* model package within cs3500.threetrios includes public interface describing the behaviors of the model
+* model package additionally contains objects that the model uses (Player, Card, etc.), these objects have both classes and interfaces. Allowing an extendable design to replace the implementations while still using the interfaces. 
+* model package also contains file readers both for card configs and grid confgis with seperate classes and interfaces. Allowing this grid file readers with new implementations to be extendable in the future.
 * view package within cs3500.threetrios includes public interface describing the current behaviors of the view, as well as a basic implementation of that interface. 
 
 **test:** 
