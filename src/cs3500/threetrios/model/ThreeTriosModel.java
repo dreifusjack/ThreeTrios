@@ -23,7 +23,7 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
    * @throws IllegalArgumentException if the number of playing cards is not enough
    *                                  to fill each players hand and all card cells on the grid
    */
-   void startGame();
+  void startGame();
 
   /**
    * The player whose turn it is plays a card from their hand at the given hand index
@@ -42,7 +42,7 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
    *                                  to the number of columns in the grid.
    * @throws IllegalStateException    if the specified coordinate already has a card or is a hole.
    */
-   void playToGrid(int row, int col, int handIdx);
+  void playToGrid(int row, int col, int handIdx);
 
   /**
    * Battles the given card with all adjacent cards opposing cards, if any adjacent cards are
@@ -59,5 +59,5 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
    *                                  to the number of columns in the grid.
    * @throws IllegalStateException    if the specified coordinate does not have a card or is a hole.
    */
-   void battleCards(int row, int col);
+  void battleCards(int row, int col);
 }

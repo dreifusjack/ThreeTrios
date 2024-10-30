@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import cs3500.threetrios.model.ThreeTrioCard;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.view.ThreeTrioTextView;
 import cs3500.threetrios.view.ThreeTrioView;
@@ -34,11 +33,9 @@ public abstract class AbstractThreeTrioViewTest {
 
   protected ThreeTriosModel model2x2SameValueOf1Ver2;
 
-  private Random rand1;
-
   @Before
   public void setUp() {
-    rand1 = new Random(2);
+    Random rand1 = new Random(2);
 
     model5x7 = createModelWithRandom("world1.txt", "card1.txt", rand1);
     model2x2 = createModelWithRandom("world2x2.txt", "cards2x2.txt", rand1);
