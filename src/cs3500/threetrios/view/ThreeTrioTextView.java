@@ -32,7 +32,8 @@ public class ThreeTrioTextView implements ThreeTrioView {
     StringBuilder sb = new StringBuilder();
 
     // Append the current player's color
-    sb.append("Player: ").append(model.getCurrentPlayer().getColor()).append("\n");
+    String[] playerString = model.getCurrentPlayer().toString().split("\n");
+    sb.append(playerString[0]).append("\n");
 
     // Append the grid
     List<List<ReadOnlyGridCell>> grid = model.getGrid();
@@ -43,10 +44,10 @@ public class ThreeTrioTextView implements ThreeTrioView {
       sb.append("\n");
     }
 
-    // Append the hand
-    sb.append("Hand:\n");
-    for (Card card : model.getCurrentPlayer().getHand()) {
-      sb.append(card.toString()).append("\n");
+    // Append the current players hand
+    sb.append("Hand:").append("\n");
+    for (int index = 1; index < playerString.length; index++) {
+      sb.append(playerString[index]).append("\n");
     }
 
     return sb.toString();

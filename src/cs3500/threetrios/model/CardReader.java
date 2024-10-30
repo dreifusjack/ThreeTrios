@@ -20,7 +20,7 @@ public interface CardReader {
    *                                  ASSUME: CardValue enum @throws IllegalArgument if card
    *                                  config writes and invalid CardValue
    */
-  public void readFile();
+  void readFile();
 
   /**
    * Returns a copy of this CardReader's saved cards after reading from their file. Mutating this
@@ -28,5 +28,5 @@ public interface CardReader {
    *
    * @return list of cards representing the card configuration
    */
-  public List<Card> getCards();
+  List<Card> getCards();
 }

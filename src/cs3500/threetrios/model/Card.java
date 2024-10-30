@@ -9,7 +9,7 @@ public interface Card {
    *
    * @return string format of this card
    */
-  public String toString();
+  String toString();
 
   /**
    * Compares this card with the given card based of the given direction. E.g. if direction is
@@ -20,25 +20,25 @@ public interface Card {
    * @return true iff this card is higher the given card in terms of the direction
    * @throws IllegalArgumentException if either parameter is null
    */
-  public boolean compare(Card other, Direction direction);
+  boolean compare(Card other, Direction direction);
 
   /**
    * Return the TeamColor of this Card.
    *
    * @return the TeamColor of this Card
    */
-  public TeamColor getColor();
+  TeamColor getColor();
 
   /**
    * Changes the TeamColor of this Card. If this card was on red team and toggleColor is called,
    * the card is now on blue team.
    */
-  public void toggleColor();
+  void toggleColor();
 
   /**
    * Sets the color of this card.
    *
    * @param color color to update this cards field with
    */
-  public void setColor(TeamColor color);
+  void setColor(TeamColor color);
 }

@@ -3,7 +3,8 @@ package cs3500.threetrios.model;
 import java.util.List;
 
 /**
- * All observation behaviors of the Three Trios Model.
+ * All observation behaviors of the Three Trios Model. These behaviors are to be used
+ * in the view, so it has no access to the models operations (internal state).
  */
 public interface ReadOnlyThreeTriosModel {
   /**
@@ -33,8 +34,8 @@ public interface ReadOnlyThreeTriosModel {
   public Player getCurrentPlayer();
 
   /**
-   * Returns a copy of the grid. Modifying this grid will have no effect on the game
-   * state.
+   * Returns a state of the Grid that is read only for the user to view the current state of the
+   * grid.
    *
    * @return a 2D array list representing the current playing grid.
    * @throws IllegalStateException if the game has not started

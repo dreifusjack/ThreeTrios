@@ -11,7 +11,7 @@ package cs3500.threetrios.model;
  * The goal of the game is to have the most amount of cards after one player
  * has played all of their cards to the grid.
  */
-public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
+ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
   /**
    * Initialize the grid to specified size and cells filling the grid by the user created grid file
    * this model will read from. Deals cards to each player using information by the user created
@@ -23,7 +23,7 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
    * @throws IllegalArgumentException if the number of playing cards is not enough
    *                                  to fill each players hand and all card cells on the grid
    */
-  public void startGame();
+   void startGame();
 
   /**
    * The player whose turn it is plays a card from their hand at the given hand index
@@ -42,7 +42,7 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
    *                                  to the number of columns in the grid.
    * @throws IllegalStateException    if the specified coordinate already has a card or is a hole.
    */
-  public void playToGrid(int row, int col, int handIdx);
+   void playToGrid(int row, int col, int handIdx);
 
   /**
    * Battles the given card with all adjacent cards opposing cards, if any adjacent cards are
@@ -59,5 +59,5 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
    *                                  to the number of columns in the grid.
    * @throws IllegalStateException    if the specified coordinate does not have a card or is a hole.
    */
-  public void battleCards(int row, int col);
+   void battleCards(int row, int col);
 }
