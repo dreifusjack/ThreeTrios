@@ -335,6 +335,27 @@ public abstract class AbstractThreeTriosModelTest {
     Assert.assertEquals("R", model3x3.getGrid().get(1).get(1).toString());
   }
 
+  // battleCards trigger a chain reaction of color changes and ends and the reaction
+  // ends when there is a card that is higher in value
+
+  @Test
+  public void testBattleCardsChainReactionSpecial() {
+    model3x3.startGame();
+
+    model3x3.playToGrid(0, 0, 2);
+    model3x3.playToGrid(1, 1, 1);
+    model3x3.playToGrid(1, 0, 0);
+    model3x3.playToGrid(2, 2, 0);
+    model3x3.playToGrid(2, 0, 1);
+    model3x3.battleCards(1, 1);
+
+    Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString()); // Still red
+    Assert.assertEquals("B", model3x3.getGrid().get(1).get(0).toString()); // Was red
+    Assert.assertEquals("B", model3x3.getGrid().get(1).get(1).toString());
+    Assert.assertEquals("B", model3x3.getGrid().get(2).get(0).toString()); // Was red
+    Assert.assertEquals("B", model3x3.getGrid().get(2).get(2).toString());
+  }
+
   //-----------isGameOver--------------
   // Test isGameOver when one player's hand is empty and all the cells are filled
   @Test
