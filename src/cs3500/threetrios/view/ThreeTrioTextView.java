@@ -52,4 +52,14 @@ public class ThreeTrioTextView implements ThreeTrioView {
     return sb.toString();
   }
 
+  @Override
+  public void refresh() {
+
+  }
+
+  @Override
+  public void setFeatures(Features features) {
+
+  }
+
 }

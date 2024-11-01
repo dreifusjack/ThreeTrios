@@ -36,6 +36,16 @@ public class CardCell implements GridCell {
   }
 
   @Override
+  public String cardToString() {
+    return this.card.toString();
+  }
+
+  @Override
+  public TeamColor getCardColor() {
+    return this.card.getColor();
+  }
+
+  @Override
   public String toString() {
     if (card == null) {
       return "_";

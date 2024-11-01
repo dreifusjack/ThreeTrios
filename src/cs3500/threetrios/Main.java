@@ -4,6 +4,7 @@ import java.util.Random;
 
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.view.ThreeTrioTextView;
+import cs3500.threetrios.view.ThreeTriosSwingView;
 
 /**
  * Main runner class used for intermediate testing throughout implementation process. This
@@ -22,15 +23,23 @@ public class Main {
     BasicThreeTriosModel model3x3 = new BasicThreeTriosModel("world3x3.txt", "cards3x3.txt", rand1);
     model3x3.startGame();
 
-    model3x3.playToGrid(0, 0, 1);
+//    // Player 1 (Red)
+    model3x3.playToGrid(0, 0, 0);
+//    // Player 2 (Blue)
+    model3x3.playToGrid(2, 0, 0);
+//    // Player 1 (Red)
+//    model3x3.playToGrid(2, 2, 1);
+//    // Player 2 (Blue)
+//    model3x3.playToGrid(1, 0, 1);
+//    // Player 1 (Red)
+//    model3x3.playToGrid(3, 1, 1);
+//    // Player 2 (Blue)
+//    model3x3.playToGrid(1, 1, 1);
+//    // Player 1 (Red)
+//    model3x3.playToGrid(0, 1, 0);
 
-    model3x3.playToGrid(0, 1, 1);
-
-    ThreeTrioTextView view = new ThreeTrioTextView(model3x3);
-    System.out.println(view.toString());
-    System.out.println(model3x3.isGameOver());
-    System.out.println(model3x3.getWinner());
-
-    System.out.println(model3x3.getCurrentPlayer().getHand());
+      ThreeTriosSwingView view = new ThreeTriosSwingView(model3x3);
+      view.setVisible(true);
+      System.out.println(view);
   }
 }

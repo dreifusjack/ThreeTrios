@@ -20,6 +20,16 @@ public class Hole implements GridCell {
   }
 
   @Override
+  public String cardToString() {
+    throw new IllegalStateException("Holes have no cards");
+  }
+
+  @Override
+  public TeamColor getCardColor() {
+    throw new IllegalStateException("Holes have no cards");
+  }
+
+  @Override
   public String toString() {
     return  " ";
   }

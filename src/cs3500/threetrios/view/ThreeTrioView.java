@@ -13,4 +13,15 @@ public interface ThreeTrioView {
    * @return a string representing the current game state.
    */
   String toString();
+
+
+  /**
+   * Refreshes the view based on the current state of the model.
+   */
+  void refresh();
+
+  /**
+   * Set up the listeners for user interactions.
+   */
+  void setFeatures(Features features);
 }
