@@ -35,11 +35,11 @@ class CardShape extends Path2D.Double implements ICardShape {
     this.east = parseValue(east);
     this.west = parseValue(west);
 
-    moveTo(0, 0);
-    lineTo(100, 0);
-    lineTo(100, 150);
-    lineTo(0, 150);
-    closePath();
+//    moveTo(0, 0);
+//    lineTo(100, 0);
+//    lineTo(100, 150);
+//    lineTo(0, 150);
+//    closePath();
     this.color = color;
   }
 

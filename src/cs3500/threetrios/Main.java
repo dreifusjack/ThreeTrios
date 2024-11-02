@@ -23,9 +23,9 @@ public class Main {
     BasicThreeTriosModel model3x3 = new BasicThreeTriosModel("world3x3.txt", "cards3x3.txt", rand1);
     model3x3.startGame();
 
-//    // Player 1 (Red)
+    // Player 1 (Red)
     model3x3.playToGrid(0, 0, 0);
-//    // Player 2 (Blue)
+    // Player 2 (Blue)
     model3x3.playToGrid(2, 0, 0);
 //    // Player 1 (Red)
 //    model3x3.playToGrid(2, 2, 1);

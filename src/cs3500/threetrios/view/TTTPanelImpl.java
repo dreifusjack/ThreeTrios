@@ -62,7 +62,7 @@ class TTTPanelImpl extends JPanel implements TTTPanel {
             // empty cell
             cellPanel = new JPanel();
             cellPanel.setPreferredSize(new Dimension(100, 150));
-            cellPanel.setBackground(Color.WHITE);
+            cellPanel.setBackground(Color.YELLOW);
             cellPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
           } else {
             // cellcard
@@ -71,7 +71,7 @@ class TTTPanelImpl extends JPanel implements TTTPanel {
             // We can't use getCard since it will allow the clients to edit the internal state, so I came up with
             // another toString that call the this.card.toString as a ReadOnlyGridCell has a ThreeTriosCard.
             TeamColor cardColor = cell.getCardColor();   // This getCardColor is also fine to make I guess as
-            String[] partsForCardShape = cardString.split(" ");
+            String[] partsForCardShape = cardString.split(" "); //Have ReadOnlyGridCell has a Card
             String name = partsForCardShape[0];
             String north = partsForCardShape[1];
             String south = partsForCardShape[2];
@@ -84,7 +84,7 @@ class TTTPanelImpl extends JPanel implements TTTPanel {
         } catch (IllegalStateException e) {  // handle holes in the grid
           cellPanel = new JPanel();
           cellPanel.setPreferredSize(new Dimension(100, 150));
-          cellPanel.setBackground(Color.YELLOW);
+          cellPanel.setBackground(Color.WHITE);
           cellPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         }
 
@@ -101,7 +101,7 @@ class TTTPanelImpl extends JPanel implements TTTPanel {
     }
 
 
-    // render red player's hand but I also did the same thing for blue player as I want to wait until we discuss tmr about how we store the currentPlayer in model since our current implementation does not allow rendering the blue player's hand
+      // render red player's hand but I also did the same thing for blue player as I want to wait until we discuss tmr about how we store the currentPlayer in model since our current implementation does not allow rendering the blue player's hand
       for(Card card : model.getCurrentPlayer().getHand()) {
       String cardString = card.toString();
       TeamColor cardColor = card.getColor();
