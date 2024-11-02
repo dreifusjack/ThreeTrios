@@ -9,7 +9,7 @@ import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
  * Implements the behaviors of ThreeTrioView. Responsible for transforming a read only model into
  * a textual view representation.
  */
-public class ThreeTrioTextView implements ThreeTrioView {
+public class TTTextView implements ThreeTriosTextualView {
   private final ReadOnlyThreeTriosModel model;
 
   /**
@@ -19,13 +19,20 @@ public class ThreeTrioTextView implements ThreeTrioView {
    * @param model read only model
    * @throws IllegalArgumentException if model is null
    */
-  public ThreeTrioTextView(ReadOnlyThreeTriosModel model) {
+  public TTTextView(ReadOnlyThreeTriosModel model) {
     if (model == null) {
       throw new IllegalArgumentException("model cannot be null");
     }
     this.model = model;
   }
 
+  /**
+   * Renders the game state as a textual view.
+   * This method is expected to provide a textual representation of the current state of the game,
+   * including the grid and the player's hand.
+   *
+   * @return a string representing the current game state.
+   */
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -51,15 +58,4 @@ public class ThreeTrioTextView implements ThreeTrioView {
 
     return sb.toString();
   }
-
-  @Override
-  public void refresh() {
-
-  }
-
-  @Override
-  public void setFeatures(Features features) {
-
-  }
-
 }

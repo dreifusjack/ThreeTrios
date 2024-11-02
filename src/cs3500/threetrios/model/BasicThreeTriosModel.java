@@ -186,6 +186,19 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   }
 
   @Override
+  public Player getRedPlayer() {
+    isGameNotStarted();
+    return redPlayer.clone(); // Assuming .clone returns a copy of the player
+  }
+
+  @Override
+  public Player getBluePlayer() {
+    isGameNotStarted();
+    return bluePlayer.clone(); // Assuming .clone returns a copy of the player
+  }
+
+
+  @Override
   public List<List<ReadOnlyGridCell>> getGrid() {
     isGameNotStarted();
     List<List<ReadOnlyGridCell>> gridCopy = new ArrayList<>();
@@ -301,7 +314,6 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     }
     return flipsSoFar;
   }
-
 
   /**
    * Deals the given number of cards to the given player's list of cards to play with.

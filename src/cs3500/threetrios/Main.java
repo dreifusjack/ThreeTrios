@@ -3,8 +3,7 @@ package cs3500.threetrios;
 import java.util.Random;
 
 import cs3500.threetrios.model.BasicThreeTriosModel;
-import cs3500.threetrios.view.ThreeTrioTextView;
-import cs3500.threetrios.view.ThreeTriosSwingView;
+import cs3500.threetrios.view.TTGUIView;
 
 /**
  * Main runner class used for intermediate testing throughout implementation process. This
@@ -38,7 +37,7 @@ public class Main {
 //    // Player 1 (Red)
 //    model3x3.playToGrid(0, 1, 0);
 
-      ThreeTriosSwingView view = new ThreeTriosSwingView(model3x3);
+      TTGUIView view = new TTGUIView(model3x3);
       view.setVisible(true);
       System.out.println(view);
   }

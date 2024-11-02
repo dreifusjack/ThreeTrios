@@ -34,6 +34,24 @@ public interface ReadOnlyThreeTriosModel {
   Player getCurrentPlayer();
 
   /**
+   * Returns a copy of the player on the red team.
+   * Modifying this player will have no effect on the game state.
+   *
+   * @return the player who is on the red team
+   * @throws IllegalStateException if the game has not started
+   */
+  Player getRedPlayer();
+
+  /**
+   * Returns a copy of the player on the blue team.
+   * Modifying this player will have no effect on the game state.
+   *
+   * @return the player who is on the blue team
+   * @throws IllegalStateException if the game has not started
+   */
+  Player getBluePlayer();
+
+  /**
    * Returns a state of the Grid that is read only for the user to view the current state of the
    * grid.
    *

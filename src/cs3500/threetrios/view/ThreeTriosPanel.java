@@ -1,6 +1,6 @@
 package cs3500.threetrios.view;
 
-public interface TTTPanel {
+public interface ThreeTriosPanel {
   /**
    * Refreshes the game grid based on the current state of the model.
    */

@@ -7,8 +7,8 @@ import org.junit.Test;
 import java.util.Random;
 
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.view.ThreeTrioTextView;
-import cs3500.threetrios.view.ThreeTrioView;
+import cs3500.threetrios.view.TTTextView;
+import cs3500.threetrios.view.ThreeTriosTextualView;
 
 /**
  * Responsible for testing the behaviors of the ThreeTrioView interface.
@@ -53,7 +53,7 @@ public abstract class AbstractThreeTrioViewTest {
   //Test view to show the normal of the game (starting state)
   public void testViewNormalState() {
     model3x3.startGame();
-    ThreeTrioView view = new ThreeTrioTextView(model3x3);
+    ThreeTriosTextualView view = new TTTextView(model3x3);
 
     String expectedView = "Player: RED\n"
             + "__ \n"
@@ -74,7 +74,7 @@ public abstract class AbstractThreeTrioViewTest {
   public void testViewAfterPlayToGrid() {
     model3x3.startGame();
     model3x3.playToGrid(2, 2, 0);
-    ThreeTrioView view = new ThreeTrioTextView(model3x3);
+    ThreeTriosTextualView view = new TTTextView(model3x3);
 
     String expectedView = "Player: BLUE\n"
             + "__ \n"
@@ -107,7 +107,7 @@ public abstract class AbstractThreeTrioViewTest {
     // Player 2 (Blue)
     model3x3.playToGrid(1, 1, 0);
 
-    ThreeTrioView view = new ThreeTrioTextView(model3x3);
+    ThreeTriosTextualView view = new TTTextView(model3x3);
 
     String expectedView = "Player: RED\n"
             + "BB \n"
@@ -138,7 +138,7 @@ public abstract class AbstractThreeTrioViewTest {
     // Player 2 (Blue)
     model3x3.playToGrid(2, 0, 0);
 
-    ThreeTrioView view = new ThreeTrioTextView(model3x3);
+    ThreeTriosTextualView view = new TTTextView(model3x3);
 
     String expectedView = "Player: RED\n"
             + "RR \n"
