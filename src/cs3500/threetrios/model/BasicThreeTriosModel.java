@@ -11,7 +11,7 @@ import java.util.Random;
  */
 
 public class BasicThreeTriosModel implements ThreeTriosModel {
-  private GridCell[][] grid;
+  private GridCell[][] grid; // 0 index grid
   //CLASS INVARIANT: playerTurn is one of redPlayer or bluePlayer (more details in README)
   private final Player redPlayer;
   private Player playerTurn;
@@ -160,7 +160,6 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     return true;
   }
 
-
   @Override
   public Player getWinner() {
     isGameNotStarted();
@@ -168,15 +167,14 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       throw new IllegalStateException("The game is not over yet");
     }
 
-    int[] counts = countPlacedCards();
-    int redCount = counts[0] + redPlayer.getHand().size();
-    int blueCount = counts[1] + bluePlayer.getHand().size();
+    int redCount = playerScore(TeamColor.RED);
+    int blueCount = playerScore(TeamColor.BLUE);
 
     if (redCount > blueCount) {
-      return redPlayer;
+      return redPlayer.clone(); // Assuming .clone returns a copy of the player
     }
     if (blueCount > redCount) {
-      return bluePlayer;
+      return bluePlayer.clone(); // Assuming .clone returns a copy of the player
     }
     return null; // representing a tie
   }
@@ -198,6 +196,110 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       gridCopy.add(rowCopy);
     }
     return gridCopy;
+  }
+
+  @Override
+  public int numRows() {
+    isGameNotStarted();
+    return grid.length;
+  }
+
+  @Override
+  public int numCols() {
+    isGameNotStarted();
+    return grid[0].length;
+  }
+
+  @Override
+  public ReadOnlyGridCell getCell(int row, int col) {
+    isGameNotStarted();
+    if (!isValidCoordinate(row, col)) {
+      throw new IllegalArgumentException("Coordinate out of bounds");
+    }
+    return grid[row][col];
+  }
+
+  @Override
+  public int playerScore(TeamColor team) {
+    isGameNotStarted();
+    if (team == null) {
+      throw new IllegalArgumentException("Null team");
+    }
+    int score = 0;
+    Player player;
+    player = (team == TeamColor.RED) ? redPlayer : bluePlayer;
+    for (GridCell[] row : grid) {
+      for (GridCell cell : row) {
+        try {
+          Card currentCard = cell.getCard();
+          if (currentCard != null) {
+            if (currentCard.getColor() == team) {
+              score++;
+            }
+          }
+        } catch (IllegalStateException ignored) { // case where cell is a hole
+        }
+      }
+    }
+    score += player.getHand().size();
+    return score;
+  }
+
+  @Override
+  public int numCardFlips(Card card, int row, int col) {
+    isGameNotStarted();
+    if (!isValidCoordinate(row, col)) {
+      throw new IllegalArgumentException("Coordinate out of bounds");
+    }
+    if (card == null) {
+      throw new IllegalArgumentException("Null card");
+    }
+    try {
+      if (grid[row][col].getCard() != null) {
+        throw new IllegalArgumentException("Cell is occupied");
+      }
+    } catch (IllegalStateException e) {
+      throw new IllegalArgumentException("Coordinates map to hole");
+    }
+    int flips = 0;
+    for (Direction dir : Direction.values()) {
+      int adjRow = row + Direction.getRowHelper(dir);
+      int adjCol = col + Direction.getColHelper(dir);
+
+      if (isValidCoordinate(adjRow, adjCol)) {
+        try {
+          Card adjCard = grid[adjRow][adjCol].getCard();
+          if (adjCard != null) {
+            flips += flipCounterHelper(dir, adjCard, card, adjRow, adjCol, flips);
+          }
+        } catch (IllegalStateException ignored) { // case where cell is a hole
+        }
+      }
+    }
+    return flips;
+  }
+
+  /**
+   * Compares the given two cards at the given direction, if card beats adjCard, then increments
+   * given flipsSoFar counter, and calls numCardFlips on the adjacent card and its coordinates.
+   * This method will recursively add the number of flips the given card would have after battle
+   * with the adjacent card and potentially starting a chain reaction (dfs).
+   *
+   * @param dir        direction of battle
+   * @param adjCard    adjacent card to compared with
+   * @param card       card that is comparing to adjacent card
+   * @param adjRow     row of the adjacent card
+   * @param adjCol     column of the adjacent card
+   * @param flipsSoFar counter for the flips so far
+   * @return number of flips the given card has after comparing with the adjacent card
+   */
+  private int flipCounterHelper(Direction dir, Card adjCard, Card card,
+                                int adjRow, int adjCol, int flipsSoFar) {
+    if (card.compare(adjCard, dir)) {
+      flipsSoFar++;
+      flipsSoFar += numCardFlips(adjCard, adjRow, adjCol);
+    }
+    return flipsSoFar;
   }
 
 
@@ -235,31 +337,6 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     if (grid == null) {
       throw new IllegalStateException("The game has not been started");
     }
-  }
-
-  /**
-   * Iterates over the grid and adds placed cards to the corresponding given counter.
-   */
-  private int[] countPlacedCards() {
-    int redCount = 0;
-    int blueCount = 0;
-
-    for (GridCell[] rows : grid) {
-      for (GridCell cell : rows) {
-        try {
-          Card currentCard = cell.getCard();
-          if (currentCard != null) {
-            if (currentCard.getColor() == TeamColor.RED) {
-              redCount++;
-            } else if (currentCard.getColor() == TeamColor.BLUE) {
-              blueCount++;
-            }
-          }
-        } catch (IllegalStateException ignored) {
-        }
-      }
-    }
-    return new int[]{redCount, blueCount};
   }
 
   /**

@@ -8,7 +8,7 @@ import java.util.List;
  * and a list of cards representing its playing hand.
  */
 public class ThreeTriosPlayer implements Player {
-  private final List<Card> hand;
+  private final List<Card> hand; // 0 index hand
   private final TeamColor team;
 
   /**

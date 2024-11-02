@@ -98,3 +98,15 @@ for our model to use in setting up the playing board for the players to play car
 * Preserved by the methods because the only method that re-assigns playerTurn is playToGrid. In this method we re-assign playerTurn with the following logic. 
 If the player has successfully played to grid, the battle phase is complete, and the game is not over "playerTurn = playerTurn == redPlayer ? bluePlayer : redPlayer;". 
 This condition only allows playerTurn to be assigned to redPlayer or bluePlayer, it effectively toggles between the players after each move. 
+
+## Changes for part 2
+* Added observation methods for grid sizes, we chose not to add this in part 1 because any class that accesses a read only model can
+get a copy of the grid and acess the size configurations throught that copy. However these methods makes it easier to access grid sizings. 
+* Added observation method for getting the contents of the grid at a specifc coordinate. Once again we didn't add this orginally because
+other classes can get the a copy of the whole grid which would allow them to get any cell at a specific coordinate. However this method makes 
+this process easier for specifc cells. 
+* Added obvervation method for getting a players current score. We had this as a private helper in part 1, but now it is 
+in our read only model interface. 
+* Added method that is given a card and two cooridnates, determines how many flips that card would make
+in the battle phase. We did not add this because we didn't find the functionality neccessary in part 1, but now that we are designing
+stratagies, it is needed. 
