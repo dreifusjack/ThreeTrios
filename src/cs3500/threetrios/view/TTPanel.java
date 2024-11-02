@@ -54,7 +54,17 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     bluePlayerPanel.removeAll();
 
     renderGrid();
+    renderPlayerCards();
 
+    gridPanel.revalidate();
+    gridPanel.repaint();
+    redPlayerPanel.revalidate();
+    redPlayerPanel.repaint();
+    bluePlayerPanel.revalidate();
+    bluePlayerPanel.repaint();
+  }
+
+  private void renderPlayerCards() {
     for (Card card : model.getRedPlayer().getHand()) {
       JPanel cardPanel = createCard(card.getColor(), card.toString());
       redPlayerPanel.add(cardPanel);
@@ -64,13 +74,6 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
       JPanel cardPanel = createCard(card.getColor(), card.toString());
       bluePlayerPanel.add(cardPanel);
     }
-
-    gridPanel.revalidate();
-    gridPanel.repaint();
-    redPlayerPanel.revalidate();
-    redPlayerPanel.repaint();
-    bluePlayerPanel.revalidate();
-    bluePlayerPanel.repaint();
   }
 
   private JPanel createCard(TeamColor color, String cardString) {
