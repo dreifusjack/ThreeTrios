@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import cs3500.threetrios.controller.CardFileReader;
+import cs3500.threetrios.controller.GridFileReader;
+
 /**
  * First variant model of Three Trio model implementation. Implementation of the behaviors
  * of the ThreeTriosModel interface.

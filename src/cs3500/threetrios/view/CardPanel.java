@@ -13,6 +13,9 @@ import cs3500.threetrios.model.TeamColor;
  */
 class CardPanel extends JPanel {
   private final CardShape cardShape;
+  private boolean isHighlighted;
+  private static final int DEFAULT_BORDER_THICKNESS = 2;
+  private static final int HIGHLIGHT_BORDER_THICKNESS = 5;
 
   /**
    * Constructs a panel to display the given card shape.
@@ -23,6 +26,7 @@ class CardPanel extends JPanel {
     this.cardShape = cardShape;
     this.setPreferredSize(new Dimension(100, 150));
     this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+    this.isHighlighted = false;
   }
 
   private String valueToString(int value) {
@@ -33,7 +37,7 @@ class CardPanel extends JPanel {
   }
 
   @Override
-  protected void paintComponent(Graphics g) {
+  public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
 
@@ -58,6 +62,17 @@ class CardPanel extends JPanel {
     g2.drawString(valueToString(cardShape.east), getWidth() - 15, getHeight() / 2);
     g2.drawString(valueToString(cardShape.west), 5, getHeight() / 2);
   }
+
+  public void highlight() {
+    if (!isHighlighted) {
+      this.setBorder(BorderFactory.createLineBorder(Color.GREEN, HIGHLIGHT_BORDER_THICKNESS));
+      isHighlighted = true;
+    } else {
+      this.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_THICKNESS));
+      isHighlighted = false;
+    }
+  }
+
 
   /**
    * Represents a card shape, extending Path2D.Double for easy rendering of card shapes.

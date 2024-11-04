@@ -1,6 +1,8 @@
-package cs3500.threetrios.model;
+package cs3500.threetrios.controller;
 
 import java.util.List;
+
+import cs3500.threetrios.model.Card;
 
 /**
  * Behaviors for a card configuration reader. Responsible for reading from a card configuration,
