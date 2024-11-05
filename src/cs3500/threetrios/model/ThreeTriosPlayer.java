@@ -1,7 +1,9 @@
 package cs3500.threetrios.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of the behaviors of the player interface. A Player has a team
@@ -56,6 +58,78 @@ public class ThreeTriosPlayer implements Player {
   @Override
   public TeamColor getColor() {
     return this.team;
+  }
+
+  @Override
+  public Map<Integer, Integer> bestCardInTopLeft() {
+    int bestIndex = -1;
+    int maxSum = 0;
+    Map<Integer, Integer> result = new HashMap<>();
+
+    for (int index = 0; index < hand.size(); index++) {
+      Card card = hand.get(index);
+      int sum = card.getEast().getValue() + card.getSouth().getValue();
+      if (sum > maxSum) {
+        bestIndex = index;
+        maxSum = sum;
+      }
+    }
+    result.put(bestIndex, maxSum);
+    return result;
+  }
+
+  @Override
+  public Map<Integer, Integer> bestCardInTopRight() {
+    int bestIndex = -1;
+    int maxSum = 0;
+    Map<Integer, Integer> result = new HashMap<>();
+
+    for (int index = 0; index < hand.size(); index++) {
+      Card card = hand.get(index);
+      int sum = card.getWest().getValue() + card.getSouth().getValue();
+      if (sum > maxSum) {
+        bestIndex = index;
+        maxSum = sum;
+      }
+    }
+    result.put(bestIndex, maxSum);
+    return result;
+  }
+
+  @Override
+  public Map<Integer, Integer> bestCadInBottomLeft() {
+    int bestIndex = -1;
+    int maxSum = 0;
+    Map<Integer, Integer> result = new HashMap<>();
+
+    for (int index = 0; index < hand.size(); index++) {
+      Card card = hand.get(index);
+      int sum = card.getEast().getValue() + card.getNorth().getValue();
+      if (sum > maxSum) {
+        bestIndex = index;
+        maxSum = sum;
+      }
+    }
+    result.put(bestIndex, maxSum);
+    return result;
+  }
+
+  @Override
+  public Map<Integer, Integer> bestCardInBoomRight() {
+    int bestIndex = -1;
+    int maxSum = 0;
+    Map<Integer, Integer> result = new HashMap<>();
+
+    for (int index = 0; index < hand.size(); index++) {
+      Card card = hand.get(index);
+      int sum = card.getWest().getValue() + card.getNorth().getValue();
+      if (sum > maxSum) {
+        bestIndex = index;
+        maxSum = sum;
+      }
+    }
+    result.put(bestIndex, maxSum);
+    return result;
   }
 
   @Override

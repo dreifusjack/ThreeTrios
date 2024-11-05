@@ -173,6 +173,26 @@ public class ThreeTrioCard implements Card {
   }
 
   @Override
+  public CardValue getEast() {
+    return this.east;
+  }
+
+  @Override
+  public CardValue getWest() {
+    return this.west;
+  }
+
+  @Override
+  public CardValue getSouth() {
+    return this.south;
+  }
+
+  @Override
+  public CardValue getNorth() {
+    return this.north;
+  }
+
+  @Override
   public boolean equals(Object obj) {
     if (this == obj) {
       return true;

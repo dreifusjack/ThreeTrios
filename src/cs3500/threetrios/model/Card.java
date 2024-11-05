@@ -41,4 +41,13 @@ public interface Card {
    * @param color color to update this cards field with
    */
   void setColor(TeamColor color);
+
+  ThreeTrioCard.CardValue getEast();
+
+  ThreeTrioCard.CardValue getWest();
+
+  ThreeTrioCard.CardValue getSouth();
+
+  ThreeTrioCard.CardValue getNorth();
+
 }

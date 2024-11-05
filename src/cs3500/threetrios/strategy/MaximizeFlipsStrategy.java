@@ -13,7 +13,7 @@ public class MaximizeFlipsStrategy implements ThreeTriosStrategy {
     PlayedMove bestMove = null;
 
     // loop through each of the card and for each card apply double for loops to go over each cell on the gird
-    for (Card card : player.getHand()) {
+    for (int index = 0; index < player.getHand().size(); index++) {
       for (int row = 0; row < model.getGrid().size(); row++) {
         for (int col = 0; col < model.getGrid().get(row).size(); col++) {
           ReadOnlyGridCell cell = model.getGrid().get(row).get(col);
@@ -23,12 +23,11 @@ public class MaximizeFlipsStrategy implements ThreeTriosStrategy {
           }
 
           // calculate the number of flips for this card at this position
-          int flips = model.numCardFlips(card, row, col);
+          int flips = model.numCardFlips(player.getHand().get(index), row, col);
 
-          if (flips > maxFlips || (flips == maxFlips && (bestMove == null || row < bestMove.getRow() || (row == bestMove.getRow() && col < bestMove.getCol())))) {
+          if (flips > maxFlips) {
             maxFlips = flips;
-            bestMove = new BasicMove(card, row, col) {
-            };
+            bestMove = new BasicMove(index, row, col);
           }
         }
       }
