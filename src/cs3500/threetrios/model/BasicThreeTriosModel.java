@@ -111,6 +111,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     Card playingCard = playerTurn.getHand().get(handIdx);
     grid[row][col].addCard(playingCard);
     // Assuming addCard throws exceptions if GridCell is hole or occupied card cell
+    grid[row][col].setColor(playerTurn.getColor());
     playerTurn.removeCard(handIdx);
     // Assuming removeCard throws exceptions if index out of bounds
     battleCards(row, col);
@@ -126,6 +127,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       throw new IllegalArgumentException("Coordinate out of bounds");
     }
     Card placedCard = grid[row][col].getCard();
+    GridCell placedCell = grid[row][col];
     // Assuming getCard throws exception if cell is a hole
     if (placedCard == null) {
       throw new IllegalStateException("Empty card cell tried to battle");
@@ -138,8 +140,9 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       if (isValidCoordinate(adjRow, adjCol)) {
         try {
           Card adjCard = grid[adjRow][adjCol].getCard();
+          GridCell adjCell = grid[adjRow][adjCol];
           if (adjCard != null) {
-            battleHelper(dir, adjCard, placedCard, adjRow, adjCol);
+            battleHelper(dir, adjCell, placedCell, adjRow, adjCol);
           }
         } catch (IllegalStateException ignored) { // case where cell is a hole
         }
@@ -249,7 +252,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
         try {
           Card currentCard = cell.getCard();
           if (currentCard != null) {
-            if (currentCard.getColor() == team) {
+            if (cell.getColor() == team) {
               score++;
             }
           }
@@ -262,7 +265,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   }
 
   @Override
-  public int numCardFlips(Card card, int row, int col) {
+  public int numCardFlips(Card card, int row, int col, Player player) {
     isGameNotStarted();
     if (!isValidCoordinate(row, col)) {
       throw new IllegalArgumentException("Coordinate out of bounds");
@@ -285,8 +288,9 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       if (isValidCoordinate(adjRow, adjCol)) {
         try {
           Card adjCard = grid[adjRow][adjCol].getCard();
+          GridCell adjCell = grid[adjRow][adjCol];
           if (adjCard != null) {
-            flips += flipCounterHelper(dir, adjCard, card, adjRow, adjCol, flips);
+            flips += flipCounterHelper(dir, adjCell, card, adjRow, adjCol, flips, player);
           }
         } catch (IllegalStateException ignored) { // case where cell is a hole
         }
@@ -302,18 +306,21 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * with the adjacent card and potentially starting a chain reaction (dfs).
    *
    * @param dir        direction of battle
-   * @param adjCard    adjacent card to compared with
+   * @param adjCell    adjacent card to compared with
    * @param card       card that is comparing to adjacent card
    * @param adjRow     row of the adjacent card
    * @param adjCol     column of the adjacent card
    * @param flipsSoFar counter for the flips so far
    * @return number of flips the given card has after comparing with the adjacent card
    */
-  private int flipCounterHelper(Direction dir, Card adjCard, Card card,
-                                int adjRow, int adjCol, int flipsSoFar) {
-    if (card.compare(adjCard, dir)) {
-      flipsSoFar++;
-      flipsSoFar += numCardFlips(adjCard, adjRow, adjCol);
+  private int flipCounterHelper(Direction dir, GridCell adjCell, Card card,
+                                int adjRow, int adjCol, int flipsSoFar, Player player) {
+    if (adjCell.getColor() != player.getColor()) {
+      Card adjCard = grid[adjRow][adjCol].getCard();
+      if (card.compare(adjCard, dir)) {
+        flipsSoFar++;
+        flipsSoFar += numCardFlips(adjCard, adjRow, adjCol, player);
+      }
     }
     return flipsSoFar;
   }
@@ -327,7 +334,6 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   private void dealCards(int numOfCardsPerPlayer, Player player, TeamColor color, List<Card> deck) {
     for (int i = 0; i < numOfCardsPerPlayer; i++) {
       Card card = deck.remove(0);
-      card.setColor(color);
       player.addToHand(card);
     }
   }
@@ -360,15 +366,20 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * team and battles all adjacent cards to it.
    *
    * @param dir        direction the placed card is battling from
-   * @param adjCard    card the placed card is battling against
-   * @param battleCard card to battle with
+   * @param adjCell    card the placed card is battling against
+   * @param battleCell card to battle with
    * @param adjRow     row of the card being battled against
    * @param adjCol     column of the card being battled against
    */
-  private void battleHelper(Direction dir, Card adjCard, Card battleCard, int adjRow, int adjCol) {
-    if (battleCard.compare(adjCard, dir)) {
-      adjCard.toggleColor();
-      battleCards(adjRow, adjCol);
+  private void battleHelper(
+          Direction dir, GridCell adjCell, GridCell battleCell, int adjRow, int adjCol) {
+    if (adjCell.getColor() != battleCell.getColor()) {
+      Card battleCard = battleCell.getCard();
+      Card adjCard = adjCell.getCard();
+      if (battleCard.compare(adjCard, dir)) {
+        adjCell.toggleColor();
+        battleCards(adjRow, adjCol);
+      }
     }
   }
 

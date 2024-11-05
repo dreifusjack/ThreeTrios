@@ -142,5 +142,4 @@ public class ThreeTriosPlayer implements Player {
     }
     return sb.toString();
   }
-
 }

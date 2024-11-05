@@ -17,5 +17,5 @@ public interface ReadOnlyGridCell {
 
   String cardToString();
 
-  TeamColor getCardColor();
+  TeamColor getColor();
 }

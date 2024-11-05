@@ -1,5 +1,7 @@
 package cs3500.threetrios.model;
 
+import java.awt.*;
+
 /**
  * Represents a "Hole" in the grid meaning no card can be placed on this cell.
  */
@@ -10,8 +12,13 @@ public class Hole implements GridCell {
   }
 
   @Override
-  public void changeCardColor() {
+  public void toggleColor() {
     throw new IllegalStateException("Holes have no cards");
+  }
+
+  @Override
+  public void setColor(TeamColor color) {
+    throw new IllegalStateException("Holes do not have colors");
   }
 
   @Override
@@ -25,7 +32,7 @@ public class Hole implements GridCell {
   }
 
   @Override
-  public TeamColor getCardColor() {
+  public TeamColor getColor() {
     throw new IllegalStateException("Holes have no cards");
   }
 

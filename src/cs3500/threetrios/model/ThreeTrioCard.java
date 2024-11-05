@@ -85,18 +85,16 @@ public class ThreeTrioCard implements Card {
   }
 
   private final String name;
-  private TeamColor color;
   private final CardValue north;
   private final CardValue east;
   private final CardValue south;
   private final CardValue west;
 
   /**
-   * Constructs a ThreeTrioCard in terms of its unique name, color, and CardValues for each
+   * Constructs a ThreeTrioCard in terms of its unique name, and CardValues for each
    * direction.
    *
    * @param name  unique string (assumed handle uniqueness in cardFileReader)
-   * @param color TeamColor (red or blue)
    * @param north CardValue
    * @param east  CardValue
    * @param south CardValue
@@ -105,7 +103,7 @@ public class ThreeTrioCard implements Card {
    *                                  TeamColor can be null so that the cardFileReader can
    *                                  create instances of card without specifying teams.
    */
-  public ThreeTrioCard(String name, TeamColor color, CardValue north,
+  public ThreeTrioCard(String name, CardValue north,
                        CardValue east, CardValue south, CardValue west) {
     if (name == null) {
       throw new IllegalArgumentException("Name cannot be null");
@@ -114,7 +112,6 @@ public class ThreeTrioCard implements Card {
       throw new IllegalArgumentException("CardValues cannot be null");
     }
     this.name = name;
-    this.color = color;
     this.north = north;
     this.east = east;
     this.south = south;
@@ -140,9 +137,6 @@ public class ThreeTrioCard implements Card {
       return false;
     }
     ThreeTrioCard otherCard = (ThreeTrioCard) other;
-    if (this.color == otherCard.color) {
-      return false; //on the same team, no need to battle
-    }
     switch (direction) {
       case SOUTH:
         return this.south.getValue() > otherCard.north.getValue();
@@ -155,21 +149,6 @@ public class ThreeTrioCard implements Card {
       default:
         throw new IllegalArgumentException("Invalid direction");
     }
-  }
-
-  @Override
-  public TeamColor getColor() {
-    return this.color;
-  }
-
-  @Override
-  public void toggleColor() {
-    this.color = this.color == TeamColor.RED ? TeamColor.BLUE : TeamColor.RED;
-  }
-
-  @Override
-  public void setColor(TeamColor color) {
-    this.color = color;
   }
 
   @Override
@@ -202,7 +181,6 @@ public class ThreeTrioCard implements Card {
     }
     ThreeTrioCard card = (ThreeTrioCard) obj;
     return name.equals(card.name)
-            && color == card.color
             && north == card.north
             && east == card.east
             && south == card.south
@@ -211,6 +189,6 @@ public class ThreeTrioCard implements Card {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, color, north, east, south, west);
+    return Objects.hash(name, north, east, south, west);
   }
 }

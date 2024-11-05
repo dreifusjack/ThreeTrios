@@ -22,26 +22,6 @@ public interface Card {
    */
   boolean compare(Card other, Direction direction);
 
-  /**
-   * Return the TeamColor of this Card.
-   *
-   * @return the TeamColor of this Card
-   */
-  TeamColor getColor();
-
-  /**
-   * Changes the TeamColor of this Card. If this card was on red team and toggleColor is called,
-   * the card is now on blue team.
-   */
-  void toggleColor();
-
-  /**
-   * Sets the color of this card.
-   *
-   * @param color color to update this cards field with
-   */
-  void setColor(TeamColor color);
-
   ThreeTrioCard.CardValue getEast();
 
   ThreeTrioCard.CardValue getWest();

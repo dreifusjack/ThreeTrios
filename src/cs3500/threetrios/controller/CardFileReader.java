@@ -67,7 +67,7 @@ public class CardFileReader implements CardReader {
       ThreeTrioCard.CardValue east = ThreeTrioCard.CardValue.fromString(line[3]);
       ThreeTrioCard.CardValue west = ThreeTrioCard.CardValue.fromString(line[4]);
 
-      ThreeTrioCard newCard = new ThreeTrioCard(cardName, null, north, east, south, west);
+      ThreeTrioCard newCard = new ThreeTrioCard(cardName, north, east, south, west);
       cards.add(newCard);
     }
   }

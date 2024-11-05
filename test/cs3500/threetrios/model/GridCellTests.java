@@ -41,7 +41,7 @@ public class GridCellTests {
 
   @Test(expected = IllegalStateException.class)
   public void testChangeCardColorInHole() {
-    hole.changeCardColor();
+    hole.toggleColor();
   }
 
   @Test
@@ -69,7 +69,7 @@ public class GridCellTests {
   @Test
   public void testChangeCardColor() {
     assertEquals(TeamColor.RED, fullCell.getCard().getColor());
-    fullCell.changeCardColor();
+    fullCell.toggleColor();
     assertEquals(TeamColor.BLUE, fullCell.getCard().getColor());
   }
 

@@ -111,5 +111,5 @@ public interface ReadOnlyThreeTriosModel {
    * @throws IllegalArgumentException if coordinates map to a hole
    * @throws IllegalArgumentException if the coordinates map to an occupied cell
    */
-  int numCardFlips(Card card, int row, int col);
+  int numCardFlips(Card card, int row, int col, Player player);
 }

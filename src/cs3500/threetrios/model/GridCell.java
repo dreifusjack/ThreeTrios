@@ -1,5 +1,7 @@
 package cs3500.threetrios.model;
 
+import java.awt.*;
+
 /**
  * Representing a single cell in the grid of ThreeTrios game.
  */
@@ -20,7 +22,9 @@ public interface GridCell extends ReadOnlyGridCell {
    *
    * @throws IllegalStateException if this cell is a hole.
    */
-  void changeCardColor();
+  void toggleColor();
+
+  void setColor(TeamColor color);
 
   /**
    * Returns the card occupied by this cell. If no card is present return null, if cell is a hole

@@ -81,13 +81,13 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
    */
   private void renderPlayerCards() {
     for (Card card : model.getRedPlayer().getHand()) {
-      CardPanel cardPanel = createCardPanel(card.getColor(), card.toString());
+      CardPanel cardPanel = createCardPanel(TeamColor.RED, card.toString());
       cardPanel.addMouseListener(new CardInHandClickListener(cardPanel));
       redPlayerPanel.add(cardPanel);
     }
 
     for (Card card : model.getBluePlayer().getHand()) {
-      CardPanel cardPanel = createCardPanel(card.getColor(), card.toString());
+      CardPanel cardPanel = createCardPanel(TeamColor.BLUE, card.toString());
       cardPanel.addMouseListener(new CardInHandClickListener(cardPanel));
       bluePlayerPanel.add(cardPanel);
     }
@@ -130,7 +130,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
             createBlankCell(new Color(255, 237, 140), cellPanel);
           } else {
             String cardString = cell.cardToString();
-            TeamColor color = cell.getCardColor();
+            TeamColor color = cell.getColor();
             cellPanel = createCardPanel(color, cardString);
           }
         } catch (IllegalStateException e) {  // handle holes in the grid
