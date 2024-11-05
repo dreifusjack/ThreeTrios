@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 
 /**
@@ -183,7 +182,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     @Override
     public void mouseClicked(MouseEvent e) {
       if (highlightedCard != null) {
-        highlightedCard.highlight();
+        highlightedCard.toggleHighlight();
         highlightedCard = null;
       }
       System.out.println("Row: " + row + ", Col: " + col);
@@ -194,7 +193,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
    * Responsible for highlighting and un-highlighting cards based on user clicks.
    */
   private class CardInHandClickListener extends MouseAdapter {
-    CardPanel cardPanel;
+    private final CardPanel cardPanel;
 
     /**
      * Constructs a CardInHandClickListener in terms of the given cardPanel.
@@ -212,11 +211,11 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     public void mouseClicked(MouseEvent e) {
       // value this CellClickListener will listen for
       if (highlightedCard != null) {
-        highlightedCard.highlight();
+        highlightedCard.toggleHighlight();
       }
       // highlights this cardPanel and sets it to TTPanel's highlightedCard
       if (highlightedCard != cardPanel) {
-        cardPanel.highlight();
+        cardPanel.toggleHighlight();
         highlightedCard = cardPanel;
       } else {
         highlightedCard = null; // case where this cardPanel was previously highlighted

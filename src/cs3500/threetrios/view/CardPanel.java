@@ -63,7 +63,7 @@ class CardPanel extends JPanel {
     g2.drawString(valueToString(cardShape.west), 5, getHeight() / 2);
   }
 
-  public void highlight() {
+  public void toggleHighlight() {
     if (!isHighlighted) {
       this.setBorder(BorderFactory.createLineBorder(Color.GREEN, HIGHLIGHT_BORDER_THICKNESS));
       isHighlighted = true;
@@ -72,7 +72,6 @@ class CardPanel extends JPanel {
       isHighlighted = false;
     }
   }
-
 
   /**
    * Represents a card shape, extending Path2D.Double for easy rendering of card shapes.
