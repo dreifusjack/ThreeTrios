@@ -43,9 +43,9 @@ class CardPanel extends JPanel {
 
     // set the color based on the player's color
     if (cardShape.color.equals(TeamColor.RED)) {
-      g2.setColor(Color.RED);
+      g2.setColor(new Color(255, 170, 173));
     } else if (cardShape.color.equals(TeamColor.BLUE)) {
-      g2.setColor(Color.BLUE);
+      g2.setColor(new Color(72, 172, 255));
     } else {
       g2.setColor(Color.LIGHT_GRAY);
     }

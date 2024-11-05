@@ -128,14 +128,14 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
         JPanel cellPanel = new JPanel();
         try {
           if (cell.toString().equals("_")) {
-            createBlankCell(Color.YELLOW, cellPanel);
+            createBlankCell(new Color(255, 237, 140), cellPanel);
           } else {
             String cardString = cell.cardToString();
             TeamColor color = cell.getCardColor();
             cellPanel = createCardPanel(color, cardString);
           }
         } catch (IllegalStateException e) {  // handle holes in the grid
-          createBlankCell(Color.LIGHT_GRAY, cellPanel);
+          createBlankCell(new Color(140, 145, 150), cellPanel);
         }
         // add a mouse listener for each cell panel
         cellPanel.addMouseListener(new CellClickListener(row, col));
