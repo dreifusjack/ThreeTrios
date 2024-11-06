@@ -42,7 +42,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     // Create grid panel
     gridPanel = new JPanel();
     gridPanel.setLayout(new GridLayout(
-            model.getGrid().size(), model.getGrid().get(0).size(), 0, 0));
+            model.getGridReadOnly().size(), model.getGridReadOnly().get(0).size(), 0, 0));
     this.add(gridPanel, BorderLayout.CENTER);
 
     // Create player panels
@@ -120,7 +120,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
    * to this TTPanel's gridPanel.
    */
   private void renderGrid() {
-    List<List<ReadOnlyGridCell>> grid = model.getGrid();
+    List<List<ReadOnlyGridCell>> grid = model.getGridReadOnly();
     for (int row = 0; row < model.numRows(); row++) {
       for (int col = 0; col < model.numCols(); col++) {
         ReadOnlyGridCell cell = grid.get(row).get(col);

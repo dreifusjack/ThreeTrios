@@ -39,8 +39,8 @@ public abstract class AbstractThreeTrioViewTest {
 
     model5x7 = createModelWithRandom("world1.txt", "card1.txt", rand1);
     model2x2 = createModelWithRandom("world2x2.txt", "cards2x2.txt", rand1);
-    model3x3 = createModelWithRandom("world3x3.txt", "cards3x3.txt", rand1);
-    modelWithNotEnoughCards = createModelWithRandom("world3x3.txt",
+    model3x3 = createModelWithRandom("world4x3.txt", "cards3x3.txt", rand1);
+    modelWithNotEnoughCards = createModelWithRandom("world4x3.txt",
             "3cardsonly.txt", rand1);
     model2x2SameValueOf1 = createModelWithRandom("world2x2ver2.txt",
             "cardswithsamevalueof1.txt", rand1);

@@ -19,7 +19,7 @@ public class Main {
   public static void main(String[] args) {
     Random rand1 = new Random(2);
 
-    BasicThreeTriosModel model3x3 = new BasicThreeTriosModel("world3x3.txt", "cards3x3.txt", rand1);
+    BasicThreeTriosModel model3x3 = new BasicThreeTriosModel("world4x3.txt", "cards3x3.txt", rand1);
     model3x3.startGame();
 
     // Player 1 (Red)

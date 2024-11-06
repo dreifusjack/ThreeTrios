@@ -174,8 +174,8 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       throw new IllegalStateException("The game is not over yet");
     }
 
-    int redCount = playerScore(TeamColor.RED);
-    int blueCount = playerScore(TeamColor.BLUE);
+    int redCount = getPlayerScore(TeamColor.RED);
+    int blueCount = getPlayerScore(TeamColor.BLUE);
 
     if (redCount > blueCount) {
       return redPlayer.clone(); // Assuming .clone returns a copy of the player
@@ -206,7 +206,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
 
 
   @Override
-  public List<List<ReadOnlyGridCell>> getGrid() {
+  public List<List<ReadOnlyGridCell>> getGridReadOnly() {
     isGameNotStarted();
     List<List<ReadOnlyGridCell>> gridCopy = new ArrayList<>();
 
@@ -240,20 +240,20 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   }
 
   @Override
-  public int playerScore(TeamColor team) {
+  public int getPlayerScore(TeamColor teamColor) {
     isGameNotStarted();
-    if (team == null) {
+    if (teamColor == null) {
       throw new IllegalArgumentException("Null team");
     }
     int score = 0;
     Player player;
-    player = (team == TeamColor.RED) ? redPlayer : bluePlayer;
+    player = (teamColor == TeamColor.RED) ? redPlayer : bluePlayer;
     for (GridCell[] row : grid) {
       for (GridCell cell : row) {
         try {
           Card currentCard = cell.getCard();
           if (currentCard != null) {
-            if (cell.getColor() == team) {
+            if (cell.getColor() == teamColor) {
               score++;
             }
           }
@@ -275,9 +275,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       throw new IllegalArgumentException("Null card or player");
     }
     try {
-      if (grid[row][col].getCard() != null) {
-        throw new IllegalArgumentException("Cell is occupied");
-      }
+      grid[row][col].getCard();
     } catch (IllegalStateException e) {
       throw new IllegalArgumentException("Coordinates map to hole");
     }
@@ -321,9 +319,10 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       if (card.compare(adjCard, dir)) {
         flipsSoFar++;
         flipsSoFar += numCardFlips(adjCard, adjRow, adjCol, player);
+        return flipsSoFar;
       }
     }
-    return flipsSoFar;
+    return 0;
   }
 
   /**

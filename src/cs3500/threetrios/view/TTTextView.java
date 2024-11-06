@@ -42,7 +42,7 @@ public class TTTextView implements ThreeTriosTextualView {
     sb.append(playerString[0]).append("\n");
 
     // Append the grid
-    List<List<ReadOnlyGridCell>> grid = model.getGrid();
+    List<List<ReadOnlyGridCell>> grid = model.getGridReadOnly();
     for (List<ReadOnlyGridCell> row : grid) {
       for (ReadOnlyGridCell cell : row) {
         sb.append(cell.toString());

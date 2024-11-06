@@ -62,7 +62,7 @@ public interface ReadOnlyThreeTriosModel {
    * @return a 2D array list representing the current playing grid.
    * @throws IllegalStateException if the game has not started
    */
-  List<List<ReadOnlyGridCell>> getGrid();
+  List<List<ReadOnlyGridCell>> getGridReadOnly();
 
   /**
    * Returns the number of rows in the playing grid.
@@ -95,12 +95,12 @@ public interface ReadOnlyThreeTriosModel {
    * Returns the current score of the player with the corresponding team color. Score is calculated
    * by all the cards of that players team color on the board and in their hand.
    *
-   * @param team blue or red
+   * @param teamColor blue or red
    * @return player score of the given team color
    * @throws IllegalStateException    if the game has not started
    * @throws IllegalArgumentException if team is null
    */
-  int playerScore(TeamColor team);
+  int getPlayerScore(TeamColor teamColor);
 
   /**
    * Determines at the given coordinates, how many surrounding cards will be flipped if the given
@@ -115,7 +115,6 @@ public interface ReadOnlyThreeTriosModel {
    * @throws IllegalArgumentException if the given row or col are out of grid bounds
    * @throws IllegalArgumentException if the given card or player is null
    * @throws IllegalArgumentException if coordinates map to a hole
-   * @throws IllegalArgumentException if the coordinates map to an occupied cell
    */
   int numCardFlips(Card card, int row, int col, Player player);
 }
