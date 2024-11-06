@@ -108,20 +108,19 @@ public class MaximizeFlipsStrategyTest {
   }
 
 
-  // When MaximizeFlipsStrategy is trigger right after the game starts
+  // When a card can be played to 2 positions and it both produce 1 for the maximum
   @Test
   public void testasdkjn() {
-    model3x3.startGame();
+    model3x3ver2.startGame();
 
-    model3x3.playToGrid(2, 2, 0);
-    model3x3.playToGrid(0, 0, 1);
-    model3x3.playToGrid(3, 1, 1);
-    model3x3.playToGrid(1, 0, 1);
-    System.out.println(new MaximizeFlipsStrategy().findBestMove(model3x3, model3x3.getCurrentPlayer()));
+    model3x3ver2.playToGrid(2, 2, 0);
+    model3x3ver2.playToGrid(0, 0, 1);
+    model3x3ver2.playToGrid(3, 1, 1);
+    model3x3ver2.playToGrid(1, 0, 1);
+    System.out.println(new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()));
 
-
-    Assert.assertEquals(1, new MaximizeFlipsStrategy().findBestMove(model3x3, model3x3.getCurrentPlayer()).getRow());
-    Assert.assertEquals(1, new MaximizeFlipsStrategy().findBestMove(model3x3, model3x3.getCurrentPlayer()).getCol());
-    Assert.assertEquals(1, new MaximizeFlipsStrategy().findBestMove(model3x3, model3x3.getCurrentPlayer()).getHandInx());
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getRow());
+    Assert.assertEquals(1, new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getHandInx());
   }
 }
