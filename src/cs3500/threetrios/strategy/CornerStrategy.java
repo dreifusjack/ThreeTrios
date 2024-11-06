@@ -41,12 +41,25 @@ public class CornerStrategy implements ThreeTriosStrategy {
       Map<Integer, Integer> map = getBestCardIndex(entry.getKey(), model, player);
       int combo = map.entrySet().iterator().next().getValue();
 
-      if (combo > maxComboSoFar) {
+      if (bestMove == null || row < bestMove.getRow() || (row == bestMove.getRow() && col < bestMove.getCol())) {
         maxComboSoFar = combo;
         int bestIndexSoFar = map.entrySet().iterator().next().getKey();
         bestMove = new BasicMove(bestIndexSoFar, row, col);
       }
     }
+
+    // if no bestMove is found then we do this
+    if (bestMove == null && !player.getHand().isEmpty()) {
+      for (int row = 0; row < model.numRows(); row++) {
+        for (int col = 0; col < model.numCols(); col++) {
+          ReadOnlyGridCell cell = model.getCell(row, col);
+          if (cell.toString().equals("_")) {
+            return new BasicMove(0, row, col);
+          }
+        }
+      }
+    }
+
     return bestMove;
     // if all corners are filled then trigger the next strategy (...) {
     // trigger findQuickestMove();

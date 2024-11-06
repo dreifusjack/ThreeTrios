@@ -18,19 +18,16 @@ public class CardTests {
   @Before
   public void setUp() {
     king = new ThreeTrioCard("King",
-            TeamColor.RED,
             ThreeTrioCard.CardValue.SEVEN,
             ThreeTrioCard.CardValue.THREE,
             ThreeTrioCard.CardValue.NINE,
             ThreeTrioCard.CardValue.A);
     dragon = new ThreeTrioCard("Dragon",
-            TeamColor.RED,
             ThreeTrioCard.CardValue.TWO,
             ThreeTrioCard.CardValue.NINE,
             ThreeTrioCard.CardValue.EIGHT,
             ThreeTrioCard.CardValue.NINE);
     bird = new ThreeTrioCard("Bird",
-            TeamColor.BLUE,
             ThreeTrioCard.CardValue.SEVEN,
             ThreeTrioCard.CardValue.TWO,
             ThreeTrioCard.CardValue.FIVE,
@@ -40,7 +37,6 @@ public class CardTests {
   @Test(expected = IllegalArgumentException.class)
   public void testNullNameConstruction() {
     new ThreeTrioCard(null,
-            TeamColor.BLUE,
             ThreeTrioCard.CardValue.SEVEN,
             ThreeTrioCard.CardValue.TWO,
             ThreeTrioCard.CardValue.FIVE,
@@ -50,7 +46,6 @@ public class CardTests {
   @Test(expected = IllegalArgumentException.class)
   public void testNullValueConstruction() {
     new ThreeTrioCard("hello",
-            TeamColor.BLUE,
             null,
             null,
             null,
@@ -63,32 +58,6 @@ public class CardTests {
     assertEquals(expected, king.toString());
     String expected2 = "Dragon 2 8 9 9";
     assertEquals(expected2, dragon.toString());
-  }
-
-  @Test
-  public void testGetColor() {
-    assertEquals(TeamColor.RED, king.getColor());
-    assertEquals(TeamColor.BLUE, bird.getColor());
-  }
-
-  @Test
-  public void testSetColor() {
-    Card noColor = new ThreeTrioCard("Card", null,
-            ThreeTrioCard.CardValue.EIGHT,
-            ThreeTrioCard.CardValue.EIGHT,
-            ThreeTrioCard.CardValue.EIGHT,
-            ThreeTrioCard.CardValue.EIGHT);
-    noColor.setColor(TeamColor.RED);
-    assertEquals(TeamColor.RED, noColor.getColor());
-    noColor.setColor(TeamColor.BLUE);
-    assertEquals(TeamColor.BLUE, noColor.getColor());
-  }
-
-  @Test
-  public void testToggleColor() {
-    assertEquals(TeamColor.RED, king.getColor());
-    king.toggleColor();
-    assertEquals(TeamColor.BLUE, king.getColor());
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -108,5 +77,25 @@ public class CardTests {
     assertTrue("dragon south > bird north", dragon.compare(bird, Direction.SOUTH));
     assertTrue("dragon east > bird west", dragon.compare(bird, Direction.EAST));
     assertTrue("dragon west > bird east", dragon.compare(bird, Direction.WEST));
+  }
+
+  @Test
+  public void testGetEast() {
+    assertEquals(ThreeTrioCard.CardValue.NINE, dragon.getEast());
+  }
+
+  @Test
+  public void testGetWest() {
+    assertEquals(ThreeTrioCard.CardValue.NINE, dragon.getWest());
+  }
+
+  @Test
+  public void testGetSouth() {
+    assertEquals(ThreeTrioCard.CardValue.EIGHT, dragon.getSouth());
+  }
+
+  @Test
+  public void testGetNorth() {
+    assertEquals(ThreeTrioCard.CardValue.TWO, dragon.getNorth());
   }
 }

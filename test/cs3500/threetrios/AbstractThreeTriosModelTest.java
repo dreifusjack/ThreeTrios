@@ -180,16 +180,16 @@ public abstract class AbstractThreeTriosModelTest {
 
     // check the hands of the red player
     List<Card> expectedRedHand = Arrays.asList(
-            new ThreeTrioCard("WorldDragon", TeamColor.RED, ThreeTrioCard.CardValue.ONE,
+            new ThreeTrioCard("WorldDragon", ThreeTrioCard.CardValue.ONE,
                     ThreeTrioCard.CardValue.FIVE, ThreeTrioCard.CardValue.SIX,
                     ThreeTrioCard.CardValue.ONE),
-            new ThreeTrioCard("HeroKnight", TeamColor.RED, ThreeTrioCard.CardValue.A,
+            new ThreeTrioCard("HeroKnight", ThreeTrioCard.CardValue.A,
                     ThreeTrioCard.CardValue.FOUR,
                     ThreeTrioCard.CardValue.FOUR, ThreeTrioCard.CardValue.ONE),
-            new ThreeTrioCard("CorruptKing", TeamColor.RED, ThreeTrioCard.CardValue.THREE,
+            new ThreeTrioCard("CorruptKing", ThreeTrioCard.CardValue.THREE,
                     ThreeTrioCard.CardValue.ONE, ThreeTrioCard.CardValue.ONE,
                     ThreeTrioCard.CardValue.TWO),
-            new ThreeTrioCard("FirePhoenix", TeamColor.RED,
+            new ThreeTrioCard("FirePhoenix",
                     ThreeTrioCard.CardValue.TWO, ThreeTrioCard.CardValue.FOUR,
                     ThreeTrioCard.CardValue.THREE, ThreeTrioCard.CardValue.TWO));
     Assert.assertEquals(expectedRedHand, model3x3.getCurrentPlayer().getHand());
@@ -201,7 +201,7 @@ public abstract class AbstractThreeTriosModelTest {
   public void testPlayToGridOnEmptyCardCell() {
     model3x3.startGame();
     model3x3.playToGrid(0, 0, 2);
-    ThreeTrioCard corruptKing = new ThreeTrioCard("CorruptKing", TeamColor.RED,
+    ThreeTrioCard corruptKing = new ThreeTrioCard("CorruptKing",
             ThreeTrioCard.CardValue.THREE, ThreeTrioCard.CardValue.ONE,
             ThreeTrioCard.CardValue.ONE, ThreeTrioCard.CardValue.TWO);
 

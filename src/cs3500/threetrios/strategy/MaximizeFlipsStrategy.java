@@ -25,13 +25,26 @@ public class MaximizeFlipsStrategy implements ThreeTriosStrategy {
           // calculate the number of flips for this card at this position
           int flips = model.numCardFlips(player.getHand().get(index), row, col, player);
 
-          if (flips > maxFlips) {
+          if (flips > maxFlips || (flips == maxFlips && (bestMove == null || (row < bestMove.getRow() && col <= bestMove.getCol() || (row == bestMove.getRow() && col < bestMove.getCol()))))) {
             maxFlips = flips;
             bestMove = new BasicMove(index, row, col);
           }
         }
       }
     }
+
+    // if no bestMove is found then we do this
+    if(bestMove == null && !player.getHand().isEmpty()) {
+      for(int row = 0; row < model.numRows(); row++) {
+        for(int col = 0; col < model.numCols(); col++) {
+          ReadOnlyGridCell gridCell = model.getCell(row, col);
+          if(gridCell.toString().equals("_")) {
+            return new BasicMove(0, row, col);
+          }
+        }
+      }
+    }
+
     return bestMove;
   }
 }

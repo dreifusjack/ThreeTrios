@@ -20,7 +20,6 @@ public class GridCellTests {
     emptyCell = new CardCell();
     fullCell = new CardCell();
     king = new ThreeTrioCard("King",
-            TeamColor.RED,
             ThreeTrioCard.CardValue.SEVEN,
             ThreeTrioCard.CardValue.THREE,
             ThreeTrioCard.CardValue.NINE,
@@ -67,10 +66,10 @@ public class GridCellTests {
   }
 
   @Test
-  public void testChangeCardColor() {
-    assertEquals(TeamColor.RED, fullCell.getCard().getColor());
+  public void testToggleColor() {
+    assertEquals(null, fullCell.getColor());
     fullCell.toggleColor();
-    assertEquals(TeamColor.BLUE, fullCell.getCard().getColor());
+    assertEquals(TeamColor.RED, fullCell.getColor());
   }
 
   @Test
@@ -78,4 +77,28 @@ public class GridCellTests {
     assertEquals("R", fullCell.toString());
     assertEquals("_", emptyCell.toString());
   }
+
+  @Test
+  public void testSetColor() {
+    fullCell.setColor(TeamColor.RED);
+    assertEquals(TeamColor.RED, fullCell.getColor());
+  }
+
+  @Test
+  public void testGetColor() {
+    assertEquals(null, fullCell.getColor());
+    fullCell.setColor(TeamColor.BLUE);
+    assertEquals(TeamColor.BLUE, fullCell.getColor());
+  }
+
+  @Test
+  public void testGetCard() {
+    assertEquals(king, fullCell.getCard());
+  }
+
+  @Test
+  public void testCardToString() {
+    assertEquals("King 7 9 3 A", fullCell.cardToString());
+  }
+
 }

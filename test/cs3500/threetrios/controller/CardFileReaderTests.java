@@ -46,13 +46,13 @@ public class CardFileReaderTests {
   public void testReadFileSuccessfully() {
     cardFileReader.readFile();
     ArrayList<Card> expected = new ArrayList<>();
-    expected.add(new ThreeTrioCard("CorruptKing", null,
+    expected.add(new ThreeTrioCard("CorruptKing",
             ThreeTrioCard.CardValue.SEVEN, ThreeTrioCard.CardValue.NINE,
             ThreeTrioCard.CardValue.THREE, ThreeTrioCard.CardValue.A));
-    expected.add(new ThreeTrioCard("AngryDragon", null,
+    expected.add(new ThreeTrioCard("AngryDragon",
             ThreeTrioCard.CardValue.TWO, ThreeTrioCard.CardValue.EIGHT,
             ThreeTrioCard.CardValue.NINE, ThreeTrioCard.CardValue.NINE));
-    expected.add(new ThreeTrioCard("WindBird", null,
+    expected.add(new ThreeTrioCard("WindBird",
             ThreeTrioCard.CardValue.SEVEN, ThreeTrioCard.CardValue.FIVE,
             ThreeTrioCard.CardValue.TWO, ThreeTrioCard.CardValue.THREE));
     // testing get cards method

@@ -111,6 +111,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     Card playingCard = playerTurn.getHand().get(handIdx);
     grid[row][col].addCard(playingCard);
     // Assuming addCard throws exceptions if GridCell is hole or occupied card cell
+    // Set the color of the played card by setColor in the grid
     grid[row][col].setColor(playerTurn.getColor());
     playerTurn.removeCard(handIdx);
     // Assuming removeCard throws exceptions if index out of bounds
