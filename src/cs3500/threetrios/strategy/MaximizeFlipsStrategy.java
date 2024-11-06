@@ -24,7 +24,7 @@ public class MaximizeFlipsStrategy implements ThreeTriosStrategy {
           // calculate the number of flips for this card at this position
           int flips = model.numCardFlips(player.getHand().get(index), row, col, player);
 
-          if (flips > maxFlips || (flips == maxFlips && (bestMove == null || (row < bestMove.getRow() && col <= bestMove.getCol() || (row == bestMove.getRow() && col < bestMove.getCol()))))) {
+          if (flips > maxFlips || (flips == maxFlips && (bestMove == null || (row < bestMove.getRow() || (row == bestMove.getRow() && col < bestMove.getCol()))))) {
             maxFlips = flips;
             bestMove = new BasicMove(index, row, col);
           }

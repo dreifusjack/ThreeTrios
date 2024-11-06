@@ -33,9 +33,9 @@ public class MaximizeFlipsStrategyTest {
 
     model5x7 = new BasicThreeTriosModel("world1.txt", "card1.txt", rand1);
     model2x2 = new BasicThreeTriosModel("world2x2.txt", "cards2x2.txt", rand1);
-    model3x3 = new BasicThreeTriosModel("world3x3.txt", "cards3x3.txt", rand1);
-    model3x3ver2 = new BasicThreeTriosModel("world3x3.txt", "cards3x3ver2.txt", rand1);
-    modelWithNotEnoughCards = new BasicThreeTriosModel("world3x3.txt",
+    model3x3 = new BasicThreeTriosModel("world4x3.txt", "cards3x3.txt", rand1);
+    model3x3ver2 = new BasicThreeTriosModel("world4x3.txt", "cards3x3ver2.txt", rand1);
+    modelWithNotEnoughCards = new BasicThreeTriosModel("world4x3.txt",
             "3cardsonly.txt", rand1);
     model2x2SameValueOf1 = new BasicThreeTriosModel("world2x2ver2.txt",
             "cardswithsamevalueof1.txt", rand1);
