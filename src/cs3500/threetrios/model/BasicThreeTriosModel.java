@@ -111,7 +111,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     Card playingCard = playerTurn.getHand().get(handIdx);
     grid[row][col].addCard(playingCard);
     // Assuming addCard throws exceptions if GridCell is hole or occupied card cell
-    // Set the color of the played card by setColor in the grid
+    // Update played to cell but setting its color to make the current player's TeamColor.
     grid[row][col].setColor(playerTurn.getColor());
     playerTurn.removeCard(handIdx);
     // Assuming removeCard throws exceptions if index out of bounds
@@ -271,8 +271,8 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     if (!isValidCoordinate(row, col)) {
       throw new IllegalArgumentException("Coordinate out of bounds");
     }
-    if (card == null) {
-      throw new IllegalArgumentException("Null card");
+    if (card == null || player == null) {
+      throw new IllegalArgumentException("Null card or player");
     }
     try {
       if (grid[row][col].getCard() != null) {

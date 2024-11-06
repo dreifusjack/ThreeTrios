@@ -7,7 +7,6 @@ import org.junit.Test;
  * Tests for TeamColors.
  */
 public class TeamColorTest {
-
   // Test abbreviation for RED
   @Test
   public void testToStringAbbreviationRed() {
@@ -19,5 +18,4 @@ public class TeamColorTest {
   public void testToStringAbbreviationBlue() {
     Assert.assertEquals("B", TeamColor.BLUE.toStringAbbreviation());
   }
-
 }

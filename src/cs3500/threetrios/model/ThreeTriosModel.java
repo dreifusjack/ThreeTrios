@@ -4,12 +4,13 @@ package cs3500.threetrios.model;
  * Behaviors for a game of ThreeTrios.
  * The game consists of the following structures:
  * <li>
- * 2D grid to play cards to
+ * 2D grid (0 index) to play cards to
  * Players with hands to play from
  * Cards to battle against each other on the grid
  * </li>
- * The goal of the game is to have the most amount of cards after one player
- * has played all of their cards to the grid.
+ * The model represents a rules keeper for ThreeTrios. It is constructed in a way that validates
+ * inputs however is not instantly ready to start a game. A method is required to be called to start
+ * a game. The model ensures valid game play occurs and keeps track of the internal game-state.
  */
 public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
   /**
@@ -28,7 +29,10 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
   /**
    * The player whose turn it is plays a card from their hand at the given hand index
    * to the grid at the given row and col. Plays the player's card to the grid if it is a
-   * valid index and location.
+   * valid index and location. The grid will be updated, mutating the card cell that was played to
+   * by adding the played card, and updating the cell team color.
+   * SIDE-EFFECT: playing to grid called battleCards which enters the battle phase, read
+   * documentation on battleCards for more information.
    *
    * @param row     row value of the grid
    * @param col     column value of the grid
@@ -45,10 +49,11 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
   void playToGrid(int row, int col, int handIdx);
 
   /**
-   * Battles the given card with all adjacent cards opposing cards, if any adjacent cards are
-   * defeated then they are changed to the opposite color and a chain reaction occurs. Cards
-   * are battled by comparing their directions values that are adjacent to each other. Last
-   * card battle occurs after the current player plays game ending move.
+   * Battles the cell at the given coordinates with all adjacent cells opposing cards,
+   * if any adjacent cells are defeated then they are changed to the opposite color and a
+   * chain reaction occurs. Cells are battled by their occupied cards attack values based off
+   * the direction of battle. Last battle occurs after the current player plays the game ending
+   * move.
    *
    * @param row row value of the grid
    * @param col column value of the grid
@@ -57,7 +62,8 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
    *                                  to the number of rows in the grid.
    * @throws IllegalArgumentException if col < 0 or greater than or equal
    *                                  to the number of columns in the grid.
-   * @throws IllegalStateException    if the specified coordinate does not have a card or is a hole.
+   * @throws IllegalStateException    if the specified coordinate does not cell occupied by a card
+   *                                  or is a hole.
    */
   void battleCards(int row, int col);
 }

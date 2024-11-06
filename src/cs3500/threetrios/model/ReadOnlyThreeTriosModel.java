@@ -4,11 +4,15 @@ import java.util.List;
 
 /**
  * All observation behaviors of the Three Trios Model. These behaviors are to be used
- * in the view, so it has no access to the models operations (internal state).
+ * in the view/client side, so it has no access to the models operations (internal state).
+ * The model represents a rules keeper for ThreeTrios. It is constructed in a way that validates
+ * inputs however is not instantly ready to start a game. A method is required to be called to start
+ * a game. The model ensures valid game play occurs and keeps track of the internal game-state.
  */
 public interface ReadOnlyThreeTriosModel {
   /**
-   * Determines if the game is over by the behaviors of the game.
+   * Determines if the game is over. The game is over if all card cells on the board have been
+   * occupied by player placed cards.
    *
    * @return true iff the game is over
    * @throws IllegalStateException if the game has not started
@@ -53,7 +57,7 @@ public interface ReadOnlyThreeTriosModel {
 
   /**
    * Returns a state of the Grid that is read only for the user to view the current state of the
-   * grid.
+   * grid. The grid is 0 index based.
    *
    * @return a 2D array list representing the current playing grid.
    * @throws IllegalStateException if the game has not started
@@ -77,11 +81,11 @@ public interface ReadOnlyThreeTriosModel {
   int numCols();
 
   /**
-   * Returns the contents at the given coordinates. The contents can be one of: hole,
-   * empty card cell, or card cell containing a card.
+   * Returns a read only version of the cell at the given coordinates.
+   * The contents are one of: hole, empty card cell, or card cell containing a card.
    *
    * @return ReadOnlyGridCell of the given coordinates
-   * @throws IllegalStateException if the game has not started
+   * @throws IllegalStateException    if the game has not started
    * @throws IllegalArgumentException if row < 0 or >= number of rows
    * @throws IllegalArgumentException if col < 0 or >= number of columns
    */
@@ -93,21 +97,23 @@ public interface ReadOnlyThreeTriosModel {
    *
    * @param team blue or red
    * @return player score of the given team color
-   * @throws IllegalStateException if the game has not started
+   * @throws IllegalStateException    if the game has not started
    * @throws IllegalArgumentException if team is null
    */
   int playerScore(TeamColor team);
 
   /**
-   * Determines at the given coordinates, how many surrounding cards can the given card flip.
+   * Determines at the given coordinates, how many surrounding cards will be flipped if the given
+   * player were to place the given card at the given coordinates. This method will not play any
+   * card to the grid, rather it checks if a move would have a high number of flips.
    *
    * @param card Card to be placed
-   * @param row row coordinate of placed card
-   * @param col column coordinate of placed card
+   * @param row  row coordinate of placed card
+   * @param col  column coordinate of placed card
    * @return number surrounding cards that would be flipped
-   * @throws IllegalStateException if the game has not started
+   * @throws IllegalStateException    if the game has not started
    * @throws IllegalArgumentException if the given row or col are out of grid bounds
-   * @throws IllegalArgumentException if the given card is null
+   * @throws IllegalArgumentException if the given card or player is null
    * @throws IllegalArgumentException if coordinates map to a hole
    * @throws IllegalArgumentException if the coordinates map to an occupied cell
    */
