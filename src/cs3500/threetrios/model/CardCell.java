@@ -1,7 +1,5 @@
 package cs3500.threetrios.model;
 
-import java.awt.*;
-
 /**
  * Represents cells in the ThreeTrio grid that can have cards placed on.
  */
@@ -31,7 +29,10 @@ public class CardCell implements GridCell {
 
   @Override
   public void toggleColor() {
-    color = color == TeamColor.RED? TeamColor.BLUE : TeamColor.RED;
+    if (card == null) {
+      throw new IllegalStateException("This cell does not have a card added.");
+    }
+    color = color == TeamColor.RED ? TeamColor.BLUE : TeamColor.RED;
   }
 
   @Override
@@ -47,15 +48,19 @@ public class CardCell implements GridCell {
     return card;
   }
 
-
-
   @Override
   public String cardToString() {
+    if (card == null) {
+      throw new IllegalStateException("This cell does not have a card added.");
+    }
     return this.card.toString();
   }
 
   @Override
   public TeamColor getColor() {
+    if (color == null) {
+      throw new IllegalStateException("This cell does not have a color added.");
+    }
     return color;
   }
 
@@ -63,8 +68,10 @@ public class CardCell implements GridCell {
   public String toString() {
     if (card == null) {
       return "_";
-    } else {
-      return color.toStringAbbreviation();
     }
+    if (color == null) {
+      throw new IllegalStateException("Card occupies cell but no color has been set.");
+    }
+    return color.toStringAbbreviation();
   }
 }

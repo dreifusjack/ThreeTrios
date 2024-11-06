@@ -13,7 +13,7 @@ public class Hole implements GridCell {
 
   @Override
   public void toggleColor() {
-    throw new IllegalStateException("Holes have no cards");
+    throw new IllegalStateException("Holes do not have colors");
   }
 
   @Override
@@ -33,11 +33,11 @@ public class Hole implements GridCell {
 
   @Override
   public TeamColor getColor() {
-    throw new IllegalStateException("Holes have no cards");
+    throw new IllegalStateException("Hole do not have colors");
   }
 
   @Override
   public String toString() {
-    return  " ";
+    return " ";
   }
 }

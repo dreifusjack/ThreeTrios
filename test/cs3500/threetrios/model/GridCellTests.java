@@ -59,41 +59,35 @@ public class GridCellTests {
     emptyCell.addCard(null);
   }
 
-  @Test
-  public void testAddCardToEmptyCell() {
-    emptyCell.addCard(king);
-    assertEquals(king, emptyCell.getCard());
+  @Test(expected = IllegalStateException.class)
+  public void testToStringWhenOccupiedCellDoesNotHaveColor() {
+    fullCell.toString();
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testCardToStringInHole() {
+    hole.cardToString();
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testCardToStringInNonOccupiedCell() {
+    emptyCell.cardToString();
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testGetColorInHole() {
+    hole.getColor();
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testGetColorInCellWithNoColor() {
+    fullCell.getColor();
   }
 
   @Test
-  public void testToggleColor() {
-    assertEquals(null, fullCell.getColor());
-    fullCell.toggleColor();
-    assertEquals(TeamColor.RED, fullCell.getColor());
-  }
-
-  @Test
-  public void testToString() {
-    assertEquals("R", fullCell.toString());
-    assertEquals("_", emptyCell.toString());
-  }
-
-  @Test
-  public void testSetColor() {
-    fullCell.setColor(TeamColor.RED);
-    assertEquals(TeamColor.RED, fullCell.getColor());
-  }
-
-  @Test
-  public void testGetColor() {
-    assertEquals(null, fullCell.getColor());
+  public void testGetAndSetColor() {
     fullCell.setColor(TeamColor.BLUE);
     assertEquals(TeamColor.BLUE, fullCell.getColor());
-  }
-
-  @Test
-  public void testGetCard() {
-    assertEquals(king, fullCell.getCard());
   }
 
   @Test
@@ -101,4 +95,25 @@ public class GridCellTests {
     assertEquals("King 7 9 3 A", fullCell.cardToString());
   }
 
+  @Test
+  public void testToString() {
+    fullCell.setColor(TeamColor.RED);
+    assertEquals("R", fullCell.toString());
+    assertEquals("_", emptyCell.toString());
+    assertEquals(" ", hole.toString());
+  }
+
+  @Test
+  public void testAddAndGetCard() {
+    emptyCell.addCard(king);
+    assertEquals(king, emptyCell.getCard());
+  }
+
+  @Test
+  public void testToggleColor() {
+    fullCell.setColor(TeamColor.BLUE);
+    assertEquals(TeamColor.BLUE, fullCell.getColor());
+    fullCell.toggleColor();
+    assertEquals(TeamColor.RED, fullCell.getColor());
+  }
 }
