@@ -1,11 +1,13 @@
 package cs3500.threetrios.model;
 
 /**
- * Behaviors of a card in the three trios game.
+ * Representation of a playing card in ThreeTrios. A Card is composed of 5 traits, a unique
+ * name, and 4 attack values for each direction (NEWS). Cards are used to be played on the board
+ * as well as dealt to players.
  */
 public interface Card {
   /**
-   * Provides a textual view of this card.
+   * Provides a textual view of this card. Format: "Name NorthValue SouthValue EastValue WestValue".
    *
    * @return string format of this card
    */
@@ -22,12 +24,31 @@ public interface Card {
    */
   boolean compare(Card other, Direction direction);
 
+  /**
+   * Returns this cards east attack value. Return value is an enum, thus it cannot be mutated.
+   *
+   * @return this cards East AttackValue.
+   */
   ThreeTrioCard.CardValue getEast();
 
+  /**
+   * Returns this cards west attack value. Return value is an enum, thus it cannot be mutated.
+   *
+   * @return this cards West AttackValue.
+   */
   ThreeTrioCard.CardValue getWest();
 
+  /**
+   * Returns this cards south attack value. Return value is an enum, thus it cannot be mutated.
+   *
+   * @return this cards South AttackValue.
+   */
   ThreeTrioCard.CardValue getSouth();
 
+  /**
+   * Returns this cards north attack value. Return value is an enum, thus it cannot be mutated.
+   *
+   * @return this cards North AttackValue.
+   */
   ThreeTrioCard.CardValue getNorth();
-
 }
