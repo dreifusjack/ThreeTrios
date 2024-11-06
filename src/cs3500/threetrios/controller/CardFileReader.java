@@ -62,10 +62,10 @@ public class CardFileReader implements CardReader {
         throw new IllegalArgumentException("Duplicate card name: " + cardName);
       }
 
-      ThreeTrioCard.CardValue north = ThreeTrioCard.CardValue.fromString(line[1]);
-      ThreeTrioCard.CardValue south = ThreeTrioCard.CardValue.fromString(line[2]);
-      ThreeTrioCard.CardValue east = ThreeTrioCard.CardValue.fromString(line[3]);
-      ThreeTrioCard.CardValue west = ThreeTrioCard.CardValue.fromString(line[4]);
+      ThreeTrioCard.AttackValue north = ThreeTrioCard.AttackValue.fromString(line[1]);
+      ThreeTrioCard.AttackValue south = ThreeTrioCard.AttackValue.fromString(line[2]);
+      ThreeTrioCard.AttackValue east = ThreeTrioCard.AttackValue.fromString(line[3]);
+      ThreeTrioCard.AttackValue west = ThreeTrioCard.AttackValue.fromString(line[4]);
 
       ThreeTrioCard newCard = new ThreeTrioCard(cardName, north, east, south, west);
       cards.add(newCard);

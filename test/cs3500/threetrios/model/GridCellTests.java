@@ -20,10 +20,10 @@ public class GridCellTests {
     emptyCell = new CardCell();
     fullCell = new CardCell();
     king = new ThreeTrioCard("King",
-            ThreeTrioCard.CardValue.SEVEN,
-            ThreeTrioCard.CardValue.THREE,
-            ThreeTrioCard.CardValue.NINE,
-            ThreeTrioCard.CardValue.A);
+            ThreeTrioCard.AttackValue.SEVEN,
+            ThreeTrioCard.AttackValue.THREE,
+            ThreeTrioCard.AttackValue.NINE,
+            ThreeTrioCard.AttackValue.A);
     fullCell.addCard(king);
   }
 

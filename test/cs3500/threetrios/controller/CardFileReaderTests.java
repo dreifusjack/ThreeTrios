@@ -47,14 +47,14 @@ public class CardFileReaderTests {
     cardFileReader.readFile();
     ArrayList<Card> expected = new ArrayList<>();
     expected.add(new ThreeTrioCard("CorruptKing",
-            ThreeTrioCard.CardValue.SEVEN, ThreeTrioCard.CardValue.NINE,
-            ThreeTrioCard.CardValue.THREE, ThreeTrioCard.CardValue.A));
+            ThreeTrioCard.AttackValue.SEVEN, ThreeTrioCard.AttackValue.NINE,
+            ThreeTrioCard.AttackValue.THREE, ThreeTrioCard.AttackValue.A));
     expected.add(new ThreeTrioCard("AngryDragon",
-            ThreeTrioCard.CardValue.TWO, ThreeTrioCard.CardValue.EIGHT,
-            ThreeTrioCard.CardValue.NINE, ThreeTrioCard.CardValue.NINE));
+            ThreeTrioCard.AttackValue.TWO, ThreeTrioCard.AttackValue.EIGHT,
+            ThreeTrioCard.AttackValue.NINE, ThreeTrioCard.AttackValue.NINE));
     expected.add(new ThreeTrioCard("WindBird",
-            ThreeTrioCard.CardValue.SEVEN, ThreeTrioCard.CardValue.FIVE,
-            ThreeTrioCard.CardValue.TWO, ThreeTrioCard.CardValue.THREE));
+            ThreeTrioCard.AttackValue.SEVEN, ThreeTrioCard.AttackValue.FIVE,
+            ThreeTrioCard.AttackValue.TWO, ThreeTrioCard.AttackValue.THREE));
     // testing get cards method
     assertEquals(expected, cardFileReader.getCards());
   }

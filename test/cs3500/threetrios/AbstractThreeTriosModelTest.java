@@ -180,18 +180,18 @@ public abstract class AbstractThreeTriosModelTest {
 
     // check the hands of the red player
     List<Card> expectedRedHand = Arrays.asList(
-            new ThreeTrioCard("WorldDragon", ThreeTrioCard.CardValue.ONE,
-                    ThreeTrioCard.CardValue.FIVE, ThreeTrioCard.CardValue.SIX,
-                    ThreeTrioCard.CardValue.ONE),
-            new ThreeTrioCard("HeroKnight", ThreeTrioCard.CardValue.A,
-                    ThreeTrioCard.CardValue.FOUR,
-                    ThreeTrioCard.CardValue.FOUR, ThreeTrioCard.CardValue.ONE),
-            new ThreeTrioCard("CorruptKing", ThreeTrioCard.CardValue.THREE,
-                    ThreeTrioCard.CardValue.ONE, ThreeTrioCard.CardValue.ONE,
-                    ThreeTrioCard.CardValue.TWO),
+            new ThreeTrioCard("WorldDragon", ThreeTrioCard.AttackValue.ONE,
+                    ThreeTrioCard.AttackValue.FIVE, ThreeTrioCard.AttackValue.SIX,
+                    ThreeTrioCard.AttackValue.ONE),
+            new ThreeTrioCard("HeroKnight", ThreeTrioCard.AttackValue.A,
+                    ThreeTrioCard.AttackValue.FOUR,
+                    ThreeTrioCard.AttackValue.FOUR, ThreeTrioCard.AttackValue.ONE),
+            new ThreeTrioCard("CorruptKing", ThreeTrioCard.AttackValue.THREE,
+                    ThreeTrioCard.AttackValue.ONE, ThreeTrioCard.AttackValue.ONE,
+                    ThreeTrioCard.AttackValue.TWO),
             new ThreeTrioCard("FirePhoenix",
-                    ThreeTrioCard.CardValue.TWO, ThreeTrioCard.CardValue.FOUR,
-                    ThreeTrioCard.CardValue.THREE, ThreeTrioCard.CardValue.TWO));
+                    ThreeTrioCard.AttackValue.TWO, ThreeTrioCard.AttackValue.FOUR,
+                    ThreeTrioCard.AttackValue.THREE, ThreeTrioCard.AttackValue.TWO));
     Assert.assertEquals(expectedRedHand, model3x3.getCurrentPlayer().getHand());
   }
 
@@ -202,8 +202,8 @@ public abstract class AbstractThreeTriosModelTest {
     model3x3.startGame();
     model3x3.playToGrid(0, 0, 2);
     ThreeTrioCard corruptKing = new ThreeTrioCard("CorruptKing",
-            ThreeTrioCard.CardValue.THREE, ThreeTrioCard.CardValue.ONE,
-            ThreeTrioCard.CardValue.ONE, ThreeTrioCard.CardValue.TWO);
+            ThreeTrioCard.AttackValue.THREE, ThreeTrioCard.AttackValue.ONE,
+            ThreeTrioCard.AttackValue.ONE, ThreeTrioCard.AttackValue.TWO);
 
     Assert.assertEquals("R", model3x3.getGrid().get(0).get(0).toString());
   }

@@ -1,10 +1,8 @@
 package cs3500.threetrios.model;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,28 +27,28 @@ public class PlayerTests {
     red = new ThreeTriosPlayer(TeamColor.RED);
     blue = new ThreeTriosPlayer(TeamColor.BLUE);
     king = new ThreeTrioCard("King",
-            ThreeTrioCard.CardValue.SEVEN,
-            ThreeTrioCard.CardValue.THREE,
-            ThreeTrioCard.CardValue.NINE,
-            ThreeTrioCard.CardValue.A);
+            ThreeTrioCard.AttackValue.SEVEN,
+            ThreeTrioCard.AttackValue.THREE,
+            ThreeTrioCard.AttackValue.NINE,
+            ThreeTrioCard.AttackValue.A);
 
      worldDragon =
-            new ThreeTrioCard("WorldDragon", ThreeTrioCard.CardValue.ONE,
-                    ThreeTrioCard.CardValue.FIVE, ThreeTrioCard.CardValue.SIX,
-                    ThreeTrioCard.CardValue.ONE);
+            new ThreeTrioCard("WorldDragon", ThreeTrioCard.AttackValue.ONE,
+                    ThreeTrioCard.AttackValue.FIVE, ThreeTrioCard.AttackValue.SIX,
+                    ThreeTrioCard.AttackValue.ONE);
      heroKnight =
-            new ThreeTrioCard("HeroKnight", ThreeTrioCard.CardValue.A,
-                    ThreeTrioCard.CardValue.FOUR,
-                    ThreeTrioCard.CardValue.FOUR, ThreeTrioCard.CardValue.ONE);
+            new ThreeTrioCard("HeroKnight", ThreeTrioCard.AttackValue.A,
+                    ThreeTrioCard.AttackValue.FOUR,
+                    ThreeTrioCard.AttackValue.FOUR, ThreeTrioCard.AttackValue.ONE);
 
      corruptKing =
-            new ThreeTrioCard("CorruptKing", ThreeTrioCard.CardValue.THREE,
-                    ThreeTrioCard.CardValue.ONE, ThreeTrioCard.CardValue.ONE,
-                    ThreeTrioCard.CardValue.TWO);
+            new ThreeTrioCard("CorruptKing", ThreeTrioCard.AttackValue.THREE,
+                    ThreeTrioCard.AttackValue.ONE, ThreeTrioCard.AttackValue.ONE,
+                    ThreeTrioCard.AttackValue.TWO);
      firePhoenix =
             new ThreeTrioCard("FirePhoenix",
-                    ThreeTrioCard.CardValue.TWO, ThreeTrioCard.CardValue.FOUR,
-                    ThreeTrioCard.CardValue.THREE, ThreeTrioCard.CardValue.TWO);
+                    ThreeTrioCard.AttackValue.TWO, ThreeTrioCard.AttackValue.FOUR,
+                    ThreeTrioCard.AttackValue.THREE, ThreeTrioCard.AttackValue.TWO);
   }
 
   @Test(expected = IllegalArgumentException.class)

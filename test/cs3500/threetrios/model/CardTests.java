@@ -18,29 +18,29 @@ public class CardTests {
   @Before
   public void setUp() {
     king = new ThreeTrioCard("King",
-            ThreeTrioCard.CardValue.SEVEN,
-            ThreeTrioCard.CardValue.THREE,
-            ThreeTrioCard.CardValue.NINE,
-            ThreeTrioCard.CardValue.A);
+            ThreeTrioCard.AttackValue.SEVEN,
+            ThreeTrioCard.AttackValue.THREE,
+            ThreeTrioCard.AttackValue.NINE,
+            ThreeTrioCard.AttackValue.A);
     dragon = new ThreeTrioCard("Dragon",
-            ThreeTrioCard.CardValue.TWO,
-            ThreeTrioCard.CardValue.NINE,
-            ThreeTrioCard.CardValue.EIGHT,
-            ThreeTrioCard.CardValue.NINE);
+            ThreeTrioCard.AttackValue.TWO,
+            ThreeTrioCard.AttackValue.NINE,
+            ThreeTrioCard.AttackValue.EIGHT,
+            ThreeTrioCard.AttackValue.NINE);
     bird = new ThreeTrioCard("Bird",
-            ThreeTrioCard.CardValue.SEVEN,
-            ThreeTrioCard.CardValue.TWO,
-            ThreeTrioCard.CardValue.FIVE,
-            ThreeTrioCard.CardValue.THREE);
+            ThreeTrioCard.AttackValue.SEVEN,
+            ThreeTrioCard.AttackValue.TWO,
+            ThreeTrioCard.AttackValue.FIVE,
+            ThreeTrioCard.AttackValue.THREE);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testNullNameConstruction() {
     new ThreeTrioCard(null,
-            ThreeTrioCard.CardValue.SEVEN,
-            ThreeTrioCard.CardValue.TWO,
-            ThreeTrioCard.CardValue.FIVE,
-            ThreeTrioCard.CardValue.THREE);
+            ThreeTrioCard.AttackValue.SEVEN,
+            ThreeTrioCard.AttackValue.TWO,
+            ThreeTrioCard.AttackValue.FIVE,
+            ThreeTrioCard.AttackValue.THREE);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -81,21 +81,21 @@ public class CardTests {
 
   @Test
   public void testGetEast() {
-    assertEquals(ThreeTrioCard.CardValue.NINE, dragon.getEast());
+    assertEquals(ThreeTrioCard.AttackValue.NINE, dragon.getEast());
   }
 
   @Test
   public void testGetWest() {
-    assertEquals(ThreeTrioCard.CardValue.NINE, dragon.getWest());
+    assertEquals(ThreeTrioCard.AttackValue.NINE, dragon.getWest());
   }
 
   @Test
   public void testGetSouth() {
-    assertEquals(ThreeTrioCard.CardValue.EIGHT, dragon.getSouth());
+    assertEquals(ThreeTrioCard.AttackValue.EIGHT, dragon.getSouth());
   }
 
   @Test
   public void testGetNorth() {
-    assertEquals(ThreeTrioCard.CardValue.TWO, dragon.getNorth());
+    assertEquals(ThreeTrioCard.AttackValue.TWO, dragon.getNorth());
   }
 }

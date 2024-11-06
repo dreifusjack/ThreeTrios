@@ -11,7 +11,7 @@ public class ThreeTrioCard implements Card {
   /**
    * Enumeration of all possible attack values for cards.
    */
-  public enum CardValue {
+  public enum AttackValue {
     ONE(1), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), A(10);
     private final int value;
 
@@ -21,7 +21,7 @@ public class ThreeTrioCard implements Card {
      * @param value CardValue the is given
      * @throws IllegalArgumentException if given value is not in [1,10]
      */
-    CardValue(int value) {
+    AttackValue(int value) {
       if (value < 1 || value > 10) {
         throw new IllegalArgumentException();
       }
@@ -44,7 +44,7 @@ public class ThreeTrioCard implements Card {
      * @return converted value
      * @throws IllegalArgumentException if the given value is not a CardValue
      */
-    public static CardValue fromString(String value) throws IllegalArgumentException {
+    public static AttackValue fromString(String value) throws IllegalArgumentException {
       switch (value.toUpperCase()) {
         case "1":
           return ONE;
@@ -85,10 +85,10 @@ public class ThreeTrioCard implements Card {
   }
 
   private final String name;
-  private final CardValue north;
-  private final CardValue east;
-  private final CardValue south;
-  private final CardValue west;
+  private final AttackValue north;
+  private final AttackValue east;
+  private final AttackValue south;
+  private final AttackValue west;
 
   /**
    * Constructs a ThreeTrioCard in terms of its unique name, and CardValues for each
@@ -103,8 +103,8 @@ public class ThreeTrioCard implements Card {
    *                                  TeamColor can be null so that the cardFileReader can
    *                                  create instances of card without specifying teams.
    */
-  public ThreeTrioCard(String name, CardValue north,
-                       CardValue east, CardValue south, CardValue west) {
+  public ThreeTrioCard(String name, AttackValue north,
+                       AttackValue east, AttackValue south, AttackValue west) {
     if (name == null) {
       throw new IllegalArgumentException("Name cannot be null");
     }
@@ -152,22 +152,22 @@ public class ThreeTrioCard implements Card {
   }
 
   @Override
-  public CardValue getEast() {
+  public AttackValue getEast() {
     return this.east;
   }
 
   @Override
-  public CardValue getWest() {
+  public AttackValue getWest() {
     return this.west;
   }
 
   @Override
-  public CardValue getSouth() {
+  public AttackValue getSouth() {
     return this.south;
   }
 
   @Override
-  public CardValue getNorth() {
+  public AttackValue getNorth() {
     return this.north;
   }
 
