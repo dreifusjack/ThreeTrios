@@ -19,25 +19,18 @@ public class Main {
   public static void main(String[] args) {
     Random rand1 = new Random(2);
 
-    BasicThreeTriosModel model3x3 = new BasicThreeTriosModel("world4x3.txt", "cards3x3.txt", rand1);
-    model3x3.startGame();
+    BasicThreeTriosModel model3x3ver2  = new BasicThreeTriosModel("world4x3.txt", "cards3x3ver2.txt", rand1);
 
-    // Player 1 (Red)
-    model3x3.playToGrid(0, 0, 0);
-    // Player 2 (Blue)
-    model3x3.playToGrid(2, 0, 0);
-//    // Player 1 (Red)
-//    model3x3.playToGrid(2, 2, 1);
-//    // Player 2 (Blue)
-//    model3x3.playToGrid(1, 0, 1);
-//    // Player 1 (Red)
-//    model3x3.playToGrid(3, 1, 1);
-//    // Player 2 (Blue)
-//    model3x3.playToGrid(1, 1, 1);
-//    // Player 1 (Red)
-//    model3x3.playToGrid(0, 1, 0);
+    model3x3ver2.startGame();
 
-      TTGUIView view = new TTGUIView(model3x3);
+//
+//    model3x3ver2.playToGrid(2, 2, 0);
+//    model3x3ver2.playToGrid(1, 0, 0);
+//    model3x3ver2.playToGrid(3, 1, 0);
+//    model3x3ver2.playToGrid(1, 1, 1);
+
+
+    TTGUIView view = new TTGUIView(model3x3ver2);
       view.setVisible(true);
       System.out.println(view);
   }

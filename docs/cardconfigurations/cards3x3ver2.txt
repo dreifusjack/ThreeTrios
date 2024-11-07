@@ -3,6 +3,6 @@ AngryDragon 5 7 1 4
 WindBird 2 5 5 A
 HeroKnight A 4 4 A
 WorldDragon 1 6 5 1
-SkyWhale 3 1 1 2
+SkyWhale 3 1 1 5
 FirePhoenix 2 3 4 2
 ThunderTiger 3 9 5 4

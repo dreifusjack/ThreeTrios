@@ -19,7 +19,7 @@ public class MaximizeFlipsStrategyTest {
 
   protected ThreeTriosModel model3x3;
   protected ThreeTriosModel model3x3ver2;
-
+  protected ThreeTriosModel model3x3ver3;
 
   protected ThreeTriosModel modelWithNotEnoughCards;
 
@@ -35,6 +35,8 @@ public class MaximizeFlipsStrategyTest {
     model2x2 = new BasicThreeTriosModel("world2x2.txt", "cards2x2.txt", rand1);
     model3x3 = new BasicThreeTriosModel("world4x3.txt", "cards3x3.txt", rand1);
     model3x3ver2 = new BasicThreeTriosModel("world4x3.txt", "cards3x3ver2.txt", rand1);
+    model3x3ver3 = new BasicThreeTriosModel("world4x3ver2.txt", "cards3x3ver2.txt", rand1);
+
     modelWithNotEnoughCards = new BasicThreeTriosModel("world4x3.txt",
             "3cardsonly.txt", rand1);
     model2x2SameValueOf1 = new BasicThreeTriosModel("world2x2ver2.txt",
@@ -108,9 +110,10 @@ public class MaximizeFlipsStrategyTest {
   }
 
 
-  // When a card can be played to 2 positions and it both produce 1 for the maximum
+  // When a card can be played to 2 positions and it produces 1 for the maximum for both positions
+  //It will take the upper-most position
   @Test
-  public void testasdkjn() {
+  public void testUpperMostPosision() {
     model3x3ver2.startGame();
 
     model3x3ver2.playToGrid(2, 2, 0);
@@ -122,5 +125,46 @@ public class MaximizeFlipsStrategyTest {
     Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getRow());
     Assert.assertEquals(1, new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getCol());
     Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getHandInx());
+  }
+
+  // Test for left-most position when the current max flips is equals to the global max flip
+  public void testLeftMostPosition() {
+    model3x3ver2.startGame();
+    model3x3ver2.playToGrid(2, 2, 2);
+    model3x3ver2.playToGrid(1, 0, 1);
+    model3x3ver2.playToGrid(3, 1, 2);
+    model3x3ver2.playToGrid(1, 1, 2);
+
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getRow());
+    Assert.assertEquals(1, new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getHandInx());
+  }
+
+  // When there is no best move play to the first open cell in this case is (0, 0)
+  @Test
+  public void testWhenThereIsNoBestMove() {
+    model3x3ver2.startGame();
+    model3x3ver2.playToGrid(2, 2, 0);
+    model3x3ver2.playToGrid(1, 0, 0);
+    model3x3ver2.playToGrid(3, 1, 0);
+    model3x3ver2.playToGrid(1, 1, 1);
+
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getRow());
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getHandInx());
+  }
+
+  // When there is no best move play to the first open cell but some cells like (0, 0), (0, 1),... are occupied by a card
+  @Test
+  public void testWhenThereIsNoBestMoveSpecial() {
+    model3x3ver3.startGame();
+    model3x3ver3.playToGrid(2, 2, 0);
+    model3x3ver3.playToGrid(1, 0, 0);
+    model3x3ver3.playToGrid(3, 1, 0);
+    model3x3ver3.playToGrid(1, 1, 1);
+
+    Assert.assertEquals(2, new MaximizeFlipsStrategy().findBestMove(model3x3ver3, model3x3ver3.getCurrentPlayer()).getRow());
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x3ver3, model3x3ver3.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x3ver3, model3x3ver3.getCurrentPlayer()).getHandInx());
   }
 }

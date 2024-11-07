@@ -47,17 +47,18 @@ public class CornerStrategy implements ThreeTriosStrategy {
         bestMove = new BasicMove(bestIndexSoFar, row, col);
       }
     }
-//    // if no bestMove is found then we do this
-//    if (bestMove == null && !player.getHand().isEmpty()) {
-//      for (int row = 0; row < model.numRows(); row++) {
-//        for (int col = 0; col < model.numCols(); col++) {
-//          ReadOnlyGridCell cell = model.getCell(row, col);
-//          if (cell.toString().equals("_")) {
-//            return new BasicMove(0, row, col);
-//          }
-//        }
-//      }
-//    }
+
+    // if no bestMove is found then we do this
+    if (bestMove == null && !player.getHand().isEmpty()) {
+      for (int row = 0; row < model.numRows(); row++) {
+        for (int col = 0; col < model.numCols(); col++) {
+          ReadOnlyGridCell cell = model.getCell(row, col);
+          if (cell.toString().equals("_")) {
+            return new BasicMove(0, row, col);
+          }
+        }
+      }
+    }
 
     //call helper method to handle tie breaker (iterate from (0, 1))
     return bestMove;
