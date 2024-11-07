@@ -80,15 +80,17 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
    * the newly created card panel to the corresponding player panel.
    */
   private void renderPlayerCards() {
-    for (Card card : model.getRedPlayer().getHand()) {
+    for (int redHandIndex = 0; redHandIndex < model.getRedPlayer().getHand().size(); redHandIndex++) {
+      Card card = model.getRedPlayer().getHand().get(redHandIndex);
       CardPanel cardPanel = createCardPanel(TeamColor.RED, card.toString());
-      cardPanel.addMouseListener(new CardInHandClickListener(cardPanel));
+      cardPanel.addMouseListener(new CardInHandClickListener(cardPanel, redHandIndex, TeamColor.RED));
       redPlayerPanel.add(cardPanel);
     }
 
-    for (Card card : model.getBluePlayer().getHand()) {
+    for (int blueHandIndex = 0; blueHandIndex < model.getRedPlayer().getHand().size(); blueHandIndex++) {
+      Card card = model.getRedPlayer().getHand().get(blueHandIndex);
       CardPanel cardPanel = createCardPanel(TeamColor.BLUE, card.toString());
-      cardPanel.addMouseListener(new CardInHandClickListener(cardPanel));
+      cardPanel.addMouseListener(new CardInHandClickListener(cardPanel, blueHandIndex, TeamColor.BLUE));
       bluePlayerPanel.add(cardPanel);
     }
   }
@@ -194,17 +196,22 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
    */
   private class CardInHandClickListener extends MouseAdapter {
     private final CardPanel cardPanel;
+    private final int index;
+    private final TeamColor color;
 
     /**
      * Constructs a CardInHandClickListener in terms of the given cardPanel.
      *
      * @param cardPanel CardPanel this CardInHandClickListener will listen for
+     * @throws IllegalArgumentException if the given panel or color is null
      */
-    public CardInHandClickListener(CardPanel cardPanel) {
-      if (cardPanel == null) {
-        throw new IllegalArgumentException("CardPanel cannot be null");
+    public CardInHandClickListener(CardPanel cardPanel, int index, TeamColor color) {
+      if (cardPanel == null || color == null) {
+        throw new IllegalArgumentException("Panel or color is null");
       }
       this.cardPanel = cardPanel;
+      this.index = index;
+      this.color = color;
     }
 
     @Override
@@ -220,6 +227,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
       } else {
         highlightedCard = null; // case where this cardPanel was previously highlighted
       }
+      System.out.println("Index in hand = " + index + ". " +  color + " player owns the hand.");
     }
   }
 }

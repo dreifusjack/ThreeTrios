@@ -56,8 +56,8 @@ class CardPanel extends JPanel {
     g2.drawRect(0, 0, getWidth(), getHeight());
 
     // Draw the values on each side of the card
-    g2.setFont(new Font("Arial", Font.BOLD, 14));
-    g2.drawString(valueToString(cardShape.north), getWidth() / 2 - 5, 15);
+    g2.setFont(new Font("Arial", Font.BOLD, 22));
+    g2.drawString(valueToString(cardShape.north), getWidth() / 2 - 5, 20);
     g2.drawString(valueToString(cardShape.south), getWidth() / 2 - 5, getHeight() - 5);
     g2.drawString(valueToString(cardShape.east), getWidth() - 15, getHeight() / 2);
     g2.drawString(valueToString(cardShape.west), 5, getHeight() / 2);
