@@ -87,8 +87,8 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
       redPlayerPanel.add(cardPanel);
     }
 
-    for (int blueHandIndex = 0; blueHandIndex < model.getRedPlayer().getHand().size(); blueHandIndex++) {
-      Card card = model.getRedPlayer().getHand().get(blueHandIndex);
+    for (int blueHandIndex = 0; blueHandIndex < model.getBluePlayer().getHand().size(); blueHandIndex++) {
+      Card card = model.getBluePlayer().getHand().get(blueHandIndex);
       CardPanel cardPanel = createCardPanel(TeamColor.BLUE, card.toString());
       cardPanel.addMouseListener(new CardInHandClickListener(cardPanel, blueHandIndex, TeamColor.BLUE));
       bluePlayerPanel.add(cardPanel);
