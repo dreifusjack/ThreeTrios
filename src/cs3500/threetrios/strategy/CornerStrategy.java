@@ -16,39 +16,42 @@ import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 public class CornerStrategy implements ThreeTriosStrategy {
 
   @Override
-  public PlayedMove findBestMove(ReadOnlyThreeTriosModel model, Player player) {
-    PlayedMove bestMove = null;
+  public BasicMove findBestMove(ReadOnlyThreeTriosModel model, Player player) {
+    BasicMove bestMove = null;
     int maxComboSoFar = -1;
 
-    // find all the corner position
-    Map<String, int[]> corners = new LinkedHashMap<>();
-    corners.put("TL", new int[]{0, 0}); // (top-left)
-    corners.put("TR", new int[]{0, model.numCols() - 1}); // top-right
-    corners.put("BL", new int[]{model.numRows() - 1, 0}); //bottom-left
-    corners.put("BR", new int[]{model.numRows() - 1, model.numCols() - 1}); // bottom-right
+    List<List<Integer>> corners = List.of(List.of(0, 0), // top-left
+            List.of(0, model.numCols() - 1), // top-right
+            List.of(model.numRows() - 1, 0), // bottom-left
+            List.of(model.numRows() - 1, model.numCols() - 1) // bottom-right
+    );
 
-    // loop through each card for each corner position
-    for (Map.Entry<String, int[]> entry : corners.entrySet()) {
-      int[] corner = entry.getValue();
-      int row = corner[0];
-      int col = corner[1];
+    for (List<Integer> corner : corners) {
+      int row = corner.get(0);
+      int col = corner.get(1);
       ReadOnlyGridCell cell = model.getCell(row, col);
 
+      // skip if this is a hole
       if (!cell.toString().equals("_")) {
         continue;
       }
 
-      Map<Integer, Integer> map = getBestCardIndex(entry.getKey(), model, player);
-      int combo = map.entrySet().iterator().next().getValue();
+      // loop through the player hand
+      for (int cardIndex = 0; cardIndex < player.getHand().size(); cardIndex++) {
+        Card card = player.getHand().get(cardIndex);
 
-      if (combo > maxComboSoFar) {
-        maxComboSoFar = combo;
-        int bestIndexSoFar = map.entrySet().iterator().next().getKey();
-        bestMove = new BasicMove(bestIndexSoFar, row, col);
+        int sumValue = calculateSumValueForCorner(card, model, row, col);
+
+        // check if the currentMax is larger than the globalMax
+        if (sumValue > maxComboSoFar) {
+          maxComboSoFar = sumValue;
+          bestMove = new BasicMove(cardIndex, row, col);
+        }
       }
     }
 
-    // if no bestMove is found then we do this
+
+    // if no valid move was found, pick the uppermost-leftmost position
     if (bestMove == null && !player.getHand().isEmpty()) {
       for (int row = 0; row < model.numRows(); row++) {
         for (int col = 0; col < model.numCols(); col++) {
@@ -60,26 +63,43 @@ public class CornerStrategy implements ThreeTriosStrategy {
       }
     }
 
-    //call helper method to handle tie breaker (iterate from (0, 1))
     return bestMove;
-    // if all corners are filled then trigger the next strategy (...) {
-    // trigger findQuickestMove();
-    //
-    // }
   }
 
-  private Map<Integer, Integer> getBestCardIndex(String key, ReadOnlyThreeTriosModel model, Player player) {
-    switch (key) {
-      case "TL":
-         return player.bestCardInTopLeft();
-      case "TR":
-        return player.bestCardInTopRight();
-      case "BL":
-        return player.bestCadInBottomLeft();
-      case "BR":
-        return player.bestCardInBoomRight();
-      default:
-        return null;
+  /**
+   * Helper method to calculate the total value of a card.
+   *
+   * @param card  is the card to want to calculate.
+   * @param model is the readonly version of the model.
+   * @param row   is the row of this card.
+   * @param col   is the column of this card.
+   * @return the total of 2 sides of this card.
+   */
+  private int calculateSumValueForCorner(Card card, ReadOnlyThreeTriosModel model, int row, int col) {
+    int sum = 0;
+
+    // top-left
+    if (row == 0 && col == 0) {
+      sum += (model.getCell(row, col + 1).toString().equals("_")) ? card.getEast().getValue() : 0;
+      sum += (model.getCell(row + 1, col).toString().equals("_")) ? card.getSouth().getValue() : 0;
     }
+    // top-right
+    else if (row == 0 && col == model.numCols() - 1) {
+      sum += (model.getCell(row, col - 1).toString().equals("_")) ? card.getWest().getValue() : 0;
+      sum += (model.getCell(row + 1, col).toString().equals("_")) ? card.getSouth().getValue() : 0;
+    }
+    // bottom-left
+    else if (row == model.numRows() - 1 && col == 0) {
+      sum += (model.getCell(row, col + 1).toString().equals("_")) ? card.getEast().getValue() : 0;
+      sum += (model.getCell(row - 1, col).toString().equals("_")) ? card.getNorth().getValue() : 0;
+    }
+    // bottom-right
+    else if (row == model.numRows() - 1 && col == model.numCols() - 1) {
+      sum += (model.getCell(row, col - 1).toString().equals("_")) ? card.getWest().getValue() : 0;
+      sum += (model.getCell(row - 1, col).toString().equals("_")) ? card.getNorth().getValue() : 0;
+    }
+
+    return sum;
   }
+
 }

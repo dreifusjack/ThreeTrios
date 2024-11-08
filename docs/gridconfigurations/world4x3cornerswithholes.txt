@@ -1,0 +1,5 @@
+4 3
+XCX
+CCX
+CXC
+XXX
