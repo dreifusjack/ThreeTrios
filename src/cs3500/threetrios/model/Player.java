@@ -51,12 +51,4 @@ public interface Player {
    * @return a TeamColor.
    */
   TeamColor getColor();
-
-  Map<Integer, Integer> bestCardInTopLeft();
-
-  Map<Integer, Integer> bestCardInTopRight();
-
-  Map<Integer, Integer> bestCadInBottomLeft();
-
-  Map<Integer, Integer> bestCardInBoomRight();
 }
