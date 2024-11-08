@@ -80,23 +80,23 @@ public class CornerStrategy implements ThreeTriosStrategy {
 
     // top-left
     if (row == 0 && col == 0) {
-      sum += (model.getCell(row, col + 1).toString().equals("_")) ? card.getEast().getValue() : 0;
-      sum += (model.getCell(row + 1, col).toString().equals("_")) ? card.getSouth().getValue() : 0;
+      sum += (model.getCell(row, col + 1).toString().equals(" ")) ? 0 : card.getEast().getValue();
+      sum += (model.getCell(row + 1, col).toString().equals(" ")) ? 0 : card.getSouth().getValue();
     }
     // top-right
     else if (row == 0 && col == model.numCols() - 1) {
-      sum += (model.getCell(row, col - 1).toString().equals("_")) ? card.getWest().getValue() : 0;
-      sum += (model.getCell(row + 1, col).toString().equals("_")) ? card.getSouth().getValue() : 0;
+      sum += (model.getCell(row, col - 1).toString().equals(" ")) ? 0 : card.getWest().getValue();
+      sum += (model.getCell(row + 1, col).toString().equals(" ")) ? 0 : card.getSouth().getValue();
     }
     // bottom-left
     else if (row == model.numRows() - 1 && col == 0) {
-      sum += (model.getCell(row, col + 1).toString().equals("_")) ? card.getEast().getValue() : 0;
-      sum += (model.getCell(row - 1, col).toString().equals("_")) ? card.getNorth().getValue() : 0;
+      sum += (model.getCell(row, col + 1).toString().equals(" ")) ? 0 : card.getEast().getValue();
+      sum += (model.getCell(row - 1, col).toString().equals(" ")) ? 0 : card.getNorth().getValue();
     }
     // bottom-right
     else if (row == model.numRows() - 1 && col == model.numCols() - 1) {
-      sum += (model.getCell(row, col - 1).toString().equals("_")) ? card.getWest().getValue() : 0;
-      sum += (model.getCell(row - 1, col).toString().equals("_")) ? card.getNorth().getValue() : 0;
+      sum += (model.getCell(row, col - 1).toString().equals(" ")) ? 0 : card.getWest().getValue();
+      sum += (model.getCell(row - 1, col).toString().equals(" ")) ? 0 : card.getNorth().getValue();
     }
 
     return sum;
