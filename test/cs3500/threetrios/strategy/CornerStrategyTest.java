@@ -15,10 +15,11 @@ public class CornerStrategyTest {
 
   protected ThreeTriosModel model2x2;
 
-  protected ThreeTriosModel model3x3;
-  protected ThreeTriosModel model3x3ver2;
-  protected ThreeTriosModel model3x3ver3;
+  protected ThreeTriosModel model4x3;
+  protected ThreeTriosModel model4x3ver2;
+  protected ThreeTriosModel model4x3ver3;
   protected ThreeTriosModel model4x3CornersWithHoles;
+  protected ThreeTriosModel model4x3plain;
   protected ThreeTriosModel model4x3CornersWithHolesVer2;
   protected ThreeTriosModel model4x3CornersWithHolesVer3;
 
@@ -38,9 +39,9 @@ public class CornerStrategyTest {
 
     model5x7 = new BasicThreeTriosModel("world1.txt", "card1.txt", rand1);
     model2x2 = new BasicThreeTriosModel("world2x2.txt", "cards2x2.txt", rand1);
-    model3x3 = new BasicThreeTriosModel("world4x3.txt", "cards3x3.txt", rand1);
-    model3x3ver2 = new BasicThreeTriosModel("world4x3.txt", "cards3x3ver2.txt", rand1);
-    model3x3ver3 = new BasicThreeTriosModel("world4x3ver2.txt", "cards3x3ver2.txt", rand1);
+    model4x3 = new BasicThreeTriosModel("world4x3.txt", "cards4x3.txt", rand1);
+    model4x3ver2 = new BasicThreeTriosModel("world4x3.txt", "cards3x3ver2.txt", rand1);
+    model4x3ver3 = new BasicThreeTriosModel("world4x3ver2.txt", "cards3x3ver2.txt", rand1);
     modelWithNotEnoughCards = new BasicThreeTriosModel("world4x3.txt",
             "3cardsonly.txt", rand1);
     model2x2SameValueOf1 = new BasicThreeTriosModel("world2x2ver2.txt",
@@ -53,6 +54,7 @@ public class CornerStrategyTest {
     model4x3CornersWithHolesVer3 = new BasicThreeTriosModel("world4x3cornerswithholesver2.txt", "cards4x3bestcardcorner.txt", rand1);
     model4x3CornersWith2Holes = new BasicThreeTriosModel("world4x3with2holescorners.txt", "cards4x3cornerswith2holes.txt", rand1);
     model4x3Corner1SideHole = new BasicThreeTriosModel("world4x3cornersspecial.txt", "cards4x3corners1sideholes.txt", rand1);
+    model4x3plain = new BasicThreeTriosModel("world4x3plain.txt", "cards4x3.txt", rand1);
   }
 
   @Test
@@ -79,11 +81,11 @@ public class CornerStrategyTest {
   //Test Initial Corner Play
   @Test
   public void testInitialCornerPlay() {
-    model3x3ver2.startGame();
+    model4x3ver2.startGame();
 
-    Assert.assertEquals(0, new CornerStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getRow());
-    Assert.assertEquals(0, new CornerStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getCol());
-    Assert.assertEquals(0, new CornerStrategy().findBestMove(model3x3ver2, model3x3ver2.getCurrentPlayer()).getHandInx());
+    Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3ver2, model4x3ver2.getCurrentPlayer()).getRow());
+    Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3ver2, model4x3ver2.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3ver2, model4x3ver2.getCurrentPlayer()).getHandInx());
   }
 
   // Test One Corner Taken
@@ -142,16 +144,41 @@ public class CornerStrategyTest {
   // Play to the corner and flip cards around it
   @Test
   public void testPlayCornerAndFlip() {
-    model3x3.startGame();
-    model3x3.playToGrid(3, 1, 1);
-    model3x3.playToGrid(1 ,0 ,1);
-    model3x3.playToGrid(2, 2, 2);
-    model3x3.playToGrid(1, 1, 0);
+    model4x3.startGame();
+    model4x3.playToGrid(3, 1, 1);
+    model4x3.playToGrid(1 ,0 ,1);
+    model4x3.playToGrid(2, 2, 2);
+    model4x3.playToGrid(1, 1, 0);
 
-    System.out.println(new CornerStrategy().findBestMove(model3x3, model3x3.getCurrentPlayer()));
-    Assert.assertEquals(0, new CornerStrategy().findBestMove(model3x3, model3x3.getCurrentPlayer()).getRow());
-    Assert.assertEquals(0, new CornerStrategy().findBestMove(model3x3, model3x3.getCurrentPlayer()).getCol());
-    Assert.assertEquals(0, new CornerStrategy().findBestMove(model3x3, model3x3.getCurrentPlayer()).getHandInx());
+    System.out.println(new CornerStrategy().findBestMove(model4x3, model4x3.getCurrentPlayer()));
+    Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3, model4x3.getCurrentPlayer()).getRow());
+    Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3, model4x3.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3, model4x3.getCurrentPlayer()).getHandInx());
 
+  }
+
+  // Play to corner but the first top-left has a card, bottom-right/bottom-left have holes
+  @Test
+  public void testFirstCornerIsOccupied() {
+    model4x3CornersWith2Holes.startGame();
+    model4x3CornersWith2Holes.playToGrid(0, 0, 0);
+
+    System.out.println(model4x3CornersWith2Holes.getCurrentPlayer().getHand().toString());
+    Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3CornersWith2Holes, model4x3CornersWith2Holes.getCurrentPlayer()).getRow());
+    Assert.assertEquals(2, new CornerStrategy().findBestMove(model4x3CornersWith2Holes, model4x3CornersWith2Holes.getCurrentPlayer()).getCol());
+    Assert.assertEquals(1, new CornerStrategy().findBestMove(model4x3CornersWith2Holes, model4x3CornersWith2Holes.getCurrentPlayer()).getHandInx());
+  }
+
+  @Test
+  public void test3CornersOccupiedCards() {
+    model4x3plain.startGame();
+    model4x3plain.playToGrid(0, 0, 0);
+    model4x3plain.playToGrid(0, 2, 0);
+    model4x3plain.playToGrid(3, 2, 0);
+
+    System.out.println(model4x3plain.getCurrentPlayer().getHand().toString());
+    Assert.assertEquals(3, new CornerStrategy().findBestMove(model4x3plain, model4x3plain.getCurrentPlayer()).getRow());
+    Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3plain, model4x3plain.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3plain, model4x3plain.getCurrentPlayer()).getHandInx());
   }
 }
