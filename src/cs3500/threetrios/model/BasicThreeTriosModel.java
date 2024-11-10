@@ -91,7 +91,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
 
   // private method for converting ReadOnlyGridCell to GridCell
   private GridCell convertReadOnlyToGridCell(ReadOnlyGridCell readOnlyCell) {
-    if (readOnlyCell.cardToString().equals("_")) {
+    if (readOnlyCell.toString().equals("_")) {
       return new Hole();
     } else {
       String[] partsForCardShape = readOnlyCell.cardToString().split(" ");
