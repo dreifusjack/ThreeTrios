@@ -14,7 +14,8 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
     int minFlipability = Integer.MAX_VALUE;
 
     // get the opponent player
-    Player opponent = model.getRedPlayer().equals(player) ? model.getBluePlayer() : model.getRedPlayer();
+    Player opponent = model.getRedPlayer().getColor().equals(player.getColor()) ?
+            model.getBluePlayer() : model.getRedPlayer();
 
     // loop through each card in the player's hand
     for (int index = 0; index < player.getHand().size(); index++) {
