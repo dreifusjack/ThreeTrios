@@ -195,7 +195,7 @@ public abstract class AbstractThreeTriosModelTest {
                     ThreeTrioCard.AttackValue.ONE),
             new ThreeTrioCard("HeroKnight", ThreeTrioCard.AttackValue.A,
                     ThreeTrioCard.AttackValue.FOUR,
-                    ThreeTrioCard.AttackValue.FOUR, ThreeTrioCard.AttackValue.ONE),
+                    ThreeTrioCard.AttackValue.FOUR, ThreeTrioCard.AttackValue.TWO),
             new ThreeTrioCard("CorruptKing", ThreeTrioCard.AttackValue.THREE,
                     ThreeTrioCard.AttackValue.ONE, ThreeTrioCard.AttackValue.ONE,
                     ThreeTrioCard.AttackValue.TWO),

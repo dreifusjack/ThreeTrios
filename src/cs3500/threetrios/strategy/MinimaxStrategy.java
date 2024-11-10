@@ -24,7 +24,8 @@ public class MinimaxStrategy implements ThreeTriosStrategy {
     for (int index = 0; index < player.getHand().size(); index++) {
       for (int row = 0; row < model.numRows(); row++) {
         for (int col = 0; col < model.numCols(); col++) {
-          if (!model.getCell(row, col).cardToString().equals("_")) {
+
+          if (model.getCell(row, col).isOccupied()) {
             continue;
           }
 
