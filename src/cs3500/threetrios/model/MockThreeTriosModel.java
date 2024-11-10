@@ -132,6 +132,12 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
     return 0;
   }
 
+  @Override
+  public ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIdx) {
+    mocklog.add("simulating move at cell (" + row + ", " + col + ") with the handInx : " + handIdx);
+    return null;
+  }
+
   /**
    * Gets the mock log for testing.
    *

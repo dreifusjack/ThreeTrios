@@ -47,4 +47,5 @@ public interface GridCell extends ReadOnlyGridCell {
    * @throws IllegalStateException if this cell is a hole.
    */
   Card getCard();
+
 }

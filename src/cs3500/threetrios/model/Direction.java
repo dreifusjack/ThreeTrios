@@ -39,4 +39,24 @@ public enum Direction {
         return 0;
     }
   }
+
+  /**
+   * Returns the opposite direction of the given direction.
+   *
+   * @return the opposite direction
+   */
+  public Direction getOppositeDirection() {
+    switch (this) {
+      case NORTH:
+        return SOUTH;
+      case SOUTH:
+        return NORTH;
+      case EAST:
+        return WEST;
+      case WEST:
+        return EAST;
+      default:
+        throw new IllegalArgumentException("Invalid direction");
+    }
+  }
 }

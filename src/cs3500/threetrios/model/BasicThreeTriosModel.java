@@ -65,6 +65,51 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     random = rand;
   }
 
+
+  /**
+   * Construct a BasicThreeTriosModel given a ReadOnlyThreeTriosModel.
+   * @param readOnlyModel is a ReadOnlyThreeTriosModel.
+   */
+  public BasicThreeTriosModel(ReadOnlyThreeTriosModel readOnlyModel) {
+    this.grid = new GridCell[readOnlyModel.numRows()][readOnlyModel.numCols()];
+    this.redPlayer = readOnlyModel.getRedPlayer();
+    this.bluePlayer = readOnlyModel.getBluePlayer();
+    this.playerTurn = readOnlyModel.getCurrentPlayer().getColor() == TeamColor.RED ? redPlayer : bluePlayer;
+
+    // making the grid
+    for (int row = 0; row < readOnlyModel.numRows(); row++) {
+      for (int col = 0; col < readOnlyModel.numCols(); col++) {
+        ReadOnlyGridCell readOnlyCell = readOnlyModel.getCell(row, col);
+        this.grid[row][col] = convertReadOnlyToGridCell(readOnlyCell);
+      }
+    }
+
+    this.gridFileReader = null;
+    this.cardFileReader = null;
+    this.random = new Random();
+  }
+
+  // private method for converting ReadOnlyGridCell to GridCell
+  private GridCell convertReadOnlyToGridCell(ReadOnlyGridCell readOnlyCell) {
+    if (readOnlyCell.cardToString().equals("_")) {
+      return new Hole();
+    } else {
+      String[] partsForCardShape = readOnlyCell.cardToString().split(" ");
+      if (partsForCardShape.length == 5) {
+        Card card = new ThreeTrioCard(
+                partsForCardShape[0],
+                ThreeTrioCard.AttackValue.fromString(partsForCardShape[1]),
+                ThreeTrioCard.AttackValue.fromString(partsForCardShape[2]),
+                ThreeTrioCard.AttackValue.fromString(partsForCardShape[3]),
+                ThreeTrioCard.AttackValue.fromString(partsForCardShape[4])
+        );
+        return new CardCell(card, readOnlyCell.getColor());
+      }
+    }
+    throw new IllegalArgumentException("Invalid ReadOnlyGridCell data");
+  }
+
+
   @Override
   public void startGame() {
     if (grid != null) {
@@ -393,5 +438,18 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   private boolean isValidCoordinate(int row, int col) {
     return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
   }
+
+  @Override
+  public ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIndex) {
+    // make a copy
+    ThreeTriosModel clonedModel = new BasicThreeTriosModel(this);
+
+    // simulate the move on the copied version.
+    clonedModel.playToGrid(row, col, handIndex);
+
+    // return a read-only version.
+    return clonedModel;
+  }
+
 }
 

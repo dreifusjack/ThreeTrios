@@ -16,6 +16,14 @@ public class CardCell implements GridCell {
     color = null;
   }
 
+  public CardCell(Card card, TeamColor color) {
+    if (card == null) {
+      throw new IllegalArgumentException("Card cannot be null");
+    }
+    this.card = card;
+    this.color = color;
+  }
+
   @Override
   public void addCard(Card card) {
     if (this.card != null) {
@@ -62,6 +70,11 @@ public class CardCell implements GridCell {
       throw new IllegalStateException("This cell does not have a color added.");
     }
     return color;
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return card == null;
   }
 
   @Override

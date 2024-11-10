@@ -17,7 +17,8 @@ public class MaximizeFlipsStrategy implements ThreeTriosStrategy {
         for (int col = 0; col < model.getGridReadOnly().get(row).size(); col++) {
           ReadOnlyGridCell cell = model.getCell(row, col);
 
-          if (!cell.toString().equals("_")) {
+          // skip cells that are not empty (hole / occupied)
+          if (!cell.isEmpty()) {
             continue;
           }
 

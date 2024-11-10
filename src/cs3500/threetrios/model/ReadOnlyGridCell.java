@@ -37,4 +37,7 @@ public interface ReadOnlyGridCell {
    * @throws IllegalStateException if this cell does not have a color
    */
   TeamColor getColor();
+
+  boolean isEmpty();
+
 }

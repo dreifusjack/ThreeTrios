@@ -31,8 +31,8 @@ public class CornerStrategy implements ThreeTriosStrategy {
       int col = corner.get(1);
       ReadOnlyGridCell cell = model.getCell(row, col);
 
-      // skip if this is a hole
-      if (!cell.toString().equals("_")) {
+      // skip cells that are not empty (hole / occupied)
+      if (!cell.isEmpty()) {
         continue;
       }
 

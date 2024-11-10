@@ -117,4 +117,6 @@ public interface ReadOnlyThreeTriosModel {
    * @throws IllegalArgumentException if coordinates map to a hole
    */
   int numCardFlips(Card card, int row, int col, Player player);
+
+  ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIdx);
 }
