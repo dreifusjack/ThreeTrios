@@ -73,8 +73,8 @@ public class CardCell implements GridCell {
   }
 
   @Override
-  public boolean isEmpty() {
-    return card == null;
+  public boolean isOccupied() {
+    return card != null;
   }
 
   @Override

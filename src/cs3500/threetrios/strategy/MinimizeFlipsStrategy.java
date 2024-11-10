@@ -27,7 +27,7 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
           ReadOnlyGridCell cell = model.getCell(row, col);
 
           // Skip cells that are not empty
-          if (!cell.isEmpty()) {
+          if (cell.isOccupied()) {
             continue;
           }
 
@@ -72,7 +72,7 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
         ReadOnlyGridCell cell = model.getCell(adjRow, adjCol);
 
         // skip cells that are not empty or holds a card already
-        if (!cell.isEmpty()) {
+        if (cell.isOccupied()) {
           continue;
         }
 

@@ -37,8 +37,8 @@ public class Hole implements GridCell {
   }
 
   @Override
-  public boolean isEmpty() {
-    return false;
+  public boolean isOccupied() {
+    return true;
   }
 
   @Override

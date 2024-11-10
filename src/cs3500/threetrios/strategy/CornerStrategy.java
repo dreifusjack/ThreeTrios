@@ -1,12 +1,6 @@
 package cs3500.threetrios.strategy;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.swing.text.IconView;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Player;
@@ -32,7 +26,7 @@ public class CornerStrategy implements ThreeTriosStrategy {
       ReadOnlyGridCell cell = model.getCell(row, col);
 
       // skip cells that are not empty (hole / occupied)
-      if (!cell.isEmpty()) {
+      if (cell.isOccupied()) {
         continue;
       }
 

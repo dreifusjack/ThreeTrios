@@ -38,6 +38,6 @@ public interface ReadOnlyGridCell {
    */
   TeamColor getColor();
 
-  boolean isEmpty();
+  boolean isOccupied();
 
 }
