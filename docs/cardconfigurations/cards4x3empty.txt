@@ -1,0 +1,12 @@
+CorruptKing 3 1 1 2
+AngryDragon 5 7 1 4
+WindBird 2 5 5 A
+HeroKnight A 4 4 1
+WorldDragon 1 6 5 1
+SkyWhale 3 1 1 2
+FirePhoenix A A A A
+ThunderTiger 3 9 5 4
+SilverWolf 3 1 6 8
+MysticFairy 5 5 A 2
+OceanKraken 1 4 8 6
+GoldenEagle A 2 7 1

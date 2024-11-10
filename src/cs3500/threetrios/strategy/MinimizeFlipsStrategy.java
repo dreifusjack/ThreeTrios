@@ -23,7 +23,7 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
 
       // loop through each cell in the grid
       for (int row = 0; row < model.numRows(); row++) {
-        for (int col = 0; col < model.numCols(); col++) {
+         for (int col = 0; col < model.numCols(); col++) {
           ReadOnlyGridCell cell = model.getCell(row, col);
 
           // Skip cells that are not empty
@@ -35,7 +35,7 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
           int flipability = calculateFlipability(model, currentCard, row, col, opponent);
 
           // choose the move with the minimum flipability
-          if (flipability < minFlipability) {
+          if (flipability < minFlipability || (flipability == minFlipability && (bestMove == null || row < bestMove.getRow() || (row == bestMove.getRow() && col < bestMove.getCol())))) {
             minFlipability = flipability;
             bestMove = new BasicMove(index, row, col);
           }
@@ -69,6 +69,11 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
         int adjRow = row + Direction.getRowHelper(direction);
         int adjCol = col + Direction.getColHelper(direction);
 
+        // check if the adjacent position is within bounds
+        if (!(adjRow >= 0 && adjRow < model.numRows() && adjCol >= 0 && adjCol < model.numCols())) {
+          continue;
+        }
+
         ReadOnlyGridCell cell = model.getCell(adjRow, adjCol);
 
         // skip cells that are not empty or holds a card already
@@ -76,12 +81,9 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
           continue;
         }
 
-        // check if the adjacent position is within bounds
-        if (adjRow >= 0 && adjRow < model.numRows() && adjCol >= 0 && adjCol < model.numCols()) {
-          // determine if the opponent's card could flip the player's card
-          if (opponentCard.compare(card, direction.getOppositeDirection())) {
-            flipability++;
-          }
+        // determine if the opponent's card could flip the player's card
+        if (opponentCard.compare(card, direction.getOppositeDirection())) {
+          flipability++;
         }
       }
     }
