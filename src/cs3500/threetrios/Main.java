@@ -19,14 +19,17 @@ public class Main {
   public static void main(String[] args) {
     Random rand1 = new Random(2);
 
-    BasicThreeTriosModel model3x3ver2 = new BasicThreeTriosModel("world4x31hole.txt", "cards4x3emptyver2.txt", rand1);
+    BasicThreeTriosModel model3x3ver2 = new BasicThreeTriosModel("world4x32holes.txt", "cards4x3emptyver2.txt", rand1);
 
     model3x3ver2.startGame();
 
-    model3x3ver2.playToGrid(3, 2, 0);
+    model3x3ver2.playToGrid(2, 2, 0);
     model3x3ver2.playToGrid(0, 1, 2);
-    model3x3ver2.playToGrid(2, 0, 1);
-    model3x3ver2.playToGrid(1, 0, 1);
+    model3x3ver2.playToGrid(2, 0, 0);
+    model3x3ver2.playToGrid(0, 2, 0);
+
+
+
 
 //
 //    model3x3ver2.playToGrid(2, 2, 0);

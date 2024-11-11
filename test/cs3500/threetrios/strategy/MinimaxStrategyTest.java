@@ -47,6 +47,7 @@ public class MinimaxStrategyTest {
   List<ThreeTriosStrategy> listcornerminimum;
   List<ThreeTriosStrategy> listmaximumminimum;
   List<ThreeTriosStrategy> listallstrategies;
+  protected ThreeTriosModel model4x32holes;
 
   @Before
   public void setUp() {
@@ -86,6 +87,7 @@ public class MinimaxStrategyTest {
     listcornerminimum = List.of(cornerstrategy, minimizeflipstrategy);
     listmaximumminimum = List.of(maxinumflipstrategy, minimizeflipstrategy);
     listallstrategies = List.of(cornerstrategy, maxinumflipstrategy, minimizeflipstrategy);
+    model4x32holes = new BasicThreeTriosModel("world4x32holes.txt", "cards4x3emptyver2.txt", rand1);
   }
 
   // Test when the opponent use MaximizeFlip, it put the opponent by not playing on col 2
@@ -99,15 +101,16 @@ public class MinimaxStrategyTest {
 
     model4x3equalsides.playToGrid(1, 0, 0);
 
-    System.out.println(new MinimizeFlipsStrategy().findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()));
-    Assert.assertEquals(0, new MinimizeFlipsStrategy().findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getRow());
-    Assert.assertEquals(1, new MinimizeFlipsStrategy().findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getCol());
-    Assert.assertEquals(0, new MinimizeFlipsStrategy().findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getHandInx());
+    System.out.println(new MinimaxStrategy(listmaximum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()));
+    Assert.assertEquals(0, new MinimaxStrategy(listmaximum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getRow());
+    Assert.assertEquals(1, new MinimaxStrategy(listmaximum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new MinimaxStrategy(listmaximum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getHandInx());
   }
 
   // Test when the opponent use CornerStrategy
   // The only corner left is (0,0), and play to this place will leave the opponent at a bad place
-  // as all the cards won't be able to flip any of the other cards on the board
+  // as all the cards won't be able to flip any of the other cards on the board (number of cards
+  // blue can make with the corner strategy after this is 0.
   @Test
   public void testCornerStrategy() {
     model4x3.startGame();
@@ -117,10 +120,10 @@ public class MinimaxStrategyTest {
     model4x3.playToGrid(2, 2, 2);
     model4x3.playToGrid(1, 1, 0);
 
-    System.out.println(new MinimizeFlipsStrategy().findBestMove(model4x3, model4x3.getCurrentPlayer()));
-    Assert.assertEquals(0, new MinimizeFlipsStrategy().findBestMove(model4x3, model4x3.getCurrentPlayer()).getRow());
-    Assert.assertEquals(0, new MinimizeFlipsStrategy().findBestMove(model4x3, model4x3.getCurrentPlayer()).getCol());
-    Assert.assertEquals(0, new MinimizeFlipsStrategy().findBestMove(model4x3, model4x3.getCurrentPlayer()).getHandInx());
+    System.out.println(new MinimaxStrategy(listcorner).findBestMove(model4x3, model4x3.getCurrentPlayer()));
+    Assert.assertEquals(0, new MinimaxStrategy(listcorner).findBestMove(model4x3, model4x3.getCurrentPlayer()).getRow());
+    Assert.assertEquals(1, new MinimaxStrategy(listcorner).findBestMove(model4x3, model4x3.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new MinimaxStrategy(listcorner).findBestMove(model4x3, model4x3.getCurrentPlayer()).getHandInx());
   }
 
   // Test when the opponent use MinimizeFlipsStrategy
@@ -131,9 +134,64 @@ public class MinimaxStrategyTest {
     model4x3equalsides.playToGrid(3, 2, 0);
     model4x3equalsides.playToGrid(0, 1, 2);
     model4x3equalsides.playToGrid(2, 0, 1);
-    System.out.println(new MinimizeFlipsStrategy().findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()));
-    Assert.assertEquals(1, new MinimizeFlipsStrategy().findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getRow());
-    Assert.assertEquals(0, new MinimizeFlipsStrategy().findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getCol());
-    Assert.assertEquals(1, new MinimizeFlipsStrategy().findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getHandInx());
+
+
+    System.out.println(new MinimaxStrategy(listminimum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()));
+    Assert.assertEquals(0, new MinimaxStrategy(listminimum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getRow());
+    Assert.assertEquals(0, new MinimaxStrategy(listminimum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getCol());
+    Assert.assertEquals(1, new MinimaxStrategy(listminimum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getHandInx());
+  }
+
+  // Test with a list of corner and maximum strategies as input list. (corner and maxumum both
+  // return (0, 2) and hand index of 1 as the best move after we chose a move (2, 0, 1) from the
+  //minimax strategy
+  @Test
+  public void testMaximumAndCorner() {
+    model4x3equalsides.startGame();
+
+    model4x3equalsides.playToGrid(3, 2, 0);
+    model4x3equalsides.playToGrid(0, 1, 2);
+    model4x3equalsides.playToGrid(2, 0, 1);
+
+
+    System.out.println(new MinimaxStrategy(listcornermaximum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()));
+    Assert.assertEquals(0, new MinimaxStrategy(listcornermaximum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getRow());
+    Assert.assertEquals(0, new MinimaxStrategy(listcornermaximum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getCol());
+    Assert.assertEquals(1, new MinimaxStrategy(listcornermaximum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getHandInx());
+  }
+
+  // Test when the input list of strategies are corner + minimum. The best move to minimize the
+  // impact of the opponent here is not (1,0) but (1, 2) as the corner would play to
+  @Test
+  public void testCornerMinimum() {
+    model4x32holes.startGame();
+
+    model4x32holes.playToGrid(2, 2, 0);
+    model4x32holes.playToGrid(0, 1, 2);
+    model4x32holes.playToGrid(3, 0, 0);
+    model4x32holes.playToGrid(0, 2, 0);
+
+
+    System.out.println(new MinimaxStrategy(listcornerminimum).findBestMove(model4x32holes, model4x32holes.getCurrentPlayer()));
+    Assert.assertEquals(1, new MinimaxStrategy(listcornerminimum).findBestMove(model4x32holes, model4x32holes.getCurrentPlayer()).getRow());
+    Assert.assertEquals(2, new MinimaxStrategy(listcornerminimum).findBestMove(model4x32holes, model4x32holes.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new MinimaxStrategy(listcornerminimum).findBestMove(model4x32holes, model4x32holes.getCurrentPlayer()).getHandInx());
+  }
+
+  //Test for all 3 strategies as input for Minimax
+  @Test
+  public void testAllStrategies() {
+    model4x32holes.startGame();
+
+    model4x32holes.playToGrid(2, 2, 0);
+    model4x32holes.playToGrid(0, 1, 2);
+    model4x32holes.playToGrid(3, 0, 0);
+    model4x32holes.playToGrid(0, 2, 0);
+
+
+    System.out.println(new MinimaxStrategy(listallstrategies).findBestMove(model4x32holes, model4x32holes.getCurrentPlayer()));
+    Assert.assertEquals(1, new MinimaxStrategy(listallstrategies).findBestMove(model4x32holes, model4x32holes.getCurrentPlayer()).getRow());
+    Assert.assertEquals(0, new MinimaxStrategy(listallstrategies).findBestMove(model4x32holes, model4x32holes.getCurrentPlayer()).getCol());
+    Assert.assertEquals(1, new MinimaxStrategy(listallstrategies).findBestMove(model4x32holes, model4x32holes.getCurrentPlayer()).getHandInx());
   }
 }

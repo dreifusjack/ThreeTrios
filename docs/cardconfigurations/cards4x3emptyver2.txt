@@ -6,7 +6,7 @@ WorldDragon 1 6 5 1
 SkyWhale 3 1 1 2
 FirePhoenix 2 3 4 2
 ThunderTiger 3 9 5 4
-SilverWolf 3 1 6 8
+SilverWolf 4 3 6 8
 MysticFairy 5 5 A 2
 OceanKraken 1 4 8 6
 GoldenEagle A 2 7 1

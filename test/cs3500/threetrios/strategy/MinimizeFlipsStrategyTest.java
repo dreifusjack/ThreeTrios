@@ -134,6 +134,7 @@ public class MinimizeFlipsStrategyTest {
     model4x3equalsides.playToGrid(0, 1, 2);
     model4x3equalsides.playToGrid(2, 0, 1);
 
+
     System.out.println(new MinimizeFlipsStrategy().findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()));
     Assert.assertEquals(1, new MinimizeFlipsStrategy().findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getRow());
     Assert.assertEquals(0, new MinimizeFlipsStrategy().findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getCol());
