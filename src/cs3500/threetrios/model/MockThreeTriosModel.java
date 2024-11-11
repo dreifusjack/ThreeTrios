@@ -14,7 +14,9 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   private final int predeterminedCol;
   private final boolean validMoveOnly;
   private final List<List<ReadOnlyGridCell>> grid;
-
+  private Player redPlayer;
+  private Player bluePlayer;
+  private Player currentPlayer;
 
   /**
    * Constructs a mock ThreeTriosModel.
@@ -25,7 +27,7 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
    * @param predeterminedCol chosen col to lie about.
    * @param validMoveOnly    boolean to show if we want to lie or not.
    */
-  public MockThreeTriosModel(int numRows, int numCols, int predeterminedRow, int predeterminedCol, boolean validMoveOnly) {
+  public MockThreeTriosModel(int numRows, int numCols, int predeterminedRow, int predeterminedCol, boolean validMoveOnly, Player redPlayer, Player bluePlayer) {
     this.mocklog = new ArrayList<>();
     this.numRows = numRows;
     this.numCols = numCols;
@@ -33,6 +35,9 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
     this.predeterminedRow = predeterminedRow;
     this.predeterminedCol = predeterminedCol;
     this.validMoveOnly = validMoveOnly;
+    this.redPlayer = redPlayer;
+    this.bluePlayer = bluePlayer;
+    this.currentPlayer = redPlayer;
   }
 
   /**
@@ -105,19 +110,19 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   @Override
   public Player getCurrentPlayer() {
     mocklog.add("getting current player");
-    return null;
+    return currentPlayer;
   }
 
   @Override
   public Player getRedPlayer() {
     mocklog.add("getting red player");
-    return null;
+    return redPlayer;
   }
 
   @Override
   public Player getBluePlayer() {
     mocklog.add("getting blue player");
-    return null;
+    return bluePlayer;
   }
 
   @Override
@@ -135,7 +140,7 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   @Override
   public ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIdx) {
     mocklog.add("simulating move at cell (" + row + ", " + col + ") with the handInx : " + handIdx);
-    return null;
+    return new BasicThreeTriosModel(this);
   }
 
   /**

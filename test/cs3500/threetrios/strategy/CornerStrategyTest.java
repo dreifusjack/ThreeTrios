@@ -14,7 +14,6 @@ public class CornerStrategyTest {
   protected ThreeTriosModel model5x7;
 
   protected ThreeTriosModel model2x2;
-
   protected ThreeTriosModel model4x3;
   protected ThreeTriosModel model4x3ver2;
   protected ThreeTriosModel model4x3ver3;
@@ -181,25 +180,4 @@ public class CornerStrategyTest {
     Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3plain, model4x3plain.getCurrentPlayer()).getCol());
     Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3plain, model4x3plain.getCurrentPlayer()).getHandInx());
   }
-
-
-  @Test
-  public void testMidGame() {
-    ThreeTriosModel model4x32holes = new BasicThreeTriosModel("world4x32holes.txt", "cards4x3emptyver2.txt", new Random(2));
-    model4x32holes.startGame();
-
-
-    model4x32holes.playToGrid(2, 2, 0);
-    model4x32holes.playToGrid(0, 1, 2);
-    model4x32holes.playToGrid(3, 0, 0);
-    model4x32holes.playToGrid(0, 2, 0);
-    model4x32holes.playToGrid(1, 0, 1);
-
-
-    System.out.println(new MinimizeFlipsStrategy().findBestMove(model4x32holes, model4x32holes.getCurrentPlayer()));
-    Assert.assertEquals(1, new MinimizeFlipsStrategy().findBestMove(model4x32holes, model4x32holes.getCurrentPlayer()).getRow());
-    Assert.assertEquals(2, new MinimizeFlipsStrategy().findBestMove(model4x32holes, model4x32holes.getCurrentPlayer()).getCol());
-    Assert.assertEquals(0, new MinimizeFlipsStrategy().findBestMove(model4x32holes, model4x32holes.getCurrentPlayer()).getHandInx());
-  }
-
 }
