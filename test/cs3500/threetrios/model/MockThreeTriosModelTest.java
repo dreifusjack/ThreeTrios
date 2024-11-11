@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import cs3500.threetrios.strategy.ChainStrategy;
 import cs3500.threetrios.strategy.CornerStrategy;
 import cs3500.threetrios.strategy.MaximizeFlipsStrategy;
 import cs3500.threetrios.strategy.MinimaxStrategy;
@@ -101,6 +102,21 @@ public class MockThreeTriosModelTest {
   @Test
   public void testMinimaxFlipStrategy() {
     new MinimaxStrategy(List.of(new MinimizeFlipsStrategy())).findBestMove(mockModel, redPlayer);
+    List<String> log = mockModel.getMockLog();
+
+    for (int index = 0; index < redPlayer.getHand().size(); index++) {
+      for (int row = 0; row < mockModel.numRows(); row++) {
+        for (int col = 0; col < mockModel.numCols(); col++) {
+          Assert.assertTrue(
+                  log.contains("checking at cell (" + row + ", " + col + ")"));
+        }
+      }
+    }
+  }
+
+  @Test
+  public void testChainStrategy() {
+    new ChainStrategy(List.of(new MinimizeFlipsStrategy(), new CornerStrategy())).findBestMove(mockModel, redPlayer);
     List<String> log = mockModel.getMockLog();
 
     for (int index = 0; index < redPlayer.getHand().size(); index++) {
