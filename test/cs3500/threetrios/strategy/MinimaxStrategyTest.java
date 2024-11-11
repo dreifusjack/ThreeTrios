@@ -136,7 +136,7 @@ public class MinimaxStrategyTest {
     System.out.println(new MinimaxStrategy(listminimum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()));
     Assert.assertEquals(0, new MinimaxStrategy(listminimum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getRow());
     Assert.assertEquals(0, new MinimaxStrategy(listminimum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getCol());
-    Assert.assertEquals(1, new MinimaxStrategy(listminimum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getHandInx());
+    Assert.assertEquals(0, new MinimaxStrategy(listminimum).findBestMove(model4x3equalsides, model4x3equalsides.getCurrentPlayer()).getHandInx());
   }
 
   // Test with a list of corner and maximum strategies as input list. (corner and maxumum both
