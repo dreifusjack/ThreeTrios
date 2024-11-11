@@ -9,7 +9,7 @@ import cs3500.threetrios.view.TTGUIView;
  * Main runner class used for intermediate testing throughout implementation process. This
  * class will change in the future.
  */
-public class Main {
+public class ThreeTrios {
 
   /**
    * Current runner to test how model and view are interacting.
