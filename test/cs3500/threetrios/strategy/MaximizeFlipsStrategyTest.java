@@ -27,6 +27,8 @@ public class MaximizeFlipsStrategyTest {
   private ThreeTriosController controller4x3Ver2;
   private ThreeTriosModel model4x3Ver3;
   private ThreeTriosController controller4x3Ver3;
+  private ThreeTriosModel model3x31Cell;
+  private ThreeTriosController controller3x31Cell;
   private ThreeTriosModel model4x3CornersWithHoles;
   private ThreeTriosController controller4x3CornersWithHoles;
   private ThreeTriosModel model4x3Plain;
@@ -137,6 +139,9 @@ public class MaximizeFlipsStrategyTest {
 
     model4x32Holes = new BasicThreeTriosModel(rand1);
     controller4x32Holes = new BasicThreeTriosController("world4x32holes.txt", "cards4x3emptyver2.txt");
+
+    model3x31Cell = new BasicThreeTriosModel(rand1);
+    controller3x31Cell = new BasicThreeTriosController("world3x31Cell.txt", "cards4x3emptyver2.txt");
 
     cornerStrategy = new CornerStrategy();
     maxinumFlipStrategy = new MaximizeFlipsStrategy();
@@ -275,4 +280,29 @@ public class MaximizeFlipsStrategyTest {
     Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model4x3Ver3, model4x3Ver3.getCurrentPlayer()).getCol());
     Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model4x3Ver3, model4x3Ver3.getCurrentPlayer()).getHandInx());
   }
+
+  // Test findBestMoveChain, it should produce the same result as findBestMove.
+  @Test
+  public void testWhenThereIsNoBestMoveSpecialChain() {
+    controller4x3Ver3.playGame(model4x3Ver3);
+    model4x3Ver3.playToGrid(2, 2, 0);
+    model4x3Ver3.playToGrid(1, 0, 0);
+    model4x3Ver3.playToGrid(3, 1, 0);
+    model4x3Ver3.playToGrid(1, 1, 1);
+
+    Assert.assertEquals(2, new MaximizeFlipsStrategy().findBestMoveForChain(model4x3Ver3, model4x3Ver3.getCurrentPlayer()).getRow());
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMoveForChain(model4x3Ver3, model4x3Ver3.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMoveForChain(model4x3Ver3, model4x3Ver3.getCurrentPlayer()).getHandInx());
+  }
+
+  // When the grid only has 1 cell to play to.
+  @Test
+  public void test1CellAvailable() {
+    controller3x31Cell.playGame(model3x31Cell);
+
+    Assert.assertEquals(1, new MaximizeFlipsStrategy().findBestMove(model3x31Cell, model3x31Cell.getCurrentPlayer()).getRow());
+    Assert.assertEquals(1, new MaximizeFlipsStrategy().findBestMove(model3x31Cell, model3x31Cell.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x31Cell, model3x31Cell.getCurrentPlayer()).getHandInx());
+  }
+
 }

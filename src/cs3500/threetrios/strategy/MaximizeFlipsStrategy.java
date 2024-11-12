@@ -12,8 +12,9 @@ import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
  * will be the move that can flip as much of the opponent card as possible. If there
  * is a tie with many best move then break the tie by choosing the move with the uppermost-leftmost
  * coordinate for the position and then choose the best card for that position with an index
- * closest to 0 in the hand. If there are no valid moves, your player should pass choose
- * the upper-most, left-most open position and the card at index 0.
+ * closest to 0 in the hand. This strategy won't return null as our grid must have an odd number of
+ * card cells (which always guarantee at least 1 CardCell for every game board). And this ensures
+ * that this strategy won't ever return null for its best move.
  */
 public class MaximizeFlipsStrategy implements ThreeTriosStrategy {
 

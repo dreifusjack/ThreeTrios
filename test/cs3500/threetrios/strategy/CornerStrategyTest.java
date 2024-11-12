@@ -151,13 +151,28 @@ public class CornerStrategyTest {
 
   }
 
+  // When there is not best moves (4 corners are holes)
   @Test
   public void testWhenCannotFindBestMove() {
     controller4x3CornersWithHoles.playGame(model4x3CornersWithHoles);
 
-    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()).getRow());
-    Assert.assertEquals(1, new MaximizeFlipsStrategy().findBestMove(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()).getCol());
-    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()).getHandInx());
+    System.out.println(new MaximizeFlipsStrategy().findBestMove(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()));
+    Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()).getRow());
+    Assert.assertEquals(1, new CornerStrategy().findBestMove(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()).getHandInx());
+
+  }
+
+  // Test findBestMoveForChain which ignore the condition "If there are
+  // no valid moves, your player should pass choose the upper-most, left-most
+  // open position and the card at index 0." So this returns null.
+  @Test
+  public void testReturnNullWhenCannotFindBestMove() {
+    controller4x3CornersWithHoles.playGame(model4x3CornersWithHoles);
+
+    System.out.println(new MaximizeFlipsStrategy().findBestMoveForChain(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()));
+    Assert.assertEquals(null, new CornerStrategy().findBestMoveForChain(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()));
+
   }
 
   // When there is no best move play to the first open cell but some cells like (0, 0), (0, 1),... are occupied by a card or are holes
