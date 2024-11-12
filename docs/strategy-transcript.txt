@@ -1,5 +1,5 @@
 Choosing MaximizeFlipStrategy and the Player is Red Player and we have not done any moveToGrid to
-the the 3x3 board with no holes yet.
+the 3x3 board with no holes yet.
 
 ---------------card at index 0 in hand--------------
 checking at cell (0, 0) for Player : RED

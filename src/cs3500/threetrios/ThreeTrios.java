@@ -25,9 +25,6 @@ public class ThreeTrios {
 
     controller.playGame(model4x3);
     model4x3.playToGrid(3, 2, 0);
-//    model4x3.playToGrid(0, 1, 2);
-////    model4x3.playToGrid(2, 0, 1);
-
 
     TTGUIView view = new TTGUIView(model4x3);
     view.setVisible(true);
