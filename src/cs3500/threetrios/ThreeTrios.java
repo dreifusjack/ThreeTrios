@@ -19,26 +19,29 @@ public class ThreeTrios {
    */
   public static void main(String[] args) {
     Random rand1 = new Random(2);
-    BasicThreeTriosModel model3x3ver2 = new BasicThreeTriosModel(rand1);
+    BasicThreeTriosModel model4x3 = new BasicThreeTriosModel(rand1);
     BasicThreeTriosController controller =
             new BasicThreeTriosController(
-                    "world4x31hole.txt", "cards4x3emptyver2.txt");
-    controller.playGame(model3x3ver2);
+                    "world4x3.txt", "cards3x3.txt");
+    controller.playGame(model4x3);
 
 
-    model3x3ver2.playToGrid(3, 2, 0);
-    model3x3ver2.playToGrid(0, 1, 2);
-    model3x3ver2.playToGrid(2, 0, 1);
+    model4x3.playToGrid(0, 0, 0);
+    // Player 2 (Blue)
+    model4x3.playToGrid(2, 0, 0);
+//    // Player 1 (Red)
+//    model4x3.playToGrid(2, 2, 1);
+//    // Player 2 (Blue)
+//    model4x3.playToGrid(1, 0, 1);
+//    // Player 1 (Red)
+//    model4x3.playToGrid(3, 1, 1);
+////    // Player 2 (Blue)
+////    model4x3.playToGrid(1, 1, 1);
+////    // Player 1 (Red)
+////    model4x3.playToGrid(0, 1, 0);
 
 
-//
-//    model3x3ver2.playToGrid(2, 2, 0);
-//    model3x3ver2.playToGrid(1, 0, 0);
-//    model3x3ver2.playToGrid(3, 1, 0);
-//    model3x3ver2.playToGrid(1, 1, 1);
-
-
-    TTGUIView view = new TTGUIView(model3x3ver2);
+    TTGUIView view = new TTGUIView(model4x3);
     view.setVisible(true);
     System.out.println(view);
   }
