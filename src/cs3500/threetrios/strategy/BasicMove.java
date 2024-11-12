@@ -1,7 +1,5 @@
 package cs3500.threetrios.strategy;
 
-import cs3500.threetrios.model.Card;
-
 /**
  * The BasicMove class to represent a best move return from the strategies.
  */
@@ -24,11 +22,16 @@ public class BasicMove implements PlayedMove {
 
   @Override
   public int getHandInx() {
-    return handInx; }
+    return handInx;
+  }
 
   @Override
-  public int getRow() { return row; }
+  public int getRow() {
+    return row;
+  }
 
   @Override
-  public int getCol() { return col; }
+  public int getCol() {
+    return col;
+  }
 }

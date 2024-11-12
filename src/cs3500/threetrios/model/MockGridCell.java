@@ -8,7 +8,7 @@ public class MockGridCell implements ReadOnlyGridCell {
   private final boolean isHole;
 
   /**
-   * Construct a MockGridCell with a boolean value to represents what it holds (cell/hole)
+   * Construct a MockGridCell with a boolean value to represents what it holds (cell/hole).
    * @param isHole boolean value to represents this MockGridCell is a hole.
    */
   public MockGridCell(boolean isHole) {
@@ -17,7 +17,7 @@ public class MockGridCell implements ReadOnlyGridCell {
 
   @Override
   public String cardToString() {
-    if(isHole) {
+    if (isHole) {
       return " ";
     }
     else {
@@ -37,7 +37,7 @@ public class MockGridCell implements ReadOnlyGridCell {
 
   @Override
   public String toString() {
-    if(isHole) {
+    if (isHole) {
       return " ";
     }
     else {

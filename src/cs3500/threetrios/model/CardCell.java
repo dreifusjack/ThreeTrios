@@ -16,6 +16,11 @@ public class CardCell implements GridCell {
     color = null;
   }
 
+  /**
+   * Contruct a CardCell with a Card and a TeamColor.
+   * @param card is the Card that this CardCell holds.
+   * @param color is the color of this CardCell (color of the player that put the card on it)
+   */
   public CardCell(Card card, TeamColor color) {
     if (card == null) {
       throw new IllegalArgumentException("Card cannot be null");

@@ -22,7 +22,6 @@ public class MockThreeTriosModelTest {
   private MockThreeTriosModel mockModel;
   private MockThreeTriosModel mockModelLie;
   private Player redPlayer;
-  private Player bluePlayer;
 
   @Before
   public void setUp() {
@@ -30,7 +29,7 @@ public class MockThreeTriosModelTest {
     redPlayer.addToHand(new ThreeTrioCard("WorldDragon", ThreeTrioCard.AttackValue.ONE,
             ThreeTrioCard.AttackValue.FIVE, ThreeTrioCard.AttackValue.SIX,
             ThreeTrioCard.AttackValue.ONE));
-    bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
+    Player bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
     bluePlayer.addToHand(new ThreeTrioCard("RedDragon", ThreeTrioCard.AttackValue.THREE,
             ThreeTrioCard.AttackValue.A, ThreeTrioCard.AttackValue.ONE,
             ThreeTrioCard.AttackValue.TWO));
@@ -121,7 +120,8 @@ public class MockThreeTriosModelTest {
 
   @Test
   public void testChainStrategy() {
-    new ChainStrategy(List.of(new MinimizeFlipsStrategy(), new CornerStrategy())).findBestMove(mockModel, redPlayer);
+    new ChainStrategy(List.of(new MinimizeFlipsStrategy(),
+            new CornerStrategy())).findBestMove(mockModel, redPlayer);
     List<String> log = mockModel.getMockLog();
 
     for (int index = 0; index < redPlayer.getHand().size(); index++) {

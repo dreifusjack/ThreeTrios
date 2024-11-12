@@ -3,8 +3,6 @@ package cs3500.threetrios.controller;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
 import cs3500.threetrios.model.CardCell;
 import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.Hole;

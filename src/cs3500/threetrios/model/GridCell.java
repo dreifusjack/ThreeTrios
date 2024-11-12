@@ -1,7 +1,5 @@
 package cs3500.threetrios.model;
 
-import java.awt.*;
-
 /**
  * Responsible for all the operations of a grid cell. These behaviors will be used
  * by the model. A GridCell is responsible for representing a cell on the board.

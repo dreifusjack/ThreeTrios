@@ -1,7 +1,5 @@
 package cs3500.threetrios.controller;
 
-import java.util.List;
-
 import cs3500.threetrios.model.GridCell;
 
 /**

@@ -1,7 +1,6 @@
 package cs3500.threetrios.model;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Behaviors for a player in the Three Trios game. A player is the red player or the blue player in

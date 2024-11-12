@@ -1,5 +1,8 @@
 package cs3500.threetrios.view;
 
+/**
+ * Feature class for future usage.
+ */
 public interface Features {
   /**
    * Handles the logic for selecting a card.

@@ -81,10 +81,10 @@ public class MinimaxStrategy implements ThreeTriosStrategy {
           // (worst for us and best for them)
           int opponentMaxScore = calculateOpponentMaxScore(modelAfterMove, player);
 
-          if (opponentMaxScore < minOpponentMaxScore ||
-                  (opponentMaxScore == minOpponentMaxScore && (bestMove == null ||
-                          row < bestMove.getRow() ||
-                          (row == bestMove.getRow() && col < bestMove.getCol())))) {
+          if (opponentMaxScore < minOpponentMaxScore
+                  || (opponentMaxScore == minOpponentMaxScore && (bestMove == null
+                  || row < bestMove.getRow()
+                  || (row == bestMove.getRow() && col < bestMove.getCol())))) {
             minOpponentMaxScore = opponentMaxScore;
             bestMove = playerMove;
           }

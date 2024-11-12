@@ -1,9 +1,9 @@
 package cs3500.threetrios.view;
 
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
-import javax.swing.*;
-import java.awt.*;
-
+import java.awt.Component;
 
 public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   private final ThreeTriosPanel gridPanel;

@@ -1,7 +1,5 @@
 package cs3500.threetrios.model;
 
-import java.awt.*;
-
 /**
  * Represents a "Hole" in the grid meaning no card can be placed on this cell.
  */

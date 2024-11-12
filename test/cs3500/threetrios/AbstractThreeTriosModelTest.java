@@ -69,15 +69,15 @@ public abstract class AbstractThreeTriosModelTest {
 
     modelWithNotEnoughCards = createModelWithRandom(rand1);
     controllerWithNotEnoughCards = new BasicThreeTriosController(
-            "world4x3.txt","3cardsonly.txt");
+            "world4x3.txt", "3cardsonly.txt");
 
     model2x2SameValueOf1 = createModelWithRandom(rand1);
     controller2x2SameValueOf1 = new BasicThreeTriosController(
-            "world2x2ver2.txt","cardswithsamevalueof1.txt");
+            "world2x2ver2.txt", "cardswithsamevalueof1.txt");
 
     model2x2SameValueOf1Ver2 = createModelWithRandom(rand1);
     controller2x2SameValueOf1Ver2 = new BasicThreeTriosController(
-            "world2x2ver3.txt","cardswithsamevalueof1.txt");
+            "world2x2ver3.txt", "cardswithsamevalueof1.txt");
 
     nerfedCard = new ThreeTrioCard("", ThreeTrioCard.AttackValue.ONE,
             ThreeTrioCard.AttackValue.ONE, ThreeTrioCard.AttackValue.ONE,
@@ -666,8 +666,8 @@ public abstract class AbstractThreeTriosModelTest {
   @Test
   public void testGetCell() {
     controller4x3.playGame(model4x3);
-    Assert.assertEquals(new CardCell().getClass(), model4x3.getCell(0, 0).getClass());
-    Assert.assertEquals(new Hole().getClass(), model4x3.getCell(0, 2).getClass());
+    Assert.assertEquals(CardCell.class, model4x3.getCell(0, 0).getClass());
+    Assert.assertEquals(Hole.class, model4x3.getCell(0, 2).getClass());
     model4x3.playToGrid(0, 0, 0); // Red player plays a card to 0,0
     Assert.assertEquals(TeamColor.RED, model4x3.getCell(0, 0).getColor());
   }
@@ -756,7 +756,7 @@ public abstract class AbstractThreeTriosModelTest {
             model4x3.numCardFlips(model4x3.getCurrentPlayer().getHand().get(0), 2, 0,
                     model4x3.getCurrentPlayer()));
     // subpar blue team play flips
-   Assert.assertEquals(1,
+    Assert.assertEquals(1,
             model4x3.numCardFlips(model4x3.getCurrentPlayer().getHand().get(0), 1, 1,
                     model4x3.getCurrentPlayer()));
     Assert.assertEquals(1,

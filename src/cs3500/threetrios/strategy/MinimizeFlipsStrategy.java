@@ -31,8 +31,7 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
 
     if (bestMove != null) {
       return bestMove;
-    }
-    else {
+    } else {
       return handleNullMove(model, player, bestMove);
     }
   }
@@ -57,8 +56,8 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
     int minFlipability = Integer.MAX_VALUE;
 
     // get the opponent player
-    Player opponent = model.getRedPlayer().getColor().equals(player.getColor()) ?
-            model.getBluePlayer() : model.getRedPlayer();
+    Player opponent = model.getRedPlayer().getColor().equals(player.getColor())
+            ? model.getBluePlayer() : model.getRedPlayer();
 
     // loop through each card in the player's hand
     for (int index = 0; index < player.getHand().size(); index++) {
@@ -78,9 +77,9 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
           int flipability = calculateFlipability(model, currentCard, row, col, opponent);
 
           // choose the move with the minimum flipability
-          if (flipability < minFlipability || (flipability == minFlipability && (bestMove ==
-                  null || row < bestMove.getRow() || (row == bestMove.getRow() && col <
-                  bestMove.getCol())))) {
+          if (flipability < minFlipability || (flipability == minFlipability && (bestMove
+                  == null || row < bestMove.getRow() || (row == bestMove.getRow() && col
+                  < bestMove.getCol())))) {
             minFlipability = flipability;
             bestMove = new BasicMove(index, row, col);
           }

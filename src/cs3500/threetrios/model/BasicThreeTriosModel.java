@@ -5,9 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import cs3500.threetrios.controller.CardFileReader;
-import cs3500.threetrios.controller.GridFileReader;
-import cs3500.threetrios.controller.GridReader;
 
 /**
  * First variant model of Three Trio model implementation. Implementation of the behaviors
@@ -66,7 +63,8 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     this.grid = new GridCell[readOnlyModel.numRows()][readOnlyModel.numCols()];
     this.redPlayer = readOnlyModel.getRedPlayer();
     this.bluePlayer = readOnlyModel.getBluePlayer();
-    this.playerTurn = readOnlyModel.getCurrentPlayer().getColor() == TeamColor.RED ? redPlayer : bluePlayer;
+    this.playerTurn = readOnlyModel.getCurrentPlayer().getColor() ==
+            TeamColor.RED ? redPlayer : bluePlayer;
 
     // making the grid
     for (int row = 0; row < readOnlyModel.numRows(); row++) {

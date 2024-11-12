@@ -1,9 +1,13 @@
 package cs3500.threetrios.view;
 
-import java.awt.*;
 import java.awt.geom.Path2D;
-
-import javax.swing.*;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import javax.swing.BorderFactory;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Color;
+import java.awt.Font;
 
 import cs3500.threetrios.model.TeamColor;
 

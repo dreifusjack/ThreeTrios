@@ -35,7 +35,8 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
    * @param predeterminedCol chosen col to lie about.
    * @param validMoveOnly    boolean to show if we want to lie or not.
    */
-  public MockThreeTriosModel(int numRows, int numCols, int predeterminedRow, int predeterminedCol, boolean validMoveOnly, Player redPlayer, Player bluePlayer) {
+  public MockThreeTriosModel(int numRows, int numCols, int predeterminedRow, int predeterminedCol,
+                             boolean validMoveOnly, Player redPlayer, Player bluePlayer) {
     this.mocklog = new ArrayList<>();
     this.numRows = numRows;
     this.numCols = numCols;
@@ -141,8 +142,8 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
 
   @Override
   public int numCardFlips(Card card, int row, int col, Player player) {
-    mocklog.add("checking number of card flips for card at cell (" + row + ", " + col + ") " +
-            "for Player: " + player.getColor().toString());
+    mocklog.add("checking number of card flips for card at cell (" + row + ", " + col + ") "
+            + "for Player: " + player.getColor().toString());
     return 0;
   }
 

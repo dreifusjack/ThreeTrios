@@ -5,9 +5,14 @@ import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.TeamColor;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import javax.swing.BorderFactory;
+import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import javax.swing.BoxLayout;
 
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
