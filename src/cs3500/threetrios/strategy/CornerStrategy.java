@@ -7,6 +7,17 @@ import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 
+/**
+ * Represent the CornerStrategy class. This strategy prioritize playing to the 4 corners on
+ * the board. The strategy will loop through each of the 4 corners, then for each corner it will
+ * loop through each card in the hand to find the "hardest card" to flip. The "hardest card" to
+ * flip is the card that has the largest sum of its opening sides (each card in the corner will
+ * be exposed to of its sides). The side that is facing a hole will has the value of 0. If there
+ * is a tie with many best move then break the tie by choosing the move with the uppermost-leftmost
+ * coordinate for the position and then choose the best card for that position with an index
+ * closest to 0 in the hand. If there are no valid moves, your player should pass choose
+ * the upper-most, left-most open position and the card at index 0.
+ */
 public class CornerStrategy implements ThreeTriosStrategy {
 
   @Override
@@ -61,7 +72,8 @@ public class CornerStrategy implements ThreeTriosStrategy {
   }
 
   /**
-   * Helper method to calculate the total value of a card.
+   * Helper method to calculate the total value of a card. If a side is facing a hole then its
+   * value will be 0.
    *
    * @param card  is the card to want to calculate.
    * @param model is the readonly version of the model.
@@ -69,28 +81,37 @@ public class CornerStrategy implements ThreeTriosStrategy {
    * @param col   is the column of this card.
    * @return the total of 2 sides of this card.
    */
-  private int calculateSumValueForCorner(Card card, ReadOnlyThreeTriosModel model, int row, int col) {
+  private int calculateSumValueForCorner(Card card, ReadOnlyThreeTriosModel model,
+                                         int row, int col) {
     int sum = 0;
 
     // top-left
     if (row == 0 && col == 0) {
-      sum += (model.getCell(row, col + 1).toString().equals(" ")) ? 0 : card.getEast().getValue();
-      sum += (model.getCell(row + 1, col).toString().equals(" ")) ? 0 : card.getSouth().getValue();
+      sum += (model.getCell(row, col + 1).toString().equals(" ")) ? 0 :
+              card.getEast().getValue();
+      sum += (model.getCell(row + 1, col).toString().equals(" ")) ? 0 :
+              card.getSouth().getValue();
     }
     // top-right
     else if (row == 0 && col == model.numCols() - 1) {
-      sum += (model.getCell(row, col - 1).toString().equals(" ")) ? 0 : card.getWest().getValue();
-      sum += (model.getCell(row + 1, col).toString().equals(" ")) ? 0 : card.getSouth().getValue();
+      sum += (model.getCell(row, col - 1).toString().equals(" ")) ? 0 :
+              card.getWest().getValue();
+      sum += (model.getCell(row + 1, col).toString().equals(" ")) ? 0 :
+              card.getSouth().getValue();
     }
     // bottom-left
     else if (row == model.numRows() - 1 && col == 0) {
-      sum += (model.getCell(row, col + 1).toString().equals(" ")) ? 0 : card.getEast().getValue();
-      sum += (model.getCell(row - 1, col).toString().equals(" ")) ? 0 : card.getNorth().getValue();
+      sum += (model.getCell(row, col + 1).toString().equals(" ")) ? 0 :
+              card.getEast().getValue();
+      sum += (model.getCell(row - 1, col).toString().equals(" ")) ? 0 :
+              card.getNorth().getValue();
     }
     // bottom-right
     else if (row == model.numRows() - 1 && col == model.numCols() - 1) {
-      sum += (model.getCell(row, col - 1).toString().equals(" ")) ? 0 : card.getWest().getValue();
-      sum += (model.getCell(row - 1, col).toString().equals(" ")) ? 0 : card.getNorth().getValue();
+      sum += (model.getCell(row, col - 1).toString().equals(" ")) ? 0 :
+              card.getWest().getValue();
+      sum += (model.getCell(row - 1, col).toString().equals(" ")) ? 0 :
+              card.getNorth().getValue();
     }
 
     return sum;

@@ -4,6 +4,9 @@ import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.strategy.PlayedMove;
 
+/**
+ * Interface to present a strategy for the ThreeTrios game.
+ */
 public interface ThreeTriosStrategy {
   /**
    * Find the best move for the given player.

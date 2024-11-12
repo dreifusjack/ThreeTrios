@@ -43,13 +43,15 @@ public class MockThreeTriosModelTest {
 
     List<String> log = mockModel.getMockLog();
 
+    System.out.println(redPlayer.getColor().toString());
+
     for (int index = 0; index < redPlayer.getHand().size(); index++) {
       for (int row = 0; row < mockModel.numRows(); row++) {
         for (int col = 0; col < mockModel.numCols(); col++) {
           Assert.assertTrue(
                   log.contains("checking at cell (" + row + ", " + col + ")"));
           Assert.assertTrue(
-                  log.contains("checking number of card flips for card at cell (" + row + ", " + col + ")"));
+                  log.contains("checking number of card flips for card at cell (" + row + ", " + col + ") for Player: " + "RED"));
         }
       }
     }

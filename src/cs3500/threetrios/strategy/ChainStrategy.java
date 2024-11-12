@@ -5,6 +5,14 @@ import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 
 import java.util.List;
 
+/**
+ * Represent the ChainStrategy as a way to recombine many strategies to offer more sophisticated
+ * ways to pick the best move from the list of strategies. We will run findBestMove on every
+ * ThreeTriosStrategy in the list of ThreeTriosStrategy given to the ChainStrategy. If a
+ * ThreeTriosStrategy return null which it cannot find a best move then we move on with the next
+ * ThreeTriosStrategy in the list. If none of the ThreeTriosStrategy in the list provide a valid
+ * move then we choose the upper-most, left-most open position and the card at index 0.
+ */
 public class ChainStrategy implements ThreeTriosStrategy {
   private final List<ThreeTriosStrategy> strategies;
 
@@ -20,7 +28,8 @@ public class ChainStrategy implements ThreeTriosStrategy {
         return move;
       }
     }
-    // if no strategies provide a valid move, choose the upper-most, left-most open position and the card at index 0.
+    // if no strategies provide a valid move, choose the upper-most,
+    // left-most open position and the card at index 0.
     if (!player.getHand().isEmpty()) {
       for (int row = 0; row < model.numRows(); row++) {
         for (int col = 0; col < model.numCols(); col++) {
