@@ -101,12 +101,23 @@ This condition only allows playerTurn to be assigned to redPlayer or bluePlayer,
 
 ## Changes for part 2
 * Added observation methods for grid sizes, we chose not to add this in part 1 because any class that accesses a read only model can
-get a copy of the grid and acess the size configurations throught that copy. However these methods makes it easier to access grid sizings. 
-* Added observation method for getting the contents of the grid at a specifc coordinate. Once again we didn't add this orginally because
+get a copy of the grid and access the size configurations through that copy. However these methods makes it easier to access grid sizing's. 
+* Added observation method for getting the contents of the grid at a specific coordinate. Once again we didn't add this originally because
 other classes can get the a copy of the whole grid which would allow them to get any cell at a specific coordinate. However this method makes 
-this process easier for specifc cells. 
-* Added obvervation method for getting a players current score. We had this as a private helper in part 1, but now it is 
+this process easier for specific cells. 
+* Added observation method for getting a players current score. We had this as a private helper in part 1, but now it is 
 in our read only model interface. 
-* Added method that is given a card and two cooridnates, determines how many flips that card would make
-in the battle phase. We did not add this because we didn't find the functionality neccessary in part 1, but now that we are designing
-stratagies, it is needed. 
+* Added method that is given a card and two coordinates, determines how many flips that card would make
+in the battle phase. We did not add this because we didn't find the functionality necessary in part 1, but now that we are designing
+strategies, it is needed. 
+* We created a controller to start the model for us. The controller does not have any functionality 
+yet other than the playGame() method that takes in 2 Strings, first one is the direction to get 
+to get the world(grid) configurations and the second String is about the direction of the cards 
+configurations we want to use for our game. The main constructor our model now does not take in 
+anything since the controller process the information in the configuration files for us.
+
+## Extra credits for part 2
+* We attempted to do design all the strategies provided for extra credit, which are strategy 3 and strategy 4 and the chain strategy to combine multiple strategies. 
+* The third strategy class's name is MinimizeFlipStrategy and the fourth strategy class's name is MinimaxStrategy and the chain strategy name is ChainStrategy. You can find the implementations of these 2 strategies following this path "src/cs3500/threetrios/strategy".
+* Then, the test classes for these extra credit strategies are located in "test/cs3500/threetrios/strategy", the name for the test class of MinimizeFlipStrategy is MinimizeFlipStrategyTest 
+and the name for the test class of the MinimaxStrategy is MinimaxStrategyTest and the test class's name of the ChainStrategy is ChainStrategyTest. 
