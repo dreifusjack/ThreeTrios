@@ -12,6 +12,9 @@ import cs3500.threetrios.controller.ThreeTriosController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 
+/**
+ * Test class for the MaximizeFlipStrategy class.
+ */
 public class MaximizeFlipsStrategyTest {
 
   private ThreeTriosModel model5x7;

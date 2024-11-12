@@ -141,7 +141,8 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
 
   @Override
   public int numCardFlips(Card card, int row, int col, Player player) {
-    mocklog.add("checking number of card flips for card at cell (" + row + ", " + col + ") for Player: " + player.getColor().toString());
+    mocklog.add("checking number of card flips for card at cell (" + row + ", " + col + ") " +
+            "for Player: " + player.getColor().toString());
     return 0;
   }
 

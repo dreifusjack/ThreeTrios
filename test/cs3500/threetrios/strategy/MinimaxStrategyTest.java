@@ -11,6 +11,9 @@ import cs3500.threetrios.controller.ThreeTriosController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 
+/**
+ * Test class for the MinimaxStrategy class.
+ */
 public class MinimaxStrategyTest {
   private ThreeTriosModel model5x7;
   private ThreeTriosController controller5x7;

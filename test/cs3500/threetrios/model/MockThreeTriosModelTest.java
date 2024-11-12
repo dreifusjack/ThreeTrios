@@ -15,6 +15,9 @@ import cs3500.threetrios.strategy.MinimizeFlipsStrategy;
 import cs3500.threetrios.strategy.MockThreeTriosModel;
 import cs3500.threetrios.strategy.PlayedMove;
 
+/**
+ * Test class for the MockThreeTriosModel.
+ */
 public class MockThreeTriosModelTest {
   private MockThreeTriosModel mockModel;
   private MockThreeTriosModel mockModelLie;
