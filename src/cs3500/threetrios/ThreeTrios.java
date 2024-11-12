@@ -20,24 +20,13 @@ public class ThreeTrios {
   public static void main(String[] args) {
     Random rand1 = new Random(2);
     BasicThreeTriosModel model4x3 = new BasicThreeTriosModel(rand1);
-    BasicThreeTriosController controller =
-            new BasicThreeTriosController("world4x3cornerswithholes.txt", "cards3x3ver2.txt");
-    controller.playGame(model4x3);
+    BasicThreeTriosController controller = new BasicThreeTriosController("world4x32holes.txt", "cards4x3emptyver2.txt");
 
-//
-//    model4x3.playToGrid(0, 0, 0);
-//    // Player 2 (Blue)
-//    model4x3.playToGrid(2, 0, 0);
-//    // Player 1 (Red)
-//    model4x3.playToGrid(2, 2, 1);
-//    // Player 2 (Blue)
-//    model4x3.playToGrid(1, 0, 1);
-//    // Player 1 (Red)
-//    model4x3.playToGrid(3, 1, 1);
-////    // Player 2 (Blue)
-////    model4x3.playToGrid(1, 1, 1);
-////    // Player 1 (Red)
-////    model4x3.playToGrid(0, 1, 0);
+    controller.playGame(model4x3);
+    model4x3.playToGrid(2, 2, 0);
+    model4x3.playToGrid(0, 1, 2);
+    model4x3.playToGrid(3, 0, 0);
+    model4x3.playToGrid(0, 2, 1);
 
 
     TTGUIView view = new TTGUIView(model4x3);

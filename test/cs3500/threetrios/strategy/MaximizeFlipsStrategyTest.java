@@ -304,5 +304,4 @@ public class MaximizeFlipsStrategyTest {
     Assert.assertEquals(1, new MaximizeFlipsStrategy().findBestMove(model3x31Cell, model3x31Cell.getCurrentPlayer()).getCol());
     Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model3x31Cell, model3x31Cell.getCurrentPlayer()).getHandInx());
   }
-
 }

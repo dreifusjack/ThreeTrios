@@ -253,4 +253,20 @@ public class MinimaxStrategyTest {
     Assert.assertEquals(0, new MinimaxStrategy(listAllStrategies).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getCol());
     Assert.assertEquals(1, new MinimaxStrategy(listAllStrategies).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getHandInx());
   }
+
+  // Test findBestMoveForChain
+  @Test
+  public void testMaximumAndCornerChain() {
+    controller4x3EqualSides.playGame(model4x3EqualSides);
+
+    model4x3EqualSides.playToGrid(3, 2, 0);
+    model4x3EqualSides.playToGrid(0, 1, 2);
+    model4x3EqualSides.playToGrid(2, 0, 1);
+
+
+    System.out.println(new MinimaxStrategy(listCornerMaximum).findBestMoveForChain(model4x3EqualSides, model4x3EqualSides.getCurrentPlayer()));
+    Assert.assertEquals(0, new MinimaxStrategy(listCornerMaximum).findBestMoveForChain(model4x3EqualSides, model4x3EqualSides.getCurrentPlayer()).getRow());
+    Assert.assertEquals(0, new MinimaxStrategy(listCornerMaximum).findBestMoveForChain(model4x3EqualSides, model4x3EqualSides.getCurrentPlayer()).getCol());
+    Assert.assertEquals(1, new MinimaxStrategy(listCornerMaximum).findBestMoveForChain(model4x3EqualSides, model4x3EqualSides.getCurrentPlayer()).getHandInx());
+  }
 }

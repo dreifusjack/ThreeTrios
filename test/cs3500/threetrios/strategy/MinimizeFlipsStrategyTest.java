@@ -224,4 +224,20 @@ public class MinimizeFlipsStrategyTest {
     Assert.assertEquals(0, new MinimizeFlipsStrategy().findBestMove(model4x3EqualSides, model4x3EqualSides.getCurrentPlayer()).getCol());
     Assert.assertEquals(1, new MinimizeFlipsStrategy().findBestMove(model4x3EqualSides, model4x3EqualSides.getCurrentPlayer()).getHandInx());
   }
+
+  // Test findBestMoveForChain
+  @Test
+  public void testMidGameChain() {
+    controller4x3EqualSides.playGame(model4x3EqualSides);
+
+    model4x3EqualSides.playToGrid(3, 2, 0);
+    model4x3EqualSides.playToGrid(0, 1, 2);
+    model4x3EqualSides.playToGrid(2, 0, 1);
+
+
+    System.out.println(new MinimizeFlipsStrategy().findBestMove(model4x3EqualSides, model4x3EqualSides.getCurrentPlayer()));
+    Assert.assertEquals(1, new MinimizeFlipsStrategy().findBestMoveForChain(model4x3EqualSides, model4x3EqualSides.getCurrentPlayer()).getRow());
+    Assert.assertEquals(0, new MinimizeFlipsStrategy().findBestMoveForChain(model4x3EqualSides, model4x3EqualSides.getCurrentPlayer()).getCol());
+    Assert.assertEquals(1, new MinimizeFlipsStrategy().findBestMoveForChain(model4x3EqualSides, model4x3EqualSides.getCurrentPlayer()).getHandInx());
+  }
 }

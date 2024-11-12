@@ -168,7 +168,7 @@ public class ChainStrategyTest {
     Assert.assertEquals(2, new ChainStrategy(listMaximum).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getHandInx());
   }
 
-  //Test for list of 2 strategies (corner, maximizeflip)
+  //Test for list of 2 strategies (corner, maximizeflip) (CornerStrategy found a move)
   @Test
   public void testMaximizeCorner() {
     controller4x32Holes.playGame(model4x32Holes);
@@ -176,13 +176,12 @@ public class ChainStrategyTest {
     model4x32Holes.playToGrid(2, 2, 0);
     model4x32Holes.playToGrid(0, 1, 2);
     model4x32Holes.playToGrid(3, 0, 0);
-    model4x32Holes.playToGrid(0, 2, 0);
 
 
     System.out.println(new ChainStrategy(listCornerMaximum).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()));
-    Assert.assertEquals(1, new ChainStrategy(listCornerMaximum).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getRow());
+    Assert.assertEquals(0, new ChainStrategy(listCornerMaximum).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getRow());
     Assert.assertEquals(2, new ChainStrategy(listCornerMaximum).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getCol());
-    Assert.assertEquals(0, new ChainStrategy(listCornerMaximum).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getHandInx());
+    Assert.assertEquals(1, new ChainStrategy(listCornerMaximum).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getHandInx());
   }
 
   //Test for list of 3 strategies (corner, maximizeflip, minimizeflip
@@ -210,12 +209,53 @@ public class ChainStrategyTest {
     model4x32Holes.playToGrid(0, 1, 2);
     model4x32Holes.playToGrid(3, 0, 0);
 
-    List<ThreeTriosStrategy> complexList = List.of(new MinimaxStrategy(listMaximum), cornerStrategy, maxinumFlipStrategy, minimizeFlipStrategy);
+    List<ThreeTriosStrategy> complexList = List.of(new MinimaxStrategy(listMaximum), minimizeFlipStrategy, maxinumFlipStrategy, cornerStrategy);
 
     System.out.println(new ChainStrategy(complexList).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()));
     Assert.assertEquals(0, new ChainStrategy(complexList).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getRow());
     Assert.assertEquals(2, new ChainStrategy(complexList).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getCol());
     Assert.assertEquals(0, new ChainStrategy(complexList).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getHandInx());
+  }
+
+  // Put MaximumFlipStrategy at the front of the list, won't ever go to the other
+  @Test
+  public void testMaximumDominates() {
+    controller4x3.playGame(model4x3);
+
+    model4x3.playToGrid(0, 0, 0);
+
+
+    System.out.println(new ChainStrategy(listMaximumMinimum).findBestMove(model4x3, model4x3.getCurrentPlayer()));
+    Assert.assertEquals(0, new ChainStrategy(listMaximumMinimum).findBestMove(model4x3, model4x3.getCurrentPlayer()).getRow());
+    Assert.assertEquals(1, new ChainStrategy(listMaximumMinimum).findBestMove(model4x3, model4x3.getCurrentPlayer()).getCol());
+    Assert.assertEquals(1, new ChainStrategy(listMaximumMinimum).findBestMove(model4x3, model4x3.getCurrentPlayer()).getHandInx());
+  }
+
+  // CornerStrategy returns null so process the MinimumFlipStrategy
+  @Test
+  public void testCorner() {
+    controller4x3CornersWithHoles.playGame(model4x3CornersWithHoles);
+
+    System.out.println(new ChainStrategy(listCornerMinimum).findBestMove(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()));
+    Assert.assertEquals(0, new ChainStrategy(listMaximumMinimum).findBestMove(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()).getRow());
+    Assert.assertEquals(1, new ChainStrategy(listMaximumMinimum).findBestMove(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()).getCol());
+    Assert.assertEquals(0, new ChainStrategy(listMaximumMinimum).findBestMove(model4x3CornersWithHoles, model4x3CornersWithHoles.getCurrentPlayer()).getHandInx());
+  }
+
+  // Test findBestMoveForChain it should produce the same result as findBestMove
+  @Test
+  public void testAllStrategiesChain() {
+    controller4x32Holes.playGame(model4x32Holes);
+
+    model4x32Holes.playToGrid(2, 2, 0);
+    model4x32Holes.playToGrid(0, 1, 2);
+    model4x32Holes.playToGrid(3, 0, 0);
+
+
+    System.out.println(new ChainStrategy(listAllStrategies).findBestMoveForChain(model4x32Holes, model4x32Holes.getCurrentPlayer()));
+    Assert.assertEquals(0, new ChainStrategy(listAllStrategies).findBestMoveForChain(model4x32Holes, model4x32Holes.getCurrentPlayer()).getRow());
+    Assert.assertEquals(2, new ChainStrategy(listAllStrategies).findBestMoveForChain(model4x32Holes, model4x32Holes.getCurrentPlayer()).getCol());
+    Assert.assertEquals(1, new ChainStrategy(listAllStrategies).findBestMoveForChain(model4x32Holes, model4x32Holes.getCurrentPlayer()).getHandInx());
   }
 
 }
