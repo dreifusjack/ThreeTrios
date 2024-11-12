@@ -46,4 +46,9 @@ public class MaximizeFlipsStrategy implements ThreeTriosStrategy {
     }
     return bestMove;
   }
+
+  @Override
+  public PlayedMove findBestMoveForChain(ReadOnlyThreeTriosModel model, Player player) {
+    return this.findBestMove(model, player);
+  }
 }

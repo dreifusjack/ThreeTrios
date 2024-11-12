@@ -21,42 +21,19 @@ import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 public class CornerStrategy implements ThreeTriosStrategy {
 
   @Override
-  public BasicMove findBestMove(ReadOnlyThreeTriosModel model, Player player) {
-    BasicMove bestMove = null;
-    int maxComboSoFar = -1;
+  public PlayedMove findBestMove(ReadOnlyThreeTriosModel model, Player player) {
+    PlayedMove bestMove = this.findBestMoveForChain(model, player);
 
-    List<List<Integer>> corners = List.of(List.of(0, 0), // top-left
-            List.of(0, model.numCols() - 1), // top-right
-            List.of(model.numRows() - 1, 0), // bottom-left
-            List.of(model.numRows() - 1, model.numCols() - 1) // bottom-right
-    );
-
-    for (List<Integer> corner : corners) {
-      int row = corner.get(0);
-      int col = corner.get(1);
-      ReadOnlyGridCell cell = model.getCell(row, col);
-
-      // skip cells that are not empty (hole / occupied)
-      if (!cell.toString().equals("_")) {
-        continue;
-      }
-
-      // loop through the player hand
-      for (int cardIndex = 0; cardIndex < player.getHand().size(); cardIndex++) {
-        Card card = player.getHand().get(cardIndex);
-
-        int sumValue = calculateSumValueForCorner(card, model, row, col);
-
-        // check if the currentMax is larger than the globalMax
-        if (sumValue > maxComboSoFar) {
-          maxComboSoFar = sumValue;
-          bestMove = new BasicMove(cardIndex, row, col);
-        }
-      }
+    if (bestMove != null) {
+      return bestMove;
     }
+    else {
+      return handleNullMove(model, player, bestMove);
+    }
+  }
 
-
-    // if no valid move was found, pick the uppermost-leftmost position
+  // Helper method to handle when the strategy returns null for the best move.
+  private PlayedMove handleNullMove(ReadOnlyThreeTriosModel model, Player player, PlayedMove bestMove) {
     if (bestMove == null && !player.getHand().isEmpty()) {
       for (int row = 0; row < model.numRows(); row++) {
         for (int col = 0; col < model.numCols(); col++) {
@@ -67,8 +44,7 @@ public class CornerStrategy implements ThreeTriosStrategy {
         }
       }
     }
-
-    return bestMove;
+    return null;
   }
 
   /**
@@ -117,4 +93,40 @@ public class CornerStrategy implements ThreeTriosStrategy {
     return sum;
   }
 
+  @Override
+  public PlayedMove findBestMoveForChain(ReadOnlyThreeTriosModel model, Player player) {
+    BasicMove bestMove = null;
+    int maxComboSoFar = -1;
+
+    List<List<Integer>> corners = List.of(List.of(0, 0), // top-left
+            List.of(0, model.numCols() - 1), // top-right
+            List.of(model.numRows() - 1, 0), // bottom-left
+            List.of(model.numRows() - 1, model.numCols() - 1) // bottom-right
+    );
+
+    for (List<Integer> corner : corners) {
+      int row = corner.get(0);
+      int col = corner.get(1);
+      ReadOnlyGridCell cell = model.getCell(row, col);
+
+      // skip cells that are not empty (hole / occupied)
+      if (!cell.toString().equals("_")) {
+        continue;
+      }
+
+      // loop through the player hand
+      for (int cardIndex = 0; cardIndex < player.getHand().size(); cardIndex++) {
+        Card card = player.getHand().get(cardIndex);
+
+        int sumValue = calculateSumValueForCorner(card, model, row, col);
+
+        // check if the currentMax is larger than the globalMax
+        if (sumValue > maxComboSoFar) {
+          maxComboSoFar = sumValue;
+          bestMove = new BasicMove(cardIndex, row, col);
+        }
+      }
+    }
+    return bestMove;
+  }
 }

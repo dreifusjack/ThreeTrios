@@ -27,6 +27,32 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
 
   @Override
   public PlayedMove findBestMove(ReadOnlyThreeTriosModel model, Player player) {
+    PlayedMove bestMove = this.findBestMoveForChain(model, player);
+
+    if (bestMove != null) {
+      return bestMove;
+    }
+    else {
+      return handleNullMove(model, player, bestMove);
+    }
+  }
+
+  private static BasicMove handleNullMove(ReadOnlyThreeTriosModel model, Player player, PlayedMove bestMove) {
+    if (bestMove == null && !player.getHand().isEmpty()) {
+      for (int row = 0; row < model.numRows(); row++) {
+        for (int col = 0; col < model.numCols(); col++) {
+          ReadOnlyGridCell cell = model.getCell(row, col);
+          if (cell.cardToString().equals("_")) {
+            return new BasicMove(0, row, col);
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  @Override
+  public PlayedMove findBestMoveForChain(ReadOnlyThreeTriosModel model, Player player) {
     PlayedMove bestMove = null;
     int minFlipability = Integer.MAX_VALUE;
 
@@ -40,7 +66,7 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
 
       // loop through each cell in the grid
       for (int row = 0; row < model.numRows(); row++) {
-         for (int col = 0; col < model.numCols(); col++) {
+        for (int col = 0; col < model.numCols(); col++) {
           ReadOnlyGridCell cell = model.getCell(row, col);
 
           // Skip cells that are not empty
@@ -61,19 +87,6 @@ public class MinimizeFlipsStrategy implements ThreeTriosStrategy {
         }
       }
     }
-
-    // if no valid move is found, choose the uppermost-leftmost open position and card at index 0
-    if (bestMove == null && !player.getHand().isEmpty()) {
-      for (int row = 0; row < model.numRows(); row++) {
-        for (int col = 0; col < model.numCols(); col++) {
-          ReadOnlyGridCell cell = model.getCell(row, col);
-          if (cell.cardToString().equals("_")) {
-            return new BasicMove(0, row, col);
-          }
-        }
-      }
-    }
-
     return bestMove;
   }
 

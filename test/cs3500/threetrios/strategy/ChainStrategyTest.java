@@ -181,7 +181,7 @@ public class ChainStrategyTest {
 
     System.out.println(new ChainStrategy(listCornerMaximum).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()));
     Assert.assertEquals(1, new ChainStrategy(listCornerMaximum).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getRow());
-    Assert.assertEquals(0, new ChainStrategy(listCornerMaximum).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getCol());
+    Assert.assertEquals(2, new ChainStrategy(listCornerMaximum).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getCol());
     Assert.assertEquals(0, new ChainStrategy(listCornerMaximum).findBestMove(model4x32Holes, model4x32Holes.getCurrentPlayer()).getHandInx());
   }
 
