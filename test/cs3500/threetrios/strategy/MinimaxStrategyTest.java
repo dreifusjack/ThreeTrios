@@ -23,9 +23,6 @@ public class MinimaxStrategyTest {
   private ThreeTriosController controller4x3EqualSides;
   private ThreeTriosModel model4x32Holes;
   private ThreeTriosController controller4x32Holes;
-  private ThreeTriosStrategy cornerStrategy;
-  private ThreeTriosStrategy maxinumFlipStrategy;
-  private ThreeTriosStrategy minimizeFlipStrategy;
   private List<ThreeTriosStrategy> listCorner;
   private List<ThreeTriosStrategy> listMaximum;
   private List<ThreeTriosStrategy> listMinimum;
@@ -50,9 +47,9 @@ public class MinimaxStrategyTest {
     controller4x32Holes = new BasicThreeTriosController("world4x32holes.txt",
             "cards4x3emptyver2.txt");
 
-    cornerStrategy = new CornerStrategy();
-    maxinumFlipStrategy = new MaximizeFlipsStrategy();
-    minimizeFlipStrategy = new MinimizeFlipsStrategy();
+    ThreeTriosStrategy cornerStrategy = new CornerStrategy();
+    ThreeTriosStrategy maxinumFlipStrategy = new MaximizeFlipsStrategy();
+    ThreeTriosStrategy minimizeFlipStrategy = new MinimizeFlipsStrategy();
     listCorner = List.of(cornerStrategy);
     listMaximum = List.of(maxinumFlipStrategy);
     listMinimum = List.of(minimizeFlipStrategy);

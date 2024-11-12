@@ -5,6 +5,9 @@ import java.awt.BorderLayout;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import java.awt.Component;
 
+/**
+ * Represent the TTGUIView class to show the graphical view for the ThreeTrios game.
+ */
 public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   private final ThreeTriosPanel gridPanel;
 

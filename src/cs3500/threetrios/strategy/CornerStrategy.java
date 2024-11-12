@@ -33,7 +33,8 @@ public class CornerStrategy implements ThreeTriosStrategy {
   }
 
   // Helper method to handle when the strategy returns null for the best move.
-  private PlayedMove handleNullMove(ReadOnlyThreeTriosModel model, Player player, PlayedMove bestMove) {
+  private PlayedMove handleNullMove(ReadOnlyThreeTriosModel model, Player player,
+                                    PlayedMove bestMove) {
     if (bestMove == null && !player.getHand().isEmpty()) {
       for (int row = 0; row < model.numRows(); row++) {
         for (int col = 0; col < model.numCols(); col++) {

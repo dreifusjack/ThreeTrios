@@ -54,7 +54,8 @@ public class MockThreeTriosModelTest {
           Assert.assertTrue(
                   log.contains("checking at cell (" + row + ", " + col + ")"));
           Assert.assertTrue(
-                  log.contains("checking number of card flips for card at cell (" + row + ", " + col + ") for Player: " + "RED"));
+                  log.contains("checking number of card flips for card at cell (" + row + ", "
+                          + col + ") for Player: " + "RED"));
         }
       }
     }

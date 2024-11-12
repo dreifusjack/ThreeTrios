@@ -47,7 +47,8 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     // Create grid panel
     gridPanel = new JPanel();
     gridPanel.setLayout(new GridLayout(
-            model.getGridReadOnly().size(), model.getGridReadOnly().get(0).size(), 0, 0));
+            model.getGridReadOnly().size(), model.getGridReadOnly().get(0).size(), 0,
+            0));
     this.add(gridPanel, BorderLayout.CENTER);
 
     // Create player panels
@@ -85,17 +86,21 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
    * the newly created card panel to the corresponding player panel.
    */
   private void renderPlayerCards() {
-    for (int redHandIndex = 0; redHandIndex < model.getRedPlayer().getHand().size(); redHandIndex++) {
+    for (int redHandIndex = 0; redHandIndex < model.getRedPlayer().getHand().size();
+         redHandIndex++) {
       Card card = model.getRedPlayer().getHand().get(redHandIndex);
       CardPanel cardPanel = createCardPanel(TeamColor.RED, card.toString());
-      cardPanel.addMouseListener(new CardInHandClickListener(cardPanel, redHandIndex, TeamColor.RED));
+      cardPanel.addMouseListener(new CardInHandClickListener(cardPanel, redHandIndex,
+              TeamColor.RED));
       redPlayerPanel.add(cardPanel);
     }
 
-    for (int blueHandIndex = 0; blueHandIndex < model.getBluePlayer().getHand().size(); blueHandIndex++) {
+    for (int blueHandIndex = 0; blueHandIndex < model.getBluePlayer().getHand().size();
+         blueHandIndex++) {
       Card card = model.getBluePlayer().getHand().get(blueHandIndex);
       CardPanel cardPanel = createCardPanel(TeamColor.BLUE, card.toString());
-      cardPanel.addMouseListener(new CardInHandClickListener(cardPanel, blueHandIndex, TeamColor.BLUE));
+      cardPanel.addMouseListener(new CardInHandClickListener(cardPanel, blueHandIndex,
+              TeamColor.BLUE));
       bluePlayerPanel.add(cardPanel);
     }
   }

@@ -14,7 +14,8 @@ import java.util.List;
  * move then we choose the upper-most, left-most open position and the card at index 0. For the
  * input list, it is best to not put MaximizeFlip at the front of the list since it won't return
  * null as our grid must have an odd number of card cells (which always guarantee at least 1
- * CardCell for every game board). And this ensures that this strategy won't ever return null for its best move.
+ * CardCell for every game board). And this ensures that this strategy won't ever return null
+ * for its best move.
  **/
 
 public class ChainStrategy implements ThreeTriosStrategy {

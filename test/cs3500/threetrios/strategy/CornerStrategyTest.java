@@ -1,11 +1,9 @@
 package cs3500.threetrios.strategy;
 
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
 import java.util.Random;
 
 import cs3500.threetrios.controller.BasicThreeTriosController;
@@ -142,11 +140,11 @@ public class CornerStrategyTest {
   }
 
   // Test One Corner Taken
-    @Test
-    public void testOneCornerTaken() {
+  @Test
+  public void testOneCornerTaken() {
     controller4x3CornersWithHolesVer2.playGame(model4x3CornersWithHolesVer2);
 
-    System.out.println( new CornerStrategy().findBestMove(model4x3CornersWithHolesVer2,
+    System.out.println(new CornerStrategy().findBestMove(model4x3CornersWithHolesVer2,
             model4x3CornersWithHolesVer2.getCurrentPlayer()));
     //Total that card value is 15.
     Assert.assertEquals(0, new CornerStrategy().findBestMove(model4x3CornersWithHolesVer2,
@@ -155,7 +153,7 @@ public class CornerStrategyTest {
             model4x3CornersWithHolesVer2.getCurrentPlayer()).getCol());
     Assert.assertEquals(1, new CornerStrategy().findBestMove(model4x3CornersWithHolesVer2,
             model4x3CornersWithHolesVer2.getCurrentPlayer()).getHandInx());
-    }
+  }
 
   // Test tie that have many best cards from different corners
   @Test
@@ -215,7 +213,7 @@ public class CornerStrategyTest {
   public void testPlayCornerAndFlip() {
     controller4x3.playGame(model4x3);
     model4x3.playToGrid(3, 1, 1);
-    model4x3.playToGrid(1 ,0 ,1);
+    model4x3.playToGrid(1, 0, 1);
     model4x3.playToGrid(2, 2, 2);
     model4x3.playToGrid(1, 1, 0);
 
