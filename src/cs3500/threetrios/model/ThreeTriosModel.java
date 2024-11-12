@@ -1,5 +1,7 @@
 package cs3500.threetrios.model;
 
+import java.util.List;
+
 /**
  * Behaviors for a game of ThreeTrios.
  * The game consists of the following structures:
@@ -14,17 +16,15 @@ package cs3500.threetrios.model;
  */
 public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
   /**
-   * Initialize the grid to specified size and cells filling the grid by the user created grid file
-   * this model will read from. Deals cards to each player using information by the user created
-   * card file this model will read from.
+   * Initializes the grid to be equal to the given grid. Uses the given deck to deal an equal number
+   * of cards to each player.
    *
    * @throws IllegalStateException    if this game has started
-   * @throws IllegalArgumentException if while reading from grid file or
-   *                                  card file the format of that file is invalid or incorrect
+   * @throws IllegalArgumentException if the given grid has an invalid format for the game.
    * @throws IllegalArgumentException if the number of playing cards is not enough
    *                                  to fill each players hand and all card cells on the grid
    */
-  void startGame();
+  void startGame(GridCell[][] grid, List<Card> deck, int numOfCardCells);
 
   /**
    * The player whose turn it is plays a card from their hand at the given hand index

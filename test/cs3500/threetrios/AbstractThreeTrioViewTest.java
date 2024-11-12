@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.util.Random;
 
+import cs3500.threetrios.controller.BasicThreeTriosController;
+import cs3500.threetrios.controller.ThreeTriosController;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.view.TTTextView;
 import cs3500.threetrios.view.ThreeTriosTextualView;
@@ -15,45 +17,63 @@ import cs3500.threetrios.view.ThreeTriosTextualView;
  */
 public abstract class AbstractThreeTrioViewTest {
 
-  protected abstract ThreeTriosModel createModel(String gridFileName, String cardFileName);
+  protected abstract ThreeTriosModel createModel();
 
-  protected abstract ThreeTriosModel createModelWithRandom(String gridFileName,
-                                                           String cardFileName, Random random);
+  protected abstract ThreeTriosModel createModelWithRandom(Random random);
 
 
   protected ThreeTriosModel model5x7;
+  protected ThreeTriosController controller5x7;
 
   protected ThreeTriosModel model2x2;
+  protected ThreeTriosController controller2x2;
 
-  protected ThreeTriosModel model3x3;
+  protected ThreeTriosModel model4x3;
+  protected ThreeTriosController controller4x3;
 
   protected ThreeTriosModel modelWithNotEnoughCards;
+  protected ThreeTriosController controllerWithNotEnoughCards;
 
   protected ThreeTriosModel model2x2SameValueOf1;
+  protected ThreeTriosController controller2x2SameValueOf1;
 
   protected ThreeTriosModel model2x2SameValueOf1Ver2;
+  protected ThreeTriosController controller2x2SameValueOf1Ver2;
 
   @Before
   public void setUp() {
     Random rand1 = new Random(2);
 
-    model5x7 = createModelWithRandom("world1.txt", "card1.txt", rand1);
-    model2x2 = createModelWithRandom("world2x2.txt", "cards2x2.txt", rand1);
-    model3x3 = createModelWithRandom("world4x3.txt", "cards3x3.txt", rand1);
-    modelWithNotEnoughCards = createModelWithRandom("world4x3.txt",
-            "3cardsonly.txt", rand1);
-    model2x2SameValueOf1 = createModelWithRandom("world2x2ver2.txt",
-            "cardswithsamevalueof1.txt", rand1);
-    model2x2SameValueOf1Ver2 = createModelWithRandom("world2x2ver3.txt",
-            "cardswithsamevalueof1.txt", rand1);
+    model5x7 = createModelWithRandom(rand1);
+    controller5x7 = new BasicThreeTriosController(
+            "world1.txt", "card1.txt");
 
+    model2x2 = createModelWithRandom(rand1);
+    controller2x2 = new BasicThreeTriosController(
+            "world2x2.txt", "cards2x2.txt");
+
+    model4x3 = createModelWithRandom(rand1);
+    controller4x3 = new BasicThreeTriosController(
+            "world4x3.txt", "cards3x3.txt");
+
+    modelWithNotEnoughCards = createModelWithRandom(rand1);
+    controllerWithNotEnoughCards = new BasicThreeTriosController(
+            "world4x3.txt","3cardsonly.txt");
+
+    model2x2SameValueOf1 = createModelWithRandom(rand1);
+    controller2x2SameValueOf1 = new BasicThreeTriosController(
+            "world2x2ver2.txt","cardswithsamevalueof1.txt");
+
+    model2x2SameValueOf1Ver2 = createModelWithRandom(rand1);
+    controller2x2SameValueOf1Ver2 = new BasicThreeTriosController(
+            "world2x2ver3.txt","cardswithsamevalueof1.txt");
   }
 
   @Test
   //Test view to show the normal of the game (starting state)
   public void testViewNormalState() {
-    model3x3.startGame();
-    ThreeTriosTextualView view = new TTTextView(model3x3);
+    controller4x3.playGame(model4x3);
+    ThreeTriosTextualView view = new TTTextView(model4x3);
 
     String expectedView = "Player: RED\n"
             + "__ \n"
@@ -62,7 +82,7 @@ public abstract class AbstractThreeTrioViewTest {
             + " _ \n"
             + "Hand:\n"
             + "WorldDragon 1 6 5 1\n"
-            + "HeroKnight A 4 4 1\n"
+            + "HeroKnight A 4 4 2\n"
             + "CorruptKing 3 1 1 2\n"
             + "FirePhoenix 2 3 4 2\n";
 
@@ -72,9 +92,9 @@ public abstract class AbstractThreeTrioViewTest {
   @Test
   //Test view to show the change of the stage after playToGrid
   public void testViewAfterPlayToGrid() {
-    model3x3.startGame();
-    model3x3.playToGrid(2, 2, 0);
-    ThreeTriosTextualView view = new TTTextView(model3x3);
+    controller4x3.playGame(model4x3);
+    model4x3.playToGrid(2, 2, 0);
+    ThreeTriosTextualView view = new TTTextView(model4x3);
 
     String expectedView = "Player: BLUE\n"
             + "__ \n"
@@ -93,21 +113,21 @@ public abstract class AbstractThreeTrioViewTest {
   //Test view to show a standard gameplay and win
   @Test
   public void testViewPlayAndWin() {
-    model3x3.startGame();
+    controller4x3.playGame(model4x3);
     // Player 1 (Red)
-    model3x3.playToGrid(1, 0, 0);
+    model4x3.playToGrid(1, 0, 0);
     // Player 2 (Blue)
-    model3x3.playToGrid(0, 0, 0);
+    model4x3.playToGrid(0, 0, 0);
     // Player 1 (Red)
-    model3x3.playToGrid(2, 2, 0);
+    model4x3.playToGrid(2, 2, 0);
     // Player 2 (Blue)
-    model3x3.playToGrid(0, 1, 0);
+    model4x3.playToGrid(0, 1, 0);
     // Player 1 (Red)
-    model3x3.playToGrid(2, 0, 0);
+    model4x3.playToGrid(2, 0, 0);
     // Player 2 (Blue)
-    model3x3.playToGrid(1, 1, 0);
+    model4x3.playToGrid(1, 1, 0);
 
-    ThreeTriosTextualView view = new TTTextView(model3x3);
+    ThreeTriosTextualView view = new TTTextView(model4x3);
 
     String expectedView = "Player: RED\n"
             + "BB \n"
@@ -124,21 +144,21 @@ public abstract class AbstractThreeTrioViewTest {
   //Test view to show a standard gameplay and tie
   @Test
   public void testViewPlayAndThenTie() {
-    model3x3.startGame();
+    controller4x3.playGame(model4x3);
     // Player 1 (Red)
-    model3x3.playToGrid(0, 0, 0);
+    model4x3.playToGrid(0, 0, 0);
     // Player 2 (Blue)
-    model3x3.playToGrid(2, 2, 0);
+    model4x3.playToGrid(2, 2, 0);
     // Player 1 (Red)
-    model3x3.playToGrid(1, 0, 1);
+    model4x3.playToGrid(1, 0, 1);
     // Player 2 (Blue)
-    model3x3.playToGrid(0, 1, 0);
+    model4x3.playToGrid(0, 1, 0);
     // Player 1 (Red)
-    model3x3.playToGrid(1, 1, 0);
+    model4x3.playToGrid(1, 1, 0);
     // Player 2 (Blue)
-    model3x3.playToGrid(2, 0, 0);
+    model4x3.playToGrid(2, 0, 0);
 
-    ThreeTriosTextualView view = new TTTextView(model3x3);
+    ThreeTriosTextualView view = new TTTextView(model4x3);
 
     String expectedView = "Player: RED\n"
             + "RR \n"

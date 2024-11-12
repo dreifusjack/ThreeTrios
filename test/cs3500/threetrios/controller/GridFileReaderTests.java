@@ -9,6 +9,7 @@ import cs3500.threetrios.model.CardCell;
 import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.Hole;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -73,37 +74,25 @@ public class GridFileReaderTests {
   @Test
   public void testSuccessfullyReadingFromFileAndSavingData() {
     assertEquals(0, gridFileReader.getNumberOfCardCells());
-    assertEquals(List.of(), gridFileReader.specifiedSizes());
-    assertEquals(List.of(), gridFileReader.getGrid());
+    assertArrayEquals(new GridCell[0][0], gridFileReader.getGrid());
 
     gridFileReader.readFile();
 
     assertEquals(3, gridFileReader.getNumberOfCardCells());
-    assertEquals(List.of(2, 2), gridFileReader.specifiedSizes());
 
-    List<List<GridCell>> expected = List.of(List.of(new CardCell(), new Hole()),
-            List.of(new CardCell(), new CardCell()));
-    for (int row = 0; row < expected.size(); row++) {
-      for (int col = 0; col < expected.get(row).size(); col++) {
-        assertEquals(expected.get(row).get(col).getClass(),
-                gridFileReader.getGrid().get(row).get(col).getClass());
-      }
-    }
+    GridCell[][] expected = {
+            {new CardCell(), new Hole()},
+            {new CardCell(), new CardCell()}
+    };
+
+    assertArrayEquals(expected, gridFileReader.getGrid());
   }
 
   @Test
   public void testGetGridMutation() {
-    assertEquals(List.of(), gridFileReader.getGrid());
-    List<List<GridCell>> gridCopy = gridFileReader.getGrid();
-    gridCopy.add(null);
-    assertEquals(List.of(), gridFileReader.getGrid());
-  }
-
-  @Test
-  public void testSpecifiedSizesMutation() {
-    assertEquals(List.of(), gridFileReader.specifiedSizes());
-    List<Integer> sizesCopy = gridFileReader.specifiedSizes();
-    sizesCopy.add(null);
-    assertEquals(List.of(), gridFileReader.specifiedSizes());
+    assertEquals(new GridCell[0][0], gridFileReader.getGrid());
+    GridCell[][] gridCopy = gridFileReader.getGrid();
+    gridCopy[0][0] = new CardCell();
+    assertEquals(new GridCell[0][0], gridFileReader.getGrid());
   }
 }

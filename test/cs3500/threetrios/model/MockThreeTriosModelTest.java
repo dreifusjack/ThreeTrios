@@ -20,7 +20,6 @@ public class MockThreeTriosModelTest {
   private Player redPlayer;
   private Player bluePlayer;
 
-
   @Before
   public void setUp() {
     redPlayer = new ThreeTriosPlayer(TeamColor.RED);

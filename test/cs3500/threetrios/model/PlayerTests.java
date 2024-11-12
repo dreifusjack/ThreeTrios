@@ -16,10 +16,6 @@ public class PlayerTests {
   private Player red;
   private Player blue;
   private Card king;
-  private Card worldDragon;
-  private Card heroKnight;
-  private Card corruptKing;
-  private Card firePhoenix;
 
 
   @Before
@@ -31,24 +27,6 @@ public class PlayerTests {
             ThreeTrioCard.AttackValue.THREE,
             ThreeTrioCard.AttackValue.NINE,
             ThreeTrioCard.AttackValue.A);
-
-     worldDragon =
-            new ThreeTrioCard("WorldDragon", ThreeTrioCard.AttackValue.ONE,
-                    ThreeTrioCard.AttackValue.FIVE, ThreeTrioCard.AttackValue.SIX,
-                    ThreeTrioCard.AttackValue.ONE);
-     heroKnight =
-            new ThreeTrioCard("HeroKnight", ThreeTrioCard.AttackValue.A,
-                    ThreeTrioCard.AttackValue.FOUR,
-                    ThreeTrioCard.AttackValue.FOUR, ThreeTrioCard.AttackValue.ONE);
-
-     corruptKing =
-            new ThreeTrioCard("CorruptKing", ThreeTrioCard.AttackValue.THREE,
-                    ThreeTrioCard.AttackValue.ONE, ThreeTrioCard.AttackValue.ONE,
-                    ThreeTrioCard.AttackValue.TWO);
-     firePhoenix =
-            new ThreeTrioCard("FirePhoenix",
-                    ThreeTrioCard.AttackValue.TWO, ThreeTrioCard.AttackValue.FOUR,
-                    ThreeTrioCard.AttackValue.THREE, ThreeTrioCard.AttackValue.TWO);
   }
 
   @Test(expected = IllegalArgumentException.class)

@@ -7,6 +7,7 @@ import java.util.Random;
 
 import cs3500.threetrios.controller.CardFileReader;
 import cs3500.threetrios.controller.GridFileReader;
+import cs3500.threetrios.controller.GridReader;
 
 /**
  * First variant model of Three Trio model implementation. Implementation of the behaviors
@@ -19,8 +20,6 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   private final Player redPlayer;
   private Player playerTurn;
   private final Player bluePlayer;
-  private final GridFileReader gridFileReader;
-  private final CardFileReader cardFileReader;
   private final Random random;
 
   /**
@@ -28,14 +27,10 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * it will read from to instantiate the game. We are assumed we cannot construct/start a game
    * without configuration files to build the game off of.
    *
-   * @param gridFileName name of the file with grid construction
-   * @param cardFileName name of the file with card construction
    * @throws IllegalArgumentException cannot find a file for either file name
    * @throws IllegalArgumentException if gridFileName or cardFileName are null
    */
-  public BasicThreeTriosModel(String gridFileName, String cardFileName) {
-    gridFileReader = new GridFileReader(gridFileName);
-    cardFileReader = new CardFileReader(cardFileName);
+  public BasicThreeTriosModel() {
     // Assuming both file readers ensure given names are not null, and are found in their
     // corresponding config file locations.
     grid = null;
@@ -49,15 +44,11 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * Constructs a BasicThreeTrioModel that same as before but takes a Random object to seed
    * randomness for testing purposes.
    *
-   * @param gridFileName name of the file with grid construction
-   * @param cardFileName name of the file with card construction
    * @param rand         seed for testing
    * @throws IllegalArgumentException cannot find a file for either file name
    * @throws IllegalArgumentException if gridFileName or cardFileName are null
    */
-  public BasicThreeTriosModel(String gridFileName, String cardFileName, Random rand) {
-    gridFileReader = new GridFileReader(gridFileName);
-    cardFileReader = new CardFileReader(cardFileName);
+  public BasicThreeTriosModel(Random rand) {
     grid = null;
     redPlayer = new ThreeTriosPlayer(TeamColor.RED);
     bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
@@ -84,9 +75,6 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
         this.grid[row][col] = convertReadOnlyToGridCell(readOnlyCell);
       }
     }
-
-    this.gridFileReader = null;
-    this.cardFileReader = null;
     this.random = new Random();
   }
 
@@ -115,35 +103,23 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
 
 
   @Override
-  public void startGame() {
-    if (grid != null) {
+  public void startGame(GridCell[][] grid, List<Card> deck, int numOfCardCells) {
+    if (this.grid != null) {
       throw new IllegalStateException("Game already started");
     }
-    // readers gather data from files
-    gridFileReader.readFile();
-    cardFileReader.readFile();
-    // assuming readers through exceptions for all invalid file cases
-    // (refer to readers interfaces for all cases)
 
     // init the grid
-    List<Integer> gridCords = gridFileReader.specifiedSizes();
-    grid = new GridCell[gridCords.get(0)][gridCords.get(1)];
-    for (int row = 0; row < grid.length; row++) {
-      for (int col = 0; col < grid[0].length; col++) {
-        grid[row][col] = gridFileReader.getGrid().get(row).get(col);
-      }
-    }
+    this.grid = grid;
+
     // init hands for each player
-    int minNumOfCards = gridFileReader.getNumberOfCardCells() + 1; // N+1
-    int numOfCards = cardFileReader.getCards().size();
+    int minNumOfCards = numOfCardCells + 1; // N+1
+    int numOfCards = deck.size();
     if (numOfCards < minNumOfCards) {
       throw new IllegalArgumentException("Not enough playing cards");
     }
 
     // Shuffle the deck using the Random instance
-    List<Card> deck = new ArrayList<>(cardFileReader.getCards());
     Collections.shuffle(deck, random);
-
     dealCards(minNumOfCards / 2, redPlayer, TeamColor.RED, deck); // (N+1)/2
     dealCards(minNumOfCards / 2, bluePlayer, TeamColor.BLUE, deck); // (N+1)/2
   }

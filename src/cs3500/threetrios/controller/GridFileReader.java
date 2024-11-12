@@ -16,8 +16,9 @@ import cs3500.threetrios.model.Hole;
  */
 public class GridFileReader implements GridReader {
   private final Scanner fileScan;
-  private final List<Integer> gridSizes; // first int is row second int is col
-  private final List<List<GridCell>> grid;
+  private int rows;
+  private int cols;
+  private final GridCell[][] grid;
   private int numOfCardCells;
 
   /**
@@ -39,37 +40,37 @@ public class GridFileReader implements GridReader {
     } catch (FileNotFoundException e) {
       throw new IllegalArgumentException("File not found: " + filename);
     }
-    this.gridSizes = new ArrayList<>();
-    this.grid = new ArrayList<>();
-    this.numOfCardCells = 0;
+    numOfCardCells = 0;
+    rows = 0;
+    cols = 0;
+    getBoardSize(); // updates the row and cols from the configuration file
+    grid = new GridCell[rows][cols];
   }
 
   @Override
   public void readFile() {
-    getBoardSize();
-
     int rowCount = 0;
     while (fileScan.hasNextLine()) {
       String line = fileScan.nextLine(); // the second line in the file
-      if (line.length() != gridSizes.get(1)) {
+      if (line.length() != cols) {
         throw new IllegalArgumentException("Col length fails to match file specified col length.");
       }
-      List<GridCell> cellRow = new ArrayList<>();
+      GridCell[] cellRow = new GridCell[cols];
       for (int index = 0; index < line.length(); index++) {
         char cellType = line.charAt(index);
         if (cellType == 'C') {
-          cellRow.add(new CardCell());
+          cellRow[index] = new CardCell();
           numOfCardCells++;
         } else if (cellType == 'X') {
-          cellRow.add(new Hole());
+          cellRow[index] = new Hole();
         } else {
           throw new IllegalArgumentException("Invalid cell type");
         }
       }
-      grid.add(cellRow);
+      grid[rowCount] = cellRow;
       rowCount++;
     }
-    if (rowCount != gridSizes.get(0)) {
+    if (rowCount != rows) {
       throw new IllegalArgumentException("Row length fails to match file specified row length.");
     }
     if (numOfCardCells % 2 == 0) {
@@ -90,28 +91,24 @@ public class GridFileReader implements GridReader {
       if (firstLineInFile.length != 2) {
         throw new IllegalArgumentException("Invalid grid file format");
       }
-      int row = Integer.parseInt(firstLineInFile[0]);
-      int col = Integer.parseInt(firstLineInFile[1]);
-      gridSizes.add(row);
-      gridSizes.add(col);
+      rows = Integer.parseInt(firstLineInFile[0]);
+      cols = Integer.parseInt(firstLineInFile[1]);
     } else {
       throw new IllegalArgumentException("Grid file is empty");
     }
   }
 
-
   @Override
-  public List<Integer> specifiedSizes() {
-    return new ArrayList<>(gridSizes);
-  }
-
-  @Override
-  public List<List<GridCell>> getGrid() {
-    List<List<GridCell>> result = new ArrayList<>();
-    for (List<GridCell> cellRow : grid) {
-      result.add(new ArrayList<>(cellRow));
+  public GridCell[][] getGrid() {
+    if (grid == null) {
+      return null;
     }
-    return result;
+
+    GridCell[][] copy = new GridCell[rows][cols];
+    for (int index = 0; index < grid.length; index++) {
+      copy[index] = grid[index].clone(); // clone each row for a deep copy
+    }
+    return copy;
   }
 
   @Override

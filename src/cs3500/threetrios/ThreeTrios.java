@@ -2,6 +2,7 @@ package cs3500.threetrios;
 
 import java.util.Random;
 
+import cs3500.threetrios.controller.BasicThreeTriosController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.view.TTGUIView;
 
@@ -18,16 +19,16 @@ public class ThreeTrios {
    */
   public static void main(String[] args) {
     Random rand1 = new Random(2);
+    BasicThreeTriosModel model3x3ver2 = new BasicThreeTriosModel(rand1);
+    BasicThreeTriosController controller =
+            new BasicThreeTriosController(
+                    "world4x31hole.txt", "cards4x3emptyver2.txt");
+    controller.playGame(model3x3ver2);
 
-    BasicThreeTriosModel model3x3ver2 = new BasicThreeTriosModel("world4x31hole.txt", "cards4x3emptyver2.txt", rand1);
-
-    model3x3ver2.startGame();
 
     model3x3ver2.playToGrid(3, 2, 0);
     model3x3ver2.playToGrid(0, 1, 2);
     model3x3ver2.playToGrid(2, 0, 1);
-
-
 
 
 //
@@ -38,7 +39,7 @@ public class ThreeTrios {
 
 
     TTGUIView view = new TTGUIView(model3x3ver2);
-      view.setVisible(true);
-      System.out.println(view);
+    view.setVisible(true);
+    System.out.println(view);
   }
 }

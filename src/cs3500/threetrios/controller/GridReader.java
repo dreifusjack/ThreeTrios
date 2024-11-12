@@ -25,22 +25,13 @@ public interface GridReader {
   public void readFile();
 
   /**
-   * Returns a copy of the configurations of the grid. List length is always size 2,
-   * row comes first, columns comes second. Modifying this list has no effect on this
-   * GridReader's coordinates.
-   *
-   * @return a list of size two, [specified number of rows, specified number of cols]
-   */
-  public List<Integer> specifiedSizes();
-
-  /**
    * Return a copy of this GridReader's grid. This grid is only initialized after it is read
    * from the grid configuration file. Modifying this 2dGrid has no effect on this
    * GridReader's grid.
    *
-   * @return a 2D arraylist of grid cells for the model to operate on
+   * @return a 2D array of grid cells for the model to operate on
    */
-  public List<List<GridCell>> getGrid();
+  public GridCell[][] getGrid();
 
   /**
    * Returns the number of card cells in the grid. This is updated after the GridReader reads from

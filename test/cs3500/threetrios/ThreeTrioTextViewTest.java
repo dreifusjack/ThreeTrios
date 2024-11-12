@@ -18,13 +18,12 @@ public class ThreeTrioTextViewTest extends AbstractThreeTrioViewTest {
   }
 
   @Override
-  protected ThreeTriosModel createModel(String gridFileName, String cardFileName) {
-    return new BasicThreeTriosModel(gridFileName, cardFileName);
+  protected ThreeTriosModel createModel() {
+    return new BasicThreeTriosModel();
   }
 
   @Override
-  protected ThreeTriosModel createModelWithRandom(String gridFileName, String cardFileName,
-                                                  Random random) {
-    return new BasicThreeTriosModel(gridFileName, cardFileName, random);
+  protected ThreeTriosModel createModelWithRandom(Random random) {
+    return new BasicThreeTriosModel(random);
   }
 }

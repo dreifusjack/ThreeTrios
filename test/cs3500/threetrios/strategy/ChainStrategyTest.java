@@ -7,23 +7,35 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Random;
 
+import cs3500.threetrios.controller.ThreeTriosController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
 
 public class ChainStrategyTest {
 
   protected ThreeTriosModel model5x7;
+  private ThreeTriosController controller5x7;
   protected ThreeTriosModel model2x2;
+  private ThreeTriosController controller2x2;
   protected ThreeTriosModel model4x3;
+  private ThreeTriosController controller4x3;
   protected ThreeTriosModel model4x3ver2;
+  private ThreeTriosController controller4x3ver2;
   protected ThreeTriosModel model4x3ver3;
+  private ThreeTriosController controller4x3ver4;
   protected ThreeTriosModel model4x3CornersWithHoles;
+  private ThreeTriosController controller4x3CornersWithHoles;
   protected ThreeTriosModel model4x3plain;
+  private ThreeTriosController controller4x3plain;
   protected ThreeTriosModel model4x3CornersWithHolesVer2;
+  private ThreeTriosController controller4x3CornersWithHolesVer2;
   protected ThreeTriosModel model4x3CornersWithHolesVer3;
+  private ThreeTriosController controller4x3CornersWithHolesVer3;
 
   protected ThreeTriosModel model4x3CornersWith2Holes;
+  private ThreeTriosController controller4x3CornersWith2Holes;
   protected ThreeTriosModel model4x3Corner1SideHole;
+  private ThreeTriosController getController4x3Corner1SideHole;
 
   protected ThreeTriosModel modelWithNotEnoughCards;
 
