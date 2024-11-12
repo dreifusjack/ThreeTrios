@@ -28,9 +28,6 @@ public class MinimizeFlipsStrategyTest {
   private ThreeTriosController controller4x31Hole;
   private ThreeTriosModel modelManyHoles;
   private ThreeTriosController controllerManyHoles;
-  private ThreeTriosStrategy cornerStrategy;
-  private ThreeTriosStrategy maxinumFlipStrategy;
-  private ThreeTriosStrategy minimizeFlipStrategy;
 
 
   @Before
@@ -57,9 +54,6 @@ public class MinimizeFlipsStrategyTest {
     controllerManyHoles = new BasicThreeTriosController("world4x3manyholes.txt",
             "cardsopponentweak.txt");
 
-    cornerStrategy = new CornerStrategy();
-    maxinumFlipStrategy = new MaximizeFlipsStrategy();
-    minimizeFlipStrategy = new MinimizeFlipsStrategy();
   }
 
   //Break ties, choose a card that it upper-most, left most

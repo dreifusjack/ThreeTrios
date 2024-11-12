@@ -31,7 +31,6 @@ public class MinimaxStrategyTest {
   private List<ThreeTriosStrategy> listMinimum;
   private List<ThreeTriosStrategy> listCornerMaximum;
   private List<ThreeTriosStrategy> listCornerMinimum;
-  private List<ThreeTriosStrategy> listMaximumMinimum;
   private List<ThreeTriosStrategy> listAllStrategies;
 
 
@@ -59,7 +58,6 @@ public class MinimaxStrategyTest {
     listMinimum = List.of(minimizeFlipStrategy);
     listCornerMaximum = List.of(cornerStrategy, maxinumFlipStrategy);
     listCornerMinimum = List.of(cornerStrategy, minimizeFlipStrategy);
-    listMaximumMinimum = List.of(maxinumFlipStrategy, minimizeFlipStrategy);
     listAllStrategies = List.of(cornerStrategy, maxinumFlipStrategy, minimizeFlipStrategy);
 
   }

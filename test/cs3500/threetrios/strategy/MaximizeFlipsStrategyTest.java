@@ -25,9 +25,6 @@ public class MaximizeFlipsStrategyTest {
   private ThreeTriosController controller4x3Ver3;
   private ThreeTriosModel model3x31Cell;
   private ThreeTriosController controller3x31Cell;
-  private ThreeTriosStrategy cornerStrategy;
-  private ThreeTriosStrategy maxinumFlipStrategy;
-  private ThreeTriosStrategy minimizeFlipStrategy;
 
   @Before
   public void setUp() {
@@ -48,10 +45,6 @@ public class MaximizeFlipsStrategyTest {
     model3x31Cell = new BasicThreeTriosModel(rand1);
     controller3x31Cell = new BasicThreeTriosController("world3x31Cell.txt",
             "cards4x3emptyver2.txt");
-
-    cornerStrategy = new CornerStrategy();
-    maxinumFlipStrategy = new MaximizeFlipsStrategy();
-    minimizeFlipStrategy = new MinimizeFlipsStrategy();
 
   }
 
@@ -155,6 +148,7 @@ public class MaximizeFlipsStrategyTest {
             model4x3Ver2.getCurrentPlayer()).getHandInx());
   }
 
+  @Test
   // Test for left-most position when the current max flips is equals to the global max flip
   public void testLeftMostPosition() {
     controller4x3Ver2.playGame(model4x3Ver2);
@@ -166,7 +160,7 @@ public class MaximizeFlipsStrategyTest {
 
     Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model4x3Ver2,
             model4x3Ver2.getCurrentPlayer()).getRow());
-    Assert.assertEquals(1, new MaximizeFlipsStrategy().findBestMove(model4x3Ver2,
+    Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model4x3Ver2,
             model4x3Ver2.getCurrentPlayer()).getCol());
     Assert.assertEquals(0, new MaximizeFlipsStrategy().findBestMove(model4x3Ver2,
             model4x3Ver2.getCurrentPlayer()).getHandInx());
