@@ -12,6 +12,7 @@ import cs3500.threetrios.strategy.CornerStrategy;
 import cs3500.threetrios.strategy.MaximizeFlipsStrategy;
 import cs3500.threetrios.strategy.MinimaxStrategy;
 import cs3500.threetrios.strategy.MinimizeFlipsStrategy;
+import cs3500.threetrios.strategy.MockThreeTriosModel;
 import cs3500.threetrios.strategy.PlayedMove;
 
 public class MockThreeTriosModelTest {

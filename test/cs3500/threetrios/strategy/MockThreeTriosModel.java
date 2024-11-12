@@ -1,7 +1,15 @@
-package cs3500.threetrios.model;
+package cs3500.threetrios.strategy;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cs3500.threetrios.model.BasicThreeTriosModel;
+import cs3500.threetrios.model.Card;
+import cs3500.threetrios.model.MockGridCell;
+import cs3500.threetrios.model.Player;
+import cs3500.threetrios.model.ReadOnlyGridCell;
+import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
+import cs3500.threetrios.model.TeamColor;
 
 /**
  * A simple mock ThreeTriosModel for testing purposes.
