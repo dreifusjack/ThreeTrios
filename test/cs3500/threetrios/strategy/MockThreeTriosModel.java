@@ -21,7 +21,7 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   private final int predeterminedRow;
   private final int predeterminedCol;
   private final boolean validMoveOnly;
-  private final List<List<ReadOnlyGridCell>> grid;
+  private final List<List<ReadOnlyGridCell>> grid; // 0-index based
   private Player redPlayer;
   private Player bluePlayer;
   private Player currentPlayer;
