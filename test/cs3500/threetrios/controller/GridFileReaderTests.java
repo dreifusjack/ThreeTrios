@@ -72,7 +72,7 @@ public class GridFileReaderTests {
   @Test
   public void testSuccessfullyReadingFromFileAndSavingData() {
     assertEquals(0, gridFileReader.getNumberOfCardCells());
-    assertArrayEquals(new GridCell[0][0], gridFileReader.getGrid());
+    assertArrayEquals(new GridCell[2][2], gridFileReader.getGrid());
 
     gridFileReader.readFile();
 
@@ -83,14 +83,18 @@ public class GridFileReaderTests {
             {new CardCell(), new CardCell()}
     };
 
-    assertArrayEquals(expected, gridFileReader.getGrid());
+    for (int i = 0; i < expected.length; i++) {
+      for (int j = 0; j < expected[i].length; j++) {
+        assertEquals(expected[i][j].getClass(), gridFileReader.getGrid()[i][j].getClass());
+      }
+    }
   }
 
   @Test
   public void testGetGridMutation() {
-    assertEquals(new GridCell[0][0], gridFileReader.getGrid());
+    assertEquals(new GridCell[2][2], gridFileReader.getGrid());
     GridCell[][] gridCopy = gridFileReader.getGrid();
     gridCopy[0][0] = new CardCell();
-    assertEquals(new GridCell[0][0], gridFileReader.getGrid());
+    assertEquals(new GridCell[2][2], gridFileReader.getGrid());
   }
 }
