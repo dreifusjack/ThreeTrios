@@ -16,7 +16,7 @@ public class BasicThreeTriosController implements ThreeTriosController {
    *
    * @param gridConfigFileName name of the file with grid configuration
    * @param cardConfigFileName name of the file with card configuration
-   * @throws IllegalArgumentException if given model is null
+   * @throws IllegalArgumentException given string files are not found or null
    */
   public BasicThreeTriosController(String gridConfigFileName, String cardConfigFileName) {
     gridConfig = new GridFileReader(gridConfigFileName);
