@@ -76,6 +76,8 @@ that encapulates a flexible implementation while still having meaning an intent.
 model to use in setting up the player cards for the Blue and Red players. 
 * grid-configurations sub-directory within docs. This sub-directory hold all grid configuration files 
 for our model to use in setting up the playing board for the players to play cards onto. 
+* strategy transcript in docs directory, to show a transcript of how maximize flips stratagy works.
+* screenshots package added to provide screenshots of the GUI. 
   
 **src:** 
 * all implementations are in the cs3500.threetrios package within the src directory. 
@@ -84,11 +86,13 @@ for our model to use in setting up the playing board for the players to play car
 * model package additionally contains objects that the model uses (Player, Card, etc.), these objects have both classes and interfaces. Allowing an extendable design to replace the implementations while still using the interfaces. 
 * model package also contains file readers both for card configs and grid confgis with seperate classes and interfaces. Allowing this grid file readers with new implementations to be extendable in the future.
 * view package within cs3500.threetrios includes public interface describing the current behaviors of the view, as well as a basic implementation of that interface. 
+* controller package to read from configuration files and initalize an insance of a ThreeTrios model as such. 
 
 **test:** 
 * all testing files are in the cs3500.threetrios package within the test directroy to match the src directory. 
-* tests for public interfaces (model, view) in cs3500.threetrios, testing the properties of client used interfaces. 
+* tests for public interfaces (model, view, controller) in cs3500.threetrios, testing the properties of client used interfaces. 
 * tests for model package-private implementations within a new model package in cs3500.threetrios package
+* tests for controller package-private implementaions within controller package. 
 
 ## Class Invariant
 **playerTurn is one of redPlayer or bluePlayer**

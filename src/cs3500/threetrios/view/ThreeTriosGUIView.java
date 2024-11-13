@@ -1,7 +1,9 @@
 package cs3500.threetrios.view;
 
 /**
- * Behaviors for the GUI rendering of ThreeTrios.
+ * A GUI visual interface that renders ThreeTrios. Includes all the red players,
+ * all the blue players cards, and the grid. In the grid holes are represented as grey cells, and
+ * card cells are represented as yellow cells.
  */
 public interface ThreeTriosGUIView {
   /**

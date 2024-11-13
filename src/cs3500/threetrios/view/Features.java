@@ -1,7 +1,8 @@
 package cs3500.threetrios.view;
 
 /**
- * Feature class for future usage.
+ * Features class for future usage in which the controller and view will communicate through
+ * event listeners.
  */
 public interface Features {
   /**

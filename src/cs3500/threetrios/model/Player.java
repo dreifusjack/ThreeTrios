@@ -4,7 +4,8 @@ import java.util.List;
 
 /**
  * Behaviors for a player in the Three Trios game. A player is the red player or the blue player in
- * the model.
+ * the model. Players are responsible for having a hand of cards: operations on that hand, as well
+ * as observations of the hand and the team.
  */
 public interface Player {
   /**

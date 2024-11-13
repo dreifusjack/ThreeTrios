@@ -27,7 +27,7 @@ public class ThreeTrios {
     BasicThreeTriosModel model4x3 = new BasicThreeTriosModel(rand1);
 
     model4x3.startGame(grid(), deck(), 7);
-    model4x3.playToGrid(2, 2, 0);
+    model4x3.playToGrid(2, 2, 0); // added to test playing a card with GUI
 
     TTGUIView view = new TTGUIView(model4x3);
     view.setVisible(true);

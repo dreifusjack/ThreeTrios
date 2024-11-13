@@ -20,7 +20,7 @@ public interface GridReader {
    *                                  or empty card cell
    * @throws IllegalArgumentException if the number of empty card cells is even
    */
-  public void readFile();
+  void readFile();
 
   /**
    * Return a copy of this GridReader's grid. This grid is only initialized after it is read
@@ -29,7 +29,7 @@ public interface GridReader {
    *
    * @return a 2D array of grid cells for the model to operate on
    */
-  public GridCell[][] getGrid();
+  GridCell[][] getGrid();
 
   /**
    * Returns the number of card cells in the grid. This is updated after the GridReader reads from
@@ -37,5 +37,5 @@ public interface GridReader {
    *
    * @return number of empty card cells in this GridReader's grid.
    */
-  public int getNumberOfCardCells();
+  int getNumberOfCardCells();
 }

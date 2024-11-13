@@ -1,12 +1,17 @@
 package cs3500.threetrios.view;
 
 import javax.swing.JFrame;
+
 import java.awt.BorderLayout;
+
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
+
 import java.awt.Component;
 
 /**
- * Represent the TTGUIView class to show the graphical view for the ThreeTrios game.
+ * Represent the TTGUIView class to show the graphical view for the ThreeTrios game. Uses a
+ * ReadOnlyModel in constructed a view so that any view implementations cannot directly mutate the
+ * given model.
  */
 public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   private final ThreeTriosPanel gridPanel;

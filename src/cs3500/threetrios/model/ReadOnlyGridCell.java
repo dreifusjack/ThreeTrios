@@ -38,6 +38,11 @@ public interface ReadOnlyGridCell {
    */
   TeamColor getColor();
 
+  /**
+   * Determines if this cell is occupied. An occupied cell means a card cannot be placed on this
+   * GridCell.
+   *
+   * @return false iff a card can be placed on this cell
+   */
   boolean isOccupied();
-
 }

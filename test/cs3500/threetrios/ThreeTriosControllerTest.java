@@ -6,6 +6,10 @@ import org.junit.Test;
 import cs3500.threetrios.controller.BasicThreeTriosController;
 import cs3500.threetrios.controller.ThreeTriosController;
 
+/**
+ * Tests for the ThreeTriosController interface. Not much of the controller has been implemented
+ * thus only one exception test.
+ */
 public class ThreeTriosControllerTest {
   private ThreeTriosController controller5x7;
 

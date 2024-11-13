@@ -9,11 +9,13 @@ import cs3500.threetrios.model.ThreeTriosModel;
  */
 public interface ThreeTriosController {
   /**
-   * Plays a new game of ThreeTrios with this controller's model and renders to the user with this
-   * controller's view.
+   * Initializes the given model with this controller's file configurations. Initializes this
+   * controller's view with the newly initialized model. More implementation in the future.
    *
    * @param model model to operate on for internal behaviors
    * @throws IllegalArgumentException if model is null
+   * @throws IllegalArgumentException if the model has already been initialized
+   * @throws IllegalArgumentException if either file reader reads invalid data.
    */
   void playGame(ThreeTriosModel model);
 }

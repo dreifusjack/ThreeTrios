@@ -1,9 +1,13 @@
 package cs3500.threetrios.view;
 
 import java.awt.geom.Path2D;
+
 import javax.swing.JPanel;
+
 import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
@@ -67,6 +71,10 @@ class CardPanel extends JPanel {
     g2.drawString(valueToString(cardShape.west), 5, getHeight() / 2);
   }
 
+  /**
+   * Toggles the highlighted card. If the card is highlighted then un-highlight, and vice
+   * versa.
+   */
   public void toggleHighlight() {
     if (!isHighlighted) {
       this.setBorder(BorderFactory.createLineBorder(Color.GREEN, HIGHLIGHT_BORDER_THICKNESS));

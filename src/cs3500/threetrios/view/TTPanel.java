@@ -19,11 +19,6 @@ import java.util.List;
 
 /**
  * Implements the behaviors of the ThreeTriosPanel interface.
- * TTPanel is broken up into the following structure:
- * Red        Grid      Blue
- * Player     Panel     Player
- * Hand                 Hand
- * Panel                Panel
  */
 class TTPanel extends JPanel implements ThreeTriosPanel {
   private final ReadOnlyThreeTriosModel model;

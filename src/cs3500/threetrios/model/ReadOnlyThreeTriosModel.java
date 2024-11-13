@@ -118,5 +118,23 @@ public interface ReadOnlyThreeTriosModel {
    */
   int numCardFlips(Card card, int row, int col, Player player);
 
+  /**
+   * Used to simulate a move played by the current player at the given hand index at the given
+   * coordinates. This method will play this "simulation" move, however this does not affect
+   * the internal state of the grid or the players, thus still an immutable model method.
+   *
+   * @param row     row value of the grid
+   * @param col     column value of the grid
+   * @param handIdx index value from the players hand
+   * @return this model copy after the move has been simulated
+   * @throws IllegalStateException    if the game is over or has not started yet
+   * @throws IllegalArgumentException if handIdx < 0 or greater than or equal
+   *                                  to the number of cards in the hand.
+   * @throws IllegalArgumentException if row < 0 or greater than or equal
+   *                                  to the number of rows in the grid.
+   * @throws IllegalArgumentException if col < 0 or greater than or equal
+   *                                  to the number of columns in the grid.
+   * @throws IllegalStateException    if the specified coordinate already has a card or is a hole.
+   */
   ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIdx);
 }

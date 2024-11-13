@@ -1,7 +1,8 @@
 package cs3500.threetrios.strategy;
 
 /**
- * Interface for a move to play on the grid as the best move for the strategies.
+ * Represents a move that can be played based off what a strategy returns. These PlayedMoves can
+ * be implemented by a computer player.
  */
 public interface PlayedMove {
 

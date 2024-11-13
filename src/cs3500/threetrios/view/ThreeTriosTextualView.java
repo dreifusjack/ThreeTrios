@@ -1,7 +1,21 @@
 package cs3500.threetrios.view;
 
 /**
- * Behaviors for the textual rendering of ThreeTrios.
+ * Responsible for rendering ThreeTrios in a textual view that is presented in the console.
+ * Example:
+ * Player: BLUE
+ * BB   _
+ * _B   _
+ * _ R  _
+ * _  _ _
+ * _   _R
+ * Hand:
+ * CorruptKing 7 3 9 A
+ * AngryDragon 2 8 9 9
+ * WindBird 7 2 5 3
+ * HeroKnight A 2 4 4
+ * WorldDragon 8 3 5 7
+ * SkyWhale 4 5 9 9
  */
 public interface ThreeTriosTextualView {
   /**

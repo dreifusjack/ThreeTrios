@@ -63,8 +63,8 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     this.grid = new GridCell[readOnlyModel.numRows()][readOnlyModel.numCols()];
     this.redPlayer = readOnlyModel.getRedPlayer();
     this.bluePlayer = readOnlyModel.getBluePlayer();
-    this.playerTurn = readOnlyModel.getCurrentPlayer().getColor() ==
-            TeamColor.RED ? redPlayer : bluePlayer;
+    this.playerTurn = readOnlyModel.getCurrentPlayer().getColor()
+            == TeamColor.RED ? redPlayer : bluePlayer;
 
     // making the grid
     for (int row = 0; row < readOnlyModel.numRows(); row++) {
@@ -418,16 +418,22 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   }
 
   @Override
-  public ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIndex) {
+  public ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIdx) {
+    isGameNotInPlay();
+    if (playerTurn.getHand().size() <= handIdx || handIdx < 0) {
+      throw new IllegalArgumentException("Hand index out of bounds");
+    }
+    if (!isValidCoordinate(row, col)) {
+      throw new IllegalArgumentException("Coordinate out of bounds");
+    }
     // make a copy
     ThreeTriosModel clonedModel = new BasicThreeTriosModel(this);
 
     // simulate the move on the copied version.
-    clonedModel.playToGrid(row, col, handIndex);
+    clonedModel.playToGrid(row, col, handIdx);
 
     // return a read-only version.
     return clonedModel;
   }
-
 }
 
