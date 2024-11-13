@@ -100,7 +100,7 @@ public class MinimizeFlipsStrategyTest {
             model4x3EqualSides.getCurrentPlayer()).getHandInx());
   }
 
-  // When there is no best move
+  // When there is no best move (many best move to takes the upper-most, left-most best move)
   @Test
   public void testNoBestMove() {
     controller4x31Hole.playGame(model4x31Hole);

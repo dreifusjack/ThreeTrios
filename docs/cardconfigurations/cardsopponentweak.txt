@@ -2,11 +2,7 @@ SkyWhale 1 1 1 3
 FirePhoenix 1 1 1 2
 ThunderTiger 1 1 1 4
 MysticFairy 1 1 1 6
-OceanKraken 1 1 1 1
+HeroKnight 7 7 7 A
 CorruptKing 7 7 7 7
 AngryDragon 7 7 7 8
 WindBird 7 7 7 9
-GoldenEagle 1 1 1 5
-WorldDragon 8 8 8 8
-HeroKnight 7 7 7 A
-SilverWolf 8 8 8 9

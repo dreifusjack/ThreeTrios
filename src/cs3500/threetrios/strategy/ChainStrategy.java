@@ -15,7 +15,9 @@ import java.util.List;
  * input list, it is best to not put MaximizeFlip at the front of the list since it won't return
  * null as our grid must have an odd number of card cells (which always guarantee at least 1
  * CardCell for every game board). And this ensures that this strategy won't ever return null
- * for its best move.
+ * for its best move. After examine the strategies more carefully, the MinimizeStrategy won't
+ * return null as it's mechanism is similarly to MaximizeFlipStrategy. So if this is being placed
+ * at the front of the input list, then other strategies after it won't ever be processed.
  **/
 
 public class ChainStrategy implements ThreeTriosStrategy {
@@ -44,7 +46,7 @@ public class ChainStrategy implements ThreeTriosStrategy {
         }
       }
     }
-    return null; // or maybe throw an exception like the lecture did(discuss with jack)
+    return null;
   }
 
   @Override

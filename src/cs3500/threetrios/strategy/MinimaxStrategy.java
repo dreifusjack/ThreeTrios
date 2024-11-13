@@ -20,10 +20,10 @@ import java.util.List;
  * with this ThreeTriosStrategy and this card and the best move from this will use on numCardFlips
  * to find the number cards that this opponent's potential can flip. And we will need to choose
  * a move to minimize this number of cards (our card) the opponent could flip. If there
- *  * is a tie with many best move then break the tie by choosing the move with the
- *  uppermost-leftmost coordinate for the position and then choose the best card for that
- *  position with an index closest to 0 in the hand. If there are no valid moves, your player
- *  should pass choose the upper-most, left-most open position and the card at index 0.
+ * is a tie with many best move then break the tie by choosing the move with the
+ * uppermost-leftmost coordinate for the position and then choose the best card for that
+ * position with an index closest to 0 in the hand. If there are no valid moves, your player
+ * should pass choose the upper-most, left-most open position and the card at index 0.
  */
 public class MinimaxStrategy implements ThreeTriosStrategy {
   private final List<ThreeTriosStrategy> opponentStrategies;
