@@ -168,8 +168,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   }
 
   /**
-   * Responsible for logging to the console its row and column when clicked. Also, un-highlights
-   * any highlights cards on a mouseclick.
+   * Responsible for logging to the console its row and column when clicked.
    */
   private class CellClickListener extends MouseAdapter {
     private final int row;
@@ -188,10 +187,6 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      if (highlightedCard != null) {
-        highlightedCard.toggleHighlight();
-        highlightedCard = null;
-      }
       System.out.println("Row: " + row + ", Col: " + col);
     }
   }
