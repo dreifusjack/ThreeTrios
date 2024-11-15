@@ -6,7 +6,7 @@ import cs3500.threetrios.model.TeamColor;
  * Features class for future usage in which the controller and view will communicate through
  * event listeners.
  */
-public interface Features {
+public interface ViewFeatures {
 
 
   void selectCard(TeamColor playerColor, int cardIndex);

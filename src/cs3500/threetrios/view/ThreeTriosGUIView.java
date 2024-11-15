@@ -1,5 +1,7 @@
 package cs3500.threetrios.view;
 
+import cs3500.threetrios.player.PlayerActionFeatures;
+
 /**
  * A GUI visual interface that renders ThreeTrios. Includes all the red players,
  * all the blue players cards, and the grid. In the grid holes are represented as grey cells, and
@@ -14,9 +16,9 @@ public interface ThreeTriosGUIView {
   /**
    * Set up the listeners for user interactions.
    */
-  void setFeatures(Features features);
+  void setFeatures(ViewFeatures viewFeatures);
 
-  void addPlayerActionListener(PlayerActionListener listener);
+  void addPlayerActionListener(PlayerActionFeatures listener);
   void handleCardSelection(int cardIndex);
   void handleCardPlacement(int row, int col);
 

@@ -7,13 +7,13 @@ import org.junit.Test;
 
 import java.util.List;
 
-import cs3500.threetrios.strategy.ChainStrategy;
-import cs3500.threetrios.strategy.CornerStrategy;
-import cs3500.threetrios.strategy.MaximizeFlipsStrategy;
-import cs3500.threetrios.strategy.MinimaxStrategy;
-import cs3500.threetrios.strategy.MinimizeFlipsStrategy;
+import cs3500.threetrios.player.strategy.ChainStrategy;
+import cs3500.threetrios.player.strategy.CornerStrategy;
+import cs3500.threetrios.player.strategy.MaximizeFlipsStrategy;
+import cs3500.threetrios.player.strategy.MinimaxStrategy;
+import cs3500.threetrios.player.strategy.MinimizeFlipsStrategy;
 import cs3500.threetrios.strategy.MockThreeTriosModel;
-import cs3500.threetrios.strategy.PlayedMove;
+import cs3500.threetrios.player.strategy.PlayedMove;
 
 /**
  * Test class for the MockThreeTriosModel.

@@ -11,6 +11,7 @@ import cs3500.threetrios.controller.BasicThreeTriosController;
 import cs3500.threetrios.controller.ThreeTriosController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.player.strategy.MinimizeFlipsStrategy;
 
 /**
  * Test class for the MinimizeFlipsStrategy class.

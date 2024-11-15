@@ -1,4 +1,4 @@
-package cs3500.threetrios.strategy;
+package cs3500.threetrios.player.strategy;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Direction;

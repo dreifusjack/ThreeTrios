@@ -28,7 +28,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   private CardPanel highlightedCard;
   private static final int CELL_WIDTH = 100;
   private static final int CELL_HEIGHT = 150;
-  private Features features;
+  private ViewFeatures viewFeatures;
   private final TTGUIView view;
 
 
@@ -176,9 +176,9 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   }
 
   @Override
-  public void setFeatures(Features features) {
+  public void setFeatures(ViewFeatures viewFeatures) {
     System.out.println("Set features");
-    this.features = features;
+    this.viewFeatures = viewFeatures;
     // future controller implementation
   }
 
@@ -205,7 +205,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     @Override
     public void mouseClicked(MouseEvent e) {
       System.out.println("Row: " + row + ", Col: " + col);
-      if (highlightedCard != null && features != null) {
+      if (highlightedCard != null && viewFeatures != null) {
         view.handleCardPlacement(row, col);
       }
     }
@@ -253,7 +253,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
       }
       System.out.println("Index in hand = " + index + ". " +  color + " player owns the hand.");
 
-      if (features != null) {
+      if (viewFeatures != null) {
         view.handleCardSelection(index);
         System.out.println("Clicked on card");
       }

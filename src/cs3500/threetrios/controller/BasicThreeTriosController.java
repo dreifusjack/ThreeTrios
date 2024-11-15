@@ -1,12 +1,6 @@
 package cs3500.threetrios.controller;
 
-import cs3500.threetrios.model.Player;
-import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.strategy.CornerStrategy;
-import cs3500.threetrios.view.AIPlayer;
-import cs3500.threetrios.view.HumanPlayer;
-import cs3500.threetrios.view.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
 
 /**

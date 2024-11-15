@@ -1,4 +1,4 @@
-package cs3500.threetrios.strategy;
+package cs3500.threetrios.player.strategy;
 
 import java.util.List;
 

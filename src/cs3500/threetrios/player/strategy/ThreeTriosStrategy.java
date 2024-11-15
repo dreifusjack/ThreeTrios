@@ -1,8 +1,7 @@
-package cs3500.threetrios.strategy;
+package cs3500.threetrios.player.strategy;
 
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
-import cs3500.threetrios.strategy.PlayedMove;
 
 /**
  * Represents a strategy for playing moves in a ThreeTrios game. Implementations will be responsible

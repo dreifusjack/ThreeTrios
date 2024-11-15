@@ -1,22 +1,25 @@
-package cs3500.threetrios.view;
+package cs3500.threetrios.controller;
 
+import cs3500.threetrios.model.ModelStatusFeatures;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.player.PlayerActionFeatures;
+import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
+import cs3500.threetrios.view.ViewFeatures;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class ThreeTriosController implements Features, PlayerActionListener, ModelStatusListener {
+// TODO: features should be a has-a relationship in the model
+public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures, ModelStatusFeatures {
   private final ThreeTriosModel model;
   private final TTGUIView view;
   private final PlayerActions playerActions;
   private boolean cardSelected;
   private int selectedCardIndex;
 
-  public ThreeTriosController(ThreeTriosModel model, TTGUIView view, PlayerActions playerActions) {
+  public ThreeTriosController2(ThreeTriosModel model, TTGUIView view, PlayerActions playerActions) {
     this.model = model;
     this.view = view;
     this.playerActions = playerActions;

@@ -1,4 +1,4 @@
-package cs3500.threetrios.strategy;
+package cs3500.threetrios.player.strategy;
 
 /**
  * The BasicMove class to represent a best move return from the strategies.

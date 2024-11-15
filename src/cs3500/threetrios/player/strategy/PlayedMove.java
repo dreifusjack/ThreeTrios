@@ -1,4 +1,4 @@
-package cs3500.threetrios.strategy;
+package cs3500.threetrios.player.strategy;
 
 /**
  * Represents a move that can be played based off what a strategy returns. These PlayedMoves can

@@ -10,7 +10,7 @@ import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.view.ModelStatusListener;
+import cs3500.threetrios.model.ModelStatusFeatures;
 
 /**
  * A simple mock ThreeTriosModel for testing purposes.
@@ -155,7 +155,7 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   }
 
   @Override
-  public void addModelStatusListener(ModelStatusListener listener) {
+  public void addModelStatusListener(ModelStatusFeatures listener) {
 
   }
 

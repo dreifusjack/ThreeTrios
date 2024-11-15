@@ -5,11 +5,11 @@ import cs3500.threetrios.controller.BasicThreeTriosController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.strategy.CornerStrategy;
-import cs3500.threetrios.view.AIPlayer;
-import cs3500.threetrios.view.HumanPlayer;
+import cs3500.threetrios.player.strategy.CornerStrategy;
+import cs3500.threetrios.player.AIPlayer;
+import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.view.TTGUIView;
-import cs3500.threetrios.view.ThreeTriosController;
+import cs3500.threetrios.controller.ThreeTriosController2;
 
 /**
  * Main runner class used for intermediate testing throughout implementation process. This
@@ -37,8 +37,8 @@ public class ThreeTrios2 {
 
     AIPlayer bluePlayerActions = new AIPlayer(TeamColor.BLUE, new CornerStrategy());
 
-    ThreeTriosController redController = new ThreeTriosController(model, view, redPlayerActions);
-    ThreeTriosController blueController = new ThreeTriosController(model, view, bluePlayerActions);
+    ThreeTriosController2 redController = new ThreeTriosController2(model, view, redPlayerActions);
+    ThreeTriosController2 blueController = new ThreeTriosController2(model, view, bluePlayerActions);
 
     model.addModelStatusListener(redController);
     model.addModelStatusListener(blueController);

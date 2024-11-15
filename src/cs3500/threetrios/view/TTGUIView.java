@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
+import cs3500.threetrios.player.PlayerActionFeatures;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   private final ThreeTriosPanel gridPanel;
-  private final List<PlayerActionListener> actionListeners = new ArrayList<>();
+  private final List<PlayerActionFeatures> actionListeners = new ArrayList<>();
   private final TeamColor currentPlayerColor;
 
   /**
@@ -48,38 +49,38 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   }
 
   @Override
-  public void setFeatures(Features features) {
-    gridPanel.setFeatures(features);
+  public void setFeatures(ViewFeatures viewFeatures) {
+    gridPanel.setFeatures(viewFeatures);
   }
 
   @Override
-  public void addPlayerActionListener(PlayerActionListener listener) {
+  public void addPlayerActionListener(PlayerActionFeatures listener) {
     actionListeners.add(listener);
   }
 
   @Override
   public void handleCardSelection(int cardIndex) {
-    for (PlayerActionListener listener : actionListeners) {
+    for (PlayerActionFeatures listener : actionListeners) {
       listener.onCardSelected(currentPlayerColor, cardIndex);
     }
   }
 
   @Override
   public void handleCardPlacement(int row, int col) {
-    for (PlayerActionListener listener : actionListeners) {
+    for (PlayerActionFeatures listener : actionListeners) {
       listener.onCardPlaced(currentPlayerColor, row, col);
     }
     refresh();
   }
 
   private void notifyCardSelected(TeamColor playerColor, int cardIndex) {
-    for (PlayerActionListener listener : actionListeners) {
+    for (PlayerActionFeatures listener : actionListeners) {
       listener.onCardSelected(playerColor, cardIndex);
     }
   }
 
   private void notifyCardPlaced(int row, int col, int cardIndex) {
-    for (PlayerActionListener listener : actionListeners) {
+    for (PlayerActionFeatures listener : actionListeners) {
       listener.onCardPlaced(currentPlayerColor, row, col);
     }
   }
