@@ -24,17 +24,30 @@ class CardPanel extends JPanel {
   private boolean isHighlighted;
   private static final int DEFAULT_BORDER_THICKNESS = 2;
   private static final int HIGHLIGHT_BORDER_THICKNESS = 5;
+  private int handInx;
 
   /**
    * Constructs a panel to display the given card shape.
    *
    * @param cardShape the card shape to display
    */
+  public CardPanel(CardShape cardShape, int handInx) {
+    this.cardShape = cardShape;
+    this.setPreferredSize(new Dimension(100, 150));
+    this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+    this.isHighlighted = false;
+    this.handInx = handInx;
+  }
+
   public CardPanel(CardShape cardShape) {
     this.cardShape = cardShape;
     this.setPreferredSize(new Dimension(100, 150));
     this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
     this.isHighlighted = false;
+  }
+
+  public int getHandInx() {
+    return this.handInx;
   }
 
   private String valueToString(int value) {

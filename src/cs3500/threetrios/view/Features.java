@@ -1,16 +1,15 @@
 package cs3500.threetrios.view;
 
+import cs3500.threetrios.model.TeamColor;
+
 /**
  * Features class for future usage in which the controller and view will communicate through
  * event listeners.
  */
 public interface Features {
-  /**
-   * Handles the logic for selecting a card.
-   *
-   * @param card the card to select
-   */
-  void selectCard(String card);
+
+
+  void selectCard(TeamColor playerColor, int cardIndex);
 
   /**
    * Handles the logic for placing a card on the grid.
@@ -18,5 +17,10 @@ public interface Features {
    * @param row the row to place the card
    * @param col the column to place the card
    */
-  void placeCard(int row, int col);
+  void placeCard(TeamColor playerColor, int row, int col);
+
+  void refreshView();
+
+  void startGame();
+
 }

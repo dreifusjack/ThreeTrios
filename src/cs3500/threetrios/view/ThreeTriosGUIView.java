@@ -15,4 +15,9 @@ public interface ThreeTriosGUIView {
    * Set up the listeners for user interactions.
    */
   void setFeatures(Features features);
+
+  void addPlayerActionListener(PlayerActionListener listener);
+  void handleCardSelection(int cardIndex);
+  void handleCardPlacement(int row, int col);
+
 }

@@ -2,6 +2,8 @@ package cs3500.threetrios.model;
 
 import java.util.List;
 
+import cs3500.threetrios.view.ModelStatusListener;
+
 /**
  * All observation behaviors of the Three Trios Model. These behaviors are to be used
  * in the view/client side, so it has no access to the models operations (internal state).
@@ -137,4 +139,11 @@ public interface ReadOnlyThreeTriosModel {
    * @throws IllegalStateException    if the specified coordinate already has a card or is a hole.
    */
   ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIdx);
+
+  void addModelStatusListener(ModelStatusListener listener);
+
+  void notifyPlayerTurnChange(Player currentPlayer);
+
+  void notifyGameOver(Player winningPlayer);
+
 }

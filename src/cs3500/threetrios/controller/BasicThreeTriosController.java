@@ -1,6 +1,12 @@
 package cs3500.threetrios.controller;
 
+import cs3500.threetrios.model.Player;
+import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.strategy.CornerStrategy;
+import cs3500.threetrios.view.AIPlayer;
+import cs3500.threetrios.view.HumanPlayer;
+import cs3500.threetrios.view.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
 
 /**
@@ -40,7 +46,18 @@ public class BasicThreeTriosController implements ThreeTriosController {
     model.startGame(gridConfig.getGrid(), cardConfig.getCards(), gridConfig.getNumberOfCardCells());
     view = new TTGUIView(model);
 
-    // further logic to be implemented but for now we are just setting up the model properly
-    // since the controller should be responsible for reading the configuration files
+//    Player redPlayer = model.getRedPlayer();
+//    Player bluePlayer = model.getBluePlayer();
+//
+//    PlayerActions redPlayerActions = new HumanPlayer(TeamColor.RED);
+//    PlayerActions bluePlayerActions = new AIPlayer(TeamColor.BLUE, new CornerStrategy());
+//
+//    cs3500.threetrios.view.ThreeTriosController redController = new cs3500.threetrios.view.ThreeTriosController(model, view, redPlayerActions);
+//    cs3500.threetrios.view.ThreeTriosController blueController = new cs3500.threetrios.view.ThreeTriosController(model, view, bluePlayerActions);
+//
+//    model.addModelStatusListener(redController);
+//    model.addModelStatusListener(blueController);
+//
+//    redController.startGame();
   }
 }

@@ -10,6 +10,7 @@ import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
+import cs3500.threetrios.view.ModelStatusListener;
 
 /**
  * A simple mock ThreeTriosModel for testing purposes.
@@ -151,6 +152,21 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   public ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIdx) {
     mocklog.add("simulating move at cell (" + row + ", " + col + ") with the handInx : " + handIdx);
     return new BasicThreeTriosModel(this);
+  }
+
+  @Override
+  public void addModelStatusListener(ModelStatusListener listener) {
+
+  }
+
+  @Override
+  public void notifyPlayerTurnChange(Player currentPlayer) {
+
+  }
+
+  @Override
+  public void notifyGameOver(Player winningPlayer) {
+
   }
 
   /**

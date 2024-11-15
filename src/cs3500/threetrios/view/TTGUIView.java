@@ -5,8 +5,11 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
+import cs3500.threetrios.model.TeamColor;
 
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represent the TTGUIView class to show the graphical view for the ThreeTrios game. Uses a
@@ -15,6 +18,8 @@ import java.awt.Component;
  */
 public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   private final ThreeTriosPanel gridPanel;
+  private final List<PlayerActionListener> actionListeners = new ArrayList<>();
+  private final TeamColor currentPlayerColor;
 
   /**
    * Constructs a graphical view for the Three Trios game.
@@ -28,11 +33,13 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
     this.setSize(1000, 800);
     this.setLayout(new BorderLayout());
 
-    gridPanel = new TTPanel(model);
+    gridPanel = new TTPanel(model, this);
 
     this.add((Component) gridPanel, BorderLayout.CENTER);
 
     this.setLocationRelativeTo(null);
+    this.currentPlayerColor = model.getCurrentPlayer().getColor();
+
   }
 
   @Override
@@ -44,4 +51,40 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   public void setFeatures(Features features) {
     gridPanel.setFeatures(features);
   }
+
+  @Override
+  public void addPlayerActionListener(PlayerActionListener listener) {
+    actionListeners.add(listener);
+  }
+
+  @Override
+  public void handleCardSelection(int cardIndex) {
+    for (PlayerActionListener listener : actionListeners) {
+      listener.onCardSelected(currentPlayerColor, cardIndex);
+    }
+  }
+
+  @Override
+  public void handleCardPlacement(int row, int col) {
+    for (PlayerActionListener listener : actionListeners) {
+      listener.onCardPlaced(currentPlayerColor, row, col);
+    }
+    refresh();
+  }
+
+  private void notifyCardSelected(TeamColor playerColor, int cardIndex) {
+    for (PlayerActionListener listener : actionListeners) {
+      listener.onCardSelected(playerColor, cardIndex);
+    }
+  }
+
+  private void notifyCardPlaced(int row, int col, int cardIndex) {
+    for (PlayerActionListener listener : actionListeners) {
+      listener.onCardPlaced(currentPlayerColor, row, col);
+    }
+  }
+
+
+
+
 }
