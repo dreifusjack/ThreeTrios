@@ -3,12 +3,16 @@ package cs3500.threetrios.view;
 import cs3500.threetrios.model.TeamColor;
 
 /**
- * Features class for future usage in which the controller and view will communicate through
- * event listeners.
+ * Features to be used for the view to communicate to the controller with. These features include
+ * allowing a human player to select and place cards onto the board.
  */
 public interface ViewFeatures {
-
-
+  /**
+   * Handles the logic for a human player to select a card from their hand.
+   *
+   * @param playerColor the team color of the player that selects the card
+   * @param cardIndex index of card in the players hand
+   */
   void selectCard(TeamColor playerColor, int cardIndex);
 
   /**
@@ -19,8 +23,8 @@ public interface ViewFeatures {
    */
   void placeCard(TeamColor playerColor, int row, int col);
 
-  void refreshView();
-
+  /**
+   * Handles the logic for setting correct titles to GUI.
+   */
   void startGame();
-
 }

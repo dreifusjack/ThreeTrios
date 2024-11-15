@@ -11,12 +11,11 @@ import cs3500.threetrios.view.ViewFeatures;
 
 import javax.swing.*;
 
-// TODO: features should be a has-a relationship in the model
+// TODO: features should be a has-a relationship in the controller
 public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures, ModelStatusFeatures {
   private final ThreeTriosModel model;
   private final TTGUIView view;
   private final PlayerActions playerActions;
-  private boolean cardSelected;
   private int selectedCardIndex;
 
   public ThreeTriosController2(ThreeTriosModel model, TTGUIView view, PlayerActions playerActions) {
@@ -24,21 +23,21 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     this.view = view;
     this.playerActions = playerActions;
 
-    this.view.setFeatures(this);
-    this.cardSelected = false;
-    this.selectedCardIndex = -1;
+    selectedCardIndex = -1;
 
+    this.view.setFeatures(this);
     this.model.addModelStatusListener(this);
     this.view.addPlayerActionListener(this);
   }
 
+  @Override
   public void startGame() {
     view.refresh();
     // TODO: should also tell what player this view is for
     if (model.getCurrentPlayer().getColor().equals(playerActions.getColor())) {
-      view.setTitle("Your Turn");
+      view.setTitle(playerActions.getColor() + " Player: Your Turn");
     } else {
-      view.setTitle("Waiting for Opponent");
+      view.setTitle(playerActions.getColor() + " Player: Waiting for opponent");
     }
   }
 
@@ -49,7 +48,6 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
 
     if (model.getCurrentPlayer().getColor().equals(playerColor)) {
       if (cardIndex >= 0 && cardIndex < currentPlayer.getHand().size()) {
-        cardSelected = true;
         selectedCardIndex = cardIndex;
         System.out.println(playerColor + " selected card at index: " + cardIndex);
       } else {
@@ -62,15 +60,13 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
 
   @Override
   public void placeCard(TeamColor playerColor, int row, int col) {
-    Player currentPlayer = model.getCurrentPlayer();
     System.out.println(model.getCurrentPlayer().getColor());
     System.out.println(playerColor);
 
-    if (cardSelected) {
+    if (selectedCardIndex >= 0 && model.getCurrentPlayer().getColor().equals(playerColor)) {
       try {
         model.playToGrid(row, col, selectedCardIndex);
         view.refresh();
-        cardSelected = false;
         selectedCardIndex = -1;
       } catch (IllegalArgumentException e) {
         JOptionPane.showMessageDialog(null, "Invalid move: " + e.getMessage());
@@ -78,12 +74,6 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     } else {
       JOptionPane.showMessageDialog(null, "No card selected.");
     }
-
-  }
-
-  @Override
-  public void refreshView() {
-    view.refresh();
   }
 
   @Override
@@ -99,11 +89,11 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   @Override
   public void onPlayerTurnChange(Player currentPlayer) {
     if (currentPlayer.getColor().equals(playerActions.getColor())) {
-      view.setTitle("Your Turn");
+      view.setTitle(playerActions.getColor() + " Player: Your Turn");
       playerActions.selectCard(model);
       playerActions.makeMove(model);
     } else {
-      view.setTitle("Waiting for Opponent");
+      view.setTitle(playerActions.getColor() + " Player: Waiting for opponent");
     }
   }
 

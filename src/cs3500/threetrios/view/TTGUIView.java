@@ -72,16 +72,4 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
     }
     refresh();
   }
-
-  private void notifyCardSelected(TeamColor playerColor, int cardIndex) {
-    for (PlayerActionFeatures listener : actionListeners) {
-      listener.onCardSelected(playerColor, cardIndex);
-    }
-  }
-
-  private void notifyCardPlaced(int row, int col, int cardIndex) {
-    for (PlayerActionFeatures listener : actionListeners) {
-      listener.onCardPlaced(currentPlayerColor, row, col);
-    }
-  }
 }

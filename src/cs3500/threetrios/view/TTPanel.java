@@ -6,11 +6,15 @@ import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.TeamColor;
 
 import javax.swing.JPanel;
+
 import java.awt.Dimension;
+
 import javax.swing.BorderFactory;
+
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+
 import javax.swing.BoxLayout;
 
 import java.awt.event.MouseAdapter;
@@ -28,7 +32,6 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   private CardPanel highlightedCard;
   private static final int CELL_WIDTH = 100;
   private static final int CELL_HEIGHT = 150;
-  // TODO: get rid of viewFeatures?
   private ViewFeatures viewFeatures;
   private final TTGUIView view;
 
@@ -90,7 +93,8 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
          redHandIndex++) {
       Card card = model.getRedPlayer().getHand().get(redHandIndex);
       CardPanel cardPanel = createCardPanel(TeamColor.RED, card.toString(), redHandIndex);
-      cardPanel.addMouseListener(new CardInHandClickListener(cardPanel, redHandIndex, TeamColor.RED, view)); // Use `view` from TTPanel
+      cardPanel.addMouseListener(
+              new CardInHandClickListener(cardPanel, redHandIndex, TeamColor.RED, view));
       redPlayerPanel.add(cardPanel);
     }
 
@@ -98,7 +102,8 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
          blueHandIndex++) {
       Card card = model.getBluePlayer().getHand().get(blueHandIndex);
       CardPanel cardPanel = createCardPanel(TeamColor.BLUE, card.toString(), blueHandIndex);
-      cardPanel.addMouseListener(new CardInHandClickListener(cardPanel, blueHandIndex, TeamColor.BLUE, view)); // Use `view` from TTPanel
+      cardPanel.addMouseListener(
+              new CardInHandClickListener(cardPanel, blueHandIndex, TeamColor.BLUE, view));
       bluePlayerPanel.add(cardPanel);
     }
   }
@@ -120,7 +125,11 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     String west = partsForCardShape[4];
 
     CardPanel.CardShape cardShape = new CardPanel.CardShape(north, south, east, west, color);
-    return new CardPanel(cardShape, cardInx);
+    if (cardInx == -1) {
+      return new CardPanel(cardShape);
+    } else {
+      return new CardPanel(cardShape, cardInx);
+    }
   }
 
   /**
@@ -141,7 +150,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
           } else {
             String cardString = cell.cardToString();
             TeamColor color = cell.getColor();
-            cellPanel = createCellPanel(color, cardString);
+            cellPanel = createCardPanel(color, cardString, -1);
           }
         } catch (IllegalStateException e) {  // handle holes in the grid
           createBlankCell(new Color(140, 145, 150), cellPanel);
@@ -151,17 +160,6 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
         gridPanel.add(cellPanel);
       }
     }
-  }
-
-  private CardPanel createCellPanel(TeamColor color, String cardString) {
-    String[] partsForCardShape = cardString.split(" ");
-    String north = partsForCardShape[1];
-    String south = partsForCardShape[2];
-    String east = partsForCardShape[3];
-    String west = partsForCardShape[4];
-
-    CardPanel.CardShape cardShape = new CardPanel.CardShape(north, south, east, west, color);
-    return new CardPanel(cardShape);
   }
 
   /**
@@ -180,7 +178,6 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   public void setFeatures(ViewFeatures viewFeatures) {
     System.out.println("Set features");
     this.viewFeatures = viewFeatures;
-    // future controller implementation
   }
 
   /**
@@ -209,6 +206,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
       if (highlightedCard != null && viewFeatures != null) {
         view.handleCardPlacement(row, col);
       }
+      highlightedCard = null; // after placing a card it should no longer be highlighted
     }
   }
 
@@ -221,7 +219,6 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     private final int index;
     private final TeamColor color;
     private final TTGUIView view;
-
 
     /**
      * Constructs a CardInHandClickListener in terms of the given cardPanel.
@@ -252,7 +249,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
       } else {
         highlightedCard = null; // case where this cardPanel was previously highlighted
       }
-      System.out.println("Index in hand = " + index + ". " +  color + " player owns the hand.");
+      System.out.println("Index in hand = " + index + ". " + color + " player owns the hand.");
 
       if (viewFeatures != null) {
         view.handleCardSelection(index);

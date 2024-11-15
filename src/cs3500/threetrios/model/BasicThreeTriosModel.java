@@ -18,8 +18,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   private Player playerTurn;
   private final Player bluePlayer;
   private final Random random;
-  private final List<ModelStatusFeatures> listeners;
-
+  private final List<ModelStatusFeatures> statusListeners;
 
   /**
    * Constructs a BasicThreeTrioModel in terms of the names of the grid file and card file
@@ -37,7 +36,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
     playerTurn = redPlayer;
     random = new Random();
-    listeners = new ArrayList<>();
+    statusListeners = new ArrayList<>();
   }
 
   /**
@@ -54,7 +53,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
     playerTurn = redPlayer;
     random = rand;
-    listeners = new ArrayList<>();
+    statusListeners = new ArrayList<>();
   }
 
 
@@ -78,7 +77,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       }
     }
     this.random = new Random();
-    listeners = new ArrayList<>();
+    statusListeners = new ArrayList<>();
   }
 
   // private method for converting ReadOnlyGridCell to GridCell
@@ -445,19 +444,19 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
 
   @Override
   public void addModelStatusListener(ModelStatusFeatures listener) {
-    listeners.add(listener);
+    statusListeners.add(listener);
   }
 
   @Override
   public void notifyPlayerTurnChange(Player currentPlayer) {
-    for (ModelStatusFeatures listener : listeners) {
+    for (ModelStatusFeatures listener : statusListeners) {
       listener.onPlayerTurnChange(currentPlayer);
     }
   }
 
   @Override
   public void notifyGameOver(Player winningPlayer) {
-    for (ModelStatusFeatures listener : listeners) {
+    for (ModelStatusFeatures listener : statusListeners) {
       listener.onGameOver(winningPlayer);
     }
   }
