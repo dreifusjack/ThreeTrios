@@ -23,6 +23,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     this.model = model;
     this.view = view;
     this.playerActions = playerActions;
+
     this.view.setFeatures(this);
     this.cardSelected = false;
     this.selectedCardIndex = -1;
@@ -33,7 +34,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
 
   public void startGame() {
     view.refresh();
-
+    // TODO: should also tell what player this view is for
     if (model.getCurrentPlayer().getColor().equals(playerActions.getColor())) {
       view.setTitle("Your Turn");
     } else {
@@ -65,18 +66,18 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     System.out.println(model.getCurrentPlayer().getColor());
     System.out.println(playerColor);
 
-     if (cardSelected) {
-        try {
-          model.playToGrid(row, col, selectedCardIndex);
-          view.refresh();
-          cardSelected = false;
-          selectedCardIndex = -1;
-        } catch (IllegalArgumentException e) {
-          JOptionPane.showMessageDialog(null, "Invalid move: " + e.getMessage());
-        }
-      } else {
-        JOptionPane.showMessageDialog(null, "No card selected.");
+    if (cardSelected) {
+      try {
+        model.playToGrid(row, col, selectedCardIndex);
+        view.refresh();
+        cardSelected = false;
+        selectedCardIndex = -1;
+      } catch (IllegalArgumentException e) {
+        JOptionPane.showMessageDialog(null, "Invalid move: " + e.getMessage());
       }
+    } else {
+      JOptionPane.showMessageDialog(null, "No card selected.");
+    }
 
   }
 
@@ -99,9 +100,8 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   public void onPlayerTurnChange(Player currentPlayer) {
     if (currentPlayer.getColor().equals(playerActions.getColor())) {
       view.setTitle("Your Turn");
-            playerActions.selectCard(model);
-            playerActions.makeMove(model);
-
+      playerActions.selectCard(model);
+      playerActions.makeMove(model);
     } else {
       view.setTitle("Waiting for Opponent");
     }
@@ -109,7 +109,15 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
 
   @Override
   public void onGameOver(Player winningPlayer) {
-    String message = (winningPlayer != null) ? ("Game Over! Winner: " + winningPlayer.getColor()) : "Game Over! It's a draw.";
-    JOptionPane.showMessageDialog(null, message);
+    StringBuilder gameOverMessage = new StringBuilder();
+    gameOverMessage.append("Game Over! ");
+    if (winningPlayer != null) {
+      gameOverMessage.append("Winner: " + winningPlayer.getColor()
+              + ", with a score of: " + model.getPlayerScore(winningPlayer.getColor()));
+    } else {
+      gameOverMessage.append("It's a draw. Red + Blue team score: "
+              + model.getPlayerScore(TeamColor.RED));
+    }
+    JOptionPane.showMessageDialog(null, gameOverMessage.toString());
   }
 }

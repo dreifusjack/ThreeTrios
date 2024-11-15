@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   private final ThreeTriosPanel gridPanel;
-  private final List<PlayerActionFeatures> actionListeners = new ArrayList<>();
+  private final List<PlayerActionFeatures> actionListeners;
   private final TeamColor currentPlayerColor;
 
   /**
@@ -40,7 +40,7 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
 
     this.setLocationRelativeTo(null);
     this.currentPlayerColor = model.getCurrentPlayer().getColor();
-
+    this.actionListeners = new ArrayList<>();
   }
 
   @Override
@@ -84,8 +84,4 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
       listener.onCardPlaced(currentPlayerColor, row, col);
     }
   }
-
-
-
-
 }

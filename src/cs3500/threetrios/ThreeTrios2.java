@@ -5,8 +5,6 @@ import cs3500.threetrios.controller.BasicThreeTriosController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.player.strategy.CornerStrategy;
-import cs3500.threetrios.player.AIPlayer;
 import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.view.TTGUIView;
 import cs3500.threetrios.controller.ThreeTriosController2;
@@ -29,16 +27,18 @@ public class ThreeTrios2 {
             "cardsopponentweak.txt");
     setupController.playGame(model);
 
-    TTGUIView view = new TTGUIView(model);
-    view.setVisible(true);
+    TTGUIView view1 = new TTGUIView(model);
+    TTGUIView view2 = new TTGUIView(model);
+    view1.setVisible(true);
+    view2.setVisible(true);
 
     HumanPlayer redPlayerActions = new HumanPlayer(TeamColor.RED);
-//    HumanPlayer bluePlayerActions = new HumanPlayer(TeamColor.BLUE);
+    HumanPlayer bluePlayerActions = new HumanPlayer(TeamColor.BLUE);
 
-    AIPlayer bluePlayerActions = new AIPlayer(TeamColor.BLUE, new CornerStrategy());
+   // AIPlayer bluePlayerActions = new AIPlayer(TeamColor.BLUE, new CornerStrategy());
 
-    ThreeTriosController2 redController = new ThreeTriosController2(model, view, redPlayerActions);
-    ThreeTriosController2 blueController = new ThreeTriosController2(model, view, bluePlayerActions);
+    ThreeTriosController2 redController = new ThreeTriosController2(model, view1, redPlayerActions);
+    ThreeTriosController2 blueController = new ThreeTriosController2(model, view2, bluePlayerActions);
 
     model.addModelStatusListener(redController);
     model.addModelStatusListener(blueController);

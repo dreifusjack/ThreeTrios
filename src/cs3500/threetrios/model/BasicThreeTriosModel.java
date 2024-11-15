@@ -18,7 +18,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   private Player playerTurn;
   private final Player bluePlayer;
   private final Random random;
-  private final List<ModelStatusFeatures> listeners = new ArrayList<>();
+  private final List<ModelStatusFeatures> listeners;
 
 
   /**
@@ -37,6 +37,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
     playerTurn = redPlayer;
     random = new Random();
+    listeners = new ArrayList<>();
   }
 
   /**
@@ -53,6 +54,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
     playerTurn = redPlayer;
     random = rand;
+    listeners = new ArrayList<>();
   }
 
 
@@ -76,6 +78,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       }
     }
     this.random = new Random();
+    listeners = new ArrayList<>();
   }
 
   // private method for converting ReadOnlyGridCell to GridCell

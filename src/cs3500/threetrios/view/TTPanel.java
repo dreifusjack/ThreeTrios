@@ -28,6 +28,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   private CardPanel highlightedCard;
   private static final int CELL_WIDTH = 100;
   private static final int CELL_HEIGHT = 150;
+  // TODO: get rid of viewFeatures?
   private ViewFeatures viewFeatures;
   private final TTGUIView view;
 
