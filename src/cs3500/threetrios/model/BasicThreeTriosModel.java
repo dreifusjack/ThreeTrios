@@ -146,6 +146,8 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     if (!isGameOver()) {
       playerTurn = playerTurn == redPlayer ? bluePlayer : redPlayer;
       notifyPlayerTurnChange(playerTurn);
+    } else {
+      notifyGameOver(getWinner());
     }
   }
 
@@ -192,7 +194,6 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
         }
       }
     }
-    notifyGameOver(getWinner());
     return true;
   }
 

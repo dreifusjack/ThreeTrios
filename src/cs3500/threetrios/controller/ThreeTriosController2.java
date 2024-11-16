@@ -110,7 +110,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
       gameOverMessage.append("Winner: " + winningPlayer.getColor()
               + ", with a score of: " + model.getPlayerScore(winningPlayer.getColor()));
     } else {
-      gameOverMessage.append("It's a draw. Red + Blue team score: "
+      gameOverMessage.append("It's a draw, with a tied score of: "
               + model.getPlayerScore(TeamColor.RED));
     }
     view.refresh();
