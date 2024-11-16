@@ -250,9 +250,8 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
         highlightedCard = null; // case where this cardPanel was previously highlighted
       }
       System.out.println("Index in hand = " + index + ". " + color + " player owns the hand.");
-
       if (viewFeatures != null) {
-        view.handleCardSelection(index);
+        view.handleCardSelection(index, color);
         System.out.println("Clicked on card");
       }
     }

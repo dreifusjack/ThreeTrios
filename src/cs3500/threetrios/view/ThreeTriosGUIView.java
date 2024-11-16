@@ -1,5 +1,6 @@
 package cs3500.threetrios.view;
 
+import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.player.PlayerActionFeatures;
 
 /**
@@ -19,7 +20,8 @@ public interface ThreeTriosGUIView {
   void setFeatures(ViewFeatures viewFeatures);
 
   void addPlayerActionListener(PlayerActionFeatures listener);
-  void handleCardSelection(int cardIndex);
+  // color is the selected cards color
+  void handleCardSelection(int cardIndex, TeamColor color);
   void handleCardPlacement(int row, int col);
 
 }

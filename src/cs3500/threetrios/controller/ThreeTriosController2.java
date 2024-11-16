@@ -68,7 +68,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
         model.playToGrid(row, col, selectedCardIndex);
         view.refresh();
         selectedCardIndex = -1;
-      } catch (IllegalArgumentException e) {
+      } catch (IllegalArgumentException | IllegalStateException e) {
         JOptionPane.showMessageDialog(null, "Invalid move: " + e.getMessage());
       }
     } else {

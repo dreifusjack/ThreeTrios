@@ -98,6 +98,10 @@ class CardPanel extends JPanel {
     }
   }
 
+  public TeamColor getColor() {
+    return cardShape.color;
+  }
+
   /**
    * Represents a card shape, extending Path2D.Double for easy rendering of card shapes.
    */
