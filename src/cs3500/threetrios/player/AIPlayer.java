@@ -48,17 +48,18 @@ public class AIPlayer implements PlayerActions {
 
   @Override
   public void makeMove(ReadOnlyThreeTriosModel model) {
-    Player playerAI = model.getCurrentPlayer();
-    PlayedMove move = strategy.findBestMove(model, playerAI);
-    // TODO: should this ever be the case?
-    if (move != null) {
-      System.out.println(playerAI.getColor() + " (machine) placed card at row: " + move.getRow() + ", col: " + move.getCol());
-      // should be passing back to the controller and the controller will update this
-      // players view, even though it doesnt make sense, machine players also have their own view
-      for (PlayerActionFeatures listener : actionListeners) {
-        listener.onCardPlaced(move.getRow(), move.getCol());
+    javax.swing.Timer timer = new javax.swing.Timer(1500, e -> {
+      Player playerAI = model.getCurrentPlayer();
+      PlayedMove move = strategy.findBestMove(model, playerAI);
+      if (move != null) {
+        System.out.println(playerAI.getColor() + " (machine) placed card at row: " + move.getRow() + ", col: " + move.getCol());
+        for (PlayerActionFeatures listener : actionListeners) {
+          listener.onCardPlaced(move.getRow(), move.getCol());
+        }
       }
-    }
+    });
+    timer.setRepeats(false);
+    timer.start();
   }
 
   @Override
