@@ -45,6 +45,5 @@ public class ThreeTrios2 {
 
     redController.startGame();
     blueController.startGame();
-
   }
 }

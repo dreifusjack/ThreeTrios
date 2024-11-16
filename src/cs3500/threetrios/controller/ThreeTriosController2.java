@@ -17,6 +17,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   private final TTGUIView view;
   private final PlayerActions playerActions;
   private int selectedCardIndex;
+  private final TeamColor controllerTeam;
 
   public ThreeTriosController2(ThreeTriosModel model, TTGUIView view, PlayerActions playerActions) {
     this.model = model;
@@ -24,6 +25,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     this.playerActions = playerActions;
 
     selectedCardIndex = -1;
+    controllerTeam = playerActions.getColor();
 
     this.view.setFeatures(this);
     this.model.addModelStatusListener(this);
@@ -44,23 +46,31 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
 
   @Override
   public void selectCard(TeamColor playerColor, int cardIndex) {
+    if (outOfTurn()) {
+      JOptionPane.showMessageDialog(view, "You are out of turn!");
+      return;
+    }
     Player currentPlayer = model.getCurrentPlayer();
 
     if (model.getCurrentPlayer().getColor().equals(playerColor)) {
-      if (cardIndex >= 0 && cardIndex < currentPlayer.getHand().size()) {
-        selectedCardIndex = cardIndex;
-        System.out.println(playerColor + " selected card at index: " + cardIndex);
-      } else {
-        JOptionPane.showMessageDialog(null, "Invalid card index.");
-      }
+      selectedCardIndex = cardIndex;
+      System.out.println(playerColor + " selected card at index: " + cardIndex);
     } else {
       JOptionPane.showMessageDialog(null, "Only select cards from your hand.");
       selectedCardIndex = -1;
     }
   }
 
+  private boolean outOfTurn() {
+    return controllerTeam != model.getCurrentPlayer().getColor();
+  }
+
   @Override
   public void placeCard(TeamColor playerColor, int row, int col) {
+    if (outOfTurn()) {
+      JOptionPane.showMessageDialog(view, "You are out of turn!");
+      return;
+    }
     System.out.println(model.getCurrentPlayer().getColor());
     System.out.println(playerColor);
 
@@ -96,6 +106,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     } else {
       view.setTitle(playerActions.getColor() + " Player: Waiting for opponent");
     }
+    view.refresh();
   }
 
   @Override
@@ -109,6 +120,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
       gameOverMessage.append("It's a draw. Red + Blue team score: "
               + model.getPlayerScore(TeamColor.RED));
     }
+    view.refresh();
     JOptionPane.showMessageDialog(null, gameOverMessage.toString());
   }
 }
