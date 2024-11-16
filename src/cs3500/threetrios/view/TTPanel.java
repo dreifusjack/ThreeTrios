@@ -203,7 +203,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     @Override
     public void mouseClicked(MouseEvent e) {
       System.out.println("Row: " + row + ", Col: " + col);
-      if (highlightedCard != null && viewFeatures != null) {
+      if (viewFeatures != null) {
         view.handleCardPlacement(row, col);
       }
       highlightedCard = null; // after placing a card it should no longer be highlighted

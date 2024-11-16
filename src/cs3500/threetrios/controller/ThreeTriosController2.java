@@ -54,7 +54,8 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
         JOptionPane.showMessageDialog(null, "Invalid card index.");
       }
     } else {
-      JOptionPane.showMessageDialog(null, "It's not your turn or invalid player.");
+      JOptionPane.showMessageDialog(null, "Only select cards from your hand.");
+      selectedCardIndex = -1;
     }
   }
 
@@ -72,7 +73,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
         JOptionPane.showMessageDialog(null, "Invalid move: " + e.getMessage());
       }
     } else {
-      JOptionPane.showMessageDialog(null, "No card selected.");
+      JOptionPane.showMessageDialog(null, "Please select a card to play to the board.");
     }
   }
 
