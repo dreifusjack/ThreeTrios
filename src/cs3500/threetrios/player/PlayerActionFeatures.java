@@ -22,9 +22,8 @@ public interface PlayerActionFeatures {
    * if present, to that selected location. GUI will provide a pop-up with an error message if
    * invalid placement.
    *
-   * @param playerColor TeamColor of the player that selected the position on the grid
    * @param row row on the grid
    * @param col column on the grid
    */
-  void onCardPlaced(TeamColor playerColor, int row, int col);
+  void onCardPlaced(int row, int col);
 }

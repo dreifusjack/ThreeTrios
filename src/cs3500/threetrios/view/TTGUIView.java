@@ -68,7 +68,7 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   @Override
   public void handleCardPlacement(int row, int col) {
     for (PlayerActionFeatures listener : actionListeners) {
-      listener.onCardPlaced(currentPlayerColor, row, col);
+      listener.onCardPlaced(row, col);
     }
     refresh();
   }

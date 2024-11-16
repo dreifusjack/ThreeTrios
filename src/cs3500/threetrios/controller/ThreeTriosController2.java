@@ -35,7 +35,6 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   @Override
   public void startGame() {
     view.refresh();
-    // TODO: should also tell what player this view is for
     if (model.getCurrentPlayer().getColor().equals(playerActions.getColor())) {
       view.setTitle(playerActions.getColor() + " Player: Your Turn");
     } else {
@@ -43,15 +42,12 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     }
   }
 
-
   @Override
   public void selectCard(TeamColor playerColor, int cardIndex) {
     if (outOfTurn()) {
       JOptionPane.showMessageDialog(view, "You are out of turn!");
       return;
     }
-    Player currentPlayer = model.getCurrentPlayer();
-
     if (model.getCurrentPlayer().getColor().equals(playerColor)) {
       selectedCardIndex = cardIndex;
       System.out.println(playerColor + " selected card at index: " + cardIndex);
@@ -66,15 +62,12 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   }
 
   @Override
-  public void placeCard(TeamColor playerColor, int row, int col) {
+  public void placeCard(int row, int col) {
     if (outOfTurn()) {
       JOptionPane.showMessageDialog(view, "You are out of turn!");
       return;
     }
-    System.out.println(model.getCurrentPlayer().getColor());
-    System.out.println(playerColor);
-
-    if (selectedCardIndex >= 0 && model.getCurrentPlayer().getColor().equals(playerColor)) {
+    if (selectedCardIndex >= 0) {
       try {
         model.playToGrid(row, col, selectedCardIndex);
         view.refresh();
@@ -93,8 +86,8 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   }
 
   @Override
-  public void onCardPlaced(TeamColor playerColor, int row, int col) {
-    placeCard(playerColor, row, col);
+  public void onCardPlaced(int row, int col) {
+    placeCard(row, col);
   }
 
   @Override

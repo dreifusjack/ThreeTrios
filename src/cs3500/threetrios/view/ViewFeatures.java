@@ -21,7 +21,7 @@ public interface ViewFeatures {
    * @param row the row to place the card
    * @param col the column to place the card
    */
-  void placeCard(TeamColor playerColor, int row, int col);
+  void placeCard(int row, int col);
 
   /**
    * Handles the logic for setting correct titles to GUI.
