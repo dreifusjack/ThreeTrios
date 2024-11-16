@@ -143,5 +143,4 @@ public interface ReadOnlyThreeTriosModel {
   void notifyPlayerTurnChange(Player currentPlayer);
 
   void notifyGameOver(Player winningPlayer);
-
 }

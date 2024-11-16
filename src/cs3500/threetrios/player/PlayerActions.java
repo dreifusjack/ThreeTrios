@@ -10,6 +10,7 @@ import cs3500.threetrios.model.TeamColor;
  * their strategy, where a strategy is part of the construction of a player.
  */
 public interface PlayerActions {
+  void addPlayerActionListener(PlayerActionFeatures listener);
 
   void selectCard(ReadOnlyThreeTriosModel model);
 

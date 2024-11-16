@@ -14,13 +14,18 @@ public class HumanPlayer implements PlayerActions {
   }
 
   @Override
+  public void addPlayerActionListener(PlayerActionFeatures listener) {
+    // omitted, handled within the view
+  }
+
+  @Override
   public void selectCard(ReadOnlyThreeTriosModel model) {
-    // handled within the view
+    // omitted, handled within the view
   }
 
   @Override
   public void makeMove(ReadOnlyThreeTriosModel model) {
-    // handled within the view
+    // omitted, handled within the view
   }
 
   @Override

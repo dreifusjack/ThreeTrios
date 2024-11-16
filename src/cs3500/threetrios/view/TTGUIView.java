@@ -20,7 +20,6 @@ import java.util.List;
 public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   private final ThreeTriosPanel gridPanel;
   private final List<PlayerActionFeatures> actionListeners;
-  private final TeamColor currentPlayerColor;
 
   /**
    * Constructs a graphical view for the Three Trios game.
@@ -39,7 +38,6 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
     this.add((Component) gridPanel, BorderLayout.CENTER);
 
     this.setLocationRelativeTo(null);
-    this.currentPlayerColor = model.getCurrentPlayer().getColor();
     this.actionListeners = new ArrayList<>();
   }
 

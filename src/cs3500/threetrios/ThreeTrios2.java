@@ -3,9 +3,14 @@ import java.util.Random;
 
 import cs3500.threetrios.controller.BasicThreeTriosController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
+import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.player.AIPlayer;
 import cs3500.threetrios.player.HumanPlayer;
+import cs3500.threetrios.player.PlayerActions;
+import cs3500.threetrios.player.strategy.MaximizeFlipsStrategy;
+import cs3500.threetrios.player.strategy.MinimaxStrategy;
 import cs3500.threetrios.view.TTGUIView;
 import cs3500.threetrios.controller.ThreeTriosController2;
 
@@ -32,8 +37,8 @@ public class ThreeTrios2 {
     view1.setVisible(true);
     view2.setVisible(true);
 
-    HumanPlayer redPlayerActions = new HumanPlayer(TeamColor.RED);
-    HumanPlayer bluePlayerActions = new HumanPlayer(TeamColor.BLUE);
+    PlayerActions redPlayerActions = new HumanPlayer(TeamColor.RED);
+    PlayerActions bluePlayerActions = new AIPlayer(TeamColor.BLUE, new MaximizeFlipsStrategy());
 
    // AIPlayer bluePlayerActions = new AIPlayer(TeamColor.BLUE, new CornerStrategy());
 

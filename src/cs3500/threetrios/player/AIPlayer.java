@@ -1,5 +1,8 @@
 package cs3500.threetrios.player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
@@ -9,6 +12,7 @@ import cs3500.threetrios.player.strategy.ThreeTriosStrategy;
 public class AIPlayer implements PlayerActions {
   private final ThreeTriosStrategy strategy;
   private final TeamColor teamColor;
+  private final List<PlayerActionFeatures> actionListeners;
 
   public AIPlayer(TeamColor teamColor, ThreeTriosStrategy strategy) {
     if (strategy == null || teamColor == null) {
@@ -16,6 +20,12 @@ public class AIPlayer implements PlayerActions {
     }
     this.teamColor = teamColor;
     this.strategy = strategy;
+    this.actionListeners = new ArrayList<>();
+  }
+
+  @Override
+  public void addPlayerActionListener(PlayerActionFeatures listener) {
+    actionListeners.add(listener);
   }
 
   @Override
@@ -29,8 +39,9 @@ public class AIPlayer implements PlayerActions {
       // TODO: should this ever be the case?
       if (move != null) {
         System.out.println(playerAI.getColor() + " (machine) selected card at index: " + move.getHandInx());
-        // should be passing back to the controller and the controller will update this
-        // players view, even though it doesnt make sense, machine players also have their own view
+        for (PlayerActionFeatures listener : actionListeners) {
+          listener.onCardSelected(teamColor, move.getHandInx());
+        }
       }
     }
   }
@@ -44,6 +55,9 @@ public class AIPlayer implements PlayerActions {
       System.out.println(playerAI.getColor() + " (machine) placed card at row: " + move.getRow() + ", col: " + move.getCol());
       // should be passing back to the controller and the controller will update this
       // players view, even though it doesnt make sense, machine players also have their own view
+      for (PlayerActionFeatures listener : actionListeners) {
+        listener.onCardPlaced(move.getRow(), move.getCol());
+      }
     }
   }
 

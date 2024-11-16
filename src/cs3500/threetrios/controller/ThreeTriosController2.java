@@ -4,6 +4,7 @@ import cs3500.threetrios.model.ModelStatusFeatures;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.player.AIPlayer;
 import cs3500.threetrios.player.PlayerActionFeatures;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
@@ -30,6 +31,9 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     this.view.setFeatures(this);
     this.model.addModelStatusListener(this);
     this.view.addPlayerActionListener(this);
+    if (playerActions instanceof AIPlayer) {
+      ((AIPlayer) playerActions).addPlayerActionListener(this);
+    }
   }
 
   @Override
