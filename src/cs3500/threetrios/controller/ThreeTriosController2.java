@@ -31,9 +31,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     this.view.setFeatures(this);
     this.model.addModelStatusListener(this);
     this.view.addPlayerActionListener(this);
-    if (playerActions instanceof AIPlayer) {
-      ((AIPlayer) playerActions).addPlayerActionListener(this);
-    }
+    this.playerActions.addPlayerActionListener(this);
   }
 
   @Override
@@ -41,6 +39,8 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     view.refresh();
     if (model.getCurrentPlayer().getColor().equals(playerActions.getColor())) {
       view.setTitle(playerActions.getColor() + " Player: Your Turn");
+      playerActions.selectCard(model);
+      playerActions.makeMove(model);
     } else {
       view.setTitle(playerActions.getColor() + " Player: Waiting for opponent");
     }

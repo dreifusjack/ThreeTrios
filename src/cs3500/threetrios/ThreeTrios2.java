@@ -9,6 +9,7 @@ import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.player.AIPlayer;
 import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.player.PlayerActions;
+import cs3500.threetrios.player.strategy.CornerStrategy;
 import cs3500.threetrios.player.strategy.MaximizeFlipsStrategy;
 import cs3500.threetrios.player.strategy.MinimaxStrategy;
 import cs3500.threetrios.view.TTGUIView;
@@ -37,7 +38,7 @@ public class ThreeTrios2 {
     view1.setVisible(true);
     view2.setVisible(true);
 
-    PlayerActions redPlayerActions = new HumanPlayer(TeamColor.RED);
+    PlayerActions redPlayerActions = new AIPlayer(TeamColor.RED, new CornerStrategy());
     PlayerActions bluePlayerActions = new AIPlayer(TeamColor.BLUE, new MaximizeFlipsStrategy());
 
    // AIPlayer bluePlayerActions = new AIPlayer(TeamColor.BLUE, new CornerStrategy());

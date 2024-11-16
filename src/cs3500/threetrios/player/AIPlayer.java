@@ -30,32 +30,22 @@ public class AIPlayer implements PlayerActions {
 
   @Override
   public void selectCard(ReadOnlyThreeTriosModel model) {
-    Player currentPlayer = model.getCurrentPlayer();
-
-    if (currentPlayer.getColor().equals(teamColor) && !currentPlayer.getHand().isEmpty()) {
-      Player playerAI = model.getCurrentPlayer();
-
-      PlayedMove move = strategy.findBestMove(model, playerAI);
-      // TODO: should this ever be the case?
-      if (move != null) {
-        System.out.println(playerAI.getColor() + " (machine) selected card at index: " + move.getHandInx());
-        for (PlayerActionFeatures listener : actionListeners) {
-          listener.onCardSelected(teamColor, move.getHandInx());
-        }
-      }
+    Player playerAI = model.getCurrentPlayer();
+    PlayedMove move = strategy.findBestMove(model, playerAI);
+    System.out.println(playerAI.getColor() + " (machine) selected card at index: " + move.getHandInx());
+    for (PlayerActionFeatures listener : actionListeners) {
+      listener.onCardSelected(teamColor, move.getHandInx());
     }
   }
 
   @Override
   public void makeMove(ReadOnlyThreeTriosModel model) {
-    javax.swing.Timer timer = new javax.swing.Timer(1500, e -> {
+    javax.swing.Timer timer = new javax.swing.Timer(1500, e -> { // delays move (so its visible)
       Player playerAI = model.getCurrentPlayer();
       PlayedMove move = strategy.findBestMove(model, playerAI);
-      if (move != null) {
-        System.out.println(playerAI.getColor() + " (machine) placed card at row: " + move.getRow() + ", col: " + move.getCol());
-        for (PlayerActionFeatures listener : actionListeners) {
-          listener.onCardPlaced(move.getRow(), move.getCol());
-        }
+      System.out.println(playerAI.getColor() + " (machine) placed card at row: " + move.getRow() + ", col: " + move.getCol());
+      for (PlayerActionFeatures listener : actionListeners) {
+        listener.onCardPlaced(move.getRow(), move.getCol());
       }
     });
     timer.setRepeats(false);
