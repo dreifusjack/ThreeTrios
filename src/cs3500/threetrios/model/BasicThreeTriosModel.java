@@ -445,7 +445,9 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
 
   @Override
   public void addModelStatusListener(ModelStatusFeatures listener) {
-    statusListeners.add(listener);
+    if (!statusListeners.contains(listener)) {
+      statusListeners.add(listener);
+    }
   }
 
   @Override
