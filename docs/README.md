@@ -125,3 +125,12 @@ anything since the controller process the information in the configuration files
 * The third strategy class's name is MinimizeFlipStrategy and the fourth strategy class's name is MinimaxStrategy and the chain strategy name is ChainStrategy. You can find the implementations of these 2 strategies following this path "src/cs3500/threetrios/strategy".
 * Then, the test classes for these extra credit strategies are located in "test/cs3500/threetrios/strategy", the name for the test class of MinimizeFlipStrategy is MinimizeFlipStrategyTest 
 and the name for the test class of the MinimaxStrategy is MinimaxStrategyTest and the test class's name of the ChainStrategy is ChainStrategyTest. 
+
+
+## Changes for part 3
+* We created a another controller for the view. This controller is different than the controller we have previous, the controller we have previously was for reading the information from the txt files. 
+* And this one is responsible for coordinating between the model, view, and player actions. Specifically, managing user interactions, updating the game state, and responding to model changes.
+* Then, we created 2 classes that implement the PlayerAction interface. One is for the actual human player and the other is for the AI player. THe human player class's methods are all empty because the we (human) who plays the game will make our moves based on
+* user interactions, such as mouse clicks on the GUI board. And the AI player class will pick their best move according to the given strategy.
+* Other changes besides adding new classes is adding new methods in the GUI/view classes to notify the controller/players  about a cell being clicked, a card being picked and a card being placed on a cell. 
+* We also created a new main class that can run a playable version of ThreeTrios game. 2 different views will be displayed when running the game, one is for the red player and the other is for the blue player. We could customize each player to be either a HumanPlayer or an AUPlayer. 
