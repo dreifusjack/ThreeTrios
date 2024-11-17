@@ -19,7 +19,7 @@ import cs3500.threetrios.model.TeamColor;
 /**
  * Represents a panel for displaying a card shape with its values.
  */
-public class CardPanel extends JPanel {
+public class CardPanel extends JPanel implements ThreeTriosCardPanel {
   private final CardShape cardShape;
   private boolean isHighlighted;
   private static final int DEFAULT_BORDER_THICKNESS = 2;
@@ -46,6 +46,7 @@ public class CardPanel extends JPanel {
     this.isHighlighted = false;
   }
 
+  @Override
   public int getHandInx() {
     return this.handInx;
   }
@@ -84,10 +85,7 @@ public class CardPanel extends JPanel {
     g2.drawString(valueToString(cardShape.west), 5, getHeight() / 2);
   }
 
-  /**
-   * Toggles the highlighted card. If the card is highlighted then un-highlight, and vice
-   * versa.
-   */
+  @Override
   public void toggleHighlight() {
     if (!isHighlighted) {
       this.setBorder(BorderFactory.createLineBorder(Color.GREEN, HIGHLIGHT_BORDER_THICKNESS));
@@ -98,6 +96,7 @@ public class CardPanel extends JPanel {
     }
   }
 
+  @Override
   public TeamColor getColor() {
     return cardShape.color;
   }
@@ -105,7 +104,7 @@ public class CardPanel extends JPanel {
   /**
    * Represents a card shape, extending Path2D.Double for easy rendering of card shapes.
    */
-  static class CardShape extends Path2D.Double {
+  public static class CardShape extends Path2D.Double {
     private final int north;
     private final int south;
     private final int east;

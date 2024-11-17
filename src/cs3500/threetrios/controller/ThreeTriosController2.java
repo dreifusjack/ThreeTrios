@@ -8,6 +8,7 @@ import cs3500.threetrios.player.PlayerActionFeatures;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.CardPanel;
 import cs3500.threetrios.view.TTGUIView;
+import cs3500.threetrios.view.ThreeTriosCardPanel;
 import cs3500.threetrios.view.ViewFeatures;
 
 import javax.swing.*;
@@ -47,7 +48,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   }
 
   @Override
-  public void selectCard(TeamColor playerColor, int cardIndex, CardPanel cardPanel, CardPanel highlightedCard) {
+  public void selectCard(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel cardPanel, ThreeTriosCardPanel highlightedCard) {
     if (outOfTurn()) {
       JOptionPane.showMessageDialog(view, "You are out of turn!");
       return;
@@ -83,6 +84,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
         selectedCardIndex = -1;
       } catch (IllegalArgumentException | IllegalStateException e) {
         JOptionPane.showMessageDialog(null, "Invalid move: " + e.getMessage());
+        selectedCardIndex = -1;
       }
     } else {
       JOptionPane.showMessageDialog(null, "Please select a card to play to the board.");
@@ -90,7 +92,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   }
 
   @Override
-  public void onCardSelected(TeamColor playerColor, int cardIndex, CardPanel selectedCard, CardPanel highlightedCard) {
+  public void onCardSelected(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
     selectCard(playerColor, cardIndex, selectedCard, highlightedCard);
   }
 

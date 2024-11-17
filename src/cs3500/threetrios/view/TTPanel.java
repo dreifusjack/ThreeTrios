@@ -29,7 +29,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   private final JPanel redPlayerPanel;
   private final JPanel bluePlayerPanel;
   private final JPanel gridPanel;
-  private CardPanel highlightedCard;
+  private ThreeTriosCardPanel highlightedCard;
   private static final int CELL_WIDTH = 100;
   private static final int CELL_HEIGHT = 150;
   private ViewFeatures viewFeatures;

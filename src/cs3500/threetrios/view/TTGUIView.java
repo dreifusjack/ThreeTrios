@@ -56,7 +56,7 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
 
   @Override
   public void handleCardSelection(int cardIndex, TeamColor color,
-                                  CardPanel selectedCard, CardPanel highlightedCard) {
+                                  ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
     for (PlayerActionFeatures listener : actionListeners) {
       listener.onCardSelected(color, cardIndex, selectedCard, highlightedCard);
     }

@@ -13,7 +13,7 @@ public interface ViewFeatures {
    * @param playerColor the team color of the player that selects the card
    * @param cardIndex index of card in the players hand
    */
-  void selectCard(TeamColor playerColor, int cardIndex, CardPanel selectedCard, CardPanel highlightedCard);
+  void selectCard(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
 
   /**
    * Handles the logic for placing a card on the grid.
