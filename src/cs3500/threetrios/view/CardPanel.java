@@ -31,6 +31,20 @@ class CardPanel extends JPanel {
    *
    * @param cardShape the card shape to display
    */
+  public CardPanel(CardShape cardShape) {
+    this.cardShape = cardShape;
+    this.setPreferredSize(new Dimension(100, 150));
+    this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+    this.isHighlighted = false;
+  }
+
+  /**
+   * Constructs a panel to display the given card shape. (This is a cell after a card is played on
+   * it.
+   *
+   * @param cardShape is the card shape to display
+   * @patam handInx is the
+   */
   public CardPanel(CardShape cardShape, int handInx) {
     this.cardShape = cardShape;
     this.setPreferredSize(new Dimension(100, 150));
@@ -39,13 +53,7 @@ class CardPanel extends JPanel {
     this.handInx = handInx;
   }
 
-  public CardPanel(CardShape cardShape) {
-    this.cardShape = cardShape;
-    this.setPreferredSize(new Dimension(100, 150));
-    this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-    this.isHighlighted = false;
-  }
-
+  // Private method to get the hand index.
   public int getHandInx() {
     return this.handInx;
   }

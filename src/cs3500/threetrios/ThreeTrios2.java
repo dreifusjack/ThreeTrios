@@ -38,7 +38,7 @@ public class ThreeTrios2 {
     view1.setVisible(true);
     view2.setVisible(true);
 
-    PlayerActions redPlayerActions = new AIPlayer(TeamColor.RED, new CornerStrategy());
+    PlayerActions redPlayerActions = new HumanPlayer(TeamColor.RED);
     PlayerActions bluePlayerActions = new AIPlayer(TeamColor.BLUE, new MaximizeFlipsStrategy());
 
    // AIPlayer bluePlayerActions = new AIPlayer(TeamColor.BLUE, new CornerStrategy());

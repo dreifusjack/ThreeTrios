@@ -10,11 +10,36 @@ import cs3500.threetrios.model.TeamColor;
  * their strategy, where a strategy is part of the construction of a player.
  */
 public interface PlayerActions {
+
+  /**
+   * Adds a listener to handle player actions.
+   *
+   * @param listener the listener to be added for player actions
+   */
   void addPlayerActionListener(PlayerActionFeatures listener);
 
+
+  /**
+   * Selects a card based on the current model state.
+   * For machine players, the selection is determined by the strategy. For human players, it is based on user interaction.
+   *
+   * @param model the read-only model representing the current game state
+   */
   void selectCard(ReadOnlyThreeTriosModel model);
 
+
+  /**
+   * Makes a move based on the current model state.
+   * For machine players, the move is computed using their strategy. For human players, it is based on user interaction.
+   *
+   * @param model the read-only model representing the current game state
+   */
   void makeMove(ReadOnlyThreeTriosModel model);
 
+  /**
+   * Gets the color of the player.
+   *
+   * @return the team color of the player (either RED or BLUE)
+   */
   TeamColor getColor();
 }

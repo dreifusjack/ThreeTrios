@@ -39,19 +39,5 @@ public class BasicThreeTriosController implements ThreeTriosController {
 
     model.startGame(gridConfig.getGrid(), cardConfig.getCards(), gridConfig.getNumberOfCardCells());
     view = new TTGUIView(model);
-
-//    Player redPlayer = model.getRedPlayer();
-//    Player bluePlayer = model.getBluePlayer();
-//
-//    PlayerActions redPlayerActions = new HumanPlayer(TeamColor.RED);
-//    PlayerActions bluePlayerActions = new AIPlayer(TeamColor.BLUE, new CornerStrategy());
-//
-//    cs3500.threetrios.view.ThreeTriosController redController = new cs3500.threetrios.view.ThreeTriosController(model, view, redPlayerActions);
-//    cs3500.threetrios.view.ThreeTriosController blueController = new cs3500.threetrios.view.ThreeTriosController(model, view, bluePlayerActions);
-//
-//    model.addModelStatusListener(redController);
-//    model.addModelStatusListener(blueController);
-//
-//    redController.startGame();
   }
 }

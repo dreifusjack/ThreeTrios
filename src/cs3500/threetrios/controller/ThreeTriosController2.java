@@ -12,7 +12,12 @@ import cs3500.threetrios.view.ViewFeatures;
 
 import javax.swing.*;
 
-// TODO: features should be a has-a relationship in the controller
+/**
+ * The ThreeTriosController2 class is responsible for coordinating between the model, view, and
+ * player actions. It implements Features, PlayerActionListener, and ModelStatusListener to
+ * provide a complete control layer for managing user interactions, updating the game state, and
+ * responding to model changes.
+ */
 public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures, ModelStatusFeatures {
   private final ThreeTriosModel model;
   private final TTGUIView view;
@@ -20,6 +25,14 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   private int selectedCardIndex;
   private final TeamColor controllerTeam;
 
+
+  /**
+   * Constructs a ThreeTriosController2 with the given model, view, and player actions.
+   *
+   * @param model          the model representing the game state
+   * @param view           the view that displays the game interface
+   * @param playerActions  the actions associated with the player (AI or human)
+   */
   public ThreeTriosController2(ThreeTriosModel model, TTGUIView view, PlayerActions playerActions) {
     this.model = model;
     this.view = view;
@@ -33,6 +46,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     this.view.addPlayerActionListener(this);
     this.playerActions.addPlayerActionListener(this);
   }
+
 
   @Override
   public void startGame() {
@@ -61,6 +75,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     }
   }
 
+  // Private method to checks if the controller's player is out of turn.
   private boolean outOfTurn() {
     return controllerTeam != model.getCurrentPlayer().getColor();
   }
