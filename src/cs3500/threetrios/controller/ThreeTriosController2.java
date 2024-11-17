@@ -39,18 +39,31 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
 
   @Override
   public void startGame() {
-    view.refresh();
+    handlePlayerTurn();
+  }
+
+  private void handlePlayerTurn() {
     if (model.getCurrentPlayer().getColor().equals(playerActions.getColor())) {
       view.setTitle(playerActions.getColor() + " Player: Your Turn");
-      playerActions.selectCard(model);
-      playerActions.makeMove(model);
+      handleAIMoveIfPresent();
     } else {
       view.setTitle(playerActions.getColor() + " Player: Waiting for opponent");
     }
+    view.refresh();
+  }
+
+  /**
+   * Calls player action methods to make a move that will play to the models grid. This only occurs
+   * if playerActions is an AI player, if playActions is a human player these method calls will
+   * be omitted as human player actions are handled with the user interacting with the GUI.
+   */
+  private void handleAIMoveIfPresent() {
+    playerActions.selectCard(model);
+    playerActions.makeMove(model);
   }
 
   @Override
-  public void selectCard(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel cardPanel, ThreeTriosCardPanel highlightedCard) {
+  public void selectCardOnGUI(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel cardPanel, ThreeTriosCardPanel highlightedCard) {
     if (model.isGameOver()) {
       return;
     }
@@ -77,7 +90,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   }
 
   @Override
-  public void placeCard(int row, int col) {
+  public void placeCardOnGUI(int row, int col) {
     if (model.isGameOver()) {
       return;
     }
@@ -101,39 +114,33 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
 
   @Override
   public void onCardSelected(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
-    selectCard(playerColor, cardIndex, selectedCard, highlightedCard);
+    selectCardOnGUI(playerColor, cardIndex, selectedCard, highlightedCard);
   }
 
   @Override
   public void onCardPlaced(int row, int col) {
-    placeCard(row, col);
+    placeCardOnGUI(row, col);
   }
 
   @Override
-  public void onPlayerTurnChange(Player currentPlayer) {
-    if (currentPlayer.getColor().equals(playerActions.getColor())) {
-      view.setTitle(playerActions.getColor() + " Player: Your Turn");
-      playerActions.selectCard(model);
-      playerActions.makeMove(model);
-    } else {
-      view.setTitle(playerActions.getColor() + " Player: Waiting for opponent");
-    }
-    view.refresh();
+  public void onPlayerTurnChange() {
+    handlePlayerTurn();
   }
 
   @Override
-  public void onGameOver(Player winningPlayer) {
+  public void onGameOver() {
+    Player winner = model.getWinner();
     StringBuilder gameOverMessage = new StringBuilder();
     gameOverMessage.append("Game Over! ");
-    if (winningPlayer != null) {
-      gameOverMessage.append("Winner: " + winningPlayer.getColor()
-              + ", with a score of: " + model.getPlayerScore(winningPlayer.getColor()));
+    if (winner != null) {
+      gameOverMessage.append("Winner: " + winner.getColor()
+              + ", with a score of: " + model.getPlayerScore(winner.getColor()));
     } else {
       gameOverMessage.append("It's a draw, with a tied score of: "
               + model.getPlayerScore(TeamColor.RED));
     }
     view.refresh();
-    view.setTitle("Game Over!");
+    view.setTitle(playerActions.getColor() + " Player: Game Over!");
     JOptionPane.showMessageDialog(null, gameOverMessage.toString());
   }
 }

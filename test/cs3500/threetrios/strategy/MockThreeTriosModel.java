@@ -160,12 +160,12 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   }
 
   @Override
-  public void notifyPlayerTurnChange(Player currentPlayer) {
+  public void notifyPlayerTurnChange() {
 
   }
 
   @Override
-  public void notifyGameOver(Player winningPlayer) {
+  public void notifyGameOver() {
 
   }
 

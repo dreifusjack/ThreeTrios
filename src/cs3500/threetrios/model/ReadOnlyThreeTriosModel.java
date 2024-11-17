@@ -140,7 +140,7 @@ public interface ReadOnlyThreeTriosModel {
 
   void addModelStatusListener(ModelStatusFeatures listener);
 
-  void notifyPlayerTurnChange(Player currentPlayer);
+  void notifyPlayerTurnChange();
 
-  void notifyGameOver(Player winningPlayer);
+  void notifyGameOver();
 }
