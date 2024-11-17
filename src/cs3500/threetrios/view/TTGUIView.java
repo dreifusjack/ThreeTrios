@@ -27,8 +27,6 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
    * @param model is the readonly model to render
    */
   public TTGUIView(ReadOnlyThreeTriosModel model) {
-    super("Current Player: " + model.getCurrentPlayer().getColor());
-
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setSize(1000, 800);
     this.setLayout(new BorderLayout());
@@ -57,9 +55,10 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   }
 
   @Override
-  public void handleCardSelection(int cardIndex, TeamColor color) {
+  public void handleCardSelection(int cardIndex, TeamColor color,
+                                  CardPanel selectedCard, CardPanel highlightedCard) {
     for (PlayerActionFeatures listener : actionListeners) {
-      listener.onCardSelected(color, cardIndex);
+      listener.onCardSelected(color, cardIndex, selectedCard, highlightedCard);
     }
   }
 

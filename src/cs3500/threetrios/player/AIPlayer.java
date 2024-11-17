@@ -34,7 +34,7 @@ public class AIPlayer implements PlayerActions {
     PlayedMove move = strategy.findBestMove(model, playerAI);
     System.out.println(playerAI.getColor() + " (machine) selected card at index: " + move.getHandInx());
     for (PlayerActionFeatures listener : actionListeners) {
-      listener.onCardSelected(teamColor, move.getHandInx());
+      listener.onCardSelected(teamColor, move.getHandInx(), null, null);
     }
   }
 

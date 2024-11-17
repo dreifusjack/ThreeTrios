@@ -4,9 +4,9 @@ import cs3500.threetrios.model.ModelStatusFeatures;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.player.AIPlayer;
 import cs3500.threetrios.player.PlayerActionFeatures;
 import cs3500.threetrios.player.PlayerActions;
+import cs3500.threetrios.view.CardPanel;
 import cs3500.threetrios.view.TTGUIView;
 import cs3500.threetrios.view.ViewFeatures;
 
@@ -47,17 +47,22 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   }
 
   @Override
-  public void selectCard(TeamColor playerColor, int cardIndex) {
+  public void selectCard(TeamColor playerColor, int cardIndex, CardPanel cardPanel, CardPanel highlightedCard) {
     if (outOfTurn()) {
       JOptionPane.showMessageDialog(view, "You are out of turn!");
       return;
     }
     if (model.getCurrentPlayer().getColor().equals(playerColor)) {
       selectedCardIndex = cardIndex;
-      System.out.println(playerColor + " selected card at index: " + cardIndex);
+      if (cardPanel != null) {
+        cardPanel.toggleHighlight();
+      }
     } else {
       JOptionPane.showMessageDialog(null, "Only select cards from your hand.");
       selectedCardIndex = -1;
+    }
+    if (highlightedCard != null && highlightedCard.getColor().equals(controllerTeam)) {
+      highlightedCard.toggleHighlight();
     }
   }
 
@@ -85,8 +90,8 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   }
 
   @Override
-  public void onCardSelected(TeamColor playerColor, int cardIndex) {
-    selectCard(playerColor, cardIndex);
+  public void onCardSelected(TeamColor playerColor, int cardIndex, CardPanel selectedCard, CardPanel highlightedCard) {
+    selectCard(playerColor, cardIndex, selectedCard, highlightedCard);
   }
 
   @Override

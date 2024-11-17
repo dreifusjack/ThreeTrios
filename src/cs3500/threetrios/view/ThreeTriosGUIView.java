@@ -21,7 +21,7 @@ public interface ThreeTriosGUIView {
 
   void addPlayerActionListener(PlayerActionFeatures listener);
   // color is the selected cards color
-  void handleCardSelection(int cardIndex, TeamColor color);
+  void handleCardSelection(int cardIndex, TeamColor color, CardPanel selectedCard, CardPanel highlightedCard);
   void handleCardPlacement(int row, int col);
 
 }

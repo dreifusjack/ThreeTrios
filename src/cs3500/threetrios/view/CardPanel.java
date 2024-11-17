@@ -19,7 +19,7 @@ import cs3500.threetrios.model.TeamColor;
 /**
  * Represents a panel for displaying a card shape with its values.
  */
-class CardPanel extends JPanel {
+public class CardPanel extends JPanel {
   private final CardShape cardShape;
   private boolean isHighlighted;
   private static final int DEFAULT_BORDER_THICKNESS = 2;
@@ -96,6 +96,10 @@ class CardPanel extends JPanel {
       this.setBorder(BorderFactory.createLineBorder(Color.BLACK, DEFAULT_BORDER_THICKNESS));
       isHighlighted = false;
     }
+  }
+
+  public TeamColor getColor() {
+    return cardShape.color;
   }
 
   /**
