@@ -42,4 +42,6 @@ public interface PlayerActions {
    * @return the team color of the player (either RED or BLUE)
    */
   TeamColor getColor();
+
+  boolean addsPlayerActions();
 }

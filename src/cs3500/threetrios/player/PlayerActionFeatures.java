@@ -1,6 +1,7 @@
 package cs3500.threetrios.player;
 
 import cs3500.threetrios.model.TeamColor;
+import cs3500.threetrios.view.ThreeTriosCardPanel;
 
 /**
  * Responsible for passing features of player actions to player based controllers. Actions include
@@ -15,7 +16,7 @@ public interface PlayerActionFeatures {
    * @param playerColor TeamColor of the player that selected the card
    * @param cardIndex   index from hand of the selected card
    */
-  void onCardSelected(TeamColor playerColor, int cardIndex);
+  void onCardSelected(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
 
   /**
    * When a position on the grid has been selected, attempt to place the previously selected card

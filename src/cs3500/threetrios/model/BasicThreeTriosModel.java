@@ -145,9 +145,9 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     battleCards(row, col);
     if (!isGameOver()) {
       playerTurn = playerTurn == redPlayer ? bluePlayer : redPlayer;
-      notifyPlayerTurnChange(playerTurn);
+      notifyPlayerTurnChange();
     } else {
-      notifyGameOver(getWinner());
+      notifyGameOver();
     }
   }
 
@@ -451,16 +451,16 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   }
 
   @Override
-  public void notifyPlayerTurnChange(Player currentPlayer) {
+  public void notifyPlayerTurnChange() {
     for (ModelStatusFeatures listener : statusListeners) {
-      listener.onPlayerTurnChange(currentPlayer);
+      listener.onPlayerTurnChange();
     }
   }
 
   @Override
-  public void notifyGameOver(Player winningPlayer) {
+  public void notifyGameOver() {
     for (ModelStatusFeatures listener : statusListeners) {
-      listener.onGameOver(winningPlayer);
+      listener.onGameOver();
     }
   }
 }

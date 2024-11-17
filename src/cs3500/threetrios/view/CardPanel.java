@@ -19,7 +19,7 @@ import cs3500.threetrios.model.TeamColor;
 /**
  * Represents a panel for displaying a card shape with its values.
  */
-class CardPanel extends JPanel {
+public class CardPanel extends JPanel implements ThreeTriosCardPanel {
   private final CardShape cardShape;
   private boolean isHighlighted;
   private static final int DEFAULT_BORDER_THICKNESS = 2;
@@ -31,20 +31,6 @@ class CardPanel extends JPanel {
    *
    * @param cardShape the card shape to display
    */
-  public CardPanel(CardShape cardShape) {
-    this.cardShape = cardShape;
-    this.setPreferredSize(new Dimension(100, 150));
-    this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-    this.isHighlighted = false;
-  }
-
-  /**
-   * Constructs a panel to display the given card shape. (This is a cell after a card is played on
-   * it.
-   *
-   * @param cardShape is the card shape to display
-   * @patam handInx is the
-   */
   public CardPanel(CardShape cardShape, int handInx) {
     this.cardShape = cardShape;
     this.setPreferredSize(new Dimension(100, 150));
@@ -53,7 +39,14 @@ class CardPanel extends JPanel {
     this.handInx = handInx;
   }
 
-  // Private method to get the hand index.
+  public CardPanel(CardShape cardShape) {
+    this.cardShape = cardShape;
+    this.setPreferredSize(new Dimension(100, 150));
+    this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+    this.isHighlighted = false;
+  }
+
+  @Override
   public int getHandInx() {
     return this.handInx;
   }
@@ -92,10 +85,7 @@ class CardPanel extends JPanel {
     g2.drawString(valueToString(cardShape.west), 5, getHeight() / 2);
   }
 
-  /**
-   * Toggles the highlighted card. If the card is highlighted then un-highlight, and vice
-   * versa.
-   */
+  @Override
   public void toggleHighlight() {
     if (!isHighlighted) {
       this.setBorder(BorderFactory.createLineBorder(Color.GREEN, HIGHLIGHT_BORDER_THICKNESS));
@@ -106,10 +96,15 @@ class CardPanel extends JPanel {
     }
   }
 
+  @Override
+  public TeamColor getColor() {
+    return cardShape.color;
+  }
+
   /**
    * Represents a card shape, extending Path2D.Double for easy rendering of card shapes.
    */
-  static class CardShape extends Path2D.Double {
+  public static class CardShape extends Path2D.Double {
     private final int north;
     private final int south;
     private final int east;

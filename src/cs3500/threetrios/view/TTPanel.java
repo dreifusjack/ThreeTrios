@@ -29,7 +29,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   private final JPanel redPlayerPanel;
   private final JPanel bluePlayerPanel;
   private final JPanel gridPanel;
-  private CardPanel highlightedCard;
+  private ThreeTriosCardPanel highlightedCard;
   private static final int CELL_WIDTH = 100;
   private static final int CELL_HEIGHT = 150;
   private ViewFeatures viewFeatures;
@@ -176,7 +176,6 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
   @Override
   public void setFeatures(ViewFeatures viewFeatures) {
-    System.out.println("Set features");
     this.viewFeatures = viewFeatures;
   }
 
@@ -202,11 +201,9 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      System.out.println("Row: " + row + ", Col: " + col);
       if (viewFeatures != null) {
         view.handleCardPlacement(row, col);
       }
-      highlightedCard = null; // after placing a card it should no longer be highlighted
     }
   }
 
@@ -238,22 +235,10 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      // value this CellClickListener will listen for
-      if (highlightedCard != null) {
-        highlightedCard.toggleHighlight();
-      }
-      // highlights this cardPanel and sets it to TTPanel's highlightedCard
-      if (highlightedCard != cardPanel) {
-        cardPanel.toggleHighlight();
-        highlightedCard = cardPanel;
-      } else {
-        highlightedCard = null; // case where this cardPanel was previously highlighted
-      }
-      System.out.println("Index in hand = " + index + ". " + color + " player owns the hand.");
       if (viewFeatures != null) {
-        view.handleCardSelection(index, color);
-        System.out.println("Clicked on card");
+        view.handleCardSelection(index, color, cardPanel, highlightedCard);
       }
+      highlightedCard = cardPanel;
     }
   }
 }

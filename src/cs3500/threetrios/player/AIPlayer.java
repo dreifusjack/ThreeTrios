@@ -43,9 +43,8 @@ public class AIPlayer implements PlayerActions {
   public void selectCard(ReadOnlyThreeTriosModel model) {
     Player playerAI = model.getCurrentPlayer();
     PlayedMove move = strategy.findBestMove(model, playerAI);
-    System.out.println(playerAI.getColor() + " (machine) selected card at index: " + move.getHandInx());
     for (PlayerActionFeatures listener : actionListeners) {
-      listener.onCardSelected(teamColor, move.getHandInx());
+      listener.onCardSelected(teamColor, move.getHandInx(), null, null);
     }
   }
 
@@ -54,7 +53,6 @@ public class AIPlayer implements PlayerActions {
     javax.swing.Timer timer = new javax.swing.Timer(1500, e -> { // delays move (so its visible)
       Player playerAI = model.getCurrentPlayer();
       PlayedMove move = strategy.findBestMove(model, playerAI);
-      System.out.println(playerAI.getColor() + " (machine) placed card at row: " + move.getRow() + ", col: " + move.getCol());
       for (PlayerActionFeatures listener : actionListeners) {
         listener.onCardPlaced(move.getRow(), move.getCol());
       }
@@ -66,5 +64,10 @@ public class AIPlayer implements PlayerActions {
   @Override
   public TeamColor getColor() {
     return teamColor;
+  }
+
+  @Override
+  public boolean addsPlayerActions() {
+    return true;
   }
 }
