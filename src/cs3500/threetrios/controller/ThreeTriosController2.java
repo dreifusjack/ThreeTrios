@@ -6,7 +6,6 @@ import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.player.PlayerActionFeatures;
 import cs3500.threetrios.player.PlayerActions;
-import cs3500.threetrios.view.CardPanel;
 import cs3500.threetrios.view.TTGUIView;
 import cs3500.threetrios.view.ThreeTriosCardPanel;
 import cs3500.threetrios.view.ViewFeatures;
@@ -31,8 +30,11 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
 
     this.view.setFeatures(this);
     this.model.addModelStatusListener(this);
-    this.view.addPlayerActionListener(this);
-    this.playerActions.addPlayerActionListener(this);
+    if (this.playerActions.addsPlayerActions()) {
+      this.playerActions.addPlayerActionListener(this);
+    } else {
+      this.view.addPlayerActionListener(this);
+    }
   }
 
   @Override
@@ -49,6 +51,9 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
 
   @Override
   public void selectCard(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel cardPanel, ThreeTriosCardPanel highlightedCard) {
+    if (model.isGameOver()) {
+      return;
+    }
     if (outOfTurn()) {
       JOptionPane.showMessageDialog(view, "You are out of turn!");
       return;
@@ -73,6 +78,9 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
 
   @Override
   public void placeCard(int row, int col) {
+    if (model.isGameOver()) {
+      return;
+    }
     if (outOfTurn()) {
       JOptionPane.showMessageDialog(view, "You are out of turn!");
       return;
@@ -125,6 +133,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
               + model.getPlayerScore(TeamColor.RED));
     }
     view.refresh();
+    view.setTitle("Game Over!");
     JOptionPane.showMessageDialog(null, gameOverMessage.toString());
   }
 }

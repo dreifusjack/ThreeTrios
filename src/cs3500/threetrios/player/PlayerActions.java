@@ -17,4 +17,6 @@ public interface PlayerActions {
   void makeMove(ReadOnlyThreeTriosModel model);
 
   TeamColor getColor();
+
+  boolean addsPlayerActions();
 }

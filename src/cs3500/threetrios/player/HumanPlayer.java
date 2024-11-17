@@ -32,4 +32,9 @@ public class HumanPlayer implements PlayerActions {
   public TeamColor getColor() {
     return color;
   }
+
+  @Override
+  public boolean addsPlayerActions() {
+    return false;
+  }
 }

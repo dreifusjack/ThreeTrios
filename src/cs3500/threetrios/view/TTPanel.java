@@ -176,7 +176,6 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
   @Override
   public void setFeatures(ViewFeatures viewFeatures) {
-    System.out.println("Set features");
     this.viewFeatures = viewFeatures;
   }
 

@@ -56,4 +56,9 @@ public class AIPlayer implements PlayerActions {
   public TeamColor getColor() {
     return teamColor;
   }
+
+  @Override
+  public boolean addsPlayerActions() {
+    return true;
+  }
 }

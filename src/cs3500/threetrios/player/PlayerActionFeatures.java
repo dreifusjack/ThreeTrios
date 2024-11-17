@@ -1,7 +1,6 @@
 package cs3500.threetrios.player;
 
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.view.CardPanel;
 import cs3500.threetrios.view.ThreeTriosCardPanel;
 
 /**
