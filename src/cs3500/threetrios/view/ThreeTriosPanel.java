@@ -19,7 +19,7 @@ public interface ThreeTriosPanel {
   /**
    * Set up listeners for user interactions.
    *
-   * @param viewFeatures the features to be used by the panel
+   * @param viewFeatures is the features to be used by the panel
    */
   void setFeatures(ViewFeatures viewFeatures);
 }

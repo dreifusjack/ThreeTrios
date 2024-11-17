@@ -7,19 +7,20 @@ import cs3500.threetrios.model.TeamColor;
  * allowing a human player to select and place cards onto the board.
  */
 public interface ViewFeatures {
+
   /**
    * Handles the logic for a human player to select a card from their hand.
    *
-   * @param playerColor the team color of the player that selects the card
-   * @param cardIndex index of card in the players hand
+   * @param playerColor is the team color of the player that selects the card
+   * @param cardIndex is index of card in the players hand
    */
   void selectCardOnGUI(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
 
   /**
    * Handles the logic for placing a card on the grid.
    *
-   * @param row the row to place the card
-   * @param col the column to place the card
+   * @param row is the row to place the card
+   * @param col is the column to place the card
    */
   void placeCardOnGUI(int row, int col);
 

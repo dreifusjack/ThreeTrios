@@ -19,9 +19,28 @@ public interface ThreeTriosGUIView {
    */
   void setFeatures(ViewFeatures viewFeatures);
 
+  /**
+   * Adds a listener to handle player actions.
+   *
+   * @param listener is the listener for player actions
+   */
   void addPlayerActionListener(PlayerActionFeatures listener);
-  // color is the selected cards color
-  void handleCardSelection(int cardIndex, TeamColor color, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
-  void handleCardPlacement(int row, int col);
 
+  /**
+   * Handles the selection of a card by the player.
+   *
+   * @param cardIndex       is the index of the card being selected
+   * @param color           is the color of the player selecting the card
+   * @param selectedCard    is the card panel that was selected by the player
+   * @param highlightedCard is the card panel that is currently highlighted
+   */
+  void handleCardSelection(int cardIndex, TeamColor color, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
+
+  /**
+   * Handles the placement of a card on the grid by the player.
+   *
+   * @param row is the row where the card is being placed
+   * @param col is the column where the card is being placed
+   */
+  void handleCardPlacement(int row, int col);
 }

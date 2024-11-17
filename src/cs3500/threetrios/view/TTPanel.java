@@ -41,6 +41,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
    * hand panels and grid panel.
    *
    * @param model the read-only model to render
+   * @param view is the GUI view.
    */
   public TTPanel(ReadOnlyThreeTriosModel model, TTGUIView view) {
     this.model = model;
