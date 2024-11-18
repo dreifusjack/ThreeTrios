@@ -203,7 +203,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     @Override
     public void mouseClicked(MouseEvent e) {
       if (viewFeatures != null) {
-        view.handleCardPlacement(row, col);
+        view.placeSelectedCard(row, col);
       }
     }
   }
@@ -237,7 +237,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     @Override
     public void mouseClicked(MouseEvent e) {
       if (viewFeatures != null) {
-        view.handleCardSelection(index, color, cardPanel, highlightedCard);
+        view.selectCard(index, color, cardPanel, highlightedCard);
       }
       highlightedCard = cardPanel;
     }

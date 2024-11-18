@@ -12,7 +12,14 @@ public interface ThreeTriosGUIView {
   /**
    * Refreshes the view based on the current state of the model.
    */
-  void refresh();
+  void refreshPlayingBoard();
+
+  /**
+   * Sets the title of the GUI as the given title.
+   * @param title
+   * @throws IllegalArgumentException if title is null
+   */
+  void updateTitle(String title);
 
   /**
    * Set up the listeners for user interactions.
@@ -34,7 +41,7 @@ public interface ThreeTriosGUIView {
    * @param selectedCard    is the card panel that was selected by the player
    * @param highlightedCard is the card panel that is currently highlighted
    */
-  void handleCardSelection(int cardIndex, TeamColor color, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
+  void selectCard(int cardIndex, TeamColor color, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
 
   /**
    * Handles the placement of a card on the grid by the player.
@@ -42,5 +49,5 @@ public interface ThreeTriosGUIView {
    * @param row is the row where the card is being placed
    * @param col is the column where the card is being placed
    */
-  void handleCardPlacement(int row, int col);
+  void placeSelectedCard(int row, int col);
 }

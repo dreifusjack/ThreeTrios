@@ -16,7 +16,7 @@ public interface PlayerActionFeatures {
    * @param playerColor TeamColor of the player that selected the card
    * @param cardIndex   index from hand of the selected card
    */
-  void onCardSelected(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
+  void notifyCardSelection(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
 
   /**
    * When a position on the grid has been selected, attempt to place the previously selected card
@@ -26,5 +26,5 @@ public interface PlayerActionFeatures {
    * @param row row on the grid
    * @param col column on the grid
    */
-  void onCardPlaced(int row, int col);
+  void notifyBoardSelection(int row, int col);
 }

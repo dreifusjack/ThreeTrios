@@ -14,7 +14,7 @@ public interface ViewFeatures {
    * @param playerColor is the team color of the player that selects the card
    * @param cardIndex is index of card in the players hand
    */
-  void selectCardOnGUI(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
+  void handleCardSelection(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
 
   /**
    * Handles the logic for placing a card on the grid.
@@ -22,7 +22,7 @@ public interface ViewFeatures {
    * @param row is the row to place the card
    * @param col is the column to place the card
    */
-  void placeCardOnGUI(int row, int col);
+  void handleBoardSelection(int row, int col);
 
   /**
    * Handles the logic for setting correct titles to GUI.

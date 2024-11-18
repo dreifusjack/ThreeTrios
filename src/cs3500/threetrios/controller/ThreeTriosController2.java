@@ -25,7 +25,6 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   private int selectedCardIndex;
   private final TeamColor controllerTeam;
 
-
   /**
    * Constructs a ThreeTriosController2 with the given model, view, and player actions.
    *
@@ -43,8 +42,11 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
 
     this.view.setFeatures(this);
     this.model.addModelStatusListener(this);
-    this.view.addPlayerActionListener(this);
-    this.playerActions.addPlayerActionListener(this);
+    if (playerActions.addsPlayerActions()) {
+      this.playerActions.addPlayerActionListener(this);
+    } else {
+      this.view.addPlayerActionListener(this);
+    }
   }
 
   @Override
@@ -54,12 +56,12 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
 
   private void handlePlayerTurn() {
     if (model.getCurrentPlayer().getColor().equals(playerActions.getColor())) {
-      view.setTitle(playerActions.getColor() + " Player: Your Turn");
+      view.updateTitle(playerActions.getColor() + " Player: Your Turn");
       handleAIMoveIfPresent();
     } else {
-      view.setTitle(playerActions.getColor() + " Player: Waiting for opponent");
+      view.updateTitle(playerActions.getColor() + " Player: Waiting for opponent");
     }
-    view.refresh();
+    view.refreshPlayingBoard();
   }
 
   /**
@@ -69,11 +71,11 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
    */
   private void handleAIMoveIfPresent() {
     playerActions.selectCard(model);
-    playerActions.makeMove(model);
+    playerActions.placeSelectedCard(model);
   }
 
   @Override
-  public void selectCardOnGUI(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel cardPanel, ThreeTriosCardPanel highlightedCard) {
+  public void handleCardSelection(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel cardPanel, ThreeTriosCardPanel highlightedCard) {
     if (model.isGameOver()) {
       return;
     }
@@ -101,7 +103,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   }
 
   @Override
-  public void placeCardOnGUI(int row, int col) {
+  public void handleBoardSelection(int row, int col) {
     if (model.isGameOver()) {
       return;
     }
@@ -112,7 +114,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     if (selectedCardIndex >= 0) {
       try {
         model.playToGrid(row, col, selectedCardIndex);
-        view.refresh();
+        view.refreshPlayingBoard();
         selectedCardIndex = -1;
       } catch (IllegalArgumentException | IllegalStateException e) {
         JOptionPane.showMessageDialog(null, "Invalid move: " + e.getMessage());
@@ -124,13 +126,13 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   }
 
   @Override
-  public void onCardSelected(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
-    selectCardOnGUI(playerColor, cardIndex, selectedCard, highlightedCard);
+  public void notifyCardSelection(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
+    handleCardSelection(playerColor, cardIndex, selectedCard, highlightedCard);
   }
 
   @Override
-  public void onCardPlaced(int row, int col) {
-    placeCardOnGUI(row, col);
+  public void notifyBoardSelection(int row, int col) {
+    handleBoardSelection(row, col);
   }
 
   @Override
@@ -150,8 +152,8 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
       gameOverMessage.append("It's a draw, with a tied score of: "
               + model.getPlayerScore(TeamColor.RED));
     }
-    view.refresh();
-    view.setTitle(playerActions.getColor() + " Player: Game Over!");
+    view.refreshPlayingBoard();
+    view.updateTitle(playerActions.getColor() + " Player: Game Over!");
     JOptionPane.showMessageDialog(null, gameOverMessage.toString());
   }
 }

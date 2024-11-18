@@ -44,17 +44,17 @@ public class AIPlayer implements PlayerActions {
     Player playerAI = model.getCurrentPlayer();
     PlayedMove move = strategy.findBestMove(model, playerAI);
     for (PlayerActionFeatures listener : actionListeners) {
-      listener.onCardSelected(teamColor, move.getHandInx(), null, null);
+      listener.notifyCardSelection(teamColor, move.getHandInx(), null, null);
     }
   }
 
   @Override
-  public void makeMove(ReadOnlyThreeTriosModel model) {
+  public void placeSelectedCard(ReadOnlyThreeTriosModel model) {
     javax.swing.Timer timer = new javax.swing.Timer(1500, e -> { // delays move (so its visible)
       Player playerAI = model.getCurrentPlayer();
       PlayedMove move = strategy.findBestMove(model, playerAI);
       for (PlayerActionFeatures listener : actionListeners) {
-        listener.onCardPlaced(move.getRow(), move.getCol());
+        listener.notifyBoardSelection(move.getRow(), move.getCol());
       }
     });
     timer.setRepeats(false);

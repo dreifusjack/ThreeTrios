@@ -34,7 +34,7 @@ public interface PlayerActions {
    *
    * @param model the read-only model representing the current game state
    */
-  void makeMove(ReadOnlyThreeTriosModel model);
+  void placeSelectedCard(ReadOnlyThreeTriosModel model);
 
   /**
    * Gets the color of the player.

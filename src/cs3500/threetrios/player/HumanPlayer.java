@@ -35,7 +35,7 @@ public class HumanPlayer implements PlayerActions {
   }
 
   @Override
-  public void makeMove(ReadOnlyThreeTriosModel model) {
+  public void placeSelectedCard(ReadOnlyThreeTriosModel model) {
     // omitted, handled within the view
   }
 

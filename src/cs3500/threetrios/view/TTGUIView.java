@@ -18,7 +18,7 @@ import java.util.List;
  * given model.
  */
 public class TTGUIView extends JFrame implements ThreeTriosGUIView {
-  private final ThreeTriosPanel gridPanel;
+  private final ThreeTriosPanel gamePanel;
   private final List<PlayerActionFeatures> actionListeners;
 
   /**
@@ -31,22 +31,27 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
     this.setSize(1000, 800);
     this.setLayout(new BorderLayout());
 
-    gridPanel = new TTPanel(model, this);
+    gamePanel = new TTPanel(model, this);
 
-    this.add((Component) gridPanel, BorderLayout.CENTER);
+    this.add((Component) gamePanel, BorderLayout.CENTER);
 
     this.setLocationRelativeTo(null);
     this.actionListeners = new ArrayList<>();
   }
 
   @Override
-  public void refresh() {
-    gridPanel.refresh();
+  public void refreshPlayingBoard() {
+    gamePanel.refresh();
+  }
+
+  @Override
+  public void updateTitle(String title) {
+    setTitle(title);
   }
 
   @Override
   public void setFeatures(ViewFeatures viewFeatures) {
-    gridPanel.setFeatures(viewFeatures);
+    gamePanel.setFeatures(viewFeatures);
   }
 
   @Override
@@ -54,21 +59,18 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
     actionListeners.add(listener);
   }
 
-
-
   @Override
-  public void handleCardSelection(int cardIndex, TeamColor color,
-                                  ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
+  public void selectCard(int cardIndex, TeamColor color,
+                         ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
     for (PlayerActionFeatures listener : actionListeners) {
-      listener.onCardSelected(color, cardIndex, selectedCard, highlightedCard);
+      listener.notifyCardSelection(color, cardIndex, selectedCard, highlightedCard);
     }
   }
 
   @Override
-  public void handleCardPlacement(int row, int col) {
+  public void placeSelectedCard(int row, int col) {
     for (PlayerActionFeatures listener : actionListeners) {
-      listener.onCardPlaced(row, col);
+      listener.notifyBoardSelection(row, col);
     }
-    refresh();
   }
 }
