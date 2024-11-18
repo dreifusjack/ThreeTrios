@@ -15,11 +15,4 @@ public interface ThreeTriosPanel {
    * Refreshes the game grid based on the current state of the model.
    */
   void refresh();
-
-  /**
-   * Set up listeners for user interactions.
-   *
-   * @param viewFeatures is the features to be used by the panel
-   */
-  void setFeatures(ViewFeatures viewFeatures);
 }

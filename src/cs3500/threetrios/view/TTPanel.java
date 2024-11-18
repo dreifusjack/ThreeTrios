@@ -32,7 +32,6 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   private ThreeTriosCardPanel highlightedCard;
   private static final int CELL_WIDTH = 100;
   private static final int CELL_HEIGHT = 150;
-  private ViewFeatures viewFeatures;
   private final TTGUIView view;
 
 
@@ -41,7 +40,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
    * hand panels and grid panel.
    *
    * @param model the read-only model to render
-   * @param view is the GUI view.
+   * @param view  is the GUI view.
    */
   public TTPanel(ReadOnlyThreeTriosModel model, TTGUIView view) {
     this.model = model;
@@ -174,12 +173,6 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     cellPanel.setBackground(color);
     cellPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
   }
-
-  @Override
-  public void setFeatures(ViewFeatures viewFeatures) {
-    this.viewFeatures = viewFeatures;
-  }
-
   /**
    * Responsible for logging to the console its row and column when clicked.
    */
@@ -202,9 +195,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      if (viewFeatures != null) {
-        view.placeSelectedCard(row, col);
-      }
+      view.placeSelectedCard(row, col);
     }
   }
 
@@ -236,9 +227,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      if (viewFeatures != null) {
-        view.selectCard(index, color, cardPanel, highlightedCard);
-      }
+      view.selectCard(index, color, cardPanel, highlightedCard);
       highlightedCard = cardPanel;
     }
   }

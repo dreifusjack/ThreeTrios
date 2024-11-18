@@ -8,7 +8,6 @@ import cs3500.threetrios.player.PlayerActionFeatures;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
 import cs3500.threetrios.view.ThreeTriosCardPanel;
-import cs3500.threetrios.view.ViewFeatures;
 
 import javax.swing.*;
 
@@ -18,7 +17,7 @@ import javax.swing.*;
  * provide a complete control layer for managing user interactions, updating the game state, and
  * responding to model changes.
  */
-public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures, ModelStatusFeatures {
+public class ThreeTriosController2 implements PlayerActionFeatures, ModelStatusFeatures {
   private final ThreeTriosModel model;
   private final TTGUIView view;
   private final PlayerActions playerActions;
@@ -28,9 +27,9 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
   /**
    * Constructs a ThreeTriosController2 with the given model, view, and player actions.
    *
-   * @param model          the model representing the game state
-   * @param view           the view that displays the game interface
-   * @param playerActions  the actions associated with the player (AI or human)
+   * @param model         the model representing the game state
+   * @param view          the view that displays the game interface
+   * @param playerActions the actions associated with the player (AI or human)
    */
   public ThreeTriosController2(ThreeTriosModel model, TTGUIView view, PlayerActions playerActions) {
     this.model = model;
@@ -40,7 +39,7 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     selectedCardIndex = -1;
     controllerTeam = playerActions.getColor();
 
-    this.view.setFeatures(this);
+    //this.view.setFeatures(this);
     this.model.addModelStatusListener(this);
     if (playerActions.addsPlayerActions()) {
       this.playerActions.addPlayerActionListener(this);
@@ -49,7 +48,6 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     }
   }
 
-  @Override
   public void startGame() {
     handlePlayerTurn();
   }
@@ -74,8 +72,13 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     playerActions.placeSelectedCard(model);
   }
 
+  // Private method to check if the current player is out of turn.
+  private boolean outOfTurn() {
+    return controllerTeam != model.getCurrentPlayer().getColor();
+  }
+
   @Override
-  public void handleCardSelection(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel cardPanel, ThreeTriosCardPanel highlightedCard) {
+  public void handleCardSelection(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
     if (model.isGameOver()) {
       return;
     }
@@ -85,8 +88,8 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     }
     if (model.getCurrentPlayer().getColor().equals(playerColor)) {
       selectedCardIndex = cardIndex;
-      if (cardPanel != null) {
-        cardPanel.toggleHighlight();
+      if (selectedCard != null) {
+        selectedCard.toggleHighlight();
       }
     } else {
       JOptionPane.showMessageDialog(null, "Only select cards from your hand.");
@@ -95,11 +98,6 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
     if (highlightedCard != null && highlightedCard.getColor().equals(controllerTeam)) {
       highlightedCard.toggleHighlight();
     }
-  }
-
-  // Private method to check if the current player is out of turn.
-  private boolean outOfTurn() {
-    return controllerTeam != model.getCurrentPlayer().getColor();
   }
 
   @Override
@@ -118,21 +116,10 @@ public class ThreeTriosController2 implements ViewFeatures, PlayerActionFeatures
         selectedCardIndex = -1;
       } catch (IllegalArgumentException | IllegalStateException e) {
         JOptionPane.showMessageDialog(null, "Invalid move: " + e.getMessage());
-        selectedCardIndex = -1;
       }
     } else {
       JOptionPane.showMessageDialog(null, "Please select a card to play to the board.");
     }
-  }
-
-  @Override
-  public void notifyCardSelection(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
-    handleCardSelection(playerColor, cardIndex, selectedCard, highlightedCard);
-  }
-
-  @Override
-  public void notifyBoardSelection(int row, int col) {
-    handleBoardSelection(row, col);
   }
 
   @Override

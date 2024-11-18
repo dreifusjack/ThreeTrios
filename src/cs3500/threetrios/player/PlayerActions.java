@@ -27,7 +27,6 @@ public interface PlayerActions {
    */
   void selectCard(ReadOnlyThreeTriosModel model);
 
-
   /**
    * Makes a move based on the current model state.
    * For machine players, the move is computed using their strategy. For human players, it is based on user interaction.

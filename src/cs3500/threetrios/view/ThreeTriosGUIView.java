@@ -16,15 +16,10 @@ public interface ThreeTriosGUIView {
 
   /**
    * Sets the title of the GUI as the given title.
-   * @param title
+   * @param title new title
    * @throws IllegalArgumentException if title is null
    */
   void updateTitle(String title);
-
-  /**
-   * Set up the listeners for user interactions.
-   */
-  void setFeatures(ViewFeatures viewFeatures);
 
   /**
    * Adds a listener to handle player actions.

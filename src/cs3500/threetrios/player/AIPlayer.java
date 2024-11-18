@@ -44,7 +44,7 @@ public class AIPlayer implements PlayerActions {
     Player playerAI = model.getCurrentPlayer();
     PlayedMove move = strategy.findBestMove(model, playerAI);
     for (PlayerActionFeatures listener : actionListeners) {
-      listener.notifyCardSelection(teamColor, move.getHandInx(), null, null);
+      listener.handleCardSelection(teamColor, move.getHandInx(), null, null);
     }
   }
 
@@ -54,7 +54,7 @@ public class AIPlayer implements PlayerActions {
       Player playerAI = model.getCurrentPlayer();
       PlayedMove move = strategy.findBestMove(model, playerAI);
       for (PlayerActionFeatures listener : actionListeners) {
-        listener.notifyBoardSelection(move.getRow(), move.getCol());
+        listener.handleBoardSelection(move.getRow(), move.getCol());
       }
     });
     timer.setRepeats(false);

@@ -50,11 +50,6 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   }
 
   @Override
-  public void setFeatures(ViewFeatures viewFeatures) {
-    gamePanel.setFeatures(viewFeatures);
-  }
-
-  @Override
   public void addPlayerActionListener(PlayerActionFeatures listener) {
     actionListeners.add(listener);
   }
@@ -63,14 +58,14 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   public void selectCard(int cardIndex, TeamColor color,
                          ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
     for (PlayerActionFeatures listener : actionListeners) {
-      listener.notifyCardSelection(color, cardIndex, selectedCard, highlightedCard);
+      listener.handleCardSelection(color, cardIndex, selectedCard, highlightedCard);
     }
   }
 
   @Override
   public void placeSelectedCard(int row, int col) {
     for (PlayerActionFeatures listener : actionListeners) {
-      listener.notifyBoardSelection(row, col);
+      listener.handleBoardSelection(row, col);
     }
   }
 }

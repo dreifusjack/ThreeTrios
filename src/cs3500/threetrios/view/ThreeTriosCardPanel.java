@@ -12,7 +12,6 @@ import cs3500.threetrios.model.TeamColor;
  * highlight status, and getting the card's color.
  */
 public interface ThreeTriosCardPanel {
-
   /**
    * Gets the index of the card in the player's hand.
    *
