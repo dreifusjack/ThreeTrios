@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import cs3500.threetrios.controller.BasicThreeTriosController;
+import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.controller.ThreeTriosController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
@@ -35,23 +35,23 @@ public class MinimizeFlipsStrategyTest {
     Random rand1 = new Random(2);
 
     model4x3Empty = new BasicThreeTriosModel(rand1);
-    controller4x3Empty = new BasicThreeTriosController("world4x3empty.txt",
+    controller4x3Empty = new ThreeTriosSetupController("world4x3empty.txt",
             "cards4x3empty.txt");
 
     model4x3EmptyVer2 = new BasicThreeTriosModel(rand1);
-    controller4x3EmptyVer2 = new BasicThreeTriosController("world4x3empty.txt",
+    controller4x3EmptyVer2 = new ThreeTriosSetupController("world4x3empty.txt",
             "cards4x3emptyver2.txt");
 
     model4x3EqualSides = new BasicThreeTriosModel(rand1);
-    controller4x3EqualSides = new BasicThreeTriosController("world4x31hole.txt",
+    controller4x3EqualSides = new ThreeTriosSetupController("world4x31hole.txt",
             "cards4x3emptyver2.txt");
 
     model4x31Hole = new BasicThreeTriosModel(rand1);
-    controller4x31Hole = new BasicThreeTriosController("world4x31hole.txt",
+    controller4x31Hole = new ThreeTriosSetupController("world4x31hole.txt",
             "cards4x3nobestmove.txt");
 
     modelManyHoles = new BasicThreeTriosModel(rand1);
-    controllerManyHoles = new BasicThreeTriosController("world4x3manyholes.txt",
+    controllerManyHoles = new ThreeTriosSetupController("world4x3manyholes.txt",
             "cardsopponentweak.txt");
 
   }

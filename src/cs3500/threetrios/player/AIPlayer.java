@@ -40,7 +40,7 @@ public class AIPlayer implements PlayerActions {
   }
 
   @Override
-  public void selectCard(ReadOnlyThreeTriosModel model) {
+  public void notifySelectedCard(ReadOnlyThreeTriosModel model) {
     Player playerAI = model.getCurrentPlayer();
     PlayedMove move = strategy.findBestMove(model, playerAI);
     for (PlayerActionFeatures listener : actionListeners) {
@@ -49,7 +49,7 @@ public class AIPlayer implements PlayerActions {
   }
 
   @Override
-  public void placeSelectedCard(ReadOnlyThreeTriosModel model) {
+  public void notifyPlacedCard(ReadOnlyThreeTriosModel model) {
     javax.swing.Timer timer = new javax.swing.Timer(1500, e -> { // delays move (so its visible)
       Player playerAI = model.getCurrentPlayer();
       PlayedMove move = strategy.findBestMove(model, playerAI);

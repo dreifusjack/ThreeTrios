@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import cs3500.threetrios.controller.BasicThreeTriosController;
+import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.controller.ThreeTriosController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
@@ -31,19 +31,19 @@ public class MaximizeFlipsStrategyTest {
     Random rand1 = new Random(2);
 
     model4x3 = new BasicThreeTriosModel(rand1);
-    controller4x3 = new BasicThreeTriosController("world4x3.txt",
+    controller4x3 = new ThreeTriosSetupController("world4x3.txt",
             "cards4x3.txt");
 
     model4x3Ver2 = new BasicThreeTriosModel(rand1);
-    controller4x3Ver2 = new BasicThreeTriosController("world4x3.txt",
+    controller4x3Ver2 = new ThreeTriosSetupController("world4x3.txt",
             "cards3x3ver2.txt");
 
     model4x3Ver3 = new BasicThreeTriosModel(rand1);
-    controller4x3Ver3 = new BasicThreeTriosController("world4x3ver2.txt",
+    controller4x3Ver3 = new ThreeTriosSetupController("world4x3ver2.txt",
             "cards3x3ver2.txt");
 
     model3x31Cell = new BasicThreeTriosModel(rand1);
-    controller3x31Cell = new BasicThreeTriosController("world3x31Cell.txt",
+    controller3x31Cell = new ThreeTriosSetupController("world3x31Cell.txt",
             "cards4x3emptyver2.txt");
 
   }

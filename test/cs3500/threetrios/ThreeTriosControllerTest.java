@@ -3,7 +3,7 @@ package cs3500.threetrios;
 import org.junit.Before;
 import org.junit.Test;
 
-import cs3500.threetrios.controller.BasicThreeTriosController;
+import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.controller.ThreeTriosController;
 
 /**
@@ -15,7 +15,7 @@ public class ThreeTriosControllerTest {
 
   @Before
   public void setUp() {
-    controller5x7 = new BasicThreeTriosController(
+    controller5x7 = new ThreeTriosSetupController(
             "world1.txt", "card1.txt");
   }
 

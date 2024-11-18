@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import cs3500.threetrios.controller.BasicThreeTriosController;
+import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.controller.ThreeTriosController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
@@ -41,39 +41,39 @@ public class CornerStrategyTest {
 
 
     model4x3 = new BasicThreeTriosModel(rand1);
-    controller4x3 = new BasicThreeTriosController("world4x3.txt",
+    controller4x3 = new ThreeTriosSetupController("world4x3.txt",
             "cards4x3.txt");
 
     model4x3Ver2 = new BasicThreeTriosModel(rand1);
-    controller4x3Ver2 = new BasicThreeTriosController("world4x3.txt",
+    controller4x3Ver2 = new ThreeTriosSetupController("world4x3.txt",
             "cards3x3ver2.txt");
 
     model4x3CornersWithHoles = new BasicThreeTriosModel(rand1);
-    controller4x3CornersWithHoles = new BasicThreeTriosController(
+    controller4x3CornersWithHoles = new ThreeTriosSetupController(
             "world4x3cornerswithholes.txt", "cards3x3ver2.txt");
 
     model4x3CornersWithHolesVer2 = new BasicThreeTriosModel(rand1);
     controller4x3CornersWithHolesVer2 =
-            new BasicThreeTriosController("world4x3cornerswithholesver2.txt",
+            new ThreeTriosSetupController("world4x3cornerswithholesver2.txt",
                     "cards3x3ver2.txt");
 
     model4x3CornersWithHolesVer3 = new BasicThreeTriosModel(rand1);
     controller4x3CornersWithHolesVer3 =
-            new BasicThreeTriosController("world4x3cornerswithholesver2.txt",
+            new ThreeTriosSetupController("world4x3cornerswithholesver2.txt",
                     "cards4x3bestcardcorner.txt");
 
     model4x3CornersWith2Holes = new BasicThreeTriosModel(rand1);
     controller4x3CornersWith2Holes =
-            new BasicThreeTriosController("world4x3with2holescorners.txt",
+            new ThreeTriosSetupController("world4x3with2holescorners.txt",
                     "cards4x3cornerswith2holes.txt");
 
     model4x3Corner1SideHole = new BasicThreeTriosModel(rand1);
     controller4x3Corner1SideHole =
-            new BasicThreeTriosController("world4x3cornersspecial.txt",
+            new ThreeTriosSetupController("world4x3cornersspecial.txt",
                     "cards4x3corners1sideholes.txt");
 
     model4x3Plain = new BasicThreeTriosModel(rand1);
-    controller4x3Plain = new BasicThreeTriosController("world4x3plain.txt",
+    controller4x3Plain = new ThreeTriosSetupController("world4x3plain.txt",
             "cards4x3.txt");
 
   }

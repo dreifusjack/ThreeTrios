@@ -6,7 +6,7 @@ import cs3500.threetrios.view.TTGUIView;
 /**
  * Implements the behaviors of ThreeTriosController interface.
  */
-public class BasicThreeTriosController implements ThreeTriosController {
+public class ThreeTriosSetupController implements ThreeTriosController {
   private final GridReader gridConfig;
   private final CardReader cardConfig;
   private TTGUIView view;
@@ -18,7 +18,7 @@ public class BasicThreeTriosController implements ThreeTriosController {
    * @param cardConfigFileName name of the file with card configuration
    * @throws IllegalArgumentException given string files are not found or null
    */
-  public BasicThreeTriosController(String gridConfigFileName, String cardConfigFileName) {
+  public ThreeTriosSetupController(String gridConfigFileName, String cardConfigFileName) {
     gridConfig = new GridFileReader(gridConfigFileName);
     cardConfig = new CardFileReader(cardConfigFileName);
     // assuming both file readers ensure given names are not null, and are found in their

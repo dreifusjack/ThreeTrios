@@ -30,12 +30,12 @@ public class HumanPlayer implements PlayerActions {
   }
 
   @Override
-  public void selectCard(ReadOnlyThreeTriosModel model) {
+  public void notifySelectedCard(ReadOnlyThreeTriosModel model) {
     // omitted, handled within the view
   }
 
   @Override
-  public void placeSelectedCard(ReadOnlyThreeTriosModel model) {
+  public void notifyPlacedCard(ReadOnlyThreeTriosModel model) {
     // omitted, handled within the view
   }
 

@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Random;
 
-import cs3500.threetrios.controller.BasicThreeTriosController;
+import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.controller.ThreeTriosController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosModel;
@@ -43,15 +43,15 @@ public class ChainStrategyTest {
   public void setUp() {
     Random rand1 = new Random(2);
     model4x3 = new BasicThreeTriosModel(rand1);
-    controller4x3 = new BasicThreeTriosController("world4x3.txt",
+    controller4x3 = new ThreeTriosSetupController("world4x3.txt",
             "cards4x3.txt");
 
     model4x3CornersWithHoles = new BasicThreeTriosModel(rand1);
-    controller4x3CornersWithHoles = new BasicThreeTriosController(
+    controller4x3CornersWithHoles = new ThreeTriosSetupController(
             "world4x3cornerswithholes.txt", "cards3x3ver2.txt");
 
     model4x32Holes = new BasicThreeTriosModel(rand1);
-    controller4x32Holes = new BasicThreeTriosController("world4x32holes.txt",
+    controller4x32Holes = new ThreeTriosSetupController("world4x32holes.txt",
             "cards4x3emptyver2.txt");
 
     cornerStrategy = new CornerStrategy();

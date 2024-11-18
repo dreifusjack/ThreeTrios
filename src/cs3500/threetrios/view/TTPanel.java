@@ -195,7 +195,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      view.placeSelectedCard(row, col);
+      view.notifyPlacedCard(row, col);
     }
   }
 
@@ -227,7 +227,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      view.selectCard(index, color, cardPanel, highlightedCard);
+      view.notifySelectedCard(index, color, cardPanel, highlightedCard);
       highlightedCard = cardPanel;
     }
   }

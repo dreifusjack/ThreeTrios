@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import cs3500.threetrios.controller.BasicThreeTriosController;
+import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.controller.ThreeTriosController;
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.CardCell;
@@ -56,27 +56,27 @@ public abstract class AbstractThreeTriosModelTest {
     Random rand1 = new Random(2);
 
     model5x7 = createModelWithRandom(rand1);
-    controller5x7 = new BasicThreeTriosController(
+    controller5x7 = new ThreeTriosSetupController(
             "world1.txt", "card1.txt");
 
     model2x2 = createModelWithRandom(rand1);
-    controller2x2 = new BasicThreeTriosController(
+    controller2x2 = new ThreeTriosSetupController(
             "world2x2.txt", "cards2x2.txt");
 
     model4x3 = createModelWithRandom(rand1);
-    controller4x3 = new BasicThreeTriosController(
+    controller4x3 = new ThreeTriosSetupController(
             "world4x3.txt", "cards3x3.txt");
 
     modelWithNotEnoughCards = createModelWithRandom(rand1);
-    controllerWithNotEnoughCards = new BasicThreeTriosController(
+    controllerWithNotEnoughCards = new ThreeTriosSetupController(
             "world4x3.txt", "3cardsonly.txt");
 
     model2x2SameValueOf1 = createModelWithRandom(rand1);
-    controller2x2SameValueOf1 = new BasicThreeTriosController(
+    controller2x2SameValueOf1 = new ThreeTriosSetupController(
             "world2x2ver2.txt", "cardswithsamevalueof1.txt");
 
     model2x2SameValueOf1Ver2 = createModelWithRandom(rand1);
-    controller2x2SameValueOf1Ver2 = new BasicThreeTriosController(
+    controller2x2SameValueOf1Ver2 = new ThreeTriosSetupController(
             "world2x2ver3.txt", "cardswithsamevalueof1.txt");
 
     nerfedCard = new ThreeTrioCard("", ThreeTrioCard.AttackValue.ONE,

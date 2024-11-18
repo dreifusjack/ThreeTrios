@@ -17,7 +17,7 @@ import javax.swing.*;
  * provide a complete control layer for managing user interactions, updating the game state, and
  * responding to model changes.
  */
-public class ThreeTriosController2 implements PlayerActionFeatures, ModelStatusFeatures {
+public class ThreeTriosFeaturesController implements PlayerActionFeatures, ModelStatusFeatures {
   private final ThreeTriosModel model;
   private final TTGUIView view;
   private final PlayerActions playerActions;
@@ -31,7 +31,7 @@ public class ThreeTriosController2 implements PlayerActionFeatures, ModelStatusF
    * @param view          the view that displays the game interface
    * @param playerActions the actions associated with the player (AI or human)
    */
-  public ThreeTriosController2(ThreeTriosModel model, TTGUIView view, PlayerActions playerActions) {
+  public ThreeTriosFeaturesController(ThreeTriosModel model, TTGUIView view, PlayerActions playerActions) {
     this.model = model;
     this.view = view;
     this.playerActions = playerActions;
@@ -39,16 +39,14 @@ public class ThreeTriosController2 implements PlayerActionFeatures, ModelStatusF
     selectedCardIndex = -1;
     controllerTeam = playerActions.getColor();
 
-    //this.view.setFeatures(this);
     this.model.addModelStatusListener(this);
     if (playerActions.addsPlayerActions()) {
       this.playerActions.addPlayerActionListener(this);
     } else {
       this.view.addPlayerActionListener(this);
     }
-  }
 
-  public void startGame() {
+    this.view.setVisible(true);
     handlePlayerTurn();
   }
 
@@ -68,11 +66,10 @@ public class ThreeTriosController2 implements PlayerActionFeatures, ModelStatusF
    * be omitted as human player actions are handled with the user interacting with the GUI.
    */
   private void handleAIMoveIfPresent() {
-    playerActions.selectCard(model);
-    playerActions.placeSelectedCard(model);
+    playerActions.notifySelectedCard(model);
+    playerActions.notifyPlacedCard(model);
   }
 
-  // Private method to check if the current player is out of turn.
   private boolean outOfTurn() {
     return controllerTeam != model.getCurrentPlayer().getColor();
   }
