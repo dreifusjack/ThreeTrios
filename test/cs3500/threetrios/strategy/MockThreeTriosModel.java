@@ -16,16 +16,16 @@ import cs3500.threetrios.model.ModelStatusFeatures;
  * A simple mock ThreeTriosModel for testing purposes.
  */
 public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
-  private final List<String> mocklog;
+  private final List<String> mockLog;
   private final int numRows;
   private final int numCols;
   private final int predeterminedRow;
   private final int predeterminedCol;
   private final boolean validMoveOnly;
   private final List<List<ReadOnlyGridCell>> grid; // 0-index based
-  private Player redPlayer;
-  private Player bluePlayer;
-  private Player currentPlayer;
+  private final Player redPlayer;
+  private final Player bluePlayer;
+  private final Player currentPlayer;
 
   /**
    * Constructs a mock ThreeTriosModel.
@@ -38,7 +38,7 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
    */
   public MockThreeTriosModel(int numRows, int numCols, int predeterminedRow, int predeterminedCol,
                              boolean validMoveOnly, Player redPlayer, Player bluePlayer) {
-    this.mocklog = new ArrayList<>();
+    this.mockLog = new ArrayList<>();
     this.numRows = numRows;
     this.numCols = numCols;
     this.grid = createMockGrid(numRows, numCols, new boolean[numRows][numCols]);
@@ -76,19 +76,19 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
 
   @Override
   public int numRows() {
-    mocklog.add("checking for number of rows");
+    mockLog.add("checking for number of rows");
     return numRows;
   }
 
   @Override
   public int numCols() {
-    mocklog.add("checking for number of columns");
+    mockLog.add("checking for number of columns");
     return numCols;
   }
 
   @Override
   public ReadOnlyGridCell getCell(int row, int col) {
-    mocklog.add("checking at cell (" + row + ", " + col + ")");
+    mockLog.add("checking at cell (" + row + ", " + col + ")");
     if (row >= 0 && row < numRows && col >= 0 && col < numCols) {
       if (validMoveOnly && !(row == predeterminedRow && col == predeterminedCol)) {
         return new MockGridCell(true);
@@ -101,56 +101,56 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
 
   @Override
   public List<List<ReadOnlyGridCell>> getGridReadOnly() {
-    mocklog.add("accessing entire grid");
+    mockLog.add("accessing entire grid");
     return grid;
   }
 
   @Override
   public boolean isGameOver() {
-    mocklog.add("checking if the game is over");
+    mockLog.add("checking if the game is over");
     return false;
   }
 
   @Override
   public Player getWinner() {
-    mocklog.add("checking for the winner");
+    mockLog.add("checking for the winner");
     return null;
   }
 
   @Override
   public Player getCurrentPlayer() {
-    mocklog.add("getting current player");
+    mockLog.add("getting current player");
     return currentPlayer;
   }
 
   @Override
   public Player getRedPlayer() {
-    mocklog.add("getting red player");
+    mockLog.add("getting red player");
     return redPlayer;
   }
 
   @Override
   public Player getBluePlayer() {
-    mocklog.add("getting blue player");
+    mockLog.add("getting blue player");
     return bluePlayer;
   }
 
   @Override
   public int getPlayerScore(TeamColor teamColor) {
-    mocklog.add("getting player score for " + teamColor + " team");
+    mockLog.add("getting player score for " + teamColor + " team");
     return 0;
   }
 
   @Override
   public int numCardFlips(Card card, int row, int col, Player player) {
-    mocklog.add("checking number of card flips for card at cell (" + row + ", " + col + ") "
+    mockLog.add("checking number of card flips for card at cell (" + row + ", " + col + ") "
             + "for Player: " + player.getColor().toString());
     return 0;
   }
 
   @Override
   public ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIdx) {
-    mocklog.add("simulating move at cell (" + row + ", " + col + ") with the handInx : " + handIdx);
+    mockLog.add("simulating move at cell (" + row + ", " + col + ") with the handInx : " + handIdx);
     return new BasicThreeTriosModel(this);
   }
 
@@ -175,6 +175,6 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
    * @return the interaction log
    */
   public List<String> getMockLog() {
-    return new ArrayList<>(mocklog);
+    return new ArrayList<>(mockLog);
   }
 }

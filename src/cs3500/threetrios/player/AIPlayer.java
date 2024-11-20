@@ -22,7 +22,7 @@ public class AIPlayer implements PlayerActions {
    * Constructs an AIPlayer with the given team color and strategy.
    *
    * @param teamColor is the team color of the player (either RED or BLUE)
-   * @param strategy is the strategy used by the AI to make decisions
+   * @param strategy  is the strategy used by the AI to make decisions
    * @throws IllegalArgumentException if the strategy or team color is null
    */
   public AIPlayer(TeamColor teamColor, ThreeTriosStrategy strategy) {
@@ -50,15 +50,11 @@ public class AIPlayer implements PlayerActions {
 
   @Override
   public void notifyPlacedCard(ReadOnlyThreeTriosModel model) {
-    javax.swing.Timer timer = new javax.swing.Timer(1500, e -> { // delays move (so its visible)
-      Player playerAI = model.getCurrentPlayer();
-      PlayedMove move = strategy.findBestMove(model, playerAI);
-      for (PlayerActionFeatures listener : actionListeners) {
-        listener.handleBoardSelection(move.getRow(), move.getCol());
-      }
-    });
-    timer.setRepeats(false);
-    timer.start();
+    Player playerAI = model.getCurrentPlayer();
+    PlayedMove move = strategy.findBestMove(model, playerAI);
+    for (PlayerActionFeatures listener : actionListeners) {
+      listener.handleBoardSelection(move.getRow(), move.getCol());
+    }
   }
 
   @Override

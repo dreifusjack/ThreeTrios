@@ -6,8 +6,10 @@ import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.player.AIPlayer;
 import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.player.PlayerActions;
+import cs3500.threetrios.player.strategy.CornerStrategy;
 import cs3500.threetrios.view.TTGUIView;
 import cs3500.threetrios.controller.ThreeTriosFeaturesController;
 
@@ -35,7 +37,7 @@ public class ThreeTrios2 {
     TTGUIView blueView = new TTGUIView(model);
 
     PlayerActions redPlayerActions = new HumanPlayer(TeamColor.RED);
-    PlayerActions bluePlayerActions = new HumanPlayer(TeamColor.BLUE);
+    PlayerActions bluePlayerActions = new AIPlayer(TeamColor.BLUE, new CornerStrategy());
 
     // AIPlayer bluePlayerActions = new AIPlayer(TeamColor.BLUE, new CornerStrategy());
 
