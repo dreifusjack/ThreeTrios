@@ -80,7 +80,11 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     statusListeners = new ArrayList<>();
   }
 
-  // private method for converting ReadOnlyGridCell to GridCell
+  /**
+   * Used for converting a ReadOnlyGridCell to a GridCell.
+   * @param readOnlyCell to convert to the corresponding GridCell
+   * @return GridCell version of the given ReadOnlyGridCell
+   */
   private GridCell convertReadOnlyToGridCell(ReadOnlyGridCell readOnlyCell) {
     switch (readOnlyCell.toString()) {
       case " ":

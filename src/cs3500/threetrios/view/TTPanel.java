@@ -199,7 +199,6 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     }
   }
 
-
   /**
    * Responsible for highlighting and un-highlighting cards based on user clicks.
    */

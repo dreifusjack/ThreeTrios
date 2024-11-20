@@ -21,7 +21,8 @@ public interface PlayerActions {
 
   /**
    * Selects a card based on the current model state.
-   * For machine players, the selection is determined by the strategy. For human players, it is based on user interaction.
+   * For machine players, the selection is determined by the strategy.
+   * For human players, it is based on user interaction.
    *
    * @param model the read-only model representing the current game state
    */
@@ -29,7 +30,8 @@ public interface PlayerActions {
 
   /**
    * Makes a move based on the current model state.
-   * For machine players, the move is computed using their strategy. For human players, it is based on user interaction.
+   * For machine players, the move is computed using their strategy.
+   * For human players, it is based on user interaction.
    *
    * @param model the read-only model representing the current game state
    */
@@ -42,5 +44,11 @@ public interface PlayerActions {
    */
   TeamColor getColor();
 
+  /**
+   * Determines if this PlayerActions is responsible for adding a listener (controller) to its
+   * internal list of observers it notifies.
+   *
+   * @return true iff this PlayerActions is responsible for notifying a observer.
+   */
   boolean addsPlayerActions();
 }

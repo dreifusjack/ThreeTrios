@@ -36,7 +36,8 @@ public interface ThreeTriosGUIView {
    * @param selectedCard    is the card panel that was selected by the player
    * @param highlightedCard is the card panel that is currently highlighted
    */
-  void notifySelectedCard(int cardIndex, TeamColor color, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
+  void notifySelectedCard(int cardIndex, TeamColor color,
+                          ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
 
   /**
    * Handles the placement of a card on the grid by the player.
