@@ -12,7 +12,7 @@ import cs3500.threetrios.view.ThreeTriosCardPanel;
 import javax.swing.*;
 
 /**
- * The ThreeTriosController2 class is responsible for coordinating between the model, view, and
+ * Responsible for coordinating between the model, view, and
  * player actions. It implements Features, PlayerActionListener, and ModelStatusListener to
  * provide a complete control layer for managing user interactions, updating the game state, and
  * responding to model changes.

@@ -20,7 +20,8 @@ public interface ThreeTriosCardPanel {
   int getHandInx();
 
   /**
-   * Toggles the highlight status of the card.
+   * Toggles the highlight status of the card. If a card is highlighted it has a thickened green
+   * border, else it has a default size black border.
    */
   void toggleHighlight();
 
