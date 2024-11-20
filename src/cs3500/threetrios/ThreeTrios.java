@@ -1,139 +1,64 @@
 package cs3500.threetrios;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
+import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
-import cs3500.threetrios.model.Card;
-import cs3500.threetrios.model.CardCell;
-import cs3500.threetrios.model.GridCell;
-import cs3500.threetrios.model.Hole;
-import cs3500.threetrios.model.ThreeTrioCard;
+import cs3500.threetrios.model.TeamColor;
+import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.player.AIPlayer;
+import cs3500.threetrios.player.HumanPlayer;
+import cs3500.threetrios.player.PlayerActions;
+import cs3500.threetrios.player.strategy.CornerStrategy;
 import cs3500.threetrios.view.TTGUIView;
+import cs3500.threetrios.controller.ThreeTriosFeaturesController;
 
 /**
- * Main runner class used for intermediate testing throughout implementation process. This
- * class will change in the future.
+ * Main runner class used to run a new game of ThreeTrios.
  */
 public class ThreeTrios {
   /**
-   * Current runner to test how model and view are interacting.
+   * Runner that allows users to play a game of ThreeTrios!
+   * Pass in arguments to specify the player types for the game.
+   * "human" represents a human player.
+   * "strategy1" represents an AIPlayer using the MaximizeFlipsStrategy.
+   * "strategy2" represents an AIPlayer using the CornerStrategy.
+   * "strategy3" represents an AIPlayer using the MinimizeFlipsStrategy.
+   * "strategy4" represents an AIPlayer using the MinimaxStrategy.
+   * "strategychain:strategyX,strategyY,..." represents an AIPlayer using a specified chain of
+   * strategies, where each strategy is one of the above.
+   * Specified arguments are applied iff two strings are enter that match the above options, else
+   * defaults to human player vs. human player.
    *
-   * @param args list of specified arguments to run the game
+   * @param args two strings, first specifying the RED player then the BLUE player
    */
+  // TODO: implement args logic
   public static void main(String[] args) {
-    Random rand1 = new Random(2);
-    BasicThreeTriosModel model4x3 = new BasicThreeTriosModel(rand1);
+    // creates instance of model to be used (not yet playable)
+    ThreeTriosModel model = new BasicThreeTriosModel(new Random(2));
 
-    model4x3.startGame(grid(), deck(), 7);
-    model4x3.playToGrid(2, 2, 0); // added to test playing a card with GUI
+    // creates instance of controller that reads configuration files to construct a playable model
+    ThreeTriosSetupController setupController =
+            new ThreeTriosSetupController(
+                    "world4x3manyholes.txt",
+                    "cardsopponentweak.txt");
 
-    TTGUIView view = new TTGUIView(model4x3);
-    view.setVisible(true);
-    System.out.println(view);
-  }
+    // constructs model to be playable
+    setupController.playGame(model);
 
-  /**
-   * Used to create an instance of the grid for ThreeTrios.jar purposes. This allows the jar file
-   * to be run outside the project and not requiring access to grid configuration files.
-   *
-   * @return grid of GridCells for model construction
-   */
-  private static GridCell[][] grid() {
-    GridCell[][] grid = new GridCell[4][3];
-    for (int row = 0; row < grid.length; row++) {
-      for (int col = 0; col < grid[row].length; col++) {
-        grid[row][col] = new CardCell();
-      }
-    }
-    grid[0][2] = new Hole();
-    grid[1][2] = new Hole();
-    grid[2][1] = new Hole();
-    grid[3][0] = new Hole();
-    grid[3][2] = new Hole();
-    return grid;
-  }
+    // view setup for each player
+    TTGUIView redView = new TTGUIView(model);
+    TTGUIView blueView = new TTGUIView(model);
 
-  /**
-   * Used to create an instance of the deck for ThreeTrios.jar purposes. This allows the jar file
-   * to be run outside the project and not requiring access to card configuration files.
-   *
-   * @return List of cards for model construction
-   */
-  private static List<Card> deck() {
-    ArrayList<Card> cards = new ArrayList<>();
-    cards.add(new ThreeTrioCard("CorruptKing",
-            ThreeTrioCard.AttackValue.fromString("3"),
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("2")));
+    // specified players
+    PlayerActions redPlayerActions = new HumanPlayer(TeamColor.RED);
+    PlayerActions bluePlayerActions = new AIPlayer(TeamColor.BLUE, new CornerStrategy());
 
-    cards.add(new ThreeTrioCard("AngryDragon",
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("7"),
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("4")));
-
-    cards.add(new ThreeTrioCard("WindBird",
-            ThreeTrioCard.AttackValue.fromString("2"),
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("A")));
-
-    cards.add(new ThreeTrioCard("HeroKnight",
-            ThreeTrioCard.AttackValue.fromString("A"),
-            ThreeTrioCard.AttackValue.fromString("4"),
-            ThreeTrioCard.AttackValue.fromString("4"),
-            ThreeTrioCard.AttackValue.fromString("1")));
-
-    cards.add(new ThreeTrioCard("WorldDragon",
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("6"),
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("1")));
-
-    cards.add(new ThreeTrioCard("SkyWhale",
-            ThreeTrioCard.AttackValue.fromString("3"),
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("2")));
-
-    cards.add(new ThreeTrioCard("FirePhoenix",
-            ThreeTrioCard.AttackValue.fromString("2"),
-            ThreeTrioCard.AttackValue.fromString("3"),
-            ThreeTrioCard.AttackValue.fromString("4"),
-            ThreeTrioCard.AttackValue.fromString("2")));
-
-    cards.add(new ThreeTrioCard("ThunderTiger",
-            ThreeTrioCard.AttackValue.fromString("3"),
-            ThreeTrioCard.AttackValue.fromString("9"),
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("4")));
-
-    cards.add(new ThreeTrioCard("SilverWolf",
-            ThreeTrioCard.AttackValue.fromString("4"),
-            ThreeTrioCard.AttackValue.fromString("3"),
-            ThreeTrioCard.AttackValue.fromString("6"),
-            ThreeTrioCard.AttackValue.fromString("8")));
-
-    cards.add(new ThreeTrioCard("MysticFairy",
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("A"),
-            ThreeTrioCard.AttackValue.fromString("2")));
-
-    cards.add(new ThreeTrioCard("OceanKraken",
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("4"),
-            ThreeTrioCard.AttackValue.fromString("8"),
-            ThreeTrioCard.AttackValue.fromString("6")));
-
-    cards.add(new ThreeTrioCard("GoldenEagle",
-            ThreeTrioCard.AttackValue.fromString("A"),
-            ThreeTrioCard.AttackValue.fromString("2"),
-            ThreeTrioCard.AttackValue.fromString("7"),
-            ThreeTrioCard.AttackValue.fromString("1")));
-    return cards;
+    // creates instance of controllers that are each responsible for representing a team,
+    // features controllers maintain a playable game via controlling that MV with user interactions
+    ThreeTriosFeaturesController redController =
+            new ThreeTriosFeaturesController(model, redView, redPlayerActions);
+    ThreeTriosFeaturesController blueController =
+            new ThreeTriosFeaturesController(model, blueView, bluePlayerActions);
   }
 }
