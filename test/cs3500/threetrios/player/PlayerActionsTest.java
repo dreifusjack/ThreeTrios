@@ -15,38 +15,20 @@ import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTrioCard;
 import cs3500.threetrios.model.ThreeTriosPlayer;
 import cs3500.threetrios.player.strategy.CornerStrategy;
-import cs3500.threetrios.model.MockThreeTriosModel;
 import cs3500.threetrios.view.CardPanel;
 import cs3500.threetrios.view.TTGUIView;
 
 public class PlayerActionsTest {
 
-  private MockThreeTriosModel mockModel;
-  private MockThreeTriosModel mockModelLie;
-  private Player redPlayer;
+  private MockThreeTriosFeaturesController redController;
 
-  ThreeTriosSetupController setupController;
-
-  MockNormalThreeTriosModel model;
-  List<String> listMockModel;
-  MockHumanPlayer redPlayerActions;
-  MockAIPlayer bluePlayerActions;
-  TTGUIView redView;
-  TTGUIView blueView;
-
-  MockThreeTriosFeaturesController redController;
-  MockThreeTriosFeaturesController blueController;
-
-  List<String> redControllerLog;
-  List<String> blueControllerLog;
-
-  List<String> humanLog;
-  List<String> aiLog;
+  private List<String> humanLog;
+  private List<String> aiLog;
 
 
   @Before
   public void setUp() {
-    redPlayer = new ThreeTriosPlayer(TeamColor.RED);
+    Player redPlayer = new ThreeTriosPlayer(TeamColor.RED);
     redPlayer.addToHand(new ThreeTrioCard("WorldDragon", ThreeTrioCard.AttackValue.ONE,
             ThreeTrioCard.AttackValue.FIVE, ThreeTrioCard.AttackValue.SIX,
             ThreeTrioCard.AttackValue.ONE));
@@ -55,33 +37,22 @@ public class PlayerActionsTest {
             ThreeTrioCard.AttackValue.A, ThreeTrioCard.AttackValue.ONE,
             ThreeTrioCard.AttackValue.TWO));
 
-    mockModel = new MockThreeTriosModel(3, 3, 1, 1, false, redPlayer, bluePlayer);
-    mockModelLie = new MockThreeTriosModel(3, 3, 1, 1, true, redPlayer, bluePlayer);
+    MockNormalThreeTriosModel model = new MockNormalThreeTriosModel(new Random(2));
 
-
-    model = new MockNormalThreeTriosModel(new Random(2));
-
-    listMockModel = model.getLog();
-
-    setupController =
-            new ThreeTriosSetupController(
-                    "world4x3manyholes.txt",
-                    "cardsopponentweak.txt");
+    ThreeTriosSetupController setupController = new ThreeTriosSetupController(
+            "world4x3manyholes.txt",
+            "cardsopponentweak.txt");
     setupController.playGame(model);
 
-    redPlayerActions = new MockHumanPlayer(TeamColor.RED);
-    bluePlayerActions = new MockAIPlayer(TeamColor.BLUE, new CornerStrategy());
+    MockHumanPlayer redPlayerActions = new MockHumanPlayer(TeamColor.RED);
+    MockAIPlayer bluePlayerActions = new MockAIPlayer(TeamColor.BLUE, new CornerStrategy());
 
-    redView = new TTGUIView(model);
-    blueView = new TTGUIView(model);
+    TTGUIView redView = new TTGUIView(model);
+    TTGUIView blueView = new TTGUIView(model);
 
     redController =  new MockThreeTriosFeaturesController(model, redView, redPlayerActions);
 
-    blueController = new MockThreeTriosFeaturesController(model, blueView, bluePlayerActions);
-
-    redControllerLog = redController.getLog();
-
-    blueControllerLog = blueController.getLog();
+    MockThreeTriosFeaturesController blueController = new MockThreeTriosFeaturesController(model, blueView, bluePlayerActions);
 
     humanLog = redPlayerActions.getLog();
     aiLog = bluePlayerActions.getLog();
