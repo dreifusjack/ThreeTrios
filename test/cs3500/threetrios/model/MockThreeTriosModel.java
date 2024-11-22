@@ -1,4 +1,4 @@
-package cs3500.threetrios.strategy;
+package cs3500.threetrios.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -162,7 +162,7 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   public void addModelStatusListener(ModelStatusFeatures listener) {
     if (!statusListeners.contains(listener)) {
       statusListeners.add(listener);
-      mockLog.add("addModelStatusListener is called");
+      mockLog.add("addModelStatusListener called");
     }
   }
 
@@ -170,7 +170,7 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   public void notifyPlayerTurnChange() {
     for (ModelStatusFeatures listener : statusListeners) {
       listener.onPlayerTurnChange();
-      mockLog.add("notifyPlayerTurnChange is called");
+      mockLog.add("notifyPlayerTurnChange called");
     }
   }
 
@@ -178,7 +178,7 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   public void notifyGameOver() {
     for (ModelStatusFeatures listener : statusListeners) {
       listener.onGameOver();
-      mockLog.add("notifyGameOver is called");
+      mockLog.add("notifyGameOver called");
     }
   }
 

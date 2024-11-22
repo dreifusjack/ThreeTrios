@@ -1,7 +1,5 @@
 package cs3500.threetrios.player;
 
-import junit.framework.TestCase;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +15,7 @@ import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTrioCard;
 import cs3500.threetrios.model.ThreeTriosPlayer;
 import cs3500.threetrios.player.strategy.CornerStrategy;
-import cs3500.threetrios.strategy.MockThreeTriosModel;
+import cs3500.threetrios.model.MockThreeTriosModel;
 import cs3500.threetrios.view.CardPanel;
 import cs3500.threetrios.view.TTGUIView;
 

@@ -16,7 +16,7 @@ import cs3500.threetrios.player.MockAIPlayer;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.player.strategy.CornerStrategy;
 import cs3500.threetrios.player.MockHumanPlayer;
-import cs3500.threetrios.strategy.MockThreeTriosModel;
+import cs3500.threetrios.model.MockThreeTriosModel;
 import cs3500.threetrios.view.CardPanel;
 import cs3500.threetrios.view.TTGUIView;
 
