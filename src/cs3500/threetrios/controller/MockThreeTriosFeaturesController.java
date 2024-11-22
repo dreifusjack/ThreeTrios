@@ -36,8 +36,8 @@ public class MockThreeTriosFeaturesController extends  ThreeTriosFeaturesControl
    * now current player is AI, their playerAction calls methods to play a move.
    */
   protected void handlePlayerTurn() {
+    log.add("handlePlayerTurn called");
     super.handlePlayerTurn();
-
   }
 
   /**
@@ -46,6 +46,7 @@ public class MockThreeTriosFeaturesController extends  ThreeTriosFeaturesControl
    * be omitted as human player actions are handled with the user interacting with the GUI.
    */
   protected void handleAIMoveIfPresent() {
+    log.add("handleAIMoveIfPresent called");
     super.handleAIMoveIfPresent();
   }
 
@@ -56,26 +57,31 @@ public class MockThreeTriosFeaturesController extends  ThreeTriosFeaturesControl
    * @return true iff the controller representing team is the models current player's team
    */
   protected boolean outOfTurn() {
+    log.add("outOfTurn called");
     return super.outOfTurn();
   }
 
   @Override
   public void handleCardSelection(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
+    log.add("handleCardSelection called");
     super.handleCardSelection(playerColor, cardIndex, selectedCard, highlightedCard);
   }
 
   @Override
   public void handleBoardSelection(int row, int col) {
+    log.add("handleBoardSelection called");
     super.handleBoardSelection(row, col);
   }
 
   @Override
   public void onPlayerTurnChange() {
+    log.add("onPlayerTurnChange called");
     super.onPlayerTurnChange();
   }
 
   @Override
   public void onGameOver() {
+    log.add("onGameOver called");
     super.onGameOver();
   }
 

@@ -346,7 +346,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * @param flipsSoFar counter for the flips so far
    * @return number of flips the given card has after comparing with the adjacent card
    */
-  private int flipCounterHelper(Direction dir, GridCell adjCell, Card card,
+  protected int flipCounterHelper(Direction dir, GridCell adjCell, Card card,
                                 int adjRow, int adjCol, int flipsSoFar, Player player) {
     if (adjCell.getColor() != player.getColor()) {
       Card adjCard = grid[adjRow][adjCol].getCard();
@@ -365,7 +365,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * @param numOfCardsPerPlayer amount of cards to be dealt.
    * @param player              player receiving cards
    */
-  private void dealCards(int numOfCardsPerPlayer, Player player, TeamColor color, List<Card> deck) {
+  protected void dealCards(int numOfCardsPerPlayer, Player player, TeamColor color, List<Card> deck) {
     for (int i = 0; i < numOfCardsPerPlayer; i++) {
       Card card = deck.remove(0);
       player.addToHand(card);
@@ -377,7 +377,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    *
    * @throws IllegalStateException if game is not in play
    */
-  private void isGameNotInPlay() {
+  protected void isGameNotInPlay() {
     if (grid == null || isGameOver()) {
       throw new IllegalStateException("Game not in play or game has ended");
     }
@@ -388,7 +388,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    *
    * @throws IllegalStateException if startGame has not been called on this game
    */
-  private void isGameNotStarted() {
+  protected void isGameNotStarted() {
     if (grid == null) {
       throw new IllegalStateException("The game has not been started");
     }
@@ -405,7 +405,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * @param adjRow     row of the card being battled against
    * @param adjCol     column of the card being battled against
    */
-  private void battleHelper(
+  protected void battleHelper(
           Direction dir, GridCell adjCell, GridCell battleCell, int adjRow, int adjCol) {
     if (adjCell.getColor() != battleCell.getColor()) {
       Card battleCard = battleCell.getCard();
@@ -424,7 +424,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * @param col column input
    * @return true iff the coordinates are valid indexes of the grid
    */
-  private boolean isValidCoordinate(int row, int col) {
+  protected boolean isValidCoordinate(int row, int col) {
     return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
   }
 
