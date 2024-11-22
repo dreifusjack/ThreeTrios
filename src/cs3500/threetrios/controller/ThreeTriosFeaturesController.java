@@ -55,7 +55,7 @@ public class ThreeTriosFeaturesController implements PlayerActionFeatures, Model
    * updates the title of the view to notify the player it's their turn. Additionally, if the
    * now current player is AI, their playerAction calls methods to play a move.
    */
-  private void handlePlayerTurn() {
+  protected void handlePlayerTurn() {
     if (model.getCurrentPlayer().getColor().equals(playerActions.getColor())) {
       view.updateTitle(playerActions.getColor() + " Player: Your Turn");
       handleAIMoveIfPresent();
@@ -70,7 +70,7 @@ public class ThreeTriosFeaturesController implements PlayerActionFeatures, Model
    * if playerActions is an AI player, if playActions is a human player these method calls will
    * be omitted as human player actions are handled with the user interacting with the GUI.
    */
-  private void handleAIMoveIfPresent() {
+  protected void handleAIMoveIfPresent() {
     playerActions.notifySelectedCard(model);
     playerActions.notifyPlacedCard(model);
   }
@@ -81,7 +81,7 @@ public class ThreeTriosFeaturesController implements PlayerActionFeatures, Model
    *
    * @return true iff the controller representing team is the models current player's team
    */
-  private boolean outOfTurn() {
+  protected boolean outOfTurn() {
     return controllerTeam != model.getCurrentPlayer().getColor();
   }
 
