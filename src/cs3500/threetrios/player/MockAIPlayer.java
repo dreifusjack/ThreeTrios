@@ -46,6 +46,7 @@ public class MockAIPlayer extends AIPlayer {
     PlayedMove move = strategy.findBestMove(model, playerAI);
     for (PlayerActionFeatures listener : actionListeners) {
       listener.handleCardSelection(teamColor, move.getHandInx(), null, null);
+      log.add("notifySelectedCard called");
       log.add("AI selected card at index: " + move.getHandInx());
     }
 
@@ -57,13 +58,14 @@ public class MockAIPlayer extends AIPlayer {
     PlayedMove move = strategy.findBestMove(model, playerAI);
     for (PlayerActionFeatures listener : actionListeners) {
       listener.handleBoardSelection(move.getRow(), move.getCol());
+      log.add("notifyPlacedCard called");
       log.add("AI placed card at row: " + move.getRow() + ", col: " + move.getCol());
     }
   }
 
   @Override
   public TeamColor getColor() {
-    log.add("getColor is called");
+    log.add("getColor called");
     return teamColor;
   }
 
