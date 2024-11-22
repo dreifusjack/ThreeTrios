@@ -199,7 +199,7 @@ public class MockNormalThreeTriosModel extends BasicThreeTriosModel {
 }
 
   public List<String> getLog() {
-    return new ArrayList<>(log);
+    return this.log;
   }
 
 

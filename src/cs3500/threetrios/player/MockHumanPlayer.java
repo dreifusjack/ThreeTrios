@@ -1,4 +1,4 @@
-package cs3500.threetrios.player.strategy;
+package cs3500.threetrios.player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class MockHumanPlayer extends HumanPlayer {
   }
 
   public List<String> getLog() {
-    return new ArrayList<>(log);
+    return this.log;
   }
 
 

@@ -74,7 +74,7 @@ public class MockAIPlayer extends AIPlayer {
   }
 
   public List<String> getLog() {
-    return new ArrayList<>(log);
+    return this.log;
   }
 
 }

@@ -15,7 +15,7 @@ import cs3500.threetrios.view.ThreeTriosCardPanel;
 public class MockThreeTriosFeaturesController extends  ThreeTriosFeaturesController{
 
 
-  private final List<String> log;
+  private List<String> log;
 
 
   /**
@@ -26,8 +26,8 @@ public class MockThreeTriosFeaturesController extends  ThreeTriosFeaturesControl
    * @param playerActions the actions associated with the player (AI or human)
    */
   public MockThreeTriosFeaturesController(ThreeTriosModel model, TTGUIView view, PlayerActions playerActions) {
+
     super(model, view, playerActions);
-    this.log = new ArrayList<>();
   }
 
   /**
@@ -36,7 +36,10 @@ public class MockThreeTriosFeaturesController extends  ThreeTriosFeaturesControl
    * now current player is AI, their playerAction calls methods to play a move.
    */
   protected void handlePlayerTurn() {
-    log.add("handlePlayerTurn called");
+      if (log == null) {
+        this.log = new ArrayList<>();
+      }
+      log.add("handlePlayerTurn called");
     super.handlePlayerTurn();
   }
 
@@ -87,7 +90,7 @@ public class MockThreeTriosFeaturesController extends  ThreeTriosFeaturesControl
 
 
   public List<String> getLog() {
-    return new ArrayList<>(log);
+    return log == null ? new ArrayList<>() : this.log;
   }
 
 }
