@@ -16,10 +16,10 @@ import cs3500.threetrios.player.MockAIPlayer;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.player.strategy.CornerStrategy;
 import cs3500.threetrios.player.MockHumanPlayer;
-import cs3500.threetrios.model.MockThreeTriosModel;
 import cs3500.threetrios.view.CardPanel;
 import cs3500.threetrios.view.TTGUIView;
 
+// Testing class for ThreeTriosFeaturesController.
 public class ThreeTriosFeaturesControllerTest {
 
   private MockThreeTriosFeaturesController redController;
@@ -55,7 +55,8 @@ public class ThreeTriosFeaturesControllerTest {
 
     redController =  new MockThreeTriosFeaturesController(model, redView, redPlayerActions);
 
-    MockThreeTriosFeaturesController blueController = new MockThreeTriosFeaturesController(model, blueView, bluePlayerActions);
+    MockThreeTriosFeaturesController blueController = new MockThreeTriosFeaturesController(model,
+            blueView, bluePlayerActions);
 
     redControllerLog = redController.getLog();
 
@@ -74,7 +75,8 @@ public class ThreeTriosFeaturesControllerTest {
   // blue player (AI player)
   @Test
   public void testHandleAIMoveIfPresent() {
-    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel cardEx = new CardPanel(cardShapeEx);
 
@@ -90,7 +92,8 @@ public class ThreeTriosFeaturesControllerTest {
   // Human player make move and then check testOutOfTurn.
   @Test
   public void testOutOfTurn() {
-    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel card1 = new CardPanel(cardShape1);
 
@@ -105,7 +108,8 @@ public class ThreeTriosFeaturesControllerTest {
 
   @Test
   public void testHandleCardSelection() {
-    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel card1 = new CardPanel(cardShape1);
 
@@ -122,7 +126,8 @@ public class ThreeTriosFeaturesControllerTest {
 
   @Test
   public void testHandleBoardSelection() {
-    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel card1 = new CardPanel(cardShape1);
 
@@ -139,7 +144,8 @@ public class ThreeTriosFeaturesControllerTest {
 
   @Test
   public void testOnPlayerTurnChange() {
-    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel card1 = new CardPanel(cardShape1);
 
@@ -155,19 +161,23 @@ public class ThreeTriosFeaturesControllerTest {
 
   @Test
   public void testOnGameOver() {
-    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel card1 = new CardPanel(cardShape1);
 
-    CardPanel.CardShape cardShape2 = new CardPanel.CardShape("1", "1", "1", "6", TeamColor.RED);
+    CardPanel.CardShape cardShape2 = new CardPanel.CardShape("1", "1", "1",
+            "6", TeamColor.RED);
 
     CardPanel card2 = new CardPanel(cardShape2);
 
-    CardPanel.CardShape cardShape3 = new CardPanel.CardShape("1", "1", "1", "3", TeamColor.RED);
+    CardPanel.CardShape cardShape3 = new CardPanel.CardShape("1", "1", "1",
+            "3", TeamColor.RED);
 
     CardPanel card3 = new CardPanel(cardShape3);
 
-    CardPanel.CardShape cardShape4 = new CardPanel.CardShape("7", "7", "7", "8", TeamColor.RED);
+    CardPanel.CardShape cardShape4 = new CardPanel.CardShape("7", "7", "7",
+            "8", TeamColor.RED);
 
     CardPanel card4 = new CardPanel(cardShape4);
 

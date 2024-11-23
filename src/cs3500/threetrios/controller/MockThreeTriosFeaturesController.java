@@ -3,17 +3,16 @@ package cs3500.threetrios.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
-
-import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
 import cs3500.threetrios.view.ThreeTriosCardPanel;
 
-public class MockThreeTriosFeaturesController extends  ThreeTriosFeaturesController{
-
+/**
+ * Mock class for the ThreeTriosFeaturesController class.
+ */
+public class MockThreeTriosFeaturesController extends ThreeTriosFeaturesController {
 
   private List<String> log;
 
@@ -25,7 +24,8 @@ public class MockThreeTriosFeaturesController extends  ThreeTriosFeaturesControl
    * @param view          the view that displays the game interface
    * @param playerActions the actions associated with the player (AI or human)
    */
-  public MockThreeTriosFeaturesController(ThreeTriosModel model, TTGUIView view, PlayerActions playerActions) {
+  public MockThreeTriosFeaturesController(ThreeTriosModel model, TTGUIView view,
+                                          PlayerActions playerActions) {
 
     super(model, view, playerActions);
   }
@@ -65,7 +65,9 @@ public class MockThreeTriosFeaturesController extends  ThreeTriosFeaturesControl
   }
 
   @Override
-  public void handleCardSelection(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
+  public void handleCardSelection(TeamColor playerColor, int cardIndex,
+                                  ThreeTriosCardPanel selectedCard,
+                                  ThreeTriosCardPanel highlightedCard) {
     log.add("handleCardSelection called");
     super.handleCardSelection(playerColor, cardIndex, selectedCard, highlightedCard);
   }

@@ -20,19 +20,12 @@ import cs3500.threetrios.player.MockHumanPlayer;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.player.strategy.CornerStrategy;
 
+//Testing class for the MockTTGUIView.
 public class MockTTGUIViewTest {
-
-  private MockThreeTriosFeaturesController redController;
-
-  private List<String> redControllerLog;
-  private List<String> blueControllerLog;
-
   private List<String> guiViewLogRed;
   private List<String> guiViewLogBlue;
 
   private MockTTGUIView redView;
-
-  private MockTTGUIView blueView;
 
 
   @Before
@@ -58,14 +51,13 @@ public class MockTTGUIViewTest {
     PlayerActions bluePlayerActions = new MockAIPlayer(TeamColor.BLUE, new CornerStrategy());
 
     redView = new MockTTGUIView(model);
-    blueView = new MockTTGUIView(model);
+    MockTTGUIView blueView = new MockTTGUIView(model);
 
-    redController =  new MockThreeTriosFeaturesController(model, redView, redPlayerActions);
+    MockThreeTriosFeaturesController redController = new MockThreeTriosFeaturesController(model,
+            redView, redPlayerActions);
 
-    MockThreeTriosFeaturesController blueController = new MockThreeTriosFeaturesController(model, blueView, bluePlayerActions);
-
-    redControllerLog = redController.getLog();
-    blueControllerLog = blueController.getLog();
+    MockThreeTriosFeaturesController blueController = new MockThreeTriosFeaturesController(model,
+            blueView, bluePlayerActions);
 
     guiViewLogRed = redView.getLog();
     guiViewLogBlue = blueView.getLog();
@@ -84,8 +76,10 @@ public class MockTTGUIViewTest {
   // when the game first started.
   @Test
   public void testUpdateTitle() {
-    Assert.assertTrue(guiViewLogRed.contains("Update the view with the string: RED Player: Your Turn"));
-    Assert.assertTrue(guiViewLogBlue.contains("Update the view with the string: BLUE Player: Waiting for opponent"));
+    Assert.assertTrue(guiViewLogRed.contains("Update the view with the string: RED Player: " +
+            "Your Turn"));
+    Assert.assertTrue(guiViewLogBlue.contains("Update the view with the string: BLUE Player: " +
+            "Waiting for opponent"));
   }
 
   // Test if the controller for the AI player trigger the addPlayerActionListener in the view when
@@ -98,7 +92,8 @@ public class MockTTGUIViewTest {
   // Test if the controller for the
   @Test
   public void testNotifySelectedCard() {
-    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel cardEx = new CardPanel(cardShapeEx);
 
@@ -112,7 +107,8 @@ public class MockTTGUIViewTest {
 
   @Test
   public void testNotifyPlacedCard() {
-    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel cardEx = new CardPanel(cardShapeEx);
 

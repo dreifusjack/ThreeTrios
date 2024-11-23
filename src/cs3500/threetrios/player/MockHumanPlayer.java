@@ -5,9 +5,10 @@ import java.util.List;
 
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.player.HumanPlayer;
-import cs3500.threetrios.player.PlayerActionFeatures;
 
+/**
+ * Mock class for the HumanPlayer class.
+ */
 public class MockHumanPlayer extends HumanPlayer {
 
   private final List<String> log;

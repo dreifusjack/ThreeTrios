@@ -5,10 +5,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Mock class for a BasicThreeTriosModel.
+ */
 public class MockNormalThreeTriosModel extends BasicThreeTriosModel {
 
   private final List<String> log;
-
 
   public MockNormalThreeTriosModel(Random random) {
     super(random);

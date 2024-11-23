@@ -31,7 +31,8 @@ public class ThreeTriosFeaturesController implements PlayerActionFeatures, Model
    * @param view          the view that displays the game interface
    * @param playerActions the actions associated with the player (AI or human)
    */
-  public ThreeTriosFeaturesController(ThreeTriosModel model, TTGUIView view, PlayerActions playerActions) {
+  public ThreeTriosFeaturesController(ThreeTriosModel model, TTGUIView view,
+                                      PlayerActions playerActions) {
     this.model = model;
     this.view = view;
     this.playerActions = playerActions;
@@ -86,7 +87,9 @@ public class ThreeTriosFeaturesController implements PlayerActionFeatures, Model
   }
 
   @Override
-  public void handleCardSelection(TeamColor playerColor, int cardIndex, ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
+  public void handleCardSelection(TeamColor playerColor, int cardIndex,
+                                  ThreeTriosCardPanel selectedCard,
+                                  ThreeTriosCardPanel highlightedCard) {
     if (model.isGameOver()) {
       return;
     }
@@ -100,7 +103,8 @@ public class ThreeTriosFeaturesController implements PlayerActionFeatures, Model
         selectedCard.toggleHighlight();
       }
     } else {
-      JOptionPane.showMessageDialog(null, "Only select cards from your hand.");
+      JOptionPane.showMessageDialog(null, "Only select cards from " +
+              "your hand.");
       selectedCardIndex = -1;
     }
     if (highlightedCard != null && highlightedCard.getColor().equals(controllerTeam)) {
@@ -123,10 +127,12 @@ public class ThreeTriosFeaturesController implements PlayerActionFeatures, Model
         view.refreshPlayingBoard();
         selectedCardIndex = -1;
       } catch (IllegalArgumentException | IllegalStateException e) {
-        JOptionPane.showMessageDialog(null, "Invalid move: " + e.getMessage());
+        JOptionPane.showMessageDialog(null,
+                "Invalid move: " + e.getMessage());
       }
     } else {
-      JOptionPane.showMessageDialog(null, "Please select a card to play to the board.");
+      JOptionPane.showMessageDialog(null,
+              "Please select a card to play to the board.");
     }
   }
 

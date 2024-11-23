@@ -9,6 +9,9 @@ import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.player.strategy.PlayedMove;
 import cs3500.threetrios.player.strategy.ThreeTriosStrategy;
 
+/**
+ * Mock class for the AIPLayer class.
+ */
 public class MockAIPlayer extends AIPlayer {
 
   private final ThreeTriosStrategy strategy;
@@ -45,7 +48,8 @@ public class MockAIPlayer extends AIPlayer {
     Player playerAI = model.getCurrentPlayer();
     PlayedMove move = strategy.findBestMove(model, playerAI);
     for (PlayerActionFeatures listener : actionListeners) {
-      listener.handleCardSelection(teamColor, move.getHandInx(), null, null);
+      listener.handleCardSelection(teamColor, move.getHandInx(), null,
+              null);
       log.add("notifySelectedCard called");
       log.add("AI selected card at index: " + move.getHandInx());
     }

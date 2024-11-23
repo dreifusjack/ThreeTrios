@@ -46,8 +46,10 @@ public class MockThreeTriosModelTest {
             ThreeTrioCard.AttackValue.A, ThreeTrioCard.AttackValue.ONE,
             ThreeTrioCard.AttackValue.TWO));
 
-    mockModel = new MockThreeTriosModel(3, 3, 1, 1, false, redPlayer, bluePlayer);
-    mockModelLie = new MockThreeTriosModel(3, 3, 1, 1, true, redPlayer, bluePlayer);
+    mockModel = new MockThreeTriosModel(3, 3, 1,
+            1, false, redPlayer, bluePlayer);
+    mockModelLie = new MockThreeTriosModel(3, 3, 1,
+            1, true, redPlayer, bluePlayer);
 
 
     MockNormalThreeTriosModel model = new MockNormalThreeTriosModel(new Random(2));
@@ -65,7 +67,6 @@ public class MockThreeTriosModelTest {
 
     redController =  new MockThreeTriosFeaturesController(model, redView, redPlayerActions);
 
-    MockThreeTriosFeaturesController blueController = new MockThreeTriosFeaturesController(model, blueView, bluePlayerActions);
 
     mockModelLog = model.getLog();
   }
@@ -180,7 +181,8 @@ public class MockThreeTriosModelTest {
   // Test to see if notifyPlayerTurnChange after the first player (human) made the move.
   @Test
   public void testNotifyPlayerTurnChange() {
-    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel card1 = new CardPanel(cardShape1);
 
@@ -193,19 +195,23 @@ public class MockThreeTriosModelTest {
 
   @Test
   public void testNotifyGameOver() {
-    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel card1 = new CardPanel(cardShape1);
 
-    CardPanel.CardShape cardShape2 = new CardPanel.CardShape("1", "1", "1", "6", TeamColor.RED);
+    CardPanel.CardShape cardShape2 = new CardPanel.CardShape("1", "1", "1",
+            "6", TeamColor.RED);
 
     CardPanel card2 = new CardPanel(cardShape2);
 
-    CardPanel.CardShape cardShape3 = new CardPanel.CardShape("1", "1", "1", "3", TeamColor.RED);
+    CardPanel.CardShape cardShape3 = new CardPanel.CardShape("1", "1", "1",
+            "3", TeamColor.RED);
 
     CardPanel card3 = new CardPanel(cardShape3);
 
-    CardPanel.CardShape cardShape4 = new CardPanel.CardShape("7", "7", "7", "8", TeamColor.RED);
+    CardPanel.CardShape cardShape4 = new CardPanel.CardShape("7", "7", "7",
+            "8", TeamColor.RED);
 
     CardPanel card4 = new CardPanel(cardShape4);
 

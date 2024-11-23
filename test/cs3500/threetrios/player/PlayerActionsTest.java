@@ -18,6 +18,7 @@ import cs3500.threetrios.player.strategy.CornerStrategy;
 import cs3500.threetrios.view.CardPanel;
 import cs3500.threetrios.view.TTGUIView;
 
+// Testing class for the PlayerActions components (AIPlayer and HumanPlayer)
 public class PlayerActionsTest {
 
   private MockThreeTriosFeaturesController redController;
@@ -48,11 +49,8 @@ public class PlayerActionsTest {
     MockAIPlayer bluePlayerActions = new MockAIPlayer(TeamColor.BLUE, new CornerStrategy());
 
     TTGUIView redView = new TTGUIView(model);
-    TTGUIView blueView = new TTGUIView(model);
 
     redController =  new MockThreeTriosFeaturesController(model, redView, redPlayerActions);
-
-    MockThreeTriosFeaturesController blueController = new MockThreeTriosFeaturesController(model, blueView, bluePlayerActions);
 
     humanLog = redPlayerActions.getLog();
     aiLog = bluePlayerActions.getLog();
@@ -72,7 +70,8 @@ public class PlayerActionsTest {
   // after that.
   @Test
   public void testNotifySelectedCard() {
-    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel cardEx = new CardPanel(cardShapeEx);
 
@@ -92,7 +91,8 @@ public class PlayerActionsTest {
   // after that. (the AI will also notify about the coordinates of its best move)
   @Test
   public void testNotifyPlacedCard() {
-    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel cardEx = new CardPanel(cardShapeEx);
 
@@ -117,7 +117,8 @@ public class PlayerActionsTest {
 
   @Test
   public void testGetColorAfterMove() {
-    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7", "A", TeamColor.RED);
+    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7",
+            "A", TeamColor.RED);
 
     CardPanel cardEx = new CardPanel(cardShapeEx);
 
