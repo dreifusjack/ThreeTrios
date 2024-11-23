@@ -39,9 +39,7 @@ public class ThreeTrios {
    * "strategy3" represents an AIPlayer using the MinimizeFlipsStrategy.
    * "strategy4" represents an AIPlayer using the MinimaxStrategy.
    * "strategychain:strategyX,strategyY,..." represents an AIPlayer using a specified chain of
-   * strategies, where each strategy is one of the above. If you want to create a config file of
-   * 2 AI players each with a ChainStrategy, this is an example for you arguments:
-   * chainstrategy strategy1 strategy2 end chainstrategy strategy3 strategy4 end.
+   * strategies, where each strategy is one of the above.
    *
    * @param args two strings, first specifying the RED player then the BLUE player
    */
