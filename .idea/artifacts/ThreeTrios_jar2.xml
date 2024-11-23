@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="ThreeTrios:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/ThreeTrios_jar</output-path>
+  <artifact type="jar" build-on-make="true" name="ThreeTrios:jar2">
+    <output-path>$PROJECT_DIR$/out/artifacts/ThreeTrios_jar2</output-path>
     <root id="archive" name="ThreeTrios.jar">
       <element id="module-output" name="ThreeTrios" />
     </root>

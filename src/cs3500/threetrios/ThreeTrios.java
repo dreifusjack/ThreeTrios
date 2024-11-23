@@ -6,7 +6,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 import cs3500.threetrios.controller.ThreeTriosFeaturesController;
-import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.CardCell;
@@ -30,27 +29,18 @@ import cs3500.threetrios.view.TTGUIView;
  * Main runner class used to run a new game of ThreeTrios.
  */
 public class ThreeTrios {
-  /**
-   * Runner that allows users to play a game of ThreeTrios!
-   * Pass in arguments to specify the player types for the game.
-   * "human" represents a human player.
-   * "strategy1" represents an AIPlayer using the MaximizeFlipsStrategy.
-   * "strategy2" represents an AIPlayer using the CornerStrategy.
-   * "strategy3" represents an AIPlayer using the MinimizeFlipsStrategy.
-   * "strategy4" represents an AIPlayer using the MinimaxStrategy.
-   * "strategychain:strategyX,strategyY,..." represents an AIPlayer using a specified chain of
-   * strategies, where each strategy is one of the above. If you want to create a config file of
-   * 2 AI players each with a ChainStrategy, this is an example for you arguments:
-   * chainstrategy strategy1 strategy2 end chainstrategy strategy3 strategy4 end.
-   *
-   * @param args two strings, first specifying the RED player then the BLUE player
-   */
   public static void main(String[] args) {
+    String redPlayerType = null;
+    String bluePlayerType = null;
     List<String> redStrategies = new ArrayList<>();
     List<String> blueStrategies = new ArrayList<>();
 
     if (!parseCommandLine(args, redStrategies, blueStrategies)) {
-      parseInteractiveInput(redStrategies, blueStrategies);
+      redPlayerType = parseITerminalInput("RED", redStrategies);
+      bluePlayerType = parseITerminalInput("BLUE", blueStrategies);
+    } else {
+      redPlayerType = redStrategies.remove(0);
+      bluePlayerType = blueStrategies.remove(0);
     }
 
     ThreeTriosModel model = createAndSetupModel();
@@ -58,22 +48,15 @@ public class ThreeTrios {
     TTGUIView redView = new TTGUIView(model);
     TTGUIView blueView = new TTGUIView(model);
 
-    PlayerActions redPlayerActions = createPlayerActions(redStrategies.isEmpty() ? "human" :
-            "chainstrategy", TeamColor.RED, redStrategies);
-    PlayerActions bluePlayerActions = createPlayerActions(blueStrategies.isEmpty() ? "human" :
-            "chainstrategy", TeamColor.BLUE, blueStrategies);
+    PlayerActions redPlayerActions = createPlayerActions(redPlayerType, TeamColor.RED, redStrategies);
+    PlayerActions bluePlayerActions = createPlayerActions(bluePlayerType, TeamColor.BLUE, blueStrategies);
 
     new ThreeTriosFeaturesController(model, redView, redPlayerActions);
     new ThreeTriosFeaturesController(model, blueView, bluePlayerActions);
   }
 
   /**
-   * Parses the command-line arguments.
-   *
-   * @param args          is the command-line arguments.
-   * @param redStrategies is the list to store RED strategies.
-   * @param blueStrategies is the list to store BLUE strategies.
-   * @return true if valid command-line arguments are given, false otherwise.
+   * Helper method to parses the command-line arguments.
    */
   private static boolean parseCommandLine(String[] args, List<String> redStrategies,
                                           List<String> blueStrategies) {
@@ -82,10 +65,12 @@ public class ThreeTrios {
 
       String redPlayerType = parsePlayerType(args, index, redStrategies);
       if (redPlayerType == null) return false;
-      index += redStrategies.isEmpty() ? 1 : redStrategies.size() + 2;
+      redStrategies.add(0, redPlayerType);
+      index += redStrategies.size();
 
       String bluePlayerType = parsePlayerType(args, index, blueStrategies);
       if (bluePlayerType == null) return false;
+      blueStrategies.add(0, bluePlayerType);
 
       return true;
     }
@@ -93,12 +78,7 @@ public class ThreeTrios {
   }
 
   /**
-   * Parses player type and strategies from command-line arguments.
-   *
-   * @param args          is the command-line arguments.
-   * @param index         is the current index to parse.
-   * @param strategies    is the list to store parsed strategies.
-   * @return the parsed player type, or null if invalid.
+   * Helper method to parses player type and strategies from command-line arguments.
    */
   private static String parsePlayerType(String[] args, int index, List<String> strategies) {
     if (index < args.length && args[index].equalsIgnoreCase("chainstrategy")) {
@@ -116,44 +96,25 @@ public class ThreeTrios {
     } else if (index < args.length && isValidPlayerType(args[index])) {
       return args[index];
     } else {
-      System.out.println("Invalid player type: " + args[index]);
+      System.out.println("Invalid player type: " + (index < args.length ? args[index] : "none"));
       return null;
     }
   }
 
-  /**
-   * Parses player input interactively if no valid command-line arguments are provided.
-   *
-   * @param redStrategies is the list to store RED strategies.
-   * @param blueStrategies is the list to store BLUE strategies.
-   */
-  private static void parseInteractiveInput(List<String> redStrategies,
-                                            List<String> blueStrategies) {
+
+  // Helper method to parses player input from the terminal if no valid command-line arguments are provided.
+  private static String parseITerminalInput(String team, List<String> strategies) {
     Scanner scanner = new Scanner(System.in);
-
-    System.out.println("Enter player type for RED team (human, strategy1, strategy2, strategy3, " +
-            "strategy4, chainstrategy): ");
-    String redPlayerType = scanner.nextLine().trim().toLowerCase();
-    parseChainStrategies(scanner, redPlayerType, redStrategies);
-
-    System.out.println("Enter player type for BLUE team (human, strategy1, strategy2, strategy3, " +
-            "strategy4, chainstrategy): ");
-    String bluePlayerType = scanner.nextLine().trim().toLowerCase();
-    parseChainStrategies(scanner, bluePlayerType, blueStrategies);
+    System.out.println("Enter player type for " + team + " team (e.g., human, strategy1, strategy2, strategy3, strategy4, chainstrategy): ");
+    String playerType = scanner.nextLine().trim().toLowerCase();
+    parseChainStrategies(scanner, playerType, strategies);
+    return playerType;
   }
 
-  /**
-   * Parses chain strategies interactively.
-   *
-   * @param scanner     is the scanner to read input.
-   * @param playerType  is the type of player.
-   * @param strategies  is the list to store strategies.
-   */
-  private static void parseChainStrategies(Scanner scanner, String playerType,
-                                           List<String> strategies) {
+  // Parses chain strategies in the terminal.
+  private static void parseChainStrategies(Scanner scanner, String playerType, List<String> strategies) {
     if (playerType.equals("chainstrategy")) {
-      System.out.println("Enter the strategies for ChainStrategy one by one (strategy1, " +
-              "strategy2,...) Type 'end' to finish:");
+      System.out.println("Enter the strategies for ChainStrategy one by one (e.g., strategy1, strategy2, etc.). Type 'end' to finish:");
       while (true) {
         String strategyInput = scanner.nextLine().trim().toLowerCase();
         if ("end".equals(strategyInput)) {
@@ -169,11 +130,7 @@ public class ThreeTrios {
     }
   }
 
-  /**
-   * Creates and sets up the ThreeTrios model.
-   *
-   * @return the playable ThreeTriosModel.
-   */
+  // Helper method to create and sets up the ThreeTrios model.
   private static ThreeTriosModel createAndSetupModel() {
     Random rand1 = new Random(2);
     BasicThreeTriosModel model4x3 = new BasicThreeTriosModel(rand1);
@@ -182,16 +139,14 @@ public class ThreeTrios {
     return model4x3;
   }
 
-  /**
-   * Creates PlayerActions based on the input argument.
-   *
-   * @param arg        is the input string specifying the player type.
-   * @param teamColor  is the team color (RED or BLUE).
-   * @param strategies is list of strategies if chain strategy is selected.
-   * @return the corresponding PlayerActions instance.
-   */
+
+  // Helper method to create PlayerActions based on the input argument.
   private static PlayerActions createPlayerActions(String arg, TeamColor teamColor,
                                                    List<String> strategies) {
+    if (arg == null) {
+      throw new IllegalArgumentException("Player type must be provided.");
+    }
+
     switch (arg) {
       case "human":
         return new HumanPlayer(teamColor);
@@ -217,12 +172,7 @@ public class ThreeTrios {
     }
   }
 
-  /**
-   * Helper for getting the strategies in tha list of a ChainStrategy.
-   *
-   * @param input is the input string specifying the strategy.
-   * @return the corresponding ThreeTriosStrategy instance, or null if invalid.
-   */
+  // Helper method to retrieve a ThreeTriosStrategy based on the input string.
   private static ThreeTriosStrategy getStrategyFromChain(String input) {
     switch (input) {
       case "strategy1":
@@ -238,12 +188,7 @@ public class ThreeTrios {
     }
   }
 
-  /**
-   * Checks if a player type is valid.
-   *
-   * @param playerType the player type to check.
-   * @return true if the player type is valid, false otherwise.
-   */
+  // Helper method to checks if a player type is valid.
   private static boolean isValidPlayerType(String playerType) {
     return playerType.equalsIgnoreCase("human") ||
             playerType.equalsIgnoreCase("strategy1") ||
@@ -356,3 +301,4 @@ public class ThreeTrios {
     return cards;
   }
 }
+

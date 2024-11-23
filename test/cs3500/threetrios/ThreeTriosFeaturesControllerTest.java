@@ -1,4 +1,4 @@
-package cs3500.threetrios.controller;
+package cs3500.threetrios;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Random;
 
+import cs3500.threetrios.controller.MockThreeTriosFeaturesController;
+import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.model.MockNormalThreeTriosModel;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.TeamColor;
