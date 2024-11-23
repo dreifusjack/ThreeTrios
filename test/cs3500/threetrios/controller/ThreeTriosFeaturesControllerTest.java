@@ -60,7 +60,6 @@ public class ThreeTriosFeaturesControllerTest {
     redControllerLog = redController.getLog();
 
     blueControllerLog = blueController.getLog();
-
   }
 
   // Check if handlePlayerTurn is triggered when a controller is created.
