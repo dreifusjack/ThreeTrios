@@ -83,7 +83,9 @@ public class ThreeTrios {
       index += redStrategies.size();
 
       String bluePlayerType = parsePlayerType(args, index, blueStrategies);
-      if (bluePlayerType == null) return false;
+      if (bluePlayerType == null) {
+        return false;
+      }
       blueStrategies.add(0, bluePlayerType);
 
       return true;
