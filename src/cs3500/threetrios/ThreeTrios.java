@@ -105,7 +105,7 @@ public class ThreeTrios {
   // Helper method to parses player input from the terminal if no valid command-line arguments are provided.
   private static String parseITerminalInput(String team, List<String> strategies) {
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Enter player type for " + team + " team (e.g., human, strategy1, strategy2, strategy3, strategy4, chainstrategy): ");
+    System.out.println("Enter player type for " + team + " team (human, strategy1, strategy2, strategy3, strategy4, chainstrategy): ");
     String playerType = scanner.nextLine().trim().toLowerCase();
     parseChainStrategies(scanner, playerType, strategies);
     return playerType;
@@ -114,7 +114,7 @@ public class ThreeTrios {
   // Parses chain strategies in the terminal.
   private static void parseChainStrategies(Scanner scanner, String playerType, List<String> strategies) {
     if (playerType.equals("chainstrategy")) {
-      System.out.println("Enter the strategies for ChainStrategy one by one (e.g., strategy1, strategy2, etc.). Type 'end' to finish:");
+      System.out.println("Enter the strategies for ChainStrategy one by one (strategy1, strategy2,...) Type 'end' to finish:");
       while (true) {
         String strategyInput = scanner.nextLine().trim().toLowerCase();
         if ("end".equals(strategyInput)) {
