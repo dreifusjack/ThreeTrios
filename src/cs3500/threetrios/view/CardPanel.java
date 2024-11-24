@@ -27,7 +27,7 @@ public class CardPanel extends JPanel implements ThreeTriosCardPanel {
   private int handInx;
 
   /**
-   * Constructs a panel to display the given card shape.
+   * Constructs a panel to display the given card shape at the given hand index.
    *
    * @param cardShape the card shape to display
    */
@@ -39,6 +39,11 @@ public class CardPanel extends JPanel implements ThreeTriosCardPanel {
     this.handInx = handInx;
   }
 
+  /**
+   * Constructs a panel to display the given card shape.
+   *
+   * @param cardShape the card shape to display
+   */
   public CardPanel(CardShape cardShape) {
     this.cardShape = cardShape;
     this.setPreferredSize(new Dimension(100, 150));

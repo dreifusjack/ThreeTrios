@@ -1,7 +1,6 @@
 package cs3500.threetrios.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -111,7 +110,7 @@ public class MockNormalThreeTriosModel extends BasicThreeTriosModel {
    * @return number of flips the given card has after comparing with the adjacent card
    */
   protected int flipCounterHelper(Direction dir, GridCell adjCell, Card card,
-                                int adjRow, int adjCol, int flipsSoFar, Player player) {
+                                  int adjRow, int adjCol, int flipsSoFar, Player player) {
     log.add("flipCounterHelper called");
     return super.flipCounterHelper(dir, adjCell, card, adjRow, adjCol, flipsSoFar, player);
   }
@@ -122,7 +121,8 @@ public class MockNormalThreeTriosModel extends BasicThreeTriosModel {
    * @param numOfCardsPerPlayer amount of cards to be dealt.
    * @param player              player receiving cards
    */
-  protected void dealCards(int numOfCardsPerPlayer, Player player, TeamColor color, List<Card> deck) {
+  protected void dealCards(
+          int numOfCardsPerPlayer, Player player, TeamColor color, List<Card> deck) {
     log.add("dealCards called");
     super.dealCards(numOfCardsPerPlayer, player, color, deck);
   }
@@ -198,12 +198,14 @@ public class MockNormalThreeTriosModel extends BasicThreeTriosModel {
   public void notifyGameOver() {
     log.add("notifyGameOver called");
     super.notifyGameOver();
-}
+  }
 
+  /**
+   * To get the mock log.
+   *
+   * @return Mock log.
+   */
   public List<String> getLog() {
     return this.log;
   }
-
-
-
 }

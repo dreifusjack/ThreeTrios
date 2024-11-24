@@ -18,7 +18,9 @@ import cs3500.threetrios.player.strategy.CornerStrategy;
 import cs3500.threetrios.view.CardPanel;
 import cs3500.threetrios.view.TTGUIView;
 
-// Testing class for the PlayerActions components (AIPlayer and HumanPlayer)
+/**
+ * Testing class for the PlayerActions components (AIPlayer and HumanPlayer).
+ */
 public class PlayerActionsTest {
 
   private MockThreeTriosFeaturesController redController;

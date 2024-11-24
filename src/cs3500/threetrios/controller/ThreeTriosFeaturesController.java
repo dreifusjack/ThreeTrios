@@ -1,5 +1,7 @@
 package cs3500.threetrios.controller;
 
+import javax.swing.JOptionPane;
+
 import cs3500.threetrios.model.ModelStatusFeatures;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.TeamColor;
@@ -9,7 +11,6 @@ import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
 import cs3500.threetrios.view.ThreeTriosCardPanel;
 
-import javax.swing.*;
 
 /**
  * Responsible for coordinating between the model, view, and

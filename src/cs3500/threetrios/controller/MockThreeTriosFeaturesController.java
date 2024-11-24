@@ -36,10 +36,10 @@ public class MockThreeTriosFeaturesController extends ThreeTriosFeaturesControll
    * now current player is AI, their playerAction calls methods to play a move.
    */
   protected void handlePlayerTurn() {
-      if (log == null) {
-        this.log = new ArrayList<>();
-      }
-      log.add("handlePlayerTurn called");
+    if (log == null) {
+      this.log = new ArrayList<>();
+    }
+    log.add("handlePlayerTurn called");
     super.handlePlayerTurn();
   }
 
