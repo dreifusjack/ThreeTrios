@@ -36,7 +36,6 @@ public interface ThreeTriosSwingView {
    */
   void updateView();
 
-
   /**
    * Updates the player status to reflect the current turn and player.
    *

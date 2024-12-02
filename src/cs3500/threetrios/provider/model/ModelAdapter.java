@@ -126,27 +126,6 @@ public class ModelAdapter implements ThreeTriosModel {
   public void playCard(int cardIndex, int row, int col) {
     Player currentPlayer = this.adapteeModel.getCurrentPlayer();
     this.adapteeModel.playToGrid(row, col, cardIndex);
-
-
-    for (ModelStatusListener eachListener : statusListeners) {
-      if (isGameOver()) {
-        Player winnerPLayer = this.adapteeModel.getWinner();
-
-        if (winnerPLayer.getColor().equals(TeamColor.RED)) {
-          eachListener.gameOver(PlayerType.RED, this.adapteeModel.getPlayerScore(TeamColor.RED), this.adapteeModel.getPlayerScore(TeamColor.BLUE));
-        } else if (winnerPLayer.getColor().equals(TeamColor.BLUE)) {
-          eachListener.gameOver(PlayerType.BLUE, this.adapteeModel.getPlayerScore(TeamColor.RED), this.adapteeModel.getPlayerScore(TeamColor.BLUE));
-        } else {
-          eachListener.gameOver(PlayerType.OVER, this.adapteeModel.getPlayerScore(TeamColor.RED), this.adapteeModel.getPlayerScore(TeamColor.BLUE));
-        }
-      } else {
-        if (currentPlayer.getColor().equals(TeamColor.RED)) {
-          eachListener.currentPlayerChanged(PlayerType.BLUE);
-        } else {
-          eachListener.currentPlayerChanged(PlayerType.RED);
-        }
-      }
-    }
   }
 
   @Override

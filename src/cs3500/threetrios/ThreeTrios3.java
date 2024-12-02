@@ -32,6 +32,7 @@ public class ThreeTrios3 {
     TTGUIView view1 = new TTGUIView(model);
     SimpleThreeTriosView view2 = new SimpleThreeTriosView(modelNew);
 
+
     PlayerActions redPlayerActions = new HumanPlayer(TeamColor.RED);
     PlayerActions bluePlayerActions2 = new HumanPlayer(TeamColor.BLUE);
 
@@ -39,8 +40,6 @@ public class ThreeTrios3 {
     PlayerActions bluePlayerActions = new AIPlayer(TeamColor.BLUE, new MaximizeFlipsStrategy());
 
     ThreeTriosFeaturesController redController = new ThreeTriosFeaturesController(model, view1, redPlayerActions);
-    AdapterFeatureController blueController = new AdapterFeatureController(modelNew, view2, bluePlayerActions2);
-
-
+    AdapterFeatureController blueController = new AdapterFeatureController(modelNew, model, view2, bluePlayerActions2);
   }
 }

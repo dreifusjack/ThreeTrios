@@ -2,6 +2,7 @@ package cs3500.threetrios.provider.controller;
 
 import javax.swing.*;
 
+import cs3500.threetrios.model.ModelStatusFeatures;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.player.PlayerActions;
@@ -12,8 +13,8 @@ import cs3500.threetrios.provider.view.SimpleThreeTriosView;
 /**
  * AdapterFeatureController is responsible for controlling the game flow by adapting the model and views.
  */
-public class AdapterFeatureController implements ModelStatusListener, PlayerActionListener {
-  private final ThreeTriosModel model;
+public class AdapterFeatureController implements ModelStatusListener, PlayerActionListener, ModelStatusFeatures {
+  private final ThreeTriosModel adaptedModel;
   private final SimpleThreeTriosView view;
   private final PlayerActions playerActions;
   private int selectedCardIndex;
@@ -22,20 +23,23 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
   /**
    * Constructs an AdapterFeatureController.
    *
-   * @param model         the adapted model for the game
+   * @param adaptedModel         the adapted model for the game
    * @param view          the adapted view for the game
    * @param playerActions the actions that a player can take (human or AI)
    */
-  public AdapterFeatureController(ThreeTriosModel model, SimpleThreeTriosView view,
+  public AdapterFeatureController(ThreeTriosModel adaptedModel,
+                                  cs3500.threetrios.model.ThreeTriosModel model,
+                                  SimpleThreeTriosView view,
                                   PlayerActions playerActions) {
-    this.model = model;
+    this.adaptedModel = adaptedModel;
     this.view = view;
     this.playerActions = playerActions;
 
     selectedCardIndex = -1;
     controllerTeam = playerActions.getColor();
 
-    this.model.addModelStatusListener(this);
+    this.adaptedModel.addModelStatusListener(this);
+    model.addModelStatusListener(this);
 
     if (playerActions.addsPlayerActions()) {
       this.playerActions.addPlayerActionListener(new PlayerActionFeaturesAdapter(this));
@@ -54,7 +58,7 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
   }
 
   protected void handlePlayerTurn() {
-    PlayerType currentPlayer = model.getCurrentPlayer();
+    PlayerType currentPlayer = adaptedModel.getCurrentPlayer();
     boolean isMyTurn = currentPlayer == PlayerType.valueOf(controllerTeam.toString());
 
     if (isMyTurn) {
@@ -70,12 +74,13 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
    * Handles the AI move if the player actions belong to an AI player.
    */
   protected void handleAIMoveIfPresent() {
-    playerActions.notifySelectedCard((ReadOnlyThreeTriosModel) model); ///// check ReadOnlyThreeTriosModel
-    playerActions.notifyPlacedCard((ReadOnlyThreeTriosModel) model);
+    playerActions.notifySelectedCard((ReadOnlyThreeTriosModel) adaptedModel); ///// check ReadOnlyThreeTriosModel
+    playerActions.notifyPlacedCard((ReadOnlyThreeTriosModel) adaptedModel);
   }
 
   @Override
   public void currentPlayerChanged(PlayerType newCurrentPlayer) {
+    view.updatePlayerStatus(newCurrentPlayer, true);
     view.updateView();
     handlePlayerTurn();
   }
@@ -90,17 +95,18 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
     } else {
       message += "It's a draw! RED: " + redScore + ", BLUE: " + blueScore;
     }
+    view.updateView();
     view.updatePlayerStatus(winner, false);
     JOptionPane.showMessageDialog(null, message);
   }
 
   @Override
   public void cardSelected(PlayerType playerType, int cardIndex) {
-    if (model.isGameOver()) {
+    if (adaptedModel.isGameOver()) {
       return;
     }
 
-    if (model.getCurrentPlayer().equals(playerType)) {
+    if (adaptedModel.getCurrentPlayer().equals(playerType)) {
       selectedCardIndex = cardIndex;
     } else {
       JOptionPane.showMessageDialog(null, "Only select cards from your hand.");
@@ -111,13 +117,13 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
 
   @Override
   public void cellClicked(int row, int col) {
-    if (model.isGameOver()) {
+    if (adaptedModel.isGameOver()) {
       return;
     }
 
     if (selectedCardIndex >= 0) {
       try {
-        model.playCard(selectedCardIndex, row, col);
+        adaptedModel.playCard(selectedCardIndex, row, col);
         view.updateView();
         selectedCardIndex = -1;
       } catch (IllegalArgumentException | IllegalStateException e) {
@@ -131,5 +137,17 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
     } else {
       view.resetSelectedCard(PlayerType.BLUE);
     }
+  }
+
+  @Override
+  public void onPlayerTurnChange() {
+    this.currentPlayerChanged(adaptedModel.getCurrentPlayer());
+  }
+
+  @Override
+  public void onGameOver() {
+    this.gameOver(adaptedModel.getWinner(),
+            adaptedModel.getPlayerScore(PlayerType.RED),
+            adaptedModel.getPlayerScore(PlayerType.BLUE));
   }
 }
