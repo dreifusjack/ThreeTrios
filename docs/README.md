@@ -112,7 +112,7 @@ this process easier for specific cells.
 * Added observation method for getting a players current score. We had this as a private helper in part 1, but now it is 
 in our read only model interface. 
 * Added method that is given a card and two coordinates, determines how many flips that card would make
-in the battle phase. We did not add this because we didn't find the functionality necessary in part 1, but now that we are designing
+in the battle phase. We did not add this bec ause we didn't find the functionality necessary in part 1, but now that we are designing
 strategies, it is needed. 
 * We created a controller to start the model for us. The controller does not have any functionality 
 yet other than the playGame() method that takes in 2 Strings, first one is the direction to get 

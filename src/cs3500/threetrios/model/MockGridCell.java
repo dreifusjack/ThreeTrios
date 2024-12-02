@@ -36,6 +36,11 @@ public class MockGridCell implements ReadOnlyGridCell {
   }
 
   @Override
+  public Card getCard() {
+    return null;
+  }
+
+  @Override
   public String toString() {
     if (isHole) {
       return " ";

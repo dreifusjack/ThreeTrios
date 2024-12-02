@@ -41,7 +41,7 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
 
   @Override
   public void refreshPlayingBoard() {
-    gamePanel.refresh();
+     gamePanel.refresh();
   }
 
   @Override
