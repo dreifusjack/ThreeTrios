@@ -11,15 +11,10 @@ import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.provider.controller.ModelStatusListener;
 
 public class ModelAdapter implements ThreeTriosModel {
-
   private final cs3500.threetrios.model.ThreeTriosModel adapteeModel;
-
-  private final List<ModelStatusListener> statusListeners;
-
 
   public ModelAdapter(cs3500.threetrios.model.ThreeTriosModel adapteeModel) {
     this.adapteeModel = adapteeModel;
-    this.statusListeners = new ArrayList<>();
   }
 
 
@@ -124,16 +119,16 @@ public class ModelAdapter implements ThreeTriosModel {
 
   @Override
   public void playCard(int cardIndex, int row, int col) {
-    Player currentPlayer = this.adapteeModel.getCurrentPlayer();
     this.adapteeModel.playToGrid(row, col, cardIndex);
   }
 
   @Override
   public void addModelStatusListener(ModelStatusListener listener) {
-    this.statusListeners.add(listener);
+    // ignored handled within our model
   }
 
   @Override
   public void startGame() {
+    // ignored handled within our model
   }
 }

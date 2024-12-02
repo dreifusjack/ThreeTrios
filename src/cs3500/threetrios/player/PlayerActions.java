@@ -18,7 +18,6 @@ public interface PlayerActions {
    */
   void addPlayerActionListener(PlayerActionFeatures listener);
 
-
   /**
    * Selects a card based on the current model state.
    * For machine players, the selection is determined by the strategy.

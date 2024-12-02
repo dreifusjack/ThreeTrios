@@ -3,7 +3,6 @@ package cs3500.threetrios.provider.controller;
 import javax.swing.*;
 
 import cs3500.threetrios.model.ModelStatusFeatures;
-import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.provider.model.PlayerType;
@@ -13,8 +12,10 @@ import cs3500.threetrios.provider.view.SimpleThreeTriosView;
 /**
  * AdapterFeatureController is responsible for controlling the game flow by adapting the model and views.
  */
-public class AdapterFeatureController implements ModelStatusListener, PlayerActionListener, ModelStatusFeatures {
+public class AdapterFeatureController
+        implements ModelStatusListener, PlayerActionListener, ModelStatusFeatures {
   private final ThreeTriosModel adaptedModel;
+  private final cs3500.threetrios.model.ThreeTriosModel model;
   private final SimpleThreeTriosView view;
   private final PlayerActions playerActions;
   private int selectedCardIndex;
@@ -29,17 +30,15 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
    */
   public AdapterFeatureController(ThreeTriosModel adaptedModel,
                                   cs3500.threetrios.model.ThreeTriosModel model,
-                                  SimpleThreeTriosView view,
-                                  PlayerActions playerActions) {
+                                  SimpleThreeTriosView view, PlayerActions playerActions) {
     this.adaptedModel = adaptedModel;
     this.view = view;
     this.playerActions = playerActions;
+    this.model = model;
 
     selectedCardIndex = -1;
     controllerTeam = playerActions.getColor();
-
-    this.adaptedModel.addModelStatusListener(this);
-    model.addModelStatusListener(this);
+    this.model.addModelStatusListener(this);
 
     if (playerActions.addsPlayerActions()) {
       this.playerActions.addPlayerActionListener(new PlayerActionFeaturesAdapter(this));
@@ -57,7 +56,7 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
     handlePlayerTurn();
   }
 
-  protected void handlePlayerTurn() {
+  private void handlePlayerTurn() {
     PlayerType currentPlayer = adaptedModel.getCurrentPlayer();
     boolean isMyTurn = currentPlayer == PlayerType.valueOf(controllerTeam.toString());
 
@@ -73,9 +72,9 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
   /**
    * Handles the AI move if the player actions belong to an AI player.
    */
-  protected void handleAIMoveIfPresent() {
-    playerActions.notifySelectedCard((ReadOnlyThreeTriosModel) adaptedModel); ///// check ReadOnlyThreeTriosModel
-    playerActions.notifyPlacedCard((ReadOnlyThreeTriosModel) adaptedModel);
+  private void handleAIMoveIfPresent() {
+    playerActions.notifySelectedCard(model);
+    playerActions.notifyPlacedCard(model);
   }
 
   @Override

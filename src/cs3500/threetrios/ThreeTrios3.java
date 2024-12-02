@@ -40,6 +40,6 @@ public class ThreeTrios3 {
     PlayerActions bluePlayerActions = new AIPlayer(TeamColor.BLUE, new MaximizeFlipsStrategy());
 
     ThreeTriosFeaturesController redController = new ThreeTriosFeaturesController(model, view1, redPlayerActions);
-    AdapterFeatureController blueController = new AdapterFeatureController(modelNew, model, view2, bluePlayerActions2);
+    AdapterFeatureController blueController = new AdapterFeatureController(modelNew, model, view2, bluePlayerActions);
   }
 }
