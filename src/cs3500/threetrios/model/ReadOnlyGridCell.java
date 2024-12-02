@@ -47,12 +47,11 @@ public interface ReadOnlyGridCell {
   boolean isOccupied();
 
   /**
-   * Returns the card occupied by this cell. If no card is present return null, if cell is a hole
-   * throws an exception. Needs to return the direct card because that instance is the card
-   * that is occupied on the grid.
+   * Returns a copy of the card occupied by this cell. If no card is present return null,
+   * if cell is a hole throws an exception.
    *
    * @return Card that occupies this cell.
    * @throws IllegalStateException if this cell is a hole.
    */
-  Card getCard();
+  Card getCardCopy();
 }

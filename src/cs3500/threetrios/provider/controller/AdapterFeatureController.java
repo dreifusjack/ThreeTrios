@@ -1,6 +1,7 @@
 package cs3500.threetrios.provider.controller;
 
-import javax.swing.*;
+
+import javax.swing.JOptionPane;
 
 import cs3500.threetrios.model.ModelStatusFeatures;
 import cs3500.threetrios.model.TeamColor;
@@ -10,7 +11,8 @@ import cs3500.threetrios.provider.model.ThreeTriosModel;
 import cs3500.threetrios.provider.view.SimpleThreeTriosView;
 
 /**
- * AdapterFeatureController is responsible for controlling the game flow by adapting the model and views.
+ * AdapterFeatureController is responsible for controlling the game
+ * flow by adapting the model and views.
  */
 public class AdapterFeatureController
         implements ModelStatusListener, PlayerActionListener, ModelStatusFeatures {
@@ -24,7 +26,7 @@ public class AdapterFeatureController
   /**
    * Constructs an AdapterFeatureController.
    *
-   * @param adaptedModel         the adapted model for the game
+   * @param adaptedModel  the adapted model for the game
    * @param view          the adapted view for the game
    * @param playerActions the actions that a player can take (human or AI)
    */
@@ -108,7 +110,8 @@ public class AdapterFeatureController
     if (adaptedModel.getCurrentPlayer().equals(playerType)) {
       selectedCardIndex = cardIndex;
     } else {
-      JOptionPane.showMessageDialog(null, "Only select cards from your hand.");
+      JOptionPane.showMessageDialog(
+              null, "Only select cards from your hand.");
       selectedCardIndex = -1;
     }
     view.updateView();
@@ -126,10 +129,12 @@ public class AdapterFeatureController
         view.updateView();
         selectedCardIndex = -1;
       } catch (IllegalArgumentException | IllegalStateException e) {
-        JOptionPane.showMessageDialog(null, "Invalid move: " + e.getMessage());
+        JOptionPane.showMessageDialog(
+                null, "Invalid move: " + e.getMessage());
       }
     } else {
-      JOptionPane.showMessageDialog(null, "Please select a card to play to the board.");
+      JOptionPane.showMessageDialog(
+              null, "Please select a card to play to the board.");
     }
     if (controllerTeam.equals(TeamColor.RED)) {
       view.resetSelectedCard(PlayerType.RED);

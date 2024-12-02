@@ -36,7 +36,7 @@ public class MockGridCell implements ReadOnlyGridCell {
   }
 
   @Override
-  public Card getCard() {
+  public Card getCardCopy() {
     return null;
   }
 

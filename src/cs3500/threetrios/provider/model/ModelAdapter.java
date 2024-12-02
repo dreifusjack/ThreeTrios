@@ -47,6 +47,9 @@ public class ModelAdapter implements ThreeTriosModel {
   @Override
   public PlayerType getWinner() {
     Player winner = this.adapteeModel.getWinner();
+    if (winner == null) {
+      return PlayerType.OVER;
+    }
     if (winner.getColor().equals(TeamColor.RED)) {
       return PlayerType.RED;
     } else {
@@ -81,7 +84,7 @@ public class ModelAdapter implements ThreeTriosModel {
 
   private Cell transformed(ReadOnlyGridCell eachAdapteeCell) {
     Cell cardCell = new Cell(CellType.CARD);
-    ICard transformCard = new CardAdapter(eachAdapteeCell.getCard(), eachAdapteeCell.getColor()); //need to check with jack about eachAdapteeCell.getCard() because our ReadOnlyGridCEll cannot getCard so I just moved it from the non-readonly to readonly (even-though we can't change our code);
+    ICard transformCard = new CardAdapter(eachAdapteeCell.getCardCopy(), eachAdapteeCell.getColor()); //need to check with jack about eachAdapteeCell.getCard() because our ReadOnlyGridCEll cannot getCard so I just moved it from the non-readonly to readonly (even-though we can't change our code);
     // another way: parse from toString like in our CardShape and then construct a CardCell and pass it into "eachAdapteeCell.getCard()"
     cardCell.setCard(transformCard);
     return cardCell;

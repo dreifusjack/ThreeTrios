@@ -7,7 +7,6 @@ import java.util.Objects;
  * have a unique identifier, a team color, and four attack values for each direction.
  */
 public class ThreeTrioCard implements Card {
-
   /**
    * Enumeration of all possible attack values for cards.
    */
@@ -149,6 +148,11 @@ public class ThreeTrioCard implements Card {
       default:
         throw new IllegalArgumentException("Invalid direction");
     }
+  }
+
+  @Override
+  public Card copy() {
+    return new ThreeTrioCard(this.name, this.north, this.east, this.south, this.west);
   }
 
   @Override

@@ -83,6 +83,11 @@ public class CardCell implements GridCell {
   }
 
   @Override
+  public Card getCardCopy() {
+    return getCard();
+  }
+
+  @Override
   public String toString() {
     if (card == null) {
       return "_";

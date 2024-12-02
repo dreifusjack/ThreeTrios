@@ -23,6 +23,10 @@ import cs3500.threetrios.player.strategy.MaximizeFlipsStrategy;
 import cs3500.threetrios.player.strategy.MinimizeFlipsStrategy;
 import cs3500.threetrios.player.strategy.MinimaxStrategy;
 import cs3500.threetrios.player.strategy.ThreeTriosStrategy;
+import cs3500.threetrios.provider.controller.AdapterFeatureController;
+import cs3500.threetrios.provider.model.ModelAdapter;
+import cs3500.threetrios.provider.view.SimpleThreeTriosView;
+import cs3500.threetrios.provider.view.ThreeTriosSwingView;
 import cs3500.threetrios.view.TTGUIView;
 
 /**
@@ -58,9 +62,10 @@ public class ThreeTrios {
     }
 
     ThreeTriosModel model = createAndSetupModel();
+    cs3500.threetrios.provider.model.ThreeTriosModel modelAdapter = new ModelAdapter(model);
 
     TTGUIView redView = new TTGUIView(model);
-    TTGUIView blueView = new TTGUIView(model);
+    SimpleThreeTriosView blueView = new SimpleThreeTriosView(modelAdapter);
 
     PlayerActions redPlayerActions = createPlayerActions(
             redPlayerType, TeamColor.RED, redStrategies);
@@ -68,7 +73,7 @@ public class ThreeTrios {
             bluePlayerType, TeamColor.BLUE, blueStrategies);
 
     new ThreeTriosFeaturesController(model, redView, redPlayerActions);
-    new ThreeTriosFeaturesController(model, blueView, bluePlayerActions);
+    new AdapterFeatureController(modelAdapter, model, blueView, bluePlayerActions);
   }
 
   /**
@@ -290,4 +295,3 @@ public class ThreeTrios {
     );
   }
 }
-

@@ -40,6 +40,11 @@ public class Hole implements GridCell {
   }
 
   @Override
+  public Card getCardCopy() {
+    return getCard();
+  }
+
+  @Override
   public String toString() {
     return " ";
   }
