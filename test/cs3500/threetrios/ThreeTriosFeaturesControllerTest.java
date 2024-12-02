@@ -21,7 +21,10 @@ import cs3500.threetrios.player.MockHumanPlayer;
 import cs3500.threetrios.view.CardPanel;
 import cs3500.threetrios.view.TTGUIView;
 
-// Testing class for ThreeTriosFeaturesController.
+
+/**
+ * Testing class for ThreeTriosFeaturesController.
+ */
 public class ThreeTriosFeaturesControllerTest {
 
   private MockThreeTriosFeaturesController redController;
@@ -55,7 +58,7 @@ public class ThreeTriosFeaturesControllerTest {
     TTGUIView redView = new TTGUIView(model);
     TTGUIView blueView = new TTGUIView(model);
 
-    redController =  new MockThreeTriosFeaturesController(model, redView, redPlayerActions);
+    redController = new MockThreeTriosFeaturesController(model, redView, redPlayerActions);
 
     MockThreeTriosFeaturesController blueController = new MockThreeTriosFeaturesController(model,
             blueView, bluePlayerActions);

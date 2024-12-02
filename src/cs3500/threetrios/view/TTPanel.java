@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Implements the behaviors of the ThreeTriosPanel interface.
  */
-  class TTPanel extends JPanel implements ThreeTriosPanel {
+class TTPanel extends JPanel implements ThreeTriosPanel {
   private final ReadOnlyThreeTriosModel model;
   private final JPanel redPlayerPanel;
   private final JPanel bluePlayerPanel;
@@ -173,10 +173,11 @@ import java.util.List;
     cellPanel.setBackground(color);
     cellPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
   }
+
   /**
    * Responsible for logging to the console its row and column when clicked.
    */
-  private static class CellClickListener extends MouseAdapter {
+  private class CellClickListener extends MouseAdapter {
     private final int row;
     private final int col;
     private final TTGUIView view;
@@ -214,7 +215,8 @@ import java.util.List;
      * @param cardPanel CardPanel this CardInHandClickListener will listen for
      * @throws IllegalArgumentException if the given panel or color is null
      */
-    public CardInHandClickListener(CardPanel cardPanel, int index, TeamColor color, TTGUIView view) {
+    public CardInHandClickListener(
+            CardPanel cardPanel, int index, TeamColor color, TTGUIView view) {
       if (cardPanel == null || color == null) {
         throw new IllegalArgumentException("Panel or color is null");
       }

@@ -20,7 +20,9 @@ import cs3500.threetrios.player.MockHumanPlayer;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.player.strategy.CornerStrategy;
 
-//Testing class for the MockTTGUIView.
+/**
+ * Testing class for the MockTTGUIView.
+ */
 public class MockTTGUIViewTest {
   private List<String> guiViewLogRed;
   private List<String> guiViewLogBlue;

@@ -62,8 +62,10 @@ public class ThreeTrios {
     TTGUIView redView = new TTGUIView(model);
     TTGUIView blueView = new TTGUIView(model);
 
-    PlayerActions redPlayerActions = createPlayerActions(redPlayerType, TeamColor.RED, redStrategies);
-    PlayerActions bluePlayerActions = createPlayerActions(bluePlayerType, TeamColor.BLUE, blueStrategies);
+    PlayerActions redPlayerActions = createPlayerActions(
+            redPlayerType, TeamColor.RED, redStrategies);
+    PlayerActions bluePlayerActions = createPlayerActions(
+            bluePlayerType, TeamColor.BLUE, blueStrategies);
 
     new ThreeTriosFeaturesController(model, redView, redPlayerActions);
     new ThreeTriosFeaturesController(model, blueView, bluePlayerActions);
@@ -78,7 +80,9 @@ public class ThreeTrios {
       int index = 0;
 
       String redPlayerType = parsePlayerType(args, index, redStrategies);
-      if (redPlayerType == null) return false;
+      if (redPlayerType == null) {
+        return false;
+      }
       redStrategies.add(0, redPlayerType);
       index += redStrategies.size();
 
@@ -118,19 +122,25 @@ public class ThreeTrios {
   }
 
 
-  // Helper method to parses player input from the terminal if no valid command-line arguments are provided.
+  /**
+   * Helper method to parses player input from the terminal if no valid
+   * command-line arguments are provided.
+   */
   private static String parseITerminalInput(String team, List<String> strategies) {
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Enter player type for " + team + " team (human, strategy1, strategy2, strategy3, strategy4, chainstrategy): ");
+    System.out.println("Enter player type for " + team +
+            " team (human, strategy1, strategy2, strategy3, strategy4, chainstrategy): ");
     String playerType = scanner.nextLine().trim().toLowerCase();
     parseChainStrategies(scanner, playerType, strategies);
     return playerType;
   }
 
   // Parses chain strategies in the terminal.
-  private static void parseChainStrategies(Scanner scanner, String playerType, List<String> strategies) {
+  private static void parseChainStrategies(
+          Scanner scanner, String playerType, List<String> strategies) {
     if (playerType.equals("chainstrategy")) {
-      System.out.println("Enter the strategies for ChainStrategy one by one (strategy1, strategy2,...) Type 'end' to finish:");
+      System.out.println("Enter the strategies for ChainStrategy one by one " +
+              "(strategy1, strategy2,...) Type 'end' to finish:");
       while (true) {
         String strategyInput = scanner.nextLine().trim().toLowerCase();
         if ("end".equals(strategyInput)) {
@@ -236,85 +246,48 @@ public class ThreeTrios {
   }
 
   /**
-   * Used to create an instance of the deck for ThreeTrios.jar purposes. This allows the jar file
-   * to be run outside the project and not requiring access to card configuration files.
+   * Used to create an instance of the deck for ThreeTrios.jar purposes.
+   * This allows the jar file to be run outside the project and not requiring access
+   * to card configuration files.
    *
    * @return List of cards for model construction
    */
   private static List<Card> deck() {
-    ArrayList<Card> cards = new ArrayList<>();
-    cards.add(new ThreeTrioCard("CorruptKing",
-            ThreeTrioCard.AttackValue.fromString("3"),
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("2")));
+    List<Card> deck = new ArrayList<>();
+    deck.add(createCard("CorruptKing", "3", "1", "1", "2"));
+    deck.add(createCard("AngryDragon", "5", "7", "1", "4"));
+    deck.add(createCard("WindBird", "2", "5", "5", "A"));
+    deck.add(createCard("HeroKnight", "A", "4", "4", "1"));
+    deck.add(createCard("WorldDragon", "1", "6", "5", "1"));
+    deck.add(createCard("SkyWhale", "3", "1", "1", "2"));
+    deck.add(createCard("FirePhoenix", "2", "3", "4", "2"));
+    deck.add(createCard("ThunderTiger", "3", "9", "5", "4"));
+    deck.add(createCard("SilverWolf", "4", "3", "6", "8"));
+    deck.add(createCard("MysticFairy", "5", "5", "A", "2"));
+    deck.add(createCard("OceanKraken", "1", "4", "8", "6"));
+    deck.add(createCard("GoldenEagle", "A", "2", "7", "1"));
+    return deck;
+  }
 
-    cards.add(new ThreeTrioCard("AngryDragon",
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("7"),
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("4")));
-
-    cards.add(new ThreeTrioCard("WindBird",
-            ThreeTrioCard.AttackValue.fromString("2"),
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("A")));
-
-    cards.add(new ThreeTrioCard("HeroKnight",
-            ThreeTrioCard.AttackValue.fromString("A"),
-            ThreeTrioCard.AttackValue.fromString("4"),
-            ThreeTrioCard.AttackValue.fromString("4"),
-            ThreeTrioCard.AttackValue.fromString("1")));
-
-    cards.add(new ThreeTrioCard("WorldDragon",
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("6"),
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("1")));
-
-    cards.add(new ThreeTrioCard("SkyWhale",
-            ThreeTrioCard.AttackValue.fromString("3"),
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("2")));
-
-    cards.add(new ThreeTrioCard("FirePhoenix",
-            ThreeTrioCard.AttackValue.fromString("2"),
-            ThreeTrioCard.AttackValue.fromString("3"),
-            ThreeTrioCard.AttackValue.fromString("4"),
-            ThreeTrioCard.AttackValue.fromString("2")));
-
-    cards.add(new ThreeTrioCard("ThunderTiger",
-            ThreeTrioCard.AttackValue.fromString("3"),
-            ThreeTrioCard.AttackValue.fromString("9"),
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("4")));
-
-    cards.add(new ThreeTrioCard("SilverWolf",
-            ThreeTrioCard.AttackValue.fromString("4"),
-            ThreeTrioCard.AttackValue.fromString("3"),
-            ThreeTrioCard.AttackValue.fromString("6"),
-            ThreeTrioCard.AttackValue.fromString("8")));
-
-    cards.add(new ThreeTrioCard("MysticFairy",
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("5"),
-            ThreeTrioCard.AttackValue.fromString("A"),
-            ThreeTrioCard.AttackValue.fromString("2")));
-
-    cards.add(new ThreeTrioCard("OceanKraken",
-            ThreeTrioCard.AttackValue.fromString("1"),
-            ThreeTrioCard.AttackValue.fromString("4"),
-            ThreeTrioCard.AttackValue.fromString("8"),
-            ThreeTrioCard.AttackValue.fromString("6")));
-
-    cards.add(new ThreeTrioCard("GoldenEagle",
-            ThreeTrioCard.AttackValue.fromString("A"),
-            ThreeTrioCard.AttackValue.fromString("2"),
-            ThreeTrioCard.AttackValue.fromString("7"),
-            ThreeTrioCard.AttackValue.fromString("1")));
-    return cards;
+  /**
+   * Helper method to create a ThreeTrioCard.
+   *
+   * @param name    Name of the card
+   * @param attack1 First attack value
+   * @param attack2 Second attack value
+   * @param attack3 Third attack value
+   * @param attack4 Fourth attack value
+   * @return A new instance of ThreeTrioCard
+   */
+  private static ThreeTrioCard createCard(
+          String name, String attack1, String attack2, String attack3, String attack4) {
+    return new ThreeTrioCard(
+            name,
+            ThreeTrioCard.AttackValue.fromString(attack1),
+            ThreeTrioCard.AttackValue.fromString(attack2),
+            ThreeTrioCard.AttackValue.fromString(attack3),
+            ThreeTrioCard.AttackValue.fromString(attack4)
+    );
   }
 }
 

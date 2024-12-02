@@ -365,7 +365,8 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * @param numOfCardsPerPlayer amount of cards to be dealt.
    * @param player              player receiving cards
    */
-  protected void dealCards(int numOfCardsPerPlayer, Player player, TeamColor color, List<Card> deck) {
+  protected void dealCards(
+          int numOfCardsPerPlayer, Player player, TeamColor color, List<Card> deck) {
     for (int i = 0; i < numOfCardsPerPlayer; i++) {
       Card card = deck.remove(0);
       player.addToHand(card);
