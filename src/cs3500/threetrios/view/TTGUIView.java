@@ -6,7 +6,7 @@ import java.awt.BorderLayout;
 
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.player.PlayerActionFeatures;
+import cs3500.threetrios.controller.PlayerActionListener;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   private final ThreeTriosPanel gamePanel;
-  private final List<PlayerActionFeatures> actionListeners;
+  private final List<PlayerActionListener> actionListeners;
 
   /**
    * Constructs a graphical view for the Three Trios game.
@@ -50,21 +50,21 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   }
 
   @Override
-  public void addPlayerActionListener(PlayerActionFeatures listener) {
+  public void addPlayerActionListener(PlayerActionListener listener) {
     actionListeners.add(listener);
   }
 
   @Override
   public void notifySelectedCard(int cardIndex, TeamColor color, ThreeTriosCardPanel selectedCard,
                                  ThreeTriosCardPanel highlightedCard) {
-    for (PlayerActionFeatures listener : actionListeners) {
+    for (PlayerActionListener listener : actionListeners) {
       listener.handleCardSelection(color, cardIndex, selectedCard, highlightedCard);
     }
   }
 
   @Override
   public void notifyPlacedCard(int row, int col) {
-    for (PlayerActionFeatures listener : actionListeners) {
+    for (PlayerActionListener listener : actionListeners) {
       listener.handleBoardSelection(row, col);
     }
   }

@@ -1,12 +1,16 @@
 package cs3500.threetrios.provider.view;
 
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.Objects;
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
+import java.awt.Dimension;
 
 import cs3500.threetrios.provider.model.ICard;
 import cs3500.threetrios.provider.model.PlayerType;

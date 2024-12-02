@@ -1,8 +1,16 @@
 package cs3500.threetrios.provider.view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Font;
+import java.awt.Dimension;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
 import cs3500.threetrios.provider.controller.PlayerActionListener;
 import cs3500.threetrios.provider.model.PlayerType;
@@ -121,5 +129,4 @@ public class SimpleThreeTriosView extends JFrame implements ThreeTriosSwingView 
     }
     this.playerStatusLabel.setText(statusText);
   }
-
 }

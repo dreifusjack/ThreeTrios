@@ -2,6 +2,8 @@ package cs3500.threetrios.model;
 
 import java.util.List;
 
+import cs3500.threetrios.controller.ModelStatusListener;
+
 /**
  * All observation behaviors of the Three Trios Model. These behaviors are to be used
  * in the view/client side, so it has no access to the models operations (internal state).
@@ -138,9 +140,21 @@ public interface ReadOnlyThreeTriosModel {
    */
   ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIdx);
 
-  void addModelStatusListener(ModelStatusFeatures listener);
+  /**
+   * Adds a model status listener to this model, the listener will be notified when player turn
+   * changes and when the game is over.
+   *
+   * @param listener the listener that will now listen for events in the model
+   */
+  void addModelStatusListener(ModelStatusListener listener);
 
+  /**
+   * Notifies this model's status listeners that the player turn has changed.
+   */
   void notifyPlayerTurnChange();
 
+  /**
+   * Notifies this model's status listeners that the game has ended.
+   */
   void notifyGameOver();
 }

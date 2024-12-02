@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import cs3500.threetrios.controller.ThreeTriosFeaturesController;
+import cs3500.threetrios.controller.ThreeTriosListenerController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.CardCell;
@@ -23,10 +23,7 @@ import cs3500.threetrios.player.strategy.MaximizeFlipsStrategy;
 import cs3500.threetrios.player.strategy.MinimizeFlipsStrategy;
 import cs3500.threetrios.player.strategy.MinimaxStrategy;
 import cs3500.threetrios.player.strategy.ThreeTriosStrategy;
-import cs3500.threetrios.provider.controller.AdapterFeatureController;
-import cs3500.threetrios.provider.model.ModelAdapter;
-import cs3500.threetrios.provider.view.SimpleThreeTriosView;
-import cs3500.threetrios.provider.view.ThreeTriosSwingView;
+import cs3500.threetrios.provider.controller.AdapterListenerController;
 import cs3500.threetrios.view.TTGUIView;
 
 /**
@@ -62,18 +59,16 @@ public class ThreeTrios {
     }
 
     ThreeTriosModel model = createAndSetupModel();
-    cs3500.threetrios.provider.model.ThreeTriosModel modelAdapter = new ModelAdapter(model);
 
     TTGUIView redView = new TTGUIView(model);
-    SimpleThreeTriosView blueView = new SimpleThreeTriosView(modelAdapter);
 
     PlayerActions redPlayerActions = createPlayerActions(
             redPlayerType, TeamColor.RED, redStrategies);
     PlayerActions bluePlayerActions = createPlayerActions(
             bluePlayerType, TeamColor.BLUE, blueStrategies);
 
-    new ThreeTriosFeaturesController(model, redView, redPlayerActions);
-    new AdapterFeatureController(modelAdapter, model, blueView, bluePlayerActions);
+    new ThreeTriosListenerController(model, redView, redPlayerActions);
+    new AdapterListenerController(model, bluePlayerActions);
   }
 
   /**

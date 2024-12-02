@@ -4,31 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs3500.threetrios.model.Card;
-import cs3500.threetrios.model.ModelStatusFeatures;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.provider.controller.ModelStatusListener;
 
+/**
+ * Follows the object adapter pattern to adapt our models behaviors to the behaviors of our
+ * providers model. This allows us to construct our providers view using this newly created
+ * adapted model.
+ */
 public class ModelAdapter implements ThreeTriosModel {
   private final cs3500.threetrios.model.ThreeTriosModel adapteeModel;
 
+  /**
+   * Constructs a ModelAdapter using our model as a delegate.
+   *
+   * @param adapteeModel delegate to our model methods
+   */
   public ModelAdapter(cs3500.threetrios.model.ThreeTriosModel adapteeModel) {
     this.adapteeModel = adapteeModel;
   }
 
-
   @Override
   public boolean isGameOver() {
-    return this.adapteeModel.isGameOver();
+    return adapteeModel.isGameOver();
   }
 
   @Override
   public int getPlayerScore(PlayerType player) {
     if (player.equals(PlayerType.RED)) {
-      return this.adapteeModel.getPlayerScore(TeamColor.RED);
+      return adapteeModel.getPlayerScore(TeamColor.RED);
     } else if (player.equals(PlayerType.BLUE)) {
-      return this.adapteeModel.getPlayerScore(TeamColor.BLUE);
+      return adapteeModel.getPlayerScore(TeamColor.BLUE);
     } else {
       throw new IllegalArgumentException("Wrong player type");
     }
@@ -59,22 +67,22 @@ public class ModelAdapter implements ThreeTriosModel {
 
   @Override
   public Cell[][] getGrid() {
-    List<List<ReadOnlyGridCell>> listCellAdaptee = this.adapteeModel.getGridReadOnly();
+    List<List<ReadOnlyGridCell>> adapteeGrid = adapteeModel.getGridReadOnly();
 
-    int numRows = listCellAdaptee.size();
-    int numCols = listCellAdaptee.get(0).size();
+    int numRows = adapteeGrid.size();
+    int numCols = adapteeGrid.get(0).size();
     Cell[][] resultListCell = new Cell[numRows][numCols];
 
     for (int row = 0; row < numRows; row++) {
-      List<ReadOnlyGridCell> gridCells = listCellAdaptee.get(row);
+      List<ReadOnlyGridCell> adapteeRow = adapteeGrid.get(row);
       for (int col = 0; col < numCols; col++) {
-        ReadOnlyGridCell eachAdapteeCell = gridCells.get(col);
-        if (eachAdapteeCell.toString().equals(" ")) { // hole
+        ReadOnlyGridCell adapteeCell = adapteeRow.get(col);
+        if (adapteeCell.toString().equals(" ")) { // hole
           resultListCell[row][col] = new Cell(CellType.HOLE);
-        } else if (eachAdapteeCell.toString().equals("_")) { //empty cell
+        } else if (adapteeCell.toString().equals("_")) { // empty card cell
           resultListCell[row][col] = new Cell(CellType.CARD);
-        } else {
-          Cell cardCell = transformed(eachAdapteeCell);
+        } else { // occupied card cell
+          Cell cardCell = adapted(adapteeCell);
           resultListCell[row][col] = cardCell;
         }
       }
@@ -82,10 +90,17 @@ public class ModelAdapter implements ThreeTriosModel {
     return resultListCell;
   }
 
-  private Cell transformed(ReadOnlyGridCell eachAdapteeCell) {
+  /**
+   * Transforms the given ReadOnlyGridCell from our model to a Cell type used in the provided model.
+   * Uses the CardAdapter to achieve this.
+   *
+   * @param adapteeCell card to be adapted
+   * @return adapted card
+   */
+  private Cell adapted(ReadOnlyGridCell adapteeCell) {
     Cell cardCell = new Cell(CellType.CARD);
-    ICard transformCard = new CardAdapter(eachAdapteeCell.getCardCopy(), eachAdapteeCell.getColor()); //need to check with jack about eachAdapteeCell.getCard() because our ReadOnlyGridCEll cannot getCard so I just moved it from the non-readonly to readonly (even-though we can't change our code);
-    // another way: parse from toString like in our CardShape and then construct a CardCell and pass it into "eachAdapteeCell.getCard()"
+    ICard transformCard = new CardAdapter(
+            adapteeCell.getCardCopy(), adapteeCell.getColor());
     cardCell.setCard(transformCard);
     return cardCell;
   }
@@ -127,11 +142,11 @@ public class ModelAdapter implements ThreeTriosModel {
 
   @Override
   public void addModelStatusListener(ModelStatusListener listener) {
-    // ignored handled within our model
+    // ignored handled within adaptee model
   }
 
   @Override
   public void startGame() {
-    // ignored handled within our model
+    // ignored handled within adaptee model
   }
 }

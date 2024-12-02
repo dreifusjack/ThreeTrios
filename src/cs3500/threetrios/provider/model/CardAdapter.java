@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cs3500.threetrios.model.Card;
-import cs3500.threetrios.provider.model.Direction;
 
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.model.ThreeTrioCard;
 
 /**
- * Adapter class to make the ThreeTrioCard compatible with the ICard interface.
+ * Adapts our Three Trios card behaviors to the provides Three Trios card behaviors using an object
+ * pattern.
  */
 public class CardAdapter implements ICard {
   private final Card adaptedCard;
@@ -47,8 +46,9 @@ public class CardAdapter implements ICard {
   }
 
   @Override
-  public boolean battle(ICard other, cs3500.threetrios.model. Direction directionTo, Direction directionFrom) {
-    return adaptedCard.compare((cs3500.threetrios.model.Card) other, directionTo);
+  public boolean battle(ICard other, Direction directionTo, Direction directionFrom) {
+    // handled within our model
+    return false;
   }
 
   @Override

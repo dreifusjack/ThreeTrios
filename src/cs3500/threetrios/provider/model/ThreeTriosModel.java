@@ -37,5 +37,4 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
    * @throws IllegalArgumentException if the cards provided is too small.
    */
   void startGame();
-
 }

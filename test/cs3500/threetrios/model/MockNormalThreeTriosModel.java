@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import cs3500.threetrios.controller.ModelStatusListener;
+
 /**
  * Mock class for a BasicThreeTriosModel.
  */
@@ -183,7 +185,7 @@ public class MockNormalThreeTriosModel extends BasicThreeTriosModel {
   }
 
   @Override
-  public void addModelStatusListener(ModelStatusFeatures listener) {
+  public void addModelStatusListener(ModelStatusListener listener) {
     log.add("addModelStatusListener called");
     super.addModelStatusListener(listener);
   }

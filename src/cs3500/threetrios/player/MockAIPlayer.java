@@ -3,6 +3,7 @@ package cs3500.threetrios.player;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs3500.threetrios.controller.PlayerActionListener;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
@@ -16,7 +17,7 @@ public class MockAIPlayer extends AIPlayer {
 
   private final ThreeTriosStrategy strategy;
   private final TeamColor teamColor;
-  private final List<PlayerActionFeatures> actionListeners;
+  private final List<PlayerActionListener> actionListeners;
   private final List<String> log;
 
 
@@ -38,7 +39,7 @@ public class MockAIPlayer extends AIPlayer {
 
 
   @Override
-  public void addPlayerActionListener(PlayerActionFeatures listener) {
+  public void addPlayerActionListener(PlayerActionListener listener) {
     actionListeners.add(listener);
     log.add("addPlayerActionListener called");
   }
@@ -47,7 +48,7 @@ public class MockAIPlayer extends AIPlayer {
   public void notifySelectedCard(ReadOnlyThreeTriosModel model) {
     Player playerAI = model.getCurrentPlayer();
     PlayedMove move = strategy.findBestMove(model, playerAI);
-    for (PlayerActionFeatures listener : actionListeners) {
+    for (PlayerActionListener listener : actionListeners) {
       listener.handleCardSelection(teamColor, move.getHandInx(), null,
               null);
       log.add("notifySelectedCard called");
@@ -60,7 +61,7 @@ public class MockAIPlayer extends AIPlayer {
   public void notifyPlacedCard(ReadOnlyThreeTriosModel model) {
     Player playerAI = model.getCurrentPlayer();
     PlayedMove move = strategy.findBestMove(model, playerAI);
-    for (PlayerActionFeatures listener : actionListeners) {
+    for (PlayerActionListener listener : actionListeners) {
       listener.handleBoardSelection(move.getRow(), move.getCol());
       log.add("notifyPlacedCard called");
       log.add("AI placed card at row: " + move.getRow() + ", col: " + move.getCol());

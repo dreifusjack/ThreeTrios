@@ -2,11 +2,9 @@ package cs3500.threetrios.controller;
 
 import javax.swing.JOptionPane;
 
-import cs3500.threetrios.model.ModelStatusFeatures;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.player.PlayerActionFeatures;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
 import cs3500.threetrios.view.ThreeTriosCardPanel;
@@ -18,7 +16,7 @@ import cs3500.threetrios.view.ThreeTriosCardPanel;
  * provide a complete control layer for managing user interactions, updating the game state, and
  * responding to model changes.
  */
-public class ThreeTriosFeaturesController implements PlayerActionFeatures, ModelStatusFeatures {
+public class ThreeTriosListenerController implements PlayerActionListener, ModelStatusListener {
   private final ThreeTriosModel model;
   private final TTGUIView view;
   private final PlayerActions playerActions;
@@ -32,7 +30,7 @@ public class ThreeTriosFeaturesController implements PlayerActionFeatures, Model
    * @param view          the view that displays the game interface
    * @param playerActions the actions associated with the player (AI or human)
    */
-  public ThreeTriosFeaturesController(ThreeTriosModel model, TTGUIView view,
+  public ThreeTriosListenerController(ThreeTriosModel model, TTGUIView view,
                                       PlayerActions playerActions) {
     this.model = model;
     this.view = view;

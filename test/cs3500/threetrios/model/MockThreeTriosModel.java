@@ -3,14 +3,7 @@ package cs3500.threetrios.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.threetrios.model.BasicThreeTriosModel;
-import cs3500.threetrios.model.Card;
-import cs3500.threetrios.model.MockGridCell;
-import cs3500.threetrios.model.Player;
-import cs3500.threetrios.model.ReadOnlyGridCell;
-import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
-import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.model.ModelStatusFeatures;
+import cs3500.threetrios.controller.ModelStatusListener;
 
 /**
  * A simple mock ThreeTriosModel for testing purposes.
@@ -27,7 +20,7 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   private final Player bluePlayer;
   private final Player currentPlayer;
 
-  private final List<ModelStatusFeatures> statusListeners;
+  private final List<ModelStatusListener> statusListeners;
 
 
   /**
@@ -159,7 +152,7 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   }
 
   @Override
-  public void addModelStatusListener(ModelStatusFeatures listener) {
+  public void addModelStatusListener(ModelStatusListener listener) {
     if (!statusListeners.contains(listener)) {
       statusListeners.add(listener);
       mockLog.add("addModelStatusListener called");
@@ -168,7 +161,7 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
 
   @Override
   public void notifyPlayerTurnChange() {
-    for (ModelStatusFeatures listener : statusListeners) {
+    for (ModelStatusListener listener : statusListeners) {
       listener.onPlayerTurnChange();
       mockLog.add("notifyPlayerTurnChange called");
     }
@@ -176,7 +169,7 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
 
   @Override
   public void notifyGameOver() {
-    for (ModelStatusFeatures listener : statusListeners) {
+    for (ModelStatusListener listener : statusListeners) {
       listener.onGameOver();
       mockLog.add("notifyGameOver called");
     }

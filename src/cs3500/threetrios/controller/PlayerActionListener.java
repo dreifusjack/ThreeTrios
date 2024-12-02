@@ -1,4 +1,4 @@
-package cs3500.threetrios.player;
+package cs3500.threetrios.controller;
 
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.view.ThreeTriosCardPanel;
@@ -8,7 +8,7 @@ import cs3500.threetrios.view.ThreeTriosCardPanel;
  * selecting a card from a player hand and selecting a grid cell to play that card to, ultimately
  * playing a move.
  */
-public interface PlayerActionFeatures {
+public interface PlayerActionListener {
   /**
    * When a card has been selected, get the selected card index to be used after the user selects
    * coordinates to play that card to.

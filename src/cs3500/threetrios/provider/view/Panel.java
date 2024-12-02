@@ -1,6 +1,5 @@
 package cs3500.threetrios.provider.view;
 
-
 import cs3500.threetrios.provider.controller.PlayerActionListener;
 
 /**

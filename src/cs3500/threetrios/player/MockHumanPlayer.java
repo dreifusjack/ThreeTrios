@@ -3,6 +3,7 @@ package cs3500.threetrios.player;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs3500.threetrios.controller.PlayerActionListener;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 
@@ -26,7 +27,7 @@ public class MockHumanPlayer extends HumanPlayer {
   }
 
   @Override
-  public void addPlayerActionListener(PlayerActionFeatures listener) {
+  public void addPlayerActionListener(PlayerActionListener listener) {
     // omitted, handled within the view
     log.add("addPlayerActionListener called");
   }

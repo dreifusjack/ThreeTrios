@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Random;
 
-import cs3500.threetrios.controller.MockThreeTriosFeaturesController;
+import cs3500.threetrios.controller.MockThreeTriosListenerController;
 import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.model.MockNormalThreeTriosModel;
 import cs3500.threetrios.model.Player;
@@ -55,10 +55,10 @@ public class MockTTGUIViewTest {
     redView = new MockTTGUIView(model);
     MockTTGUIView blueView = new MockTTGUIView(model);
 
-    MockThreeTriosFeaturesController redController = new MockThreeTriosFeaturesController(model,
+    MockThreeTriosListenerController redController = new MockThreeTriosListenerController(model,
             redView, redPlayerActions);
 
-    MockThreeTriosFeaturesController blueController = new MockThreeTriosFeaturesController(model,
+    MockThreeTriosListenerController blueController = new MockThreeTriosListenerController(model,
             blueView, bluePlayerActions);
 
     guiViewLogRed = redView.getLog();

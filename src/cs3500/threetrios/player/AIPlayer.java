@@ -3,6 +3,7 @@ package cs3500.threetrios.player;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs3500.threetrios.controller.PlayerActionListener;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
@@ -16,7 +17,7 @@ import cs3500.threetrios.player.strategy.ThreeTriosStrategy;
 public class AIPlayer implements PlayerActions {
   private final ThreeTriosStrategy strategy;
   private final TeamColor teamColor;
-  private final List<PlayerActionFeatures> actionListeners;
+  private final List<PlayerActionListener> actionListeners;
 
   /**
    * Constructs an AIPlayer with the given team color and strategy.
@@ -35,7 +36,7 @@ public class AIPlayer implements PlayerActions {
   }
 
   @Override
-  public void addPlayerActionListener(PlayerActionFeatures listener) {
+  public void addPlayerActionListener(PlayerActionListener listener) {
     actionListeners.add(listener);
   }
 
@@ -43,7 +44,7 @@ public class AIPlayer implements PlayerActions {
   public void notifySelectedCard(ReadOnlyThreeTriosModel model) {
     Player playerAI = model.getCurrentPlayer();
     PlayedMove move = strategy.findBestMove(model, playerAI);
-    for (PlayerActionFeatures listener : actionListeners) {
+    for (PlayerActionListener listener : actionListeners) {
       listener.handleCardSelection(teamColor, move.getHandInx(), null, null);
     }
   }
@@ -52,7 +53,7 @@ public class AIPlayer implements PlayerActions {
   public void notifyPlacedCard(ReadOnlyThreeTriosModel model) {
     Player playerAI = model.getCurrentPlayer();
     PlayedMove move = strategy.findBestMove(model, playerAI);
-    for (PlayerActionFeatures listener : actionListeners) {
+    for (PlayerActionListener listener : actionListeners) {
       listener.handleBoardSelection(move.getRow(), move.getCol());
     }
   }

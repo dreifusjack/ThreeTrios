@@ -1,9 +1,13 @@
 package cs3500.threetrios.provider.view;
 
-import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.FontMetrics;
+import java.awt.Dimension;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 import cs3500.threetrios.provider.controller.PlayerActionListener;
 import cs3500.threetrios.provider.model.Direction;

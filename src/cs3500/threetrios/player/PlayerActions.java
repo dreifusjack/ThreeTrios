@@ -1,5 +1,6 @@
 package cs3500.threetrios.player;
 
+import cs3500.threetrios.controller.PlayerActionListener;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 
@@ -16,7 +17,7 @@ public interface PlayerActions {
    *
    * @param listener the listener to be added for player actions
    */
-  void addPlayerActionListener(PlayerActionFeatures listener);
+  void addPlayerActionListener(PlayerActionListener listener);
 
   /**
    * Selects a card based on the current model state.

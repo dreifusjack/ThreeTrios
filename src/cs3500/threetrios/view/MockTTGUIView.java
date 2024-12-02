@@ -5,7 +5,7 @@ import java.util.List;
 
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.player.PlayerActionFeatures;
+import cs3500.threetrios.controller.PlayerActionListener;
 
 /**
  * Mock GUI to log when callbacks to the controller are called.
@@ -37,7 +37,7 @@ public class MockTTGUIView extends TTGUIView {
   }
 
   @Override
-  public void addPlayerActionListener(PlayerActionFeatures listener) {
+  public void addPlayerActionListener(PlayerActionListener listener) {
     log.add("addPlayerActionListener called");
     super.addPlayerActionListener(listener);
   }

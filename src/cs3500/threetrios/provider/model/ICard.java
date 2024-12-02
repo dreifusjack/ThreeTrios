@@ -2,8 +2,6 @@ package cs3500.threetrios.provider.model;
 
 import java.util.Map;
 
-import cs3500.threetrios.provider.model.Direction;
-
 /**
  * Interface representing a card in Three Trios.
  * Each card has a unique identifier, four attack values (one for each direction),
@@ -33,7 +31,7 @@ public interface ICard {
    * @param directionFrom the direction battling from the other card.
    * @return True if this card wins, False otherwise.
    */
-  boolean battle(ICard other, cs3500.threetrios.model. Direction directionTo, Direction directionFrom);
+  boolean battle(ICard other, Direction directionTo, Direction directionFrom);
 
   /**
    * Gets a copy of the values of the card.

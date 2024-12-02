@@ -63,5 +63,4 @@ public interface ReadOnlyThreeTriosModel {
    * @return the current player.
    */
   PlayerType getCurrentPlayer();
-
 }

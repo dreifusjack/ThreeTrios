@@ -1,7 +1,7 @@
 package cs3500.threetrios.view;
 
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.player.PlayerActionFeatures;
+import cs3500.threetrios.controller.PlayerActionListener;
 
 /**
  * A GUI visual interface that renders ThreeTrios. Includes all the red players,
@@ -26,7 +26,7 @@ public interface ThreeTriosGUIView {
    *
    * @param listener is the listener for player actions
    */
-  void addPlayerActionListener(PlayerActionFeatures listener);
+  void addPlayerActionListener(PlayerActionListener listener);
 
   /**
    * Handles the selection of a card by the player.

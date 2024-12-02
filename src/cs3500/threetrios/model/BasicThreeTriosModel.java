@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import cs3500.threetrios.controller.ModelStatusListener;
+
 
 /**
  * First variant model of Three Trio model implementation. Implementation of the behaviors
@@ -18,7 +20,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   private Player playerTurn;
   private final Player bluePlayer;
   private final Random random;
-  private final List<ModelStatusFeatures> statusListeners;
+  private final List<ModelStatusListener> statusListeners;
 
   /**
    * Constructs a BasicThreeTrioModel in terms of the names of the grid file and card file
@@ -449,7 +451,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   }
 
   @Override
-  public void addModelStatusListener(ModelStatusFeatures listener) {
+  public void addModelStatusListener(ModelStatusListener listener) {
     if (!statusListeners.contains(listener)) {
       statusListeners.add(listener);
     }
@@ -457,14 +459,14 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
 
   @Override
   public void notifyPlayerTurnChange() {
-    for (ModelStatusFeatures listener : statusListeners) {
+    for (ModelStatusListener listener : statusListeners) {
       listener.onPlayerTurnChange();
     }
   }
 
   @Override
   public void notifyGameOver() {
-    for (ModelStatusFeatures listener : statusListeners) {
+    for (ModelStatusListener listener : statusListeners) {
       listener.onGameOver();
     }
   }

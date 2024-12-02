@@ -69,8 +69,7 @@ public class Cell {
     String s = card.toString() + " Owner: ";
     if (card.getOwner() == null) {
       s += "None";
-    }
-    else {
+    } else {
       s += card.getOwner();
     }
     return s;

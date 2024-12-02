@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Random;
 
-import cs3500.threetrios.controller.MockThreeTriosFeaturesController;
+import cs3500.threetrios.controller.MockThreeTriosListenerController;
 import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.model.MockNormalThreeTriosModel;
 import cs3500.threetrios.model.Player;
@@ -23,7 +23,7 @@ import cs3500.threetrios.view.TTGUIView;
  */
 public class PlayerActionsTest {
 
-  private MockThreeTriosFeaturesController redController;
+  private MockThreeTriosListenerController redController;
 
   private List<String> humanLog;
   private List<String> aiLog;
@@ -52,7 +52,7 @@ public class PlayerActionsTest {
 
     TTGUIView redView = new TTGUIView(model);
 
-    redController =  new MockThreeTriosFeaturesController(model, redView, redPlayerActions);
+    redController =  new MockThreeTriosListenerController(model, redView, redPlayerActions);
 
     humanLog = redPlayerActions.getLog();
     aiLog = bluePlayerActions.getLog();

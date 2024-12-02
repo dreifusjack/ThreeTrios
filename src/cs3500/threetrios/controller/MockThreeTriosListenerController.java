@@ -12,7 +12,7 @@ import cs3500.threetrios.view.ThreeTriosCardPanel;
 /**
  * Mock class for the ThreeTriosFeaturesController class.
  */
-public class MockThreeTriosFeaturesController extends ThreeTriosFeaturesController {
+public class MockThreeTriosListenerController extends ThreeTriosListenerController {
 
   private List<String> log;
 
@@ -24,7 +24,7 @@ public class MockThreeTriosFeaturesController extends ThreeTriosFeaturesControll
    * @param view          the view that displays the game interface
    * @param playerActions the actions associated with the player (AI or human)
    */
-  public MockThreeTriosFeaturesController(ThreeTriosModel model, TTGUIView view,
+  public MockThreeTriosListenerController(ThreeTriosModel model, TTGUIView view,
                                           PlayerActions playerActions) {
 
     super(model, view, playerActions);
@@ -90,9 +90,12 @@ public class MockThreeTriosFeaturesController extends ThreeTriosFeaturesControll
     super.onGameOver();
   }
 
-
+  /**
+   * Returns the log to confirm interactions for testing purposes.
+   *
+   * @return interactions log
+   */
   public List<String> getLog() {
     return log == null ? new ArrayList<>() : this.log;
   }
-
 }
