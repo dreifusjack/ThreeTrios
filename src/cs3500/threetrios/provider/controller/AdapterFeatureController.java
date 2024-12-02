@@ -13,7 +13,6 @@ import cs3500.threetrios.provider.view.SimpleThreeTriosView;
  * AdapterFeatureController is responsible for controlling the game flow by adapting the model and views.
  */
 public class AdapterFeatureController implements ModelStatusListener, PlayerActionListener {
-
   private final ThreeTriosModel model;
   private final SimpleThreeTriosView view;
   private final PlayerActions playerActions;
@@ -77,6 +76,7 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
 
   @Override
   public void currentPlayerChanged(PlayerType newCurrentPlayer) {
+    view.updateView();
     handlePlayerTurn();
   }
 
@@ -106,6 +106,7 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
       JOptionPane.showMessageDialog(null, "Only select cards from your hand.");
       selectedCardIndex = -1;
     }
+    view.updateView();
   }
 
   @Override
@@ -124,6 +125,11 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
       }
     } else {
       JOptionPane.showMessageDialog(null, "Please select a card to play to the board.");
+    }
+    if (controllerTeam.equals(TeamColor.RED)) {
+      view.resetSelectedCard(PlayerType.RED);
+    } else {
+      view.resetSelectedCard(PlayerType.BLUE);
     }
   }
 }

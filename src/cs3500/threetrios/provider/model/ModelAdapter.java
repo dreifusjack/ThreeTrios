@@ -76,15 +76,20 @@ public class ModelAdapter implements ThreeTriosModel {
         } else if (eachAdapteeCell.toString().equals("_")) { //empty cell
           resultListCell[row][col] = new Cell(CellType.CARD);
         } else {
-          Cell cardCell = new Cell(CellType.CARD);
-          ICard transformCard = new CardAdapter(eachAdapteeCell.getCard(), eachAdapteeCell.getColor()); //need to check with jack about eachAdapteeCell.getCard() because our ReadOnlyGridCEll cannot getCard so I just moved it from the non-readonly to readonly (even-though we can't change our code);
-          // another way: parse from toString like in our CardShape and then construct a CardCell and pass it into "eachAdapteeCell.getCard()"
-          cardCell.setCard(transformCard);
+          Cell cardCell = transformed(eachAdapteeCell);
           resultListCell[row][col] = cardCell;
         }
       }
     }
     return resultListCell;
+  }
+
+  private Cell transformed(ReadOnlyGridCell eachAdapteeCell) {
+    Cell cardCell = new Cell(CellType.CARD);
+    ICard transformCard = new CardAdapter(eachAdapteeCell.getCard(), eachAdapteeCell.getColor()); //need to check with jack about eachAdapteeCell.getCard() because our ReadOnlyGridCEll cannot getCard so I just moved it from the non-readonly to readonly (even-though we can't change our code);
+    // another way: parse from toString like in our CardShape and then construct a CardCell and pass it into "eachAdapteeCell.getCard()"
+    cardCell.setCard(transformCard);
+    return cardCell;
   }
 
   @Override
@@ -124,7 +129,7 @@ public class ModelAdapter implements ThreeTriosModel {
 
 
     for (ModelStatusListener eachListener : statusListeners) {
-      if (this.isGameOver()) {
+      if (isGameOver()) {
         Player winnerPLayer = this.adapteeModel.getWinner();
 
         if (winnerPLayer.getColor().equals(TeamColor.RED)) {
@@ -142,8 +147,6 @@ public class ModelAdapter implements ThreeTriosModel {
         }
       }
     }
-    // update that cells color meaning
-
   }
 
   @Override
