@@ -44,10 +44,9 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
       this.view.addPlayerActionListener(this);
     }
 
-    if(PlayerType.valueOf(controllerTeam.toString()).equals(PlayerType.RED)) {
+    if (PlayerType.valueOf(controllerTeam.toString()).equals(PlayerType.RED)) {
       view.setInteractionEnabled(true, PlayerType.RED);
-    }
-    else {
+    } else {
       view.setInteractionEnabled(true, PlayerType.BLUE);
     }
 
@@ -72,8 +71,8 @@ public class AdapterFeatureController implements ModelStatusListener, PlayerActi
    * Handles the AI move if the player actions belong to an AI player.
    */
   protected void handleAIMoveIfPresent() {
-      playerActions.notifySelectedCard((ReadOnlyThreeTriosModel) model); ///// check ReadOnlyThreeTriosModel
-      playerActions.notifyPlacedCard((ReadOnlyThreeTriosModel) model);
+    playerActions.notifySelectedCard((ReadOnlyThreeTriosModel) model); ///// check ReadOnlyThreeTriosModel
+    playerActions.notifyPlacedCard((ReadOnlyThreeTriosModel) model);
   }
 
   @Override

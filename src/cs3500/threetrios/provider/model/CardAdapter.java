@@ -46,13 +46,10 @@ public class CardAdapter implements ICard {
     }
   }
 
-
-
   @Override
   public boolean battle(ICard other, cs3500.threetrios.model. Direction directionTo, Direction directionFrom) {
     return adaptedCard.compare((cs3500.threetrios.model.Card) other, directionTo);
   }
-
 
   @Override
   public Map<Direction, AttackValue> getValues() {
