@@ -1,0 +1,36 @@
+    The majority of the interfaces provided were flexible enough to adapt our code with. However,
+ICard interface posed some challenges for use when adapting. Their ICard interface has ownership
+methods implying they had cards that knew who owned them/what team they were on. This added
+complexity for adapting because our Card implementations have no ownership fields, as we believed it
+was better designed to handle ownership at a higher level. Since their interface required card
+ownership we were forced to create an object adapter to implement their Card interface. After this
+slight pitfall, we had little to no issues with the flexibility of the rest of their interfaces.
+
+    Overall our providers' view interfaces and implementations were very capable. Their view
+implementation followed a much different design than ours, which was a little tricky to understand
+at first but after proper adaptations it works perfectly fine with our implementations. One error
+we found in their view implementation is that if a controller is responsible for controlling an
+AI player, when a user interacts with that team's GUI, a card is still able to be highlighted.
+This is not a major issue since the user cannot play the card, but it is something that is worth
+mentioning. Additionally, most of their code has a similar structure to our code. All the required
+methods in their model interface could be found in our BasicThreeTrios class. Even though there are
+gaps like differences in naming/enum classes, we just had to make some adapters to bridge them and
+making those adapters wasn't that difficult. Furthermore, their view classes' basic functionalities
+like notifying the controller/model are also very similar to us which was convenient to reuse.
+
+    All the interfaces provided were cleanly written, allowing us to easily read through them and
+find where implementations and behaviors were used. However, the view implementations were slightly
+more challenging to read through. Many of their methods were fairly long, and it seemed like they
+could have broken into helpers for readability. In terms of documentation, it was difficult to fully
+understand the behaviors of all the methods provided in interfaces because for each method the
+providers wrote one short sentence. Since we worked through this assignment, we had some intuition
+behind the methods' purposes but there were still some difficulties. For example, in their battle
+method for cards, the documentation simply says, “Battles another card. Returns True if this card
+wins, false otherwise.” A better approach here would be to explain what battling cards means and
+explaining why this method takes directions and what they represent.
+
+    We only requested one change from our providers. The request change was to modify their return
+types in interface methods to be of interface type rather than implementation (class) types.
+Specifically, they were returning card implementations in their interface methods, but we did not
+have access to those implementations. Thus we needed them to return the interface types so that we
+could successfully create adapters of those types without compile time errors.
