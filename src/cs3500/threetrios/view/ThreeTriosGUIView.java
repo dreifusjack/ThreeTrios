@@ -18,6 +18,7 @@ public interface ThreeTriosGUIView {
 
   /**
    * Sets the title of the GUI as the given title.
+   *
    * @param title new title
    * @throws IllegalArgumentException if title is null
    */

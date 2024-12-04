@@ -6,7 +6,8 @@ this is bad design and should have handled this by calling back to the view. Thi
 adapting their code to our controller very difficult. In future MVC systems, we will make sure
 that each sector is responsible for calling methods on objects within their package and not allowing
 other packages to handle that. Even though we found this design problem, our customers must have
-found a way around it because they have not requested any changes from us.
+found a way around it because they have not requested any changes from us. We emailed our customers
+with newly added documentation updates to make their lives easier in reading through our interfaces.
 
     Our general experience in communicating with our providers was effective. However, we received
 the provided code two days after we reached out to send it. After analyzing the provided code there

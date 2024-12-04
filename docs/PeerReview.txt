@@ -32,5 +32,5 @@ explaining why this method takes directions and what they represent.
     We only requested one change from our providers. The request change was to modify their return
 types in interface methods to be of interface type rather than implementation (class) types.
 Specifically, they were returning card implementations in their interface methods, but we did not
-have access to those implementations. Thus we needed them to return the interface types so that we
+have access to those implementations. Thus, we needed them to return the interface types so that we
 could successfully create adapters of those types without compile time errors.

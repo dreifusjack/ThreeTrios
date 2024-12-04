@@ -2,8 +2,6 @@ package cs3500.threetrios.provider.model;
 
 import java.util.List;
 
-import cs3500.threetrios.model.Card;
-
 /**
  * Interface for Read Only of the Three Trios Model.
  */

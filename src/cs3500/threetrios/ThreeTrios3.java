@@ -42,6 +42,5 @@ public class ThreeTrios3 {
 
 //    AdapterFeatureController blueController = new AdapterFeatureController(modelNew, view2, bluePlayerActions2);
 
-
   }
 }

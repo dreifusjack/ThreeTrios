@@ -138,4 +138,11 @@ and the name for the test class of the MinimaxStrategy is MinimaxStrategyTest an
 ## Running JAR file to play the game
 * Our game supports Interactive Mode (meaning that after you run "java -jar ThreeTrios.jar" to open the game) it will prompt you instructions and available commands for your input. Then you can put in human for first player to be the human player or strategy1, strategy2, strategy3, strategy4, chainstrategy if you want your player to be anAI player.
 * If you put in chainstrategy then it will then prompt you instruction to add more strategy to chained list (please follow the instruction). For example after you put in chainstrategy, it will prompt you with "Enter the strategies for ChainStrategy one by one (strategy1, strategy2,...) Type 'end' to finish:" so you can now put in the strategies you want to chain, for example, strategy1 strategy2 end (keyword end is needed if you want to notify the system that you are done adding your strategy list). Then if will then prompt you to put in the inputs for the other player, please follow the same instructions you just did for the first player you just made. 
-* Please follow the instructions when prompted. Thank you and we hope that you are enjoyed playing our game. 
+* Please follow the instructions when prompted. Thank you and we hope that you are enjoyed playing our game.
+
+## Excluding Old Code
+Since this assignment required many new files from our providers and new adapter implementations, we
+were far over the 125 file limit on handins. For that reason in this submission we are exlcluding the
+entire test directory and all of the configurations files. Prof. Nunez allowed for students to exlcude 
+the test directory on piazza since testing is not required for this assignment, and the configuration files are
+only used for testing. 
