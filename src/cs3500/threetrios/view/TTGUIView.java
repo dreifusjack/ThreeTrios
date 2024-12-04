@@ -25,7 +25,6 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   private final List<PlayerActionListener> actionListeners;
   private HintToggleListener hintToggleListener;
 
-
   /**
    * Constructs a graphical view for the Three Trios game.
    *
@@ -52,7 +51,6 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
         }
       }
     });
-
   }
 
   @Override
@@ -92,16 +90,15 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
 
   @Override
   public void addHintKeyListener(KeyListener listener) {
-    this.addKeyListener(listener);
+   // this.addKeyListener(listener);
   }
 
-
-  public void setHintToggleListener(HintToggleListener listener) {
+  public void addHintToggleListener(HintToggleListener listener) {
     this.hintToggleListener = listener;
   }
 
-  public void highlightCell(int row, int col, int flips) {
-    gamePanel.highlightCell(row, col, flips);
+  public void cellExposeHint(int row, int col, int flips) {
+    gamePanel.cellExposeHint(row, col, flips);
   }
 
 }

@@ -133,4 +133,9 @@ public class AdapterListenerController implements PlayerActionListener, ModelSta
     view.updatePlayerStatus(winner, false);
     JOptionPane.showMessageDialog(null, message);
   }
+
+  @Override
+  public int getSelectedCardIndex() {
+    return selectedCardIndex;
+  }
 }

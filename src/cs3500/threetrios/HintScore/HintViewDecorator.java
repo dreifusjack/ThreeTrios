@@ -20,7 +20,6 @@ import cs3500.threetrios.view.ThreeTriosCardPanel;
 public class HintViewDecorator extends TTGUIView {
   private final TTGUIView decoratedView;
   private final ThreeTriosModel model;
-
   private final ThreeTriosListenerController controller;
 
   public HintViewDecorator(TTGUIView decoratedView, ThreeTriosModel model, ThreeTriosListenerController controller) {
@@ -42,26 +41,21 @@ public class HintViewDecorator extends TTGUIView {
   }
 
   private void showHints() {
+    int selectedIdx = controller.getSelectedCardIndex();
+    if (selectedIdx == -1) {
+      return;
+    }
 
     Player currentPlayer = model.getCurrentPlayer();
-    Card selectedCard = currentPlayer.getHand().get(controller.getSelectedCardIndex());
-
+    Card selectedCard = currentPlayer.getHand().get(selectedIdx);
     List<List<ReadOnlyGridCell>> grid = model.getGridReadOnly();
     for (int row = 0; row < grid.size(); row++) {
       for (int col = 0; col < grid.get(row).size(); col++) {
-
-        ReadOnlyGridCell cell = model.getCell(row, col);
-
-
-        if (cell.isOccupied()) {
+        if (model.getCell(row, col).isOccupied()) {
           continue;
         }
-
-
         int flips = model.numCardFlips(selectedCard, row, col, currentPlayer);
-        if (flips >= 0) {
-          decoratedView.highlightCell(row, col, flips);
-        }
+        decoratedView.cellExposeHint(row, col, flips);
       }
     }
   }
@@ -70,7 +64,6 @@ public class HintViewDecorator extends TTGUIView {
   public void setVisible() {
     decoratedView.setVisible();
   }
-
 
 
   @Override

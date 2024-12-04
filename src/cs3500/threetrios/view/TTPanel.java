@@ -229,7 +229,8 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     }
   }
 
-  public void highlightCell(int row, int col, int flips) {
+  @Override
+  public void cellExposeHint(int row, int col, int flips) {
     if (isValidCoordinate(row, col)) {
       JPanel cellPanel = cellPanels[row][col];
 
@@ -241,11 +242,8 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
         flipsLabel.setForeground(Color.RED);
         cellPanel.add(flipsLabel);
 
-
-
         cellPanel.revalidate();
         cellPanel.repaint();
-//        this.highlightedCard.hightLightPlease();
       }
     }
   }

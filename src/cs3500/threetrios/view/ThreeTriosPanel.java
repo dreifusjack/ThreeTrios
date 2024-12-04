@@ -16,5 +16,13 @@ public interface ThreeTriosPanel {
    */
   void refresh();
 
-  void highlightCell(int row, int col, int flips);
+  /**
+   * Renders the cell on the grid at this position adding text the shows how many of the given
+   * flips are present.
+   *
+   * @param row row of the cell
+   * @param col col of the cell
+   * @param flips flips to display
+   */
+  void cellExposeHint(int row, int col, int flips);
 }

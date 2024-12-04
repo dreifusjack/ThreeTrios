@@ -18,4 +18,12 @@ public interface ModelStatusListener {
    * game message and tied score.
    */
   void onGameOver();
+
+  /**
+   * Returns the index of the currently selected card. If no card is selected returns -1. Indexes
+   * are zero based.
+   *
+   * @return current user selected index
+   */
+  int getSelectedCardIndex();
 }

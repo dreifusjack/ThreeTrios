@@ -22,15 +22,10 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
   private final ThreeTriosModel model;
   private final TTGUIView originalView;
   private TTGUIView currentView;
-
   private final PlayerActions playerActions;
   private int selectedCardIndex;
   private final TeamColor controllerTeam;
-
   private boolean hintModeEnabled = false;
-
-  private ThreeTriosCardPanel storedHightLightCard = null; // im still trying to get the selected card still hightlighted after apply the hint.
-
 
   /**
    * Constructs a ThreeTriosController2 with the given model, view, and player actions.
@@ -55,10 +50,7 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     } else {
       this.currentView.addPlayerActionListener(this);
     }
-
-    // Register this controller as a hint toggle listener in the view
-    this.currentView.setHintToggleListener(this);
-
+    this.currentView.addHintToggleListener(this);
     this.currentView.setVisible(true);
     handlePlayerTurn();
   }
@@ -75,7 +67,6 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     } else {
       currentView.updateTitle(playerActions.getColor() + " Player: Waiting for opponent");
     }
-    currentView.refreshPlayingBoard();
   }
 
   /**
@@ -136,8 +127,9 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     if (selectedCardIndex >= 0) {
       try {
         model.playToGrid(row, col, selectedCardIndex);
-        currentView.refreshPlayingBoard();
         selectedCardIndex = -1;
+        hintModeEnabled = !hintModeEnabled;
+        currentView.refreshPlayingBoard();
       } catch (IllegalArgumentException | IllegalStateException e) {
         JOptionPane.showMessageDialog(null,
                 "Invalid move: " + e.getMessage());
@@ -155,6 +147,7 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
 
   @Override
   public void onGameOver() {
+    selectedCardIndex = -1;
     Player winner = model.getWinner();
     StringBuilder gameOverMessage = new StringBuilder();
     gameOverMessage.append("Game Over! ");
@@ -170,6 +163,7 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     JOptionPane.showMessageDialog(null, gameOverMessage.toString());
   }
 
+  @Override
   public int getSelectedCardIndex() {
     return this.selectedCardIndex;
   }
@@ -179,21 +173,18 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     toggleHintMode();
   }
 
-
+  /**
+   * When a hint toggle request has been made this method is called to switch the current view
+   * this controller uses to either a view showing hints or the original view. This condition is
+   * checked by checking the internal boolean is the hint mode enabled.
+   */
   private void toggleHintMode() {
     hintModeEnabled = !hintModeEnabled;
-
     if (hintModeEnabled) {
-      // switch to hint-enabled view using the decorator pattern
       currentView = new HintViewDecorator(originalView, model, this);
-//      storedHightLightCard.toggleHighlight();
     } else {
-      // switch back to original view
       currentView = originalView;
     }
-
     currentView.refreshPlayingBoard();
-//    storedHightLightCard.toggleHighlight();
   }
-
 }
