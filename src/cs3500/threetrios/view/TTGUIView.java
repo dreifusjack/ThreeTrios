@@ -95,6 +95,7 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
     this.addKeyListener(listener);
   }
 
+
   public void setHintToggleListener(HintToggleListener listener) {
     this.hintToggleListener = listener;
   }

@@ -56,6 +56,9 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
       this.currentView.addPlayerActionListener(this);
     }
 
+    // Register this controller as a hint toggle listener in the view
+    this.currentView.setHintToggleListener(this);
+
     this.currentView.setVisible(true);
     handlePlayerTurn();
   }
