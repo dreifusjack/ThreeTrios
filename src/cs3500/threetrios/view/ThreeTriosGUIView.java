@@ -1,5 +1,7 @@
 package cs3500.threetrios.view;
 
+import java.awt.event.KeyListener;
+
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.controller.PlayerActionListener;
 
@@ -46,4 +48,10 @@ public interface ThreeTriosGUIView {
    * @param col is the column where the card is being placed
    */
   void notifyPlacedCard(int row, int col);
+
+
+
+  void setVisible();
+
+  void addHintKeyListener(KeyListener listener);
 }

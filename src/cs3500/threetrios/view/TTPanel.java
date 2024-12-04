@@ -5,17 +5,9 @@ import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.TeamColor;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
-import java.awt.Dimension;
-
-import javax.swing.BorderFactory;
-
-import java.awt.Color;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-
-import javax.swing.BoxLayout;
+import java.awt.*;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -33,6 +25,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   private static final int CELL_WIDTH = 100;
   private static final int CELL_HEIGHT = 150;
   private final TTGUIView view;
+  private final JPanel[][] cellPanels;
 
 
   /**
@@ -49,9 +42,13 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     // Create grid panel
     gridPanel = new JPanel();
     gridPanel.setLayout(new GridLayout(
-            model.getGridReadOnly().size(), model.getGridReadOnly().get(0).size(), 0,
-            0));
+            model.getGridReadOnly().size(), model.getGridReadOnly().get(0).size(), 0, 0));
     this.add(gridPanel, BorderLayout.CENTER);
+
+    // Initialize the grid cells for easy reference
+    int numRows = model.numRows();
+    int numCols = model.numCols();
+    cellPanels = new JPanel[numRows][numCols];
 
     // Create player panels
     redPlayerPanel = new JPanel();
@@ -89,8 +86,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
    * the newly created card panel to the corresponding player panel.
    */
   private void renderPlayerCards() {
-    for (int redHandIndex = 0; redHandIndex < model.getRedPlayer().getHand().size();
-         redHandIndex++) {
+    for (int redHandIndex = 0; redHandIndex < model.getRedPlayer().getHand().size(); redHandIndex++) {
       Card card = model.getRedPlayer().getHand().get(redHandIndex);
       CardPanel cardPanel = createCardPanel(TeamColor.RED, card.toString(), redHandIndex);
       cardPanel.addMouseListener(
@@ -98,8 +94,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
       redPlayerPanel.add(cardPanel);
     }
 
-    for (int blueHandIndex = 0; blueHandIndex < model.getBluePlayer().getHand().size();
-         blueHandIndex++) {
+    for (int blueHandIndex = 0; blueHandIndex < model.getBluePlayer().getHand().size(); blueHandIndex++) {
       Card card = model.getBluePlayer().getHand().get(blueHandIndex);
       CardPanel cardPanel = createCardPanel(TeamColor.BLUE, card.toString(), blueHandIndex);
       cardPanel.addMouseListener(
@@ -152,12 +147,14 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
             TeamColor color = cell.getColor();
             cellPanel = createCardPanel(color, cardString, -1);
           }
-        } catch (IllegalStateException e) {  // handle holes in the grid
+        } catch (IllegalStateException e) {
           createBlankCell(new Color(140, 145, 150), cellPanel);
         }
+
         // add a mouse listener for each cell panel
         cellPanel.addMouseListener(new CellClickListener(row, col, view));
         gridPanel.add(cellPanel);
+        cellPanels[row][col] = cellPanel; // Store reference for easy access
       }
     }
   }
@@ -173,11 +170,10 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     cellPanel.setBackground(color);
     cellPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
   }
-
   /**
    * Responsible for logging to the console its row and column when clicked.
    */
-  private class CellClickListener extends MouseAdapter {
+  private static class CellClickListener extends MouseAdapter {
     private final int row;
     private final int col;
     private final TTGUIView view;
@@ -215,8 +211,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
      * @param cardPanel CardPanel this CardInHandClickListener will listen for
      * @throws IllegalArgumentException if the given panel or color is null
      */
-    public CardInHandClickListener(
-            CardPanel cardPanel, int index, TeamColor color, TTGUIView view) {
+    public CardInHandClickListener(CardPanel cardPanel, int index, TeamColor color, TTGUIView view) {
       if (cardPanel == null || color == null) {
         throw new IllegalArgumentException("Panel or color is null");
       }
@@ -229,8 +224,35 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     @Override
     public void mouseClicked(MouseEvent e) {
       view.notifySelectedCard(index, color, cardPanel, highlightedCard);
+
       highlightedCard = cardPanel;
     }
   }
+
+  public void highlightCell(int row, int col, int flips) {
+    if (isValidCoordinate(row, col)) {
+      JPanel cellPanel = cellPanels[row][col];
+
+      if (cellPanel != null) {
+        cellPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE, 3));
+
+        cellPanel.removeAll();
+        JLabel flipsLabel = new JLabel("Flips: " + flips);
+        flipsLabel.setForeground(Color.RED);
+        cellPanel.add(flipsLabel);
+
+
+
+        cellPanel.revalidate();
+        cellPanel.repaint();
+//        this.highlightedCard.hightLightPlease();
+      }
+    }
+  }
+
+  private boolean isValidCoordinate(int row, int col) {
+    return row >= 0 && row < model.numRows() && col >= 0 && col < model.numCols();
+  }
+
 }
 

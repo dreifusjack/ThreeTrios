@@ -15,4 +15,6 @@ public interface ThreeTriosPanel {
    * Refreshes the game grid based on the current state of the model.
    */
   void refresh();
+
+  void highlightCell(int row, int col, int flips);
 }

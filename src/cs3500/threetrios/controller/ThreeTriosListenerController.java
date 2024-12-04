@@ -2,6 +2,8 @@ package cs3500.threetrios.controller;
 
 import javax.swing.JOptionPane;
 
+import cs3500.threetrios.HintScore.HintToggleListener;
+import cs3500.threetrios.HintScore.HintViewDecorator;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
@@ -16,12 +18,19 @@ import cs3500.threetrios.view.ThreeTriosCardPanel;
  * provide a complete control layer for managing user interactions, updating the game state, and
  * responding to model changes.
  */
-public class ThreeTriosListenerController implements PlayerActionListener, ModelStatusListener {
+public class ThreeTriosListenerController implements PlayerActionListener, ModelStatusListener, HintToggleListener {
   private final ThreeTriosModel model;
-  private final TTGUIView view;
+  private final TTGUIView originalView;
+  private TTGUIView currentView;
+
   private final PlayerActions playerActions;
   private int selectedCardIndex;
   private final TeamColor controllerTeam;
+
+  private boolean hintModeEnabled = false;
+
+  private ThreeTriosCardPanel storedHightLightCard = null; // im still trying to get the selected card still hightlighted after apply the hint.
+
 
   /**
    * Constructs a ThreeTriosController2 with the given model, view, and player actions.
@@ -33,7 +42,8 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
   public ThreeTriosListenerController(ThreeTriosModel model, TTGUIView view,
                                       PlayerActions playerActions) {
     this.model = model;
-    this.view = view;
+    this.originalView = view;
+    this.currentView = view;
     this.playerActions = playerActions;
 
     selectedCardIndex = -1;
@@ -43,10 +53,10 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     if (playerActions.addsPlayerActions()) {
       this.playerActions.addPlayerActionListener(this);
     } else {
-      this.view.addPlayerActionListener(this);
+      this.currentView.addPlayerActionListener(this);
     }
 
-    this.view.setVisible(true);
+    this.currentView.setVisible(true);
     handlePlayerTurn();
   }
 
@@ -57,12 +67,12 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
    */
   protected void handlePlayerTurn() {
     if (model.getCurrentPlayer().getColor().equals(playerActions.getColor())) {
-      view.updateTitle(playerActions.getColor() + " Player: Your Turn");
+      currentView.updateTitle(playerActions.getColor() + " Player: Your Turn");
       handleAIMoveIfPresent();
     } else {
-      view.updateTitle(playerActions.getColor() + " Player: Waiting for opponent");
+      currentView.updateTitle(playerActions.getColor() + " Player: Waiting for opponent");
     }
-    view.refreshPlayingBoard();
+    currentView.refreshPlayingBoard();
   }
 
   /**
@@ -93,7 +103,7 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
       return;
     }
     if (outOfTurn()) {
-      JOptionPane.showMessageDialog(view, "You are out of turn!");
+      JOptionPane.showMessageDialog(currentView, "You are out of turn!");
       return;
     }
     if (model.getCurrentPlayer().getColor().equals(playerColor)) {
@@ -117,13 +127,13 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
       return;
     }
     if (outOfTurn()) {
-      JOptionPane.showMessageDialog(view, "You are out of turn!");
+      JOptionPane.showMessageDialog(currentView, "You are out of turn!");
       return;
     }
     if (selectedCardIndex >= 0) {
       try {
         model.playToGrid(row, col, selectedCardIndex);
-        view.refreshPlayingBoard();
+        currentView.refreshPlayingBoard();
         selectedCardIndex = -1;
       } catch (IllegalArgumentException | IllegalStateException e) {
         JOptionPane.showMessageDialog(null,
@@ -152,8 +162,35 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
       gameOverMessage.append("It's a draw, with a tied score of: "
               + model.getPlayerScore(TeamColor.RED));
     }
-    view.refreshPlayingBoard();
-    view.updateTitle(playerActions.getColor() + " Player: Game Over!");
+    currentView.refreshPlayingBoard();
+    currentView.updateTitle(playerActions.getColor() + " Player: Game Over!");
     JOptionPane.showMessageDialog(null, gameOverMessage.toString());
   }
+
+  public int getSelectedCardIndex() {
+    return this.selectedCardIndex;
+  }
+
+  @Override
+  public void onHintToggleRequested() {
+    toggleHintMode();
+  }
+
+
+  private void toggleHintMode() {
+    hintModeEnabled = !hintModeEnabled;
+
+    if (hintModeEnabled) {
+      // switch to hint-enabled view using the decorator pattern
+      currentView = new HintViewDecorator(originalView, model, this);
+//      storedHightLightCard.toggleHighlight();
+    } else {
+      // switch back to original view
+      currentView = originalView;
+    }
+
+    currentView.refreshPlayingBoard();
+//    storedHightLightCard.toggleHighlight();
+  }
+
 }

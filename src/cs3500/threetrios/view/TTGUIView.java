@@ -2,13 +2,16 @@ package cs3500.threetrios.view;
 
 import javax.swing.JFrame;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 
+import cs3500.threetrios.HintScore.HintToggleListener;
+import cs3500.threetrios.controller.PlayerActionListener;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.controller.PlayerActionListener;
 
-import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +23,8 @@ import java.util.List;
 public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   private final ThreeTriosPanel gamePanel;
   private final List<PlayerActionListener> actionListeners;
+  private HintToggleListener hintToggleListener;
+
 
   /**
    * Constructs a graphical view for the Three Trios game.
@@ -37,11 +42,22 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
 
     this.setLocationRelativeTo(null);
     this.actionListeners = new ArrayList<>();
+
+    // set up the key listener here
+    this.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_H && hintToggleListener != null) {
+          hintToggleListener.onHintToggleRequested();
+        }
+      }
+    });
+
   }
 
   @Override
   public void refreshPlayingBoard() {
-     gamePanel.refresh();
+    gamePanel.refresh();
   }
 
   @Override
@@ -55,8 +71,8 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   }
 
   @Override
-  public void notifySelectedCard(int cardIndex, TeamColor color, ThreeTriosCardPanel selectedCard,
-                                 ThreeTriosCardPanel highlightedCard) {
+  public void notifySelectedCard(int cardIndex, TeamColor color,
+                                 ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
     for (PlayerActionListener listener : actionListeners) {
       listener.handleCardSelection(color, cardIndex, selectedCard, highlightedCard);
     }
@@ -68,4 +84,23 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
       listener.handleBoardSelection(row, col);
     }
   }
+
+  @Override
+  public void setVisible() {
+    this.setVisible(true);
+  }
+
+  @Override
+  public void addHintKeyListener(KeyListener listener) {
+    this.addKeyListener(listener);
+  }
+
+  public void setHintToggleListener(HintToggleListener listener) {
+    this.hintToggleListener = listener;
+  }
+
+  public void highlightCell(int row, int col, int flips) {
+    gamePanel.highlightCell(row, col, flips);
+  }
+
 }

@@ -28,16 +28,19 @@ public class ThreeTrios3 {
     setupController.playGame(model);
 
     TTGUIView view1 = new TTGUIView(model);
-    SimpleThreeTriosView view2 = new SimpleThreeTriosView(modelNew);
+    TTGUIView view2 = new TTGUIView(model);
 
+//    SimpleThreeTriosView view2 = new SimpleThreeTriosView(modelNew);
 
     PlayerActions redPlayerActions = new HumanPlayer(TeamColor.RED);
-    PlayerActions bluePlayerActions2 = new HumanPlayer(TeamColor.BLUE);
 
 //    PlayerActions redPlayerActions = new AIPlayer(TeamColor.RED, new CornerStrategy());
     PlayerActions bluePlayerActions = new AIPlayer(TeamColor.BLUE, new MaximizeFlipsStrategy());
 
     ThreeTriosListenerController redController = new ThreeTriosListenerController(model, view1, redPlayerActions);
-    AdapterListenerController blueController = new AdapterListenerController(model, bluePlayerActions2);
+    ThreeTriosListenerController blueController = new ThreeTriosListenerController(model, view2, bluePlayerActions);
+
+//    AdapterFeatureController blueController = new AdapterFeatureController(modelNew, view2, bluePlayerActions2);
+
   }
 }
