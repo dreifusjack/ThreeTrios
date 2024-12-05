@@ -42,8 +42,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
     // Create grid panel
     gridPanel = new JPanel();
-    gridPanel.setLayout(new GridLayout(
-            model.getGridReadOnly().size(), model.getGridReadOnly().get(0).size(), 0, 0));
+    gridPanel.setLayout(new GridLayout(model.getGridReadOnly().size(), model.getGridReadOnly().get(0).size(), 0, 0));
     this.add(gridPanel, BorderLayout.CENTER);
 
     // Initialize the grid cells for easy reference

@@ -66,5 +66,4 @@ public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
    *                                  or is a hole.
    */
   void battleCards(int row, int col);
-
 }

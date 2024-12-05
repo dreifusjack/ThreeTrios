@@ -254,17 +254,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     return gridCopy;
   }
 
-  @Override
-  public int numRows() {
-    isGameNotStarted();
-    return grid.length;
-  }
 
-  @Override
-  public int numCols() {
-    isGameNotStarted();
-    return grid[0].length;
-  }
 
   @Override
   public ReadOnlyGridCell getCell(int row, int col) {
@@ -418,6 +408,18 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
         battleCards(adjRow, adjCol);
       }
     }
+  }
+
+  @Override
+  public int numRows() {
+    isGameNotStarted();
+    return grid.length;
+  }
+
+  @Override
+  public int numCols() {
+    isGameNotStarted();
+    return grid[0].length;
   }
 
   /**
