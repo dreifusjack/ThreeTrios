@@ -223,9 +223,17 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      view.notifySelectedCard(index, color, cardPanel, highlightedCard);
-
-      highlightedCard = cardPanel;
+      if (highlightedCard != null) {
+        highlightedCard.toggleHighlight();
+      }
+      // highlights this cardPanel and sets it to TTPanel's highlightedCard
+      if (highlightedCard != cardPanel) {
+        cardPanel.toggleHighlight();
+        highlightedCard = cardPanel;
+      } else {
+        highlightedCard = null; // case where this cardPanel was previously highlighted
+      }
+      view.notifySelectedCard(index, color);
     }
   }
 

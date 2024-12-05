@@ -69,10 +69,9 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   }
 
   @Override
-  public void notifySelectedCard(int cardIndex, TeamColor color,
-                                 ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
+  public void notifySelectedCard(int cardIndex, TeamColor color) {
     for (PlayerActionListener listener : actionListeners) {
-      listener.handleCardSelection(color, cardIndex, selectedCard, highlightedCard);
+      listener.handleCardSelection(color, cardIndex);
     }
   }
 
@@ -84,21 +83,12 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   }
 
   @Override
-  public void setVisible() {
-    this.setVisible(true);
-  }
-
-  @Override
-  public void addHintKeyListener(KeyListener listener) {
-   // this.addKeyListener(listener);
-  }
-
   public void addHintToggleListener(HintToggleListener listener) {
     this.hintToggleListener = listener;
   }
 
+  @Override
   public void cellExposeHint(int row, int col, int flips) {
     gamePanel.cellExposeHint(row, col, flips);
   }
-
 }

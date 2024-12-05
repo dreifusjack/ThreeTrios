@@ -80,12 +80,7 @@ public class ThreeTriosFeaturesControllerTest {
   // blue player (AI player)
   @Test
   public void testHandleAIMoveIfPresent() {
-    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7",
-            "A", TeamColor.RED);
-
-    CardPanel cardEx = new CardPanel(cardShapeEx);
-
-    redController.handleCardSelection(TeamColor.RED, 0, cardEx, cardEx);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 2);
 
     Assert.assertTrue(blueControllerLog.contains("handlePlayerTurn called"));
@@ -97,12 +92,7 @@ public class ThreeTriosFeaturesControllerTest {
   // Human player make move and then check testOutOfTurn.
   @Test
   public void testOutOfTurn() {
-    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7",
-            "A", TeamColor.RED);
-
-    CardPanel card1 = new CardPanel(cardShape1);
-
-    redController.handleCardSelection(TeamColor.RED, 0, card1, card1);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 2);
 
 
@@ -113,12 +103,7 @@ public class ThreeTriosFeaturesControllerTest {
 
   @Test
   public void testHandleCardSelection() {
-    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7",
-            "A", TeamColor.RED);
-
-    CardPanel card1 = new CardPanel(cardShape1);
-
-    redController.handleCardSelection(TeamColor.RED, 0, card1, card1);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 2);
 
     // For Human player:
@@ -131,12 +116,7 @@ public class ThreeTriosFeaturesControllerTest {
 
   @Test
   public void testHandleBoardSelection() {
-    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7",
-            "A", TeamColor.RED);
-
-    CardPanel card1 = new CardPanel(cardShape1);
-
-    redController.handleCardSelection(TeamColor.RED, 0, card1, card1);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 2);
 
     // For Human player:
@@ -149,12 +129,7 @@ public class ThreeTriosFeaturesControllerTest {
 
   @Test
   public void testOnPlayerTurnChange() {
-    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7",
-            "A", TeamColor.RED);
-
-    CardPanel card1 = new CardPanel(cardShape1);
-
-    redController.handleCardSelection(TeamColor.RED, 0, card1, card1);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 2);
 
     // For Human player:
@@ -166,36 +141,16 @@ public class ThreeTriosFeaturesControllerTest {
 
   @Test
   public void testOnGameOver() {
-    CardPanel.CardShape cardShape1 = new CardPanel.CardShape("7", "7", "7",
-            "A", TeamColor.RED);
-
-    CardPanel card1 = new CardPanel(cardShape1);
-
-    CardPanel.CardShape cardShape2 = new CardPanel.CardShape("1", "1", "1",
-            "6", TeamColor.RED);
-
-    CardPanel card2 = new CardPanel(cardShape2);
-
-    CardPanel.CardShape cardShape3 = new CardPanel.CardShape("1", "1", "1",
-            "3", TeamColor.RED);
-
-    CardPanel card3 = new CardPanel(cardShape3);
-
-    CardPanel.CardShape cardShape4 = new CardPanel.CardShape("7", "7", "7",
-            "8", TeamColor.RED);
-
-    CardPanel card4 = new CardPanel(cardShape4);
-
-    redController.handleCardSelection(TeamColor.RED, 0, card1, card1);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 2);
 
-    redController.handleCardSelection(TeamColor.RED, 0, card2, card2);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(1, 2);
 
-    redController.handleCardSelection(TeamColor.RED, 0, card3, card3);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(3, 1);
 
-    redController.handleCardSelection(TeamColor.RED, 0, card4, card4);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 1);
 
     Assert.assertTrue(redControllerLog.contains("onGameOver called"));

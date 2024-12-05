@@ -49,8 +49,7 @@ public class MockAIPlayer extends AIPlayer {
     Player playerAI = model.getCurrentPlayer();
     PlayedMove move = strategy.findBestMove(model, playerAI);
     for (PlayerActionListener listener : actionListeners) {
-      listener.handleCardSelection(teamColor, move.getHandInx(), null,
-              null);
+      listener.handleCardSelection(teamColor, move.getHandInx());
       log.add("notifySelectedCard called");
       log.add("AI selected card at index: " + move.getHandInx());
     }

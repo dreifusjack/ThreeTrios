@@ -45,7 +45,7 @@ public class AIPlayer implements PlayerActions {
     Player playerAI = model.getCurrentPlayer();
     PlayedMove move = strategy.findBestMove(model, playerAI);
     for (PlayerActionListener listener : actionListeners) {
-      listener.handleCardSelection(teamColor, move.getHandInx(), null, null);
+      listener.handleCardSelection(teamColor, move.getHandInx());
     }
   }
 

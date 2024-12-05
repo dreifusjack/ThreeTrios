@@ -2,6 +2,7 @@ package cs3500.threetrios.view;
 
 import java.awt.event.KeyListener;
 
+import cs3500.threetrios.HintScore.HintToggleListener;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.controller.PlayerActionListener;
 
@@ -36,11 +37,8 @@ public interface ThreeTriosGUIView {
    *
    * @param cardIndex       is the index of the card being selected
    * @param color           is the color of the player selecting the card
-   * @param selectedCard    is the card panel that was selected by the player
-   * @param highlightedCard is the card panel that is currently highlighted
    */
-  void notifySelectedCard(int cardIndex, TeamColor color,
-                          ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard);
+  void notifySelectedCard(int cardIndex, TeamColor color);
 
   /**
    * Handles the placement of a card on the grid by the player.
@@ -51,8 +49,7 @@ public interface ThreeTriosGUIView {
   void notifyPlacedCard(int row, int col);
 
 
+  void addHintToggleListener(HintToggleListener listener);
 
-  void setVisible();
-
-  void addHintKeyListener(KeyListener listener);
+  void cellExposeHint(int row, int col, int flips);
 }

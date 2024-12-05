@@ -65,11 +65,9 @@ public class MockThreeTriosListenerController extends ThreeTriosListenerControll
   }
 
   @Override
-  public void handleCardSelection(TeamColor playerColor, int cardIndex,
-                                  ThreeTriosCardPanel selectedCard,
-                                  ThreeTriosCardPanel highlightedCard) {
+  public void handleCardSelection(TeamColor playerColor, int cardIndex) {
     log.add("handleCardSelection called");
-    super.handleCardSelection(playerColor, cardIndex, selectedCard, highlightedCard);
+    super.handleCardSelection(playerColor, cardIndex);
   }
 
   @Override

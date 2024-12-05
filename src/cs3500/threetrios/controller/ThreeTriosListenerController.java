@@ -90,9 +90,7 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
   }
 
   @Override
-  public void handleCardSelection(TeamColor playerColor, int cardIndex,
-                                  ThreeTriosCardPanel selectedCard,
-                                  ThreeTriosCardPanel highlightedCard) {
+  public void handleCardSelection(TeamColor playerColor, int cardIndex) {
     if (model.isGameOver()) {
       return;
     }
@@ -102,16 +100,10 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     }
     if (model.getCurrentPlayer().getColor().equals(playerColor)) {
       selectedCardIndex = cardIndex;
-      if (selectedCard != null) {
-        selectedCard.toggleHighlight();
-      }
     } else {
       JOptionPane.showMessageDialog(null, "Only select cards from " +
               "your hand.");
       selectedCardIndex = -1;
-    }
-    if (highlightedCard != null && highlightedCard.getColor().equals(controllerTeam)) {
-      highlightedCard.toggleHighlight();
     }
   }
 
@@ -128,7 +120,7 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
       try {
         model.playToGrid(row, col, selectedCardIndex);
         selectedCardIndex = -1;
-        hintModeEnabled = !hintModeEnabled;
+        hintModeEnabled = false;
         currentView.refreshPlayingBoard();
       } catch (IllegalArgumentException | IllegalStateException e) {
         JOptionPane.showMessageDialog(null,
@@ -179,6 +171,9 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
    * checked by checking the internal boolean is the hint mode enabled.
    */
   private void toggleHintMode() {
+    if (selectedCardIndex == -1) {
+      return;
+    }
     hintModeEnabled = !hintModeEnabled;
     if (hintModeEnabled) {
       currentView = new HintViewDecorator(originalView, model, this);

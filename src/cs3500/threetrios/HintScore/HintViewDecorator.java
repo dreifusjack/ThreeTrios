@@ -61,31 +61,17 @@ public class HintViewDecorator extends TTGUIView {
   }
 
   @Override
-  public void setVisible() {
-    decoratedView.setVisible();
-  }
-
-
-  @Override
   public void addPlayerActionListener(PlayerActionListener listener) {
     decoratedView.addPlayerActionListener(listener);
   }
 
   @Override
-  public void addHintKeyListener(KeyListener listener) {
-    decoratedView.addHintKeyListener(listener);
-  }
-
-  @Override
-  public void notifySelectedCard(int cardIndex, TeamColor color,
-                                 ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
-    decoratedView.notifySelectedCard(cardIndex, color, selectedCard, highlightedCard);
+  public void notifySelectedCard(int cardIndex, TeamColor color) {
+    decoratedView.notifySelectedCard(cardIndex, color);
   }
 
   @Override
   public void notifyPlacedCard(int row, int col) {
     decoratedView.notifyPlacedCard(row, col);
   }
-
-
 }

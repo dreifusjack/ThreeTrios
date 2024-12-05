@@ -72,12 +72,7 @@ public class PlayerActionsTest {
   // after that.
   @Test
   public void testNotifySelectedCard() {
-    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7",
-            "A", TeamColor.RED);
-
-    CardPanel cardEx = new CardPanel(cardShapeEx);
-
-    redController.handleCardSelection(TeamColor.RED, 0, cardEx, cardEx);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 2);
 
     // For human player after they have made the move:
@@ -93,12 +88,7 @@ public class PlayerActionsTest {
   // after that. (the AI will also notify about the coordinates of its best move)
   @Test
   public void testNotifyPlacedCard() {
-    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7",
-            "A", TeamColor.RED);
-
-    CardPanel cardEx = new CardPanel(cardShapeEx);
-
-    redController.handleCardSelection(TeamColor.RED, 0, cardEx, cardEx);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 2);
 
     // For human player after they have made the move:
@@ -119,12 +109,7 @@ public class PlayerActionsTest {
 
   @Test
   public void testGetColorAfterMove() {
-    CardPanel.CardShape cardShapeEx = new CardPanel.CardShape("7", "7", "7",
-            "A", TeamColor.RED);
-
-    CardPanel cardEx = new CardPanel(cardShapeEx);
-
-    redController.handleCardSelection(TeamColor.RED, 0, cardEx, cardEx);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 2);
 
     Assert.assertTrue(humanLog.contains("getColor called"));

@@ -99,7 +99,7 @@ public class MockTTGUIViewTest {
 
     CardPanel cardEx = new CardPanel(cardShapeEx);
 
-    redView.notifySelectedCard(0, TeamColor.RED, cardEx, cardEx);
+    redView.notifySelectedCard(0, TeamColor.RED);
 
     Assert.assertTrue(guiViewLogRed.contains("notifySelectedCard called"));
 
@@ -114,7 +114,7 @@ public class MockTTGUIViewTest {
 
     CardPanel cardEx = new CardPanel(cardShapeEx);
 
-    redView.notifySelectedCard(0, TeamColor.RED, cardEx, cardEx);
+    redView.notifySelectedCard(0, TeamColor.RED);
     redView.notifyPlacedCard(2, 2);
 
     Assert.assertTrue(guiViewLogRed.contains("refreshPlayingBoard called"));

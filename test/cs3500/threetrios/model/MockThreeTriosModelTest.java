@@ -186,7 +186,7 @@ public class MockThreeTriosModelTest {
 
     CardPanel card1 = new CardPanel(cardShape1);
 
-    redController.handleCardSelection(TeamColor.RED, 0, card1, card1);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 2);
 
     Assert.assertTrue(mockModelLog.contains("notifyPlayerTurnChange called"));
@@ -215,16 +215,16 @@ public class MockThreeTriosModelTest {
 
     CardPanel card4 = new CardPanel(cardShape4);
 
-    redController.handleCardSelection(TeamColor.RED, 0, card1, card1);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 2);
 
-    redController.handleCardSelection(TeamColor.RED, 0, card2, card2);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(1, 2);
 
-    redController.handleCardSelection(TeamColor.RED, 0, card3, card3);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(3, 1);
 
-    redController.handleCardSelection(TeamColor.RED, 0, card4, card4);
+    redController.handleCardSelection(TeamColor.RED, 0);
     redController.handleBoardSelection(2, 1);
 
     Assert.assertTrue(mockModelLog.contains("notifyGameOver called"));

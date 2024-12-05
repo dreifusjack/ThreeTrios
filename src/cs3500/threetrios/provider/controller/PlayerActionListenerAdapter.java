@@ -26,9 +26,7 @@ public class PlayerActionListenerAdapter implements PlayerActionListener {
   }
 
   @Override
-  public void handleCardSelection(
-          TeamColor playerColor, int cardIndex,
-          ThreeTriosCardPanel selectedCard, ThreeTriosCardPanel highlightedCard) {
+  public void handleCardSelection(TeamColor playerColor, int cardIndex) {
     // Delegate to the corresponding method in AdapterFeatureController
     controller.cardSelected(PlayerType.valueOf(playerColor.toString()), cardIndex);
   }

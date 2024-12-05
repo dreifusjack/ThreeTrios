@@ -44,11 +44,10 @@ public class MockTTGUIView extends TTGUIView {
   // notify selected 0 indexed card with color RED
 
   @Override
-  public void notifySelectedCard(int cardIndex, TeamColor color, ThreeTriosCardPanel selectedCard,
-                                 ThreeTriosCardPanel highlightedCard) {
+  public void notifySelectedCard(int cardIndex, TeamColor color) {
     log.add("notifySelectedCard called");
     log.add("notify selecting " + cardIndex + " indexed card with color " + color);
-    super.notifySelectedCard(cardIndex, color, selectedCard, highlightedCard);
+    super.notifySelectedCard(cardIndex, color);
   }
 
   @Override
