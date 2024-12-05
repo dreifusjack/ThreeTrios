@@ -1,4 +1,4 @@
-package cs3500.threetrios.HintScore;
+package cs3500.threetrios.controller;
 
 public interface HintToggleListener {
   /**

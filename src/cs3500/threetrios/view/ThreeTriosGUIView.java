@@ -1,8 +1,6 @@
 package cs3500.threetrios.view;
 
-import java.awt.event.KeyListener;
-
-import cs3500.threetrios.HintScore.HintToggleListener;
+import cs3500.threetrios.controller.HintToggleListener;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.controller.PlayerActionListener;
 

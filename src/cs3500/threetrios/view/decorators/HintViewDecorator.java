@@ -1,6 +1,5 @@
-package cs3500.threetrios.HintScore;
+package cs3500.threetrios.view.decorators;
 
-import java.awt.event.KeyListener;
 import java.util.List;
 
 import cs3500.threetrios.controller.PlayerActionListener;
@@ -11,7 +10,6 @@ import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.view.TTGUIView;
-import cs3500.threetrios.view.ThreeTriosCardPanel;
 
 
 /**

@@ -4,14 +4,13 @@ import javax.swing.JFrame;
 
 import java.awt.*;
 
-import cs3500.threetrios.HintScore.HintToggleListener;
+import cs3500.threetrios.controller.HintToggleListener;
 import cs3500.threetrios.controller.PlayerActionListener;
 import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
