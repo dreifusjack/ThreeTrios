@@ -66,6 +66,7 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     } else {
       currentView.updateTitle(playerActions.getColor() + " Player: Waiting for opponent");
     }
+    currentView.refreshPlayingBoard(selectedCardIndex);
   }
 
   /**

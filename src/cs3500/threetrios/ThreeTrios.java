@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import cs3500.threetrios.model.decorators.level1.ComboModelDecorator;
+import cs3500.threetrios.model.decorators.level1.FallenAceModelDecorator;
+import cs3500.threetrios.model.decorators.level1.ReverseModelDecorator;
+import cs3500.threetrios.model.decorators.level2.PlusModelDecorator;
+import cs3500.threetrios.model.decorators.level2.SameModelDecorator;
 import cs3500.threetrios.controller.ThreeTriosListenerController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.Card;
@@ -23,7 +28,6 @@ import cs3500.threetrios.player.strategy.MaximizeFlipsStrategy;
 import cs3500.threetrios.player.strategy.MinimizeFlipsStrategy;
 import cs3500.threetrios.player.strategy.MinimaxStrategy;
 import cs3500.threetrios.player.strategy.ThreeTriosStrategy;
-import cs3500.threetrios.provider.controller.AdapterListenerController;
 import cs3500.threetrios.view.TTGUIView;
 
 /**
@@ -45,6 +49,10 @@ public class ThreeTrios {
    * @param args two strings, first specifying the RED player then the BLUE player
    */
   public static void main(String[] args) {
+
+
+    ThreeTriosModel model = createAndSetupModel();
+
     String redPlayerType = null;
     String bluePlayerType = null;
     List<String> redStrategies = new ArrayList<>();
@@ -58,9 +66,10 @@ public class ThreeTrios {
       bluePlayerType = blueStrategies.remove(0);
     }
 
-    ThreeTriosModel model = createAndSetupModel();
 
     TTGUIView redView = new TTGUIView(model);
+    TTGUIView blueView = new TTGUIView(model);
+
 
     PlayerActions redPlayerActions = createPlayerActions(
             redPlayerType, TeamColor.RED, redStrategies);
@@ -68,7 +77,7 @@ public class ThreeTrios {
             bluePlayerType, TeamColor.BLUE, blueStrategies);
 
     new ThreeTriosListenerController(model, redView, redPlayerActions);
-    new AdapterListenerController(model, bluePlayerActions);
+    new ThreeTriosListenerController(model, blueView, bluePlayerActions);
   }
 
   /**
@@ -159,7 +168,50 @@ public class ThreeTrios {
   // Helper method to create and sets up the ThreeTrios model.
   private static ThreeTriosModel createAndSetupModel() {
     Random rand1 = new Random(2);
-    BasicThreeTriosModel model4x3 = new BasicThreeTriosModel(rand1);
+    ThreeTriosModel model4x3 = new BasicThreeTriosModel(rand1);
+
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Enter rule set to apply (reverse, fallenace, or both). Type 'none' for no rules:");
+    String ruleInput = scanner.nextLine().trim().toLowerCase();
+
+
+    switch (ruleInput) {
+      case "reverse":
+        model4x3 = new ReverseModelDecorator(model4x3);
+        break;
+      case "fallenace":
+        model4x3 = new FallenAceModelDecorator(model4x3);
+        break;
+      case "both":
+        model4x3 = new ComboModelDecorator(model4x3);
+        break;
+      case "none":
+        break;
+      default:
+        System.out.println("Invalid rule. Playing without any additional rules.");
+        break;
+    }
+
+
+    Scanner scanner2 = new Scanner(System.in);
+    System.out.println("Enter the game logic you want to apply (same, plus). Type 'none' for no game logic:");
+    String ruleInput2 = scanner2.nextLine().trim().toLowerCase();
+
+
+    switch (ruleInput2) {
+      case "same":
+        model4x3 = new SameModelDecorator(model4x3);
+        break;
+      case "plus":
+        model4x3 = new PlusModelDecorator(model4x3);
+        break;
+      case "none":
+        break;
+      default:
+        System.out.println("Invalid game logic");
+        break;
+    }
+
 
     model4x3.startGame(grid(), deck(), 7);
     return model4x3;
@@ -257,7 +309,7 @@ public class ThreeTrios {
     deck.add(createCard("CorruptKing", "3", "1", "1", "2"));
     deck.add(createCard("AngryDragon", "5", "7", "1", "4"));
     deck.add(createCard("WindBird", "2", "5", "5", "A"));
-    deck.add(createCard("HeroKnight", "A", "4", "4", "1"));
+    deck.add(createCard("HeroKnight", "A", "2", "2", "1"));
     deck.add(createCard("WorldDragon", "1", "6", "5", "1"));
     deck.add(createCard("SkyWhale", "3", "1", "1", "2"));
     deck.add(createCard("FirePhoenix", "2", "3", "4", "2"));

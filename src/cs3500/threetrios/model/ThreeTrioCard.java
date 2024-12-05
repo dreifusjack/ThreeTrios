@@ -195,4 +195,23 @@ public class ThreeTrioCard implements Card {
   public int hashCode() {
     return Objects.hash(name, north, east, south, west);
   }
+
+  @Override
+  public String getName() {
+    return this.name;
+  }
+
+  @Override
+  public int getValue(Direction direction) {
+    if (direction.equals(Direction.EAST)) {
+      return this.east.value;
+    }
+    if (direction.equals(Direction.WEST)) {
+      return this.west.value;
+    }
+    if (direction.equals(Direction.NORTH)) {
+      return this.north.value;
+    }
+    return this.south.value;
+  }
 }

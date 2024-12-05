@@ -64,7 +64,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     blueCardPanels = new ThreeTriosCardPanel[model.getBluePlayer().getHand().size()];
 
     this.view = view;
-    refresh(-1);
+    //refresh(-1);
   }
 
   @Override

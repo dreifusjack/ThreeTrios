@@ -58,4 +58,18 @@ public interface Card {
    * @return this cards North AttackValue.
    */
   ThreeTrioCard.AttackValue getNorth();
+
+  /**
+   * Returns the unique name of this card.
+   *
+   * @return this cards name
+   */
+  String getName();
+
+  /**
+   * Gets this cards value in the given direction.
+   * @param dir direction of value to return
+   * @return value associated with given direction
+   */
+  int getValue(Direction dir);
 }
