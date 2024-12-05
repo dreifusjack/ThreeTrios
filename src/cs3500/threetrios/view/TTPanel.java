@@ -65,17 +65,18 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     blueCardPanels = new ThreeTriosCardPanel[model.getBluePlayer().getHand().size()];
 
     this.view = view;
-    refresh();
+    refresh(-1);
   }
 
   @Override
-  public void refresh() {
+  public void refresh(int cardIdx) {
     gridPanel.removeAll();
     redPlayerPanel.removeAll();
     bluePlayerPanel.removeAll();
 
     renderGrid();
     renderPlayerCards();
+    highlightSelectedCard(cardIdx);
 
     gridPanel.revalidate();
     gridPanel.repaint();
@@ -167,6 +168,31 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   }
 
   /**
+   * Handles the internal logic for highlighting the card based off the given index and replacing
+   * that with the card that is currently highlighted.
+   *
+   * @param cardIdx index of card to be highlighted
+   */
+  private void highlightSelectedCard(int cardIdx) {
+    ThreeTriosCardPanel[] targetPanelList =
+            model.getCurrentPlayer().getColor() == TeamColor.RED ? redCardPanels : blueCardPanels;
+    if (cardIdx < 0) {
+      return;
+    }
+    ThreeTriosCardPanel selectedCard = targetPanelList[cardIdx];
+    if (highlightedCard != null) {
+      highlightedCard.toggleHighlight();
+    }
+    // highlights this cardPanel and sets it to TTPanel's highlightedCard
+    if (highlightedCard != selectedCard) {
+      selectedCard.toggleHighlight();
+      highlightedCard = selectedCard;
+    } else {
+      highlightedCard = null; // case where this cardPanel was previously highlighted
+    }
+  }
+
+  /**
    * Mutates the given cellPanel a blank square of the given color.
    *
    * @param color     color to modify this cellPanel to
@@ -177,6 +203,37 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     cellPanel.setBackground(color);
     cellPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
   }
+
+  @Override
+  public void cellExposeHint(int row, int col, int flips) {
+    if (isValidCoordinate(row, col)) {
+      JPanel cellPanel = cellPanels[row][col];
+
+      if (cellPanel != null) {
+        cellPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE, 3));
+
+        cellPanel.removeAll();
+        JLabel flipsLabel = new JLabel("Flips: " + flips);
+        flipsLabel.setForeground(Color.RED);
+        cellPanel.add(flipsLabel);
+
+        cellPanel.revalidate();
+        cellPanel.repaint();
+      }
+    }
+  }
+
+  /**
+   * determines if the given coords are in bounds of the rendered board.
+   *
+   * @param row row of the grid
+   * @param col col of the grid
+   * @return true iff the given coordinates exists in the rendered grid
+   */
+  private boolean isValidCoordinate(int row, int col) {
+    return row >= 0 && row < model.numRows() && col >= 0 && col < model.numCols();
+  }
+
   /**
    * Responsible for logging to the console its row and column when clicked.
    */
@@ -230,45 +287,5 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
       view.notifySelectedCard(index, color);
     }
   }
-
-  @Override
-  public void cellExposeHint(int row, int col, int flips) {
-    if (isValidCoordinate(row, col)) {
-      JPanel cellPanel = cellPanels[row][col];
-
-      if (cellPanel != null) {
-        cellPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE, 3));
-
-        cellPanel.removeAll();
-        JLabel flipsLabel = new JLabel("Flips: " + flips);
-        flipsLabel.setForeground(Color.RED);
-        cellPanel.add(flipsLabel);
-
-        cellPanel.revalidate();
-        cellPanel.repaint();
-      }
-    }
-  }
-
-  @Override
-  public void highlightSelectedCard(TeamColor color, int cardIdx) {
-    ThreeTriosCardPanel[] targetPanelList = color == TeamColor.RED ? redCardPanels : blueCardPanels;
-    ThreeTriosCardPanel selectedCard = targetPanelList[cardIdx];
-    if (highlightedCard != null) {
-      highlightedCard.toggleHighlight();
-    }
-    // highlights this cardPanel and sets it to TTPanel's highlightedCard
-    if (highlightedCard != selectedCard) {
-      selectedCard.toggleHighlight();
-      highlightedCard = selectedCard;
-    } else {
-      highlightedCard = null; // case where this cardPanel was previously highlighted
-    }
-  }
-
-  private boolean isValidCoordinate(int row, int col) {
-    return row >= 0 && row < model.numRows() && col >= 0 && col < model.numCols();
-  }
-
 }
 

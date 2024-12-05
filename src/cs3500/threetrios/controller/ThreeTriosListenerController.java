@@ -23,7 +23,7 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
   private final PlayerActions playerActions;
   private int selectedCardIndex;
   private final TeamColor controllerTeam;
-  private boolean hintModeEnabled = false;
+  private boolean hintModeEnabled;
 
   /**
    * Constructs a ThreeTriosController2 with the given model, view, and player actions.
@@ -41,6 +41,7 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
 
     selectedCardIndex = -1;
     controllerTeam = playerActions.getColor();
+    hintModeEnabled = false;
 
     this.model.addModelStatusListener(this);
     if (playerActions.addsPlayerActions()) {
@@ -48,7 +49,7 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     } else {
       this.currentView.addPlayerActionListener(this);
     }
-    this.currentView.addHintToggleListener(this);
+    this.currentView.addHintToggleListeners(this);
     this.currentView.setVisible(true);
     handlePlayerTurn();
   }
@@ -98,13 +99,10 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     }
     if (model.getCurrentPlayer().getColor().equals(playerColor)) {
       selectedCardIndex = cardIndex;
-      currentView.refreshPlayingBoard();
-      currentView.highlightSelectedCard(playerColor, cardIndex);
-
+      currentView.refreshPlayingBoard(cardIndex);
     } else {
       JOptionPane.showMessageDialog(null, "Only select cards from " +
               "your hand.");
-      selectedCardIndex = -1;
     }
   }
 
@@ -123,7 +121,7 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
         selectedCardIndex = -1;
         hintModeEnabled = false;
         currentView = originalView;
-        currentView.refreshPlayingBoard();
+        currentView.refreshPlayingBoard(selectedCardIndex);
       } catch (IllegalArgumentException | IllegalStateException e) {
         JOptionPane.showMessageDialog(null,
                 "Invalid move: " + e.getMessage());
@@ -152,14 +150,9 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
       gameOverMessage.append("It's a draw, with a tied score of: "
               + model.getPlayerScore(TeamColor.RED));
     }
-    currentView.refreshPlayingBoard();
+    currentView.refreshPlayingBoard(selectedCardIndex);
     currentView.updateTitle(playerActions.getColor() + " Player: Game Over!");
     JOptionPane.showMessageDialog(null, gameOverMessage.toString());
-  }
-
-  @Override
-  public int getSelectedCardIndex() {
-    return this.selectedCardIndex;
   }
 
   @Override
@@ -173,17 +166,16 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
    * checked by checking the internal boolean is the hint mode enabled.
    */
   private void toggleHintMode() {
-    if (selectedCardIndex == -1) {
+    if (selectedCardIndex == -1) { // ignore if no card is selected
       return;
     }
     hintModeEnabled = !hintModeEnabled;
     if (hintModeEnabled) {
-      currentView = new HintViewDecorator(originalView, model, this);
-      currentView.refreshPlayingBoard();
+      currentView = new HintViewDecorator(originalView, model);
+      currentView.refreshPlayingBoard(selectedCardIndex);
     } else {
       currentView = originalView;
-      currentView.refreshPlayingBoard();
-      currentView.highlightSelectedCard(controllerTeam, selectedCardIndex);
+      currentView.refreshPlayingBoard(selectedCardIndex);
     }
   }
 }

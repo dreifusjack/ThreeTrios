@@ -24,9 +24,9 @@ public class MockTTGUIView extends TTGUIView {
   }
 
   @Override
-  public void refreshPlayingBoard() {
+  public void refreshPlayingBoard(int cardIdx) {
     log.add("refreshPlayingBoard called");
-    super.refreshPlayingBoard();
+    super.refreshPlayingBoard(cardIdx);
   }
 
   @Override

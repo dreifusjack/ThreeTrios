@@ -9,7 +9,6 @@ import cs3500.threetrios.view.TTGUIView;
 public class ThreeTriosSetupController implements ThreeTriosController {
   private final GridReader gridConfig;
   private final CardReader cardConfig;
-  private TTGUIView view;
 
   /**
    * Constructs a controller in terms of the given configuration file names.
@@ -23,7 +22,6 @@ public class ThreeTriosSetupController implements ThreeTriosController {
     cardConfig = new CardFileReader(cardConfigFileName);
     // assuming both file readers ensure given names are not null, and are found in their
     // corresponding config file locations. Corresponding classes throw exceptions otherwise.
-    view = null;
   }
 
   @Override
@@ -38,6 +36,5 @@ public class ThreeTriosSetupController implements ThreeTriosController {
     // (refer to readers interfaces for all cases)
 
     model.startGame(gridConfig.getGrid(), cardConfig.getCards(), gridConfig.getNumberOfCardCells());
-    view = new TTGUIView(model);
   }
 }

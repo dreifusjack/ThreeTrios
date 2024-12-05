@@ -3,7 +3,6 @@ package cs3500.threetrios.view.decorators;
 import java.util.List;
 
 import cs3500.threetrios.controller.PlayerActionListener;
-import cs3500.threetrios.controller.ThreeTriosListenerController;
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyGridCell;
@@ -13,24 +12,33 @@ import cs3500.threetrios.view.TTGUIView;
 
 
 /**
- * A decorator class that adds hints functionality to the view.
+ * Decorates our current view to add hint functionality. Where a hint shows on each available cell
+ * how many flips the selected card would flip.
  */
 public class HintViewDecorator extends TTGUIView {
   private final TTGUIView decoratedView;
   private final ThreeTriosModel model;
-  private final ThreeTriosListenerController controller;
 
-  public HintViewDecorator(TTGUIView decoratedView, ThreeTriosModel model, ThreeTriosListenerController controller) {
+  /**
+   * Constructs a HintViewDecorator in terms of the given model and a delegate original view.
+   *
+   * @param decoratedView delegate to call view methods on
+   * @param model         model responsible for internal game state
+   * @throws IllegalArgumentException if either argument is null
+   */
+  public HintViewDecorator(TTGUIView decoratedView, ThreeTriosModel model) {
     super(model);
+    if (decoratedView == null || model == null) {
+      throw new IllegalArgumentException();
+    }
     this.decoratedView = decoratedView;
     this.model = model;
-    this.controller = controller;
   }
 
   @Override
-  public void refreshPlayingBoard() {
-    decoratedView.refreshPlayingBoard();
-    showHints();
+  public void refreshPlayingBoard(int cardIdx) {
+    decoratedView.refreshPlayingBoard(cardIdx);
+    showHints(cardIdx);
   }
 
   @Override
@@ -38,15 +46,19 @@ public class HintViewDecorator extends TTGUIView {
     decoratedView.updateTitle(title);
   }
 
-  private void showHints() {
-    int selectedIdx = controller.getSelectedCardIndex();
-    if (selectedIdx == -1) {
+  /**
+   * For each unoccupied grid cell, show the number of cards it would flip on the opposing team
+   * if the given cardIdx was played from the models current player. If the given card index
+   * is negative, that indicates that no card has been selected and this should do nothing.
+   *
+   * @param cardIdx selected card index from user hand
+   */
+  private void showHints(int cardIdx) {
+    if (cardIdx == -1) {
       return;
     }
-    decoratedView.highlightSelectedCard(model.getCurrentPlayer().getColor(), selectedIdx);
-
     Player currentPlayer = model.getCurrentPlayer();
-    Card selectedCard = currentPlayer.getHand().get(selectedIdx);
+    Card selectedCard = currentPlayer.getHand().get(cardIdx);
     List<List<ReadOnlyGridCell>> grid = model.getGridReadOnly();
     for (int row = 0; row < grid.size(); row++) {
       for (int col = 0; col < grid.get(row).size(); col++) {

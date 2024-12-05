@@ -22,7 +22,7 @@ import java.util.List;
 public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   private final ThreeTriosPanel gamePanel;
   private final List<PlayerActionListener> actionListeners;
-  private HintToggleListener hintToggleListener;
+  private final List<HintToggleListener> hintToggleListeners;
 
   /**
    * Constructs a graphical view for the Three Trios game.
@@ -40,21 +40,12 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
 
     this.setLocationRelativeTo(null);
     this.actionListeners = new ArrayList<>();
-
-    // set up the key listener here
-    this.addKeyListener(new KeyAdapter() {
-      @Override
-      public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_H && hintToggleListener != null) {
-          hintToggleListener.onHintToggleRequested();
-        }
-      }
-    });
+    this.hintToggleListeners = new ArrayList<>();
   }
 
   @Override
-  public void refreshPlayingBoard() {
-    gamePanel.refresh();
+  public void refreshPlayingBoard(int cardIdx) {
+    gamePanel.refresh(cardIdx);
   }
 
   @Override
@@ -82,17 +73,30 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   }
 
   @Override
-  public void addHintToggleListener(HintToggleListener listener) {
-    this.hintToggleListener = listener;
+  public void addHintToggleListeners(HintToggleListener listener) {
+    hintToggleListeners.add(listener);
+    setupHintListeners();
+  }
+
+  /**
+   * Method that allows this view to listen for the key pressed event of 'h' which indicates to
+   * toggle the hints.
+   */
+  private void setupHintListeners() {
+    for (HintToggleListener listener : hintToggleListeners) {
+      this.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+          if (e.getKeyCode() == KeyEvent.VK_H && listener != null) {
+            listener.onHintToggleRequested();
+          }
+        }
+      });
+    }
   }
 
   @Override
   public void cellExposeHint(int row, int col, int flips) {
     gamePanel.cellExposeHint(row, col, flips);
-  }
-
-  @Override
-  public void highlightSelectedCard(TeamColor color, int cardIdx) {
-    gamePanel.highlightSelectedCard(color, cardIdx);
   }
 }

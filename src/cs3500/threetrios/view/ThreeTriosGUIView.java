@@ -12,8 +12,10 @@ import cs3500.threetrios.controller.PlayerActionListener;
 public interface ThreeTriosGUIView {
   /**
    * Refreshes the view based on the current state of the model.
+   *
+   * @param cardIdx the selected card index (used for highlighting)
    */
-  void refreshPlayingBoard();
+  void refreshPlayingBoard(int cardIdx);
 
   /**
    * Sets the title of the GUI as the given title.
@@ -33,8 +35,8 @@ public interface ThreeTriosGUIView {
   /**
    * Handles the selection of a card by the player.
    *
-   * @param cardIndex       is the index of the card being selected
-   * @param color           is the color of the player selecting the card
+   * @param cardIndex is the index of the card being selected
+   * @param color     is the color of the player selecting the card
    */
   void notifySelectedCard(int cardIndex, TeamColor color);
 
@@ -46,10 +48,19 @@ public interface ThreeTriosGUIView {
    */
   void notifyPlacedCard(int row, int col);
 
+  /**
+   * Adds the given HintToggleListener to this views list of hint listeners.
+   *
+   * @param listener Hint listener to be added.
+   */
+  void addHintToggleListeners(HintToggleListener listener);
 
-  void addHintToggleListener(HintToggleListener listener);
-
+  /**
+   * Renders the cell at the given coordinates to indicate the number of given flips.
+   *
+   * @param row   row of this cell panel
+   * @param col   col of this cell panel
+   * @param flips flips to render
+   */
   void cellExposeHint(int row, int col, int flips);
-
-  void highlightSelectedCard(TeamColor color, int cardIdx);
 }

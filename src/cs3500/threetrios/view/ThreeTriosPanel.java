@@ -12,21 +12,20 @@ import cs3500.threetrios.model.TeamColor;
  * Panel                Panel
  */
 public interface ThreeTriosPanel {
-
   /**
    * Refreshes the game grid based on the current state of the model.
+   *
+   * @param cardIdx the selected card index used for highlighting
    */
-  void refresh();
+  void refresh(int cardIdx);
 
   /**
    * Renders the cell on the grid at this position adding text the shows how many of the given
    * flips are present.
    *
-   * @param row row of the cell
-   * @param col col of the cell
+   * @param row   row of the cell
+   * @param col   col of the cell
    * @param flips flips to display
    */
   void cellExposeHint(int row, int col, int flips);
-
-  void highlightSelectedCard(TeamColor color, int cardIdx);
 }

@@ -14,7 +14,7 @@ public interface PlayerActionListener {
    * coordinates to play that card to.
    *
    * @param playerColor TeamColor of the player that selected the card
-   * @param cardIndex   index from hand of the selected card
+   * @param cardIndex   index from hand of the user selected card
    */
   void handleCardSelection(TeamColor playerColor, int cardIndex);
 
