@@ -26,7 +26,8 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   private static final int CELL_HEIGHT = 150;
   private final TTGUIView view;
   private final JPanel[][] cellPanels;
-
+  private final ThreeTriosCardPanel[] redCardPanels;
+  private final ThreeTriosCardPanel[] blueCardPanels;
 
   /**
    * Constructs a TTPanel in terms of the given read only model by initializing the player
@@ -59,6 +60,10 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     this.add(bluePlayerPanel, BorderLayout.EAST);
     this.highlightedCard = null;
 
+    // Initialize card in hands for easy reference
+    redCardPanels = new ThreeTriosCardPanel[model.getRedPlayer().getHand().size()];
+    blueCardPanels = new ThreeTriosCardPanel[model.getBluePlayer().getHand().size()];
+
     this.view = view;
     refresh();
   }
@@ -90,16 +95,18 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
       Card card = model.getRedPlayer().getHand().get(redHandIndex);
       CardPanel cardPanel = createCardPanel(TeamColor.RED, card.toString(), redHandIndex);
       cardPanel.addMouseListener(
-              new CardInHandClickListener(cardPanel, redHandIndex, TeamColor.RED, view));
+              new CardInHandClickListener(redHandIndex, TeamColor.RED, view));
       redPlayerPanel.add(cardPanel);
+      redCardPanels[redHandIndex] = cardPanel;
     }
 
     for (int blueHandIndex = 0; blueHandIndex < model.getBluePlayer().getHand().size(); blueHandIndex++) {
       Card card = model.getBluePlayer().getHand().get(blueHandIndex);
       CardPanel cardPanel = createCardPanel(TeamColor.BLUE, card.toString(), blueHandIndex);
       cardPanel.addMouseListener(
-              new CardInHandClickListener(cardPanel, blueHandIndex, TeamColor.BLUE, view));
+              new CardInHandClickListener(blueHandIndex, TeamColor.BLUE, view));
       bluePlayerPanel.add(cardPanel);
+      blueCardPanels[blueHandIndex] = cardPanel;
     }
   }
 
@@ -199,8 +206,7 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
   /**
    * Responsible for highlighting and un-highlighting cards based on user clicks.
    */
-  private class CardInHandClickListener extends MouseAdapter {
-    private final CardPanel cardPanel;
+  private static class CardInHandClickListener extends MouseAdapter {
     private final int index;
     private final TeamColor color;
     private final TTGUIView view;
@@ -208,14 +214,12 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
     /**
      * Constructs a CardInHandClickListener in terms of the given cardPanel.
      *
-     * @param cardPanel CardPanel this CardInHandClickListener will listen for
      * @throws IllegalArgumentException if the given panel or color is null
      */
-    public CardInHandClickListener(CardPanel cardPanel, int index, TeamColor color, TTGUIView view) {
-      if (cardPanel == null || color == null) {
+    public CardInHandClickListener(int index, TeamColor color, TTGUIView view) {
+      if (color == null) {
         throw new IllegalArgumentException("Panel or color is null");
       }
-      this.cardPanel = cardPanel;
       this.index = index;
       this.color = color;
       this.view = view;
@@ -223,16 +227,6 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-      if (highlightedCard != null) {
-        highlightedCard.toggleHighlight();
-      }
-      // highlights this cardPanel and sets it to TTPanel's highlightedCard
-      if (highlightedCard != cardPanel) {
-        cardPanel.toggleHighlight();
-        highlightedCard = cardPanel;
-      } else {
-        highlightedCard = null; // case where this cardPanel was previously highlighted
-      }
       view.notifySelectedCard(index, color);
     }
   }
@@ -253,6 +247,22 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
         cellPanel.revalidate();
         cellPanel.repaint();
       }
+    }
+  }
+
+  @Override
+  public void highlightSelectedCard(TeamColor color, int cardIdx) {
+    ThreeTriosCardPanel[] targetPanelList = color == TeamColor.RED ? redCardPanels : blueCardPanels;
+    ThreeTriosCardPanel selectedCard = targetPanelList[cardIdx];
+    if (highlightedCard != null) {
+      highlightedCard.toggleHighlight();
+    }
+    // highlights this cardPanel and sets it to TTPanel's highlightedCard
+    if (highlightedCard != selectedCard) {
+      selectedCard.toggleHighlight();
+      highlightedCard = selectedCard;
+    } else {
+      highlightedCard = null; // case where this cardPanel was previously highlighted
     }
   }
 

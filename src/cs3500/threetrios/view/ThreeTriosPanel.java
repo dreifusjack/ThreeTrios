@@ -1,5 +1,7 @@
 package cs3500.threetrios.view;
 
+import cs3500.threetrios.model.TeamColor;
+
 /**
  * Panel interface implements the behaviors of how the GUI is constructed into separate panels
  * as well as implements click listeners for various panels.
@@ -25,4 +27,6 @@ public interface ThreeTriosPanel {
    * @param flips flips to display
    */
   void cellExposeHint(int row, int col, int flips);
+
+  void highlightSelectedCard(TeamColor color, int cardIdx);
 }

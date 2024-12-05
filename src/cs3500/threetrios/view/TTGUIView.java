@@ -90,4 +90,9 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   public void cellExposeHint(int row, int col, int flips) {
     gamePanel.cellExposeHint(row, col, flips);
   }
+
+  @Override
+  public void highlightSelectedCard(TeamColor color, int cardIdx) {
+    gamePanel.highlightSelectedCard(color, cardIdx);
+  }
 }

@@ -43,6 +43,7 @@ public class HintViewDecorator extends TTGUIView {
     if (selectedIdx == -1) {
       return;
     }
+    decoratedView.highlightSelectedCard(model.getCurrentPlayer().getColor(), selectedIdx);
 
     Player currentPlayer = model.getCurrentPlayer();
     Card selectedCard = currentPlayer.getHand().get(selectedIdx);

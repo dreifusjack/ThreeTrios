@@ -50,4 +50,6 @@ public interface ThreeTriosGUIView {
   void addHintToggleListener(HintToggleListener listener);
 
   void cellExposeHint(int row, int col, int flips);
+
+  void highlightSelectedCard(TeamColor color, int cardIdx);
 }

@@ -98,6 +98,9 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     }
     if (model.getCurrentPlayer().getColor().equals(playerColor)) {
       selectedCardIndex = cardIndex;
+      currentView.refreshPlayingBoard();
+      currentView.highlightSelectedCard(playerColor, cardIndex);
+
     } else {
       JOptionPane.showMessageDialog(null, "Only select cards from " +
               "your hand.");
@@ -175,9 +178,11 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     hintModeEnabled = !hintModeEnabled;
     if (hintModeEnabled) {
       currentView = new HintViewDecorator(originalView, model, this);
+      currentView.refreshPlayingBoard();
     } else {
       currentView = originalView;
+      currentView.refreshPlayingBoard();
+      currentView.highlightSelectedCard(controllerTeam, selectedCardIndex);
     }
-    currentView.refreshPlayingBoard();
   }
 }
