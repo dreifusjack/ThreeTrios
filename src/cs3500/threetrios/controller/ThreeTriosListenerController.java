@@ -122,6 +122,7 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
         model.playToGrid(row, col, selectedCardIndex);
         selectedCardIndex = -1;
         hintModeEnabled = false;
+        currentView = originalView;
         currentView.refreshPlayingBoard();
       } catch (IllegalArgumentException | IllegalStateException e) {
         JOptionPane.showMessageDialog(null,
