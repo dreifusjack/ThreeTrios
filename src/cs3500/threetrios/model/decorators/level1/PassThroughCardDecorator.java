@@ -4,7 +4,7 @@ import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Direction;
 import cs3500.threetrios.model.ThreeTriosCard;
 
-public class PassThroughCardDecorator implements Card {
+public abstract class PassThroughCardDecorator implements Card {
   private final Card delegate;
 
   public PassThroughCardDecorator(Card delegate) {
@@ -66,4 +66,17 @@ public class PassThroughCardDecorator implements Card {
     return new ThreeTriosCard(
             card.getName(), card.getNorth(), card.getEast(), card.getSouth(), card.getWest());
   }
+
+  /**
+   * Adjust the comparison logic to implement the inherited rule.
+   * Default protection because only this package needs access to this method.
+   *
+   * @param currentResult the current comparison result from previous logic
+   * @param self          the card being compared (this card)
+   * @param other         the card to compare against
+   * @param direction     the direction of comparison
+   * @return the adjusted comparison result
+   */
+  abstract boolean modifyComparison(
+          boolean currentResult, Card self, Card other, Direction direction);
 }

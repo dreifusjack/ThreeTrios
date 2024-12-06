@@ -6,8 +6,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 import cs3500.threetrios.model.decorators.level1.ComboModelDecorator;
-import cs3500.threetrios.model.decorators.level1.FallenAceModelDecorator;
-import cs3500.threetrios.model.decorators.level1.ReverseModelDecorator;
+import cs3500.threetrios.model.decorators.level1.FallenAceCardDecorator;
+import cs3500.threetrios.model.decorators.level1.PassThroughCardDecorator;
+import cs3500.threetrios.model.decorators.level1.ReverseCardDecorator;
 import cs3500.threetrios.model.decorators.level2.PlusModelDecorator;
 import cs3500.threetrios.model.decorators.level2.SameModelDecorator;
 import cs3500.threetrios.controller.ThreeTriosListenerController;
@@ -171,25 +172,28 @@ public class ThreeTrios {
     ThreeTriosModel model4x3 = new BasicThreeTriosModel(rand1);
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Enter rule set to apply (reverse, fallenace, or both). Type 'none' for no rules:");
-    String ruleInput = scanner.nextLine().trim().toLowerCase();
+    List<PassThroughCardDecorator> decorators = new ArrayList<>();
 
-
-    switch (ruleInput) {
-      case "reverse":
-        model4x3 = new ReverseModelDecorator(model4x3);
-        break;
-      case "fallenace":
-        model4x3 = new FallenAceModelDecorator(model4x3);
-        break;
-      case "both":
-        model4x3 = new ComboModelDecorator(model4x3);
-        break;
-      case "none":
-        break;
-      default:
-        System.out.println("Invalid rule. Playing without any additional rules.");
-        break;
+    // Collect rules to apply
+    System.out.println("Enter rule sets to apply (reverse, fallenace). Type 'done' to finish:");
+    while (true) {
+      String ruleInput = scanner.nextLine().trim().toLowerCase();
+      switch (ruleInput) {
+        case "reverse":
+          decorators.add(new ReverseCardDecorator(null));
+          break;
+        case "fallenace":
+          decorators.add(new FallenAceCardDecorator(null));
+          break;
+        case "done":
+          model4x3 = decorators.isEmpty()
+                  ? model4x3
+                  : new ComboModelDecorator(model4x3, decorators);
+          break;
+        default:
+          System.out.println("Invalid rule. Valid options are reverse, fallenace, or done.");
+      }
+      if ("done".equals(ruleInput)) break;
     }
 
 

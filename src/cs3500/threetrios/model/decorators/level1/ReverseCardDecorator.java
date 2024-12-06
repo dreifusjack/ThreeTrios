@@ -4,19 +4,15 @@ import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Direction;
 
 public class ReverseCardDecorator extends PassThroughCardDecorator {
-  private final Card decoratedCard;
-
-  public ReverseCardDecorator(Card delegate) {
-    super(delegate);
-    decoratedCard = createBaseCard(delegate);
+  public ReverseCardDecorator() {
+    super(null); // delegate is never used in this class
   }
 
   @Override
-  public boolean compare(Card other, Direction direction) {
-    Card otherCard = createBaseCard(other);
-    if (other.getValue(direction.getOppositeDirection()) == decoratedCard.getValue(direction)) {
+  boolean modifyComparison(boolean currentResult, Card self, Card other, Direction direction) {
+    if (other.getValue(direction.getOppositeDirection()) == self.getValue(direction)) {
       return false;
     }
-    return !decoratedCard.compare(otherCard, direction);
+    return !currentResult;
   }
 }

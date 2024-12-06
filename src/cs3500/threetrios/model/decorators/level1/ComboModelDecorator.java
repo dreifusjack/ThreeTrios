@@ -9,14 +9,17 @@ import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.decorators.PassThroughModelDecorator;
 
 public class ComboModelDecorator extends PassThroughModelDecorator {
-  public ComboModelDecorator(ThreeTriosModel baseModel) {
+  private final List<PassThroughCardDecorator> decorators;
+
+  public ComboModelDecorator(ThreeTriosModel baseModel, List<PassThroughCardDecorator> decorators) {
     super(baseModel);
+    this.decorators = decorators;
   }
 
   @Override
   public void startGame(GridCell[][] grid, List<Card> deck, int numOfCardCells) {
     List<Card> decoratedDeck = deck.stream()
-            .map(card -> new ComboCardDecorator(card.copy()))
+            .map(card -> new ComboCardDecorator(card.copy(), decorators))
             .collect(Collectors.toList());
     super.startGame(grid, decoratedDeck, numOfCardCells);
   }

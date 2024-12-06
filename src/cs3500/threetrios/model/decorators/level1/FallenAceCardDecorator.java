@@ -2,28 +2,24 @@ package cs3500.threetrios.model.decorators.level1;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Direction;
-import cs3500.threetrios.model.ThreeTriosCard;
 
 public class FallenAceCardDecorator extends PassThroughCardDecorator {
-  private final ThreeTriosCard decoratedCard;
-
-  public FallenAceCardDecorator(Card delegate) {
-    super(delegate);
-    this.decoratedCard = createBaseCard(delegate);
+  public FallenAceCardDecorator() {
+    super(null); // delegate is never used in this class
   }
 
   @Override
-  public boolean compare(Card other, Direction direction) {
-    ThreeTriosCard otherCard = createBaseCard(other);
-    int otherValue = otherCard.getValue(direction.getOppositeDirection());
-    int thisValue = getValue(direction);
-
-    if (thisValue != 10 && otherValue == 10) {
+  boolean modifyComparison(boolean currentResult, Card self, Card other, Direction direction) {
+    int selfValue = self.getValue(direction);
+    int otherValue = other.getValue(direction.getOppositeDirection());
+    // Apply Fallen Ace rule: A "1" can beat an "A" (10).
+    if (selfValue == 1 && otherValue == 10) {
       return true;
     }
-    if (thisValue == 10 && otherValue != 10) {
+    // Apply Fallen Ace rule: A "1" can beat an "A" (10).
+    if (selfValue == 10 && otherValue == 1) {
       return false;
     }
-    return decoratedCard.compare(otherCard, direction);
+    return currentResult;
   }
 }
