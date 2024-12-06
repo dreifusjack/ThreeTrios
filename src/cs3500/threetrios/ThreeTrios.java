@@ -180,10 +180,10 @@ public class ThreeTrios {
       String ruleInput = scanner.nextLine().trim().toLowerCase();
       switch (ruleInput) {
         case "reverse":
-          decorators.add(new ReverseCardDecorator(null));
+          decorators.add(new ReverseCardDecorator());
           break;
         case "fallenace":
-          decorators.add(new FallenAceCardDecorator(null));
+          decorators.add(new FallenAceCardDecorator());
           break;
         case "done":
           model4x3 = decorators.isEmpty()
