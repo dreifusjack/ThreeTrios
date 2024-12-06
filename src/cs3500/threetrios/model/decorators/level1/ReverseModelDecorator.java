@@ -5,11 +5,10 @@ import java.util.stream.Collectors;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.GridCell;
-import cs3500.threetrios.model.ThreeTrioCard;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.model.decorators.BaseThreeTriosModelDecorator;
+import cs3500.threetrios.model.decorators.PassThroughModelDecorator;
 
-public class ReverseModelDecorator extends BaseThreeTriosModelDecorator {
+public class ReverseModelDecorator extends PassThroughModelDecorator {
   public ReverseModelDecorator(ThreeTriosModel baseModel) {
     super(baseModel);
   }
@@ -20,6 +19,5 @@ public class ReverseModelDecorator extends BaseThreeTriosModelDecorator {
             .map(card -> new ReverseCardDecorator(card.copy()))
             .collect(Collectors.toList());
     super.startGame(grid, decoratedDeck, numOfCardCells);
-    System.out.println("Start game");
   }
 }

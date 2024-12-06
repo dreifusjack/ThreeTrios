@@ -4,6 +4,7 @@ import java.util.List;
 
 import cs3500.threetrios.controller.ModelStatusListener;
 import cs3500.threetrios.model.Card;
+import cs3500.threetrios.model.Direction;
 import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyGridCell;
@@ -11,10 +12,10 @@ import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
 
-public abstract class BaseThreeTriosModelDecorator implements ThreeTriosModel {
-  protected final ThreeTriosModel baseModel;
+public abstract class PassThroughModelDecorator implements ThreeTriosModel {
+  private final ThreeTriosModel baseModel;
 
-  public BaseThreeTriosModelDecorator(ThreeTriosModel baseModel) {
+  public PassThroughModelDecorator(ThreeTriosModel baseModel) {
     this.baseModel = baseModel;
   }
 
@@ -106,5 +107,19 @@ public abstract class BaseThreeTriosModelDecorator implements ThreeTriosModel {
   @Override
   public void battleCards(int row, int col) {
     this.baseModel.battleCards(row, col);
+  }
+
+  protected boolean isValidCoordinate(int row, int col) {
+    return row >= 0 && row < baseModel.numRows() && col >= 0 && col < baseModel.numCols();
+  }
+
+  protected void flipAdjacentCardIfMatchesColor(
+          int row, int col, Direction dir, TeamColor playerColor) {
+    int adjRow = row + Direction.getRowHelper(dir);
+    int adjCol = col + Direction.getColHelper(dir);
+
+    if (playerColor == getCell(adjRow, adjCol).getColor()) {
+      ((GridCell) getCell(adjRow, adjCol)).toggleColor();
+    }
   }
 }

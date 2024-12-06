@@ -17,7 +17,7 @@ import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.Hole;
 import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.model.ThreeTrioCard;
+import cs3500.threetrios.model.ThreeTriosCard;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.ThreeTriosPlayer;
 
@@ -47,9 +47,9 @@ public abstract class AbstractThreeTriosModelTest {
   protected ThreeTriosModel model2x2SameValueOf1Ver2;
   protected ThreeTriosController controller2x2SameValueOf1Ver2;
 
-  protected ThreeTrioCard nerfedCard;
+  protected ThreeTriosCard nerfedCard;
 
-  protected ThreeTrioCard opCard;
+  protected ThreeTriosCard opCard;
 
   @Before
   public void setUp() {
@@ -79,12 +79,12 @@ public abstract class AbstractThreeTriosModelTest {
     controller2x2SameValueOf1Ver2 = new ThreeTriosSetupController(
             "world2x2ver3.txt", "cardswithsamevalueof1.txt");
 
-    nerfedCard = new ThreeTrioCard("", ThreeTrioCard.AttackValue.ONE,
-            ThreeTrioCard.AttackValue.ONE, ThreeTrioCard.AttackValue.ONE,
-            ThreeTrioCard.AttackValue.ONE);
-    opCard = new ThreeTrioCard("poo", ThreeTrioCard.AttackValue.A,
-            ThreeTrioCard.AttackValue.A, ThreeTrioCard.AttackValue.A,
-            ThreeTrioCard.AttackValue.A);
+    nerfedCard = new ThreeTriosCard("", ThreeTriosCard.AttackValue.ONE,
+            ThreeTriosCard.AttackValue.ONE, ThreeTriosCard.AttackValue.ONE,
+            ThreeTriosCard.AttackValue.ONE);
+    opCard = new ThreeTriosCard("poo", ThreeTriosCard.AttackValue.A,
+            ThreeTriosCard.AttackValue.A, ThreeTriosCard.AttackValue.A,
+            ThreeTriosCard.AttackValue.A);
 
   }
 
@@ -213,18 +213,18 @@ public abstract class AbstractThreeTriosModelTest {
 
     // check the hands of the red player
     List<Card> expectedRedHand = Arrays.asList(
-            new ThreeTrioCard("WorldDragon", ThreeTrioCard.AttackValue.ONE,
-                    ThreeTrioCard.AttackValue.FIVE, ThreeTrioCard.AttackValue.SIX,
-                    ThreeTrioCard.AttackValue.ONE),
-            new ThreeTrioCard("HeroKnight", ThreeTrioCard.AttackValue.A,
-                    ThreeTrioCard.AttackValue.FOUR,
-                    ThreeTrioCard.AttackValue.FOUR, ThreeTrioCard.AttackValue.TWO),
-            new ThreeTrioCard("CorruptKing", ThreeTrioCard.AttackValue.THREE,
-                    ThreeTrioCard.AttackValue.ONE, ThreeTrioCard.AttackValue.ONE,
-                    ThreeTrioCard.AttackValue.TWO),
-            new ThreeTrioCard("FirePhoenix",
-                    ThreeTrioCard.AttackValue.TWO, ThreeTrioCard.AttackValue.FOUR,
-                    ThreeTrioCard.AttackValue.THREE, ThreeTrioCard.AttackValue.TWO));
+            new ThreeTriosCard("WorldDragon", ThreeTriosCard.AttackValue.ONE,
+                    ThreeTriosCard.AttackValue.FIVE, ThreeTriosCard.AttackValue.SIX,
+                    ThreeTriosCard.AttackValue.ONE),
+            new ThreeTriosCard("HeroKnight", ThreeTriosCard.AttackValue.A,
+                    ThreeTriosCard.AttackValue.FOUR,
+                    ThreeTriosCard.AttackValue.FOUR, ThreeTriosCard.AttackValue.TWO),
+            new ThreeTriosCard("CorruptKing", ThreeTriosCard.AttackValue.THREE,
+                    ThreeTriosCard.AttackValue.ONE, ThreeTriosCard.AttackValue.ONE,
+                    ThreeTriosCard.AttackValue.TWO),
+            new ThreeTriosCard("FirePhoenix",
+                    ThreeTriosCard.AttackValue.TWO, ThreeTriosCard.AttackValue.FOUR,
+                    ThreeTriosCard.AttackValue.THREE, ThreeTriosCard.AttackValue.TWO));
     Assert.assertEquals(expectedRedHand, model4x3.getCurrentPlayer().getHand());
   }
 
@@ -234,9 +234,9 @@ public abstract class AbstractThreeTriosModelTest {
   public void testPlayToGridOnEmptyCardCell() {
     controller4x3.playGame(model4x3);
     model4x3.playToGrid(0, 0, 2);
-    ThreeTrioCard corruptKing = new ThreeTrioCard("CorruptKing",
-            ThreeTrioCard.AttackValue.THREE, ThreeTrioCard.AttackValue.ONE,
-            ThreeTrioCard.AttackValue.ONE, ThreeTrioCard.AttackValue.TWO);
+    ThreeTriosCard corruptKing = new ThreeTriosCard("CorruptKing",
+            ThreeTriosCard.AttackValue.THREE, ThreeTriosCard.AttackValue.ONE,
+            ThreeTriosCard.AttackValue.ONE, ThreeTriosCard.AttackValue.TWO);
 
     Assert.assertEquals("R", model4x3.getGridReadOnly().get(0).get(0).toString());
   }

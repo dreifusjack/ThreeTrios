@@ -2,19 +2,19 @@ package cs3500.threetrios.model.decorators.level1;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Direction;
-import cs3500.threetrios.model.ThreeTrioCard;
+import cs3500.threetrios.model.ThreeTriosCard;
 
-public class FallenAceDecorator extends PassThroughCardDecorator {
-  private final ThreeTrioCard decoratedCard;
+public class FallenAceCardDecorator extends PassThroughCardDecorator {
+  private final ThreeTriosCard decoratedCard;
 
-  public FallenAceDecorator(Card delegate) {
+  public FallenAceCardDecorator(Card delegate) {
     super(delegate);
     this.decoratedCard = createBaseCard(delegate);
   }
 
   @Override
   public boolean compare(Card other, Direction direction) {
-    ThreeTrioCard otherCard = createBaseCard(other);
+    ThreeTriosCard otherCard = createBaseCard(other);
     int otherValue = otherCard.getValue(direction.getOppositeDirection());
     int thisValue = getValue(direction);
 

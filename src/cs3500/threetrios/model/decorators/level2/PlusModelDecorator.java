@@ -1,18 +1,18 @@
 package cs3500.threetrios.model.decorators.level2;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Direction;
 import cs3500.threetrios.model.GridCell;
-import cs3500.threetrios.model.Player;
-import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.model.decorators.BaseThreeTriosModelDecorator;
+import cs3500.threetrios.model.decorators.PassThroughModelDecorator;
 
-public class PlusModelDecorator extends BaseThreeTriosModelDecorator {
+public class PlusModelDecorator extends PassThroughModelDecorator {
 
   public PlusModelDecorator(ThreeTriosModel baseModel) {
     super(baseModel);
@@ -20,17 +20,26 @@ public class PlusModelDecorator extends BaseThreeTriosModelDecorator {
 
   @Override
   public void playToGrid(int row, int col, int handIdx) {
-    baseModel.playToGrid(row, col, handIdx);
-    baseModel.notifyPlayerTurnChange();
+    super.playToGrid(row, col, handIdx);
+    notifyPlayerTurnChange();
     applyPlusRule(row, col);
   }
 
   private void applyPlusRule(int row, int col) {
-    Card placedCard = baseModel.getCell(row, col).getCardCopy();
-    Player currentPlayer = baseModel.getCurrentPlayer();
-    TeamColor currentPlayerColor = baseModel.getCurrentPlayer().getColor();
+    Card placedCard = getCell(row, col).getCardCopy();
+    TeamColor currentPlayerColor = getCurrentPlayer().getColor();
 
-    Map<Direction, Integer> opponentCards = new HashMap<>();
+    Map<Direction, Integer> directionSums = calculateDirectionSums(row, col, placedCard);
+
+    Set<Direction> matchingDirections = findMatchingSums(directionSums);
+    for (Direction dir : matchingDirections) {
+      flipAdjacentCardIfMatchesColor(row, col, dir, currentPlayerColor);
+    }
+    notifyPlayerTurnChange();
+  }
+
+  private Map<Direction, Integer> calculateDirectionSums(int row, int col, Card placedCard) {
+    Map<Direction, Integer> directionSums = new HashMap<>();
 
     for (Direction dir : Direction.values()) {
       int adjRow = row + Direction.getRowHelper(dir);
@@ -38,48 +47,32 @@ public class PlusModelDecorator extends BaseThreeTriosModelDecorator {
 
       if (isValidCoordinate(adjRow, adjCol)) {
         try {
-          ReadOnlyGridCell adjCell = baseModel.getCell(adjRow, adjCol);
-          Card adjCard = adjCell.getCardCopy();
+          Card adjCard = getCell(adjRow, adjCol).getCardCopy();
           if (adjCard != null) {
-            Direction oppositeDir = dir.getOppositeDirection();
-            int sum = placedCard.getValue(dir) + adjCard.getValue(oppositeDir);
-            opponentCards.put(dir, sum);
-            System.out.println("Add card to opponentCards");
+            int sum = placedCard.getValue(dir) + adjCard.getValue(dir.getOppositeDirection());
+            directionSums.put(dir, sum);
           }
         } catch (IllegalStateException e) {
-          // ignored, hole case
+          // ignore, hole case
         }
       }
     }
+    return directionSums;
+  }
 
-    for (Integer sum : opponentCards.values()) {
-      int count = 0;
-      for (Integer cardSum : opponentCards.values()) {
-        if (cardSum.equals(sum)) {
-          count++;
-        }
-      }
-      if (count >= 2) {
-        for (Map.Entry<Direction, Integer> entry : opponentCards.entrySet()) {
-          if (entry.getValue().equals(sum)) {
-            Direction dir = entry.getKey();
-            int adjRow = row + Direction.getRowHelper(dir);
-            int adjCol = col + Direction.getColHelper(dir);
-            if(currentPlayerColor == baseModel.getCell(adjRow, adjCol).getColor()) {
-              GridCell flippedCell = (GridCell) baseModel.getCell(adjRow, adjCol);
-              flippedCell.toggleColor();
-              System.out.println("plus flip triggered");
-            }
-          }
-        }
+  private Set<Direction> findMatchingSums(Map<Direction, Integer> directionSums) {
+    // Count occurrences of each sum
+    Map<Integer, Integer> sumFrequencies = new HashMap<>();
+    for (int sum : directionSums.values()) {
+      sumFrequencies.put(sum, sumFrequencies.getOrDefault(sum, 0) + 1);
+    }
+    // Find directions with sums appearing 2 or more times
+    Set<Direction> matchingDirections = new HashSet<>();
+    for (Map.Entry<Direction, Integer> entry : directionSums.entrySet()) {
+      if (sumFrequencies.get(entry.getValue()) >= 2) {
+        matchingDirections.add(entry.getKey());
       }
     }
-    this.baseModel.notifyPlayerTurnChange();
+    return matchingDirections;
   }
-
-  private boolean isValidCoordinate(int row, int col) {
-    return row >= 0 && row < baseModel.numRows() && col >= 0 && col < baseModel.numCols();
-  }
-
 }
-

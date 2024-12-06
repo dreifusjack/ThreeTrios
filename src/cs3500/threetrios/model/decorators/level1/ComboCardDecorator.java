@@ -2,10 +2,10 @@ package cs3500.threetrios.model.decorators.level1;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Direction;
-import cs3500.threetrios.model.ThreeTrioCard;
+import cs3500.threetrios.model.ThreeTriosCard;
 
 public class ComboCardDecorator extends PassThroughCardDecorator {
-  private final ThreeTrioCard decoratedCard;
+  private final ThreeTriosCard decoratedCard;
 
   public ComboCardDecorator(Card delegate) {
     super(delegate);
@@ -14,10 +14,9 @@ public class ComboCardDecorator extends PassThroughCardDecorator {
 
   @Override
   public boolean compare(Card other, Direction direction) {
-    ThreeTrioCard otherCard = createBaseCard(other);
+    ThreeTriosCard otherCard = createBaseCard(other);
     int otherValue = otherCard.getValue(direction.getOppositeDirection());
     int thisValue = getValue(direction);
-
     if (thisValue != 10 && otherValue == 10) {
       return false;
     }

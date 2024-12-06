@@ -19,11 +19,11 @@ public class GridCellTests {
     hole = new Hole();
     emptyCell = new CardCell();
     fullCell = new CardCell();
-    king = new ThreeTrioCard("King",
-            ThreeTrioCard.AttackValue.SEVEN,
-            ThreeTrioCard.AttackValue.THREE,
-            ThreeTrioCard.AttackValue.NINE,
-            ThreeTrioCard.AttackValue.A);
+    king = new ThreeTriosCard("King",
+            ThreeTriosCard.AttackValue.SEVEN,
+            ThreeTriosCard.AttackValue.THREE,
+            ThreeTriosCard.AttackValue.NINE,
+            ThreeTriosCard.AttackValue.A);
     fullCell.addCard(king);
   }
 

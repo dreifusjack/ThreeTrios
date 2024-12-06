@@ -38,13 +38,13 @@ public class MockThreeTriosModelTest {
   @Before
   public void setUp() {
     redPlayer = new ThreeTriosPlayer(TeamColor.RED);
-    redPlayer.addToHand(new ThreeTrioCard("WorldDragon", ThreeTrioCard.AttackValue.ONE,
-            ThreeTrioCard.AttackValue.FIVE, ThreeTrioCard.AttackValue.SIX,
-            ThreeTrioCard.AttackValue.ONE));
+    redPlayer.addToHand(new ThreeTriosCard("WorldDragon", ThreeTriosCard.AttackValue.ONE,
+            ThreeTriosCard.AttackValue.FIVE, ThreeTriosCard.AttackValue.SIX,
+            ThreeTriosCard.AttackValue.ONE));
     Player bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
-    bluePlayer.addToHand(new ThreeTrioCard("RedDragon", ThreeTrioCard.AttackValue.THREE,
-            ThreeTrioCard.AttackValue.A, ThreeTrioCard.AttackValue.ONE,
-            ThreeTrioCard.AttackValue.TWO));
+    bluePlayer.addToHand(new ThreeTriosCard("RedDragon", ThreeTriosCard.AttackValue.THREE,
+            ThreeTriosCard.AttackValue.A, ThreeTriosCard.AttackValue.ONE,
+            ThreeTriosCard.AttackValue.TWO));
 
     mockModel = new MockThreeTriosModel(3, 3, 1,
             1, false, redPlayer, bluePlayer);

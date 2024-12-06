@@ -6,7 +6,7 @@ import java.util.Objects;
  * Implements the behaviors of a playing card in Three Trios. Three Trios Cards
  * have a unique identifier, a team color, and four attack values for each direction.
  */
-public class ThreeTrioCard implements Card {
+public class ThreeTriosCard implements Card {
   /**
    * Enumeration of all possible attack values for cards.
    */
@@ -102,8 +102,8 @@ public class ThreeTrioCard implements Card {
    *                                  TeamColor can be null so that the cardFileReader can
    *                                  create instances of card without specifying teams.
    */
-  public ThreeTrioCard(String name, AttackValue north,
-                       AttackValue east, AttackValue south, AttackValue west) {
+  public ThreeTriosCard(String name, AttackValue north,
+                        AttackValue east, AttackValue south, AttackValue west) {
     if (name == null) {
       throw new IllegalArgumentException("Name cannot be null");
     }
@@ -132,10 +132,10 @@ public class ThreeTrioCard implements Card {
     if (other == null || direction == null) {
       throw new IllegalArgumentException("Parameters cannot be null");
     }
-    if (!(other instanceof ThreeTrioCard)) {
+    if (!(other instanceof ThreeTriosCard)) {
       return false;
     }
-    ThreeTrioCard otherCard = (ThreeTrioCard) other;
+    ThreeTriosCard otherCard = (ThreeTriosCard) other;
     switch (direction) {
       case SOUTH:
         return this.south.getValue() > otherCard.north.getValue();
@@ -152,7 +152,7 @@ public class ThreeTrioCard implements Card {
 
   @Override
   public Card copy() {
-    return new ThreeTrioCard(this.name, this.north, this.east, this.south, this.west);
+    return new ThreeTriosCard(this.name, this.north, this.east, this.south, this.west);
   }
 
   @Override
@@ -183,7 +183,7 @@ public class ThreeTrioCard implements Card {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    ThreeTrioCard card = (ThreeTrioCard) obj;
+    ThreeTriosCard card = (ThreeTriosCard) obj;
     return name.equals(card.name)
             && north == card.north
             && east == card.east

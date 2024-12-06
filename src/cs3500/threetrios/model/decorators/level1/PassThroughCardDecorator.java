@@ -2,7 +2,7 @@ package cs3500.threetrios.model.decorators.level1;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Direction;
-import cs3500.threetrios.model.ThreeTrioCard;
+import cs3500.threetrios.model.ThreeTriosCard;
 
 public class PassThroughCardDecorator implements Card {
   private final Card delegate;
@@ -27,22 +27,22 @@ public class PassThroughCardDecorator implements Card {
   }
 
   @Override
-  public ThreeTrioCard.AttackValue getEast() {
+  public ThreeTriosCard.AttackValue getEast() {
     return delegate.getEast();
   }
 
   @Override
-  public ThreeTrioCard.AttackValue getWest() {
+  public ThreeTriosCard.AttackValue getWest() {
     return delegate.getWest();
   }
 
   @Override
-  public ThreeTrioCard.AttackValue getSouth() {
+  public ThreeTriosCard.AttackValue getSouth() {
     return delegate.getSouth();
   }
 
   @Override
-  public ThreeTrioCard.AttackValue getNorth() {
+  public ThreeTriosCard.AttackValue getNorth() {
     return delegate.getNorth();
   }
 
@@ -62,8 +62,8 @@ public class PassThroughCardDecorator implements Card {
    * @param card given card of interface type
    * @return three trios card with the same internal data
    */
-  protected ThreeTrioCard createBaseCard(Card card) {
-    return new ThreeTrioCard(
+  protected ThreeTriosCard createBaseCard(Card card) {
+    return new ThreeTriosCard(
             card.getName(), card.getNorth(), card.getEast(), card.getSouth(), card.getWest());
   }
 }

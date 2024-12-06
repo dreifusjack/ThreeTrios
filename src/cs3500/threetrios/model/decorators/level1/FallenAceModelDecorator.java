@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.model.decorators.BaseThreeTriosModelDecorator;
+import cs3500.threetrios.model.decorators.PassThroughModelDecorator;
 
-public class FallenAceModelDecorator extends BaseThreeTriosModelDecorator {
+public class FallenAceModelDecorator extends PassThroughModelDecorator {
   public FallenAceModelDecorator(ThreeTriosModel baseModel) {
     super(baseModel);
   }
@@ -16,7 +16,7 @@ public class FallenAceModelDecorator extends BaseThreeTriosModelDecorator {
   @Override
   public void startGame(GridCell[][] grid, List<Card> deck, int numOfCardCells) {
     List<Card> decoratedDeck = deck.stream()
-            .map(card -> new FallenAceDecorator(card.copy()))
+            .map(card -> new FallenAceCardDecorator(card.copy()))
             .collect(Collectors.toList());
     super.startGame(grid, decoratedDeck, numOfCardCells);
   }

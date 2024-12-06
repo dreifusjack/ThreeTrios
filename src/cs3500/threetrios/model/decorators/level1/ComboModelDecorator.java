@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.model.decorators.BaseThreeTriosModelDecorator;
+import cs3500.threetrios.model.decorators.PassThroughModelDecorator;
 
-public class ComboModelDecorator extends BaseThreeTriosModelDecorator {
+public class ComboModelDecorator extends PassThroughModelDecorator {
   public ComboModelDecorator(ThreeTriosModel baseModel) {
     super(baseModel);
   }

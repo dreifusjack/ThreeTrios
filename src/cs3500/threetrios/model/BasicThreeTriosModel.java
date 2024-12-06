@@ -96,12 +96,12 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
       default:
         String[] partsForCardShape = readOnlyCell.cardToString().split(" ");
         if (partsForCardShape.length == 5) {
-          Card card = new ThreeTrioCard(
+          Card card = new ThreeTriosCard(
                   partsForCardShape[0],
-                  ThreeTrioCard.AttackValue.fromString(partsForCardShape[1]),
-                  ThreeTrioCard.AttackValue.fromString(partsForCardShape[2]),
-                  ThreeTrioCard.AttackValue.fromString(partsForCardShape[3]),
-                  ThreeTrioCard.AttackValue.fromString(partsForCardShape[4])
+                  ThreeTriosCard.AttackValue.fromString(partsForCardShape[1]),
+                  ThreeTriosCard.AttackValue.fromString(partsForCardShape[2]),
+                  ThreeTriosCard.AttackValue.fromString(partsForCardShape[3]),
+                  ThreeTriosCard.AttackValue.fromString(partsForCardShape[4])
           );
           return new CardCell(card, readOnlyCell.getColor());
         }

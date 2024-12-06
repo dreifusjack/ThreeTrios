@@ -9,7 +9,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import cs3500.threetrios.model.Card;
-import cs3500.threetrios.model.ThreeTrioCard;
+import cs3500.threetrios.model.ThreeTriosCard;
 
 /**
  * Responsible for reading card configuration files and saving data about the cards for the
@@ -62,12 +62,12 @@ public class CardFileReader implements CardReader {
         throw new IllegalArgumentException("Duplicate card name: " + cardName);
       }
 
-      ThreeTrioCard.AttackValue north = ThreeTrioCard.AttackValue.fromString(line[1]);
-      ThreeTrioCard.AttackValue south = ThreeTrioCard.AttackValue.fromString(line[2]);
-      ThreeTrioCard.AttackValue east = ThreeTrioCard.AttackValue.fromString(line[3]);
-      ThreeTrioCard.AttackValue west = ThreeTrioCard.AttackValue.fromString(line[4]);
+      ThreeTriosCard.AttackValue north = ThreeTriosCard.AttackValue.fromString(line[1]);
+      ThreeTriosCard.AttackValue south = ThreeTriosCard.AttackValue.fromString(line[2]);
+      ThreeTriosCard.AttackValue east = ThreeTriosCard.AttackValue.fromString(line[3]);
+      ThreeTriosCard.AttackValue west = ThreeTriosCard.AttackValue.fromString(line[4]);
 
-      ThreeTrioCard newCard = new ThreeTrioCard(cardName, north, east, south, west);
+      ThreeTriosCard newCard = new ThreeTriosCard(cardName, north, east, south, west);
       cards.add(newCard);
     }
   }

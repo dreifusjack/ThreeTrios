@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs3500.threetrios.model.Card;
-import cs3500.threetrios.model.ThreeTrioCard;
+import cs3500.threetrios.model.ThreeTriosCard;
 
 import static org.junit.Assert.assertEquals;
 
@@ -46,15 +46,15 @@ public class CardFileReaderTests {
   public void testReadFileSuccessfully() {
     cardFileReader.readFile();
     ArrayList<Card> expected = new ArrayList<>();
-    expected.add(new ThreeTrioCard("CorruptKing",
-            ThreeTrioCard.AttackValue.SEVEN, ThreeTrioCard.AttackValue.NINE,
-            ThreeTrioCard.AttackValue.THREE, ThreeTrioCard.AttackValue.A));
-    expected.add(new ThreeTrioCard("AngryDragon",
-            ThreeTrioCard.AttackValue.TWO, ThreeTrioCard.AttackValue.EIGHT,
-            ThreeTrioCard.AttackValue.NINE, ThreeTrioCard.AttackValue.NINE));
-    expected.add(new ThreeTrioCard("WindBird",
-            ThreeTrioCard.AttackValue.SEVEN, ThreeTrioCard.AttackValue.FIVE,
-            ThreeTrioCard.AttackValue.TWO, ThreeTrioCard.AttackValue.THREE));
+    expected.add(new ThreeTriosCard("CorruptKing",
+            ThreeTriosCard.AttackValue.SEVEN, ThreeTriosCard.AttackValue.NINE,
+            ThreeTriosCard.AttackValue.THREE, ThreeTriosCard.AttackValue.A));
+    expected.add(new ThreeTriosCard("AngryDragon",
+            ThreeTriosCard.AttackValue.TWO, ThreeTriosCard.AttackValue.EIGHT,
+            ThreeTriosCard.AttackValue.NINE, ThreeTriosCard.AttackValue.NINE));
+    expected.add(new ThreeTriosCard("WindBird",
+            ThreeTriosCard.AttackValue.SEVEN, ThreeTriosCard.AttackValue.FIVE,
+            ThreeTriosCard.AttackValue.TWO, ThreeTriosCard.AttackValue.THREE));
     // testing get cards method
     assertEquals(expected, cardFileReader.getCards());
   }

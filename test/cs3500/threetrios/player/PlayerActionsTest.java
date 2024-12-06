@@ -12,10 +12,9 @@ import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.model.MockNormalThreeTriosModel;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.model.ThreeTrioCard;
+import cs3500.threetrios.model.ThreeTriosCard;
 import cs3500.threetrios.model.ThreeTriosPlayer;
 import cs3500.threetrios.player.strategy.CornerStrategy;
-import cs3500.threetrios.view.CardPanel;
 import cs3500.threetrios.view.TTGUIView;
 
 /**
@@ -32,13 +31,13 @@ public class PlayerActionsTest {
   @Before
   public void setUp() {
     Player redPlayer = new ThreeTriosPlayer(TeamColor.RED);
-    redPlayer.addToHand(new ThreeTrioCard("WorldDragon", ThreeTrioCard.AttackValue.ONE,
-            ThreeTrioCard.AttackValue.FIVE, ThreeTrioCard.AttackValue.SIX,
-            ThreeTrioCard.AttackValue.ONE));
+    redPlayer.addToHand(new ThreeTriosCard("WorldDragon", ThreeTriosCard.AttackValue.ONE,
+            ThreeTriosCard.AttackValue.FIVE, ThreeTriosCard.AttackValue.SIX,
+            ThreeTriosCard.AttackValue.ONE));
     Player bluePlayer = new ThreeTriosPlayer(TeamColor.BLUE);
-    bluePlayer.addToHand(new ThreeTrioCard("RedDragon", ThreeTrioCard.AttackValue.THREE,
-            ThreeTrioCard.AttackValue.A, ThreeTrioCard.AttackValue.ONE,
-            ThreeTrioCard.AttackValue.TWO));
+    bluePlayer.addToHand(new ThreeTriosCard("RedDragon", ThreeTriosCard.AttackValue.THREE,
+            ThreeTriosCard.AttackValue.A, ThreeTriosCard.AttackValue.ONE,
+            ThreeTriosCard.AttackValue.TWO));
 
     MockNormalThreeTriosModel model = new MockNormalThreeTriosModel(new Random(2));
 

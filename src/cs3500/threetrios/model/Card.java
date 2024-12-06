@@ -36,28 +36,28 @@ public interface Card {
    *
    * @return this cards East AttackValue.
    */
-  ThreeTrioCard.AttackValue getEast();
+  ThreeTriosCard.AttackValue getEast();
 
   /**
    * Returns this cards west attack value. Return value is an enum, thus it cannot be mutated.
    *
    * @return this cards West AttackValue.
    */
-  ThreeTrioCard.AttackValue getWest();
+  ThreeTriosCard.AttackValue getWest();
 
   /**
    * Returns this cards south attack value. Return value is an enum, thus it cannot be mutated.
    *
    * @return this cards South AttackValue.
    */
-  ThreeTrioCard.AttackValue getSouth();
+  ThreeTriosCard.AttackValue getSouth();
 
   /**
    * Returns this cards north attack value. Return value is an enum, thus it cannot be mutated.
    *
    * @return this cards North AttackValue.
    */
-  ThreeTrioCard.AttackValue getNorth();
+  ThreeTriosCard.AttackValue getNorth();
 
   /**
    * Returns the unique name of this card.

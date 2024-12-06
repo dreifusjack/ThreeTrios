@@ -20,11 +20,11 @@ public class PlayerTests {
   public void setUp() {
     red = new ThreeTriosPlayer(TeamColor.RED);
     blue = new ThreeTriosPlayer(TeamColor.BLUE);
-    king = new ThreeTrioCard("King",
-            ThreeTrioCard.AttackValue.SEVEN,
-            ThreeTrioCard.AttackValue.THREE,
-            ThreeTrioCard.AttackValue.NINE,
-            ThreeTrioCard.AttackValue.A);
+    king = new ThreeTriosCard("King",
+            ThreeTriosCard.AttackValue.SEVEN,
+            ThreeTriosCard.AttackValue.THREE,
+            ThreeTriosCard.AttackValue.NINE,
+            ThreeTriosCard.AttackValue.A);
   }
 
   @Test(expected = IllegalArgumentException.class)

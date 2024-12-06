@@ -17,35 +17,35 @@ public class CardTests {
 
   @Before
   public void setUp() {
-    king = new ThreeTrioCard("King",
-            ThreeTrioCard.AttackValue.SEVEN,
-            ThreeTrioCard.AttackValue.THREE,
-            ThreeTrioCard.AttackValue.NINE,
-            ThreeTrioCard.AttackValue.A);
-    dragon = new ThreeTrioCard("Dragon",
-            ThreeTrioCard.AttackValue.TWO,
-            ThreeTrioCard.AttackValue.NINE,
-            ThreeTrioCard.AttackValue.EIGHT,
-            ThreeTrioCard.AttackValue.NINE);
-    bird = new ThreeTrioCard("Bird",
-            ThreeTrioCard.AttackValue.SEVEN,
-            ThreeTrioCard.AttackValue.TWO,
-            ThreeTrioCard.AttackValue.FIVE,
-            ThreeTrioCard.AttackValue.THREE);
+    king = new ThreeTriosCard("King",
+            ThreeTriosCard.AttackValue.SEVEN,
+            ThreeTriosCard.AttackValue.THREE,
+            ThreeTriosCard.AttackValue.NINE,
+            ThreeTriosCard.AttackValue.A);
+    dragon = new ThreeTriosCard("Dragon",
+            ThreeTriosCard.AttackValue.TWO,
+            ThreeTriosCard.AttackValue.NINE,
+            ThreeTriosCard.AttackValue.EIGHT,
+            ThreeTriosCard.AttackValue.NINE);
+    bird = new ThreeTriosCard("Bird",
+            ThreeTriosCard.AttackValue.SEVEN,
+            ThreeTriosCard.AttackValue.TWO,
+            ThreeTriosCard.AttackValue.FIVE,
+            ThreeTriosCard.AttackValue.THREE);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testNullNameConstruction() {
-    new ThreeTrioCard(null,
-            ThreeTrioCard.AttackValue.SEVEN,
-            ThreeTrioCard.AttackValue.TWO,
-            ThreeTrioCard.AttackValue.FIVE,
-            ThreeTrioCard.AttackValue.THREE);
+    new ThreeTriosCard(null,
+            ThreeTriosCard.AttackValue.SEVEN,
+            ThreeTriosCard.AttackValue.TWO,
+            ThreeTriosCard.AttackValue.FIVE,
+            ThreeTriosCard.AttackValue.THREE);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testNullValueConstruction() {
-    new ThreeTrioCard("hello",
+    new ThreeTriosCard("hello",
             null,
             null,
             null,
@@ -81,21 +81,21 @@ public class CardTests {
 
   @Test
   public void testGetEast() {
-    assertEquals(ThreeTrioCard.AttackValue.NINE, dragon.getEast());
+    assertEquals(ThreeTriosCard.AttackValue.NINE, dragon.getEast());
   }
 
   @Test
   public void testGetWest() {
-    assertEquals(ThreeTrioCard.AttackValue.NINE, dragon.getWest());
+    assertEquals(ThreeTriosCard.AttackValue.NINE, dragon.getWest());
   }
 
   @Test
   public void testGetSouth() {
-    assertEquals(ThreeTrioCard.AttackValue.EIGHT, dragon.getSouth());
+    assertEquals(ThreeTriosCard.AttackValue.EIGHT, dragon.getSouth());
   }
 
   @Test
   public void testGetNorth() {
-    assertEquals(ThreeTrioCard.AttackValue.TWO, dragon.getNorth());
+    assertEquals(ThreeTriosCard.AttackValue.TWO, dragon.getNorth());
   }
 }

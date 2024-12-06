@@ -17,7 +17,7 @@ import cs3500.threetrios.model.CardCell;
 import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.Hole;
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.model.ThreeTrioCard;
+import cs3500.threetrios.model.ThreeTriosCard;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.player.AIPlayer;
 import cs3500.threetrios.player.HumanPlayer;
@@ -309,10 +309,10 @@ public class ThreeTrios {
     deck.add(createCard("CorruptKing", "3", "1", "1", "2"));
     deck.add(createCard("AngryDragon", "5", "7", "1", "4"));
     deck.add(createCard("WindBird", "2", "5", "5", "A"));
-    deck.add(createCard("HeroKnight", "1", "1", "1", "1"));
+    deck.add(createCard("HeroKnight", "1", "1", "2", "1"));
     deck.add(createCard("WorldDragon", "1", "6", "5", "1"));
     deck.add(createCard("SkyWhale", "3", "1", "1", "2"));
-    deck.add(createCard("FirePhoenix", "2", "3", "4", "2"));
+    deck.add(createCard("FirePhoenix", "7", "3", "4", "2"));
     deck.add(createCard("ThunderTiger", "3", "9", "5", "4"));
     deck.add(createCard("SilverWolf", "4", "3", "1", "7"));
     deck.add(createCard("MysticFairy", "5", "5", "A", "2"));
@@ -331,14 +331,14 @@ public class ThreeTrios {
    * @param attack4 Fourth attack value
    * @return A new instance of ThreeTrioCard
    */
-  private static ThreeTrioCard createCard(
+  private static ThreeTriosCard createCard(
           String name, String attack1, String attack2, String attack3, String attack4) {
-    return new ThreeTrioCard(
+    return new ThreeTriosCard(
             name,
-            ThreeTrioCard.AttackValue.fromString(attack1),
-            ThreeTrioCard.AttackValue.fromString(attack2),
-            ThreeTrioCard.AttackValue.fromString(attack3),
-            ThreeTrioCard.AttackValue.fromString(attack4)
+            ThreeTriosCard.AttackValue.fromString(attack1),
+            ThreeTriosCard.AttackValue.fromString(attack2),
+            ThreeTriosCard.AttackValue.fromString(attack3),
+            ThreeTriosCard.AttackValue.fromString(attack4)
     );
   }
 }
