@@ -1,7 +1,6 @@
 package cs3500.threetrios.controller;
 
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.view.ThreeTriosCardPanel;
 
 /**
  * Responsible for passing features of player actions to player based controllers. Actions include

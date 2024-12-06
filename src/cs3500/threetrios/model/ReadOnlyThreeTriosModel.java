@@ -139,22 +139,4 @@ public interface ReadOnlyThreeTriosModel {
    * @throws IllegalStateException    if the specified coordinate already has a card or is a hole.
    */
   ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIdx);
-
-  /**
-   * Adds a model status listener to this model, the listener will be notified when player turn
-   * changes and when the game is over.
-   *
-   * @param listener the listener that will now listen for events in the model
-   */
-  void addModelStatusListener(ModelStatusListener listener);
-
-  /**
-   * Notifies this model's status listeners that the player turn has changed.
-   */
-  void notifyPlayerTurnChange();
-
-  /**
-   * Notifies this model's status listeners that the game has ended.
-   */
-  void notifyGameOver();
 }
