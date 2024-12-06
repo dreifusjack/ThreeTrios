@@ -29,6 +29,6 @@ public class ComboCardDecorator extends PassThroughCardDecorator {
 
   @Override
   boolean modifyComparison(boolean currentResult, Card self, Card other, Direction direction) {
-    return false;
+    return false; // never will be called
   }
 }

@@ -16,7 +16,6 @@ public class FallenAceCardDecorator extends PassThroughCardDecorator {
     if (selfValue == 1 && otherValue == 10) {
       return true;
     }
-    // Apply Fallen Ace rule: A "1" can beat an "A" (10).
     if (selfValue == 10 && otherValue == 1) {
       return false;
     }
