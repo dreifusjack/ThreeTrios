@@ -71,6 +71,7 @@ public class HintViewDecorator extends TTGUIView {
     }
   }
 
+
   @Override
   public void addPlayerActionListener(PlayerActionListener listener) {
     decoratedView.addPlayerActionListener(listener);

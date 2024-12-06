@@ -12,13 +12,12 @@ import cs3500.threetrios.model.decorators.BaseThreeTriosModelDecorator;
 public class ReverseModelDecorator extends BaseThreeTriosModelDecorator {
   public ReverseModelDecorator(ThreeTriosModel baseModel) {
     super(baseModel);
-    System.out.println("Crewateasd asdasd");
   }
 
   @Override
   public void startGame(GridCell[][] grid, List<Card> deck, int numOfCardCells) {
     List<Card> decoratedDeck = deck.stream()
-            .map(card -> new ReverseCardDecorator((ThreeTrioCard) card.copy()))
+            .map(card -> new ReverseCardDecorator(card.copy()))
             .collect(Collectors.toList());
     super.startGame(grid, decoratedDeck, numOfCardCells);
     System.out.println("Start game");

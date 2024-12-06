@@ -8,7 +8,7 @@ import cs3500.threetrios.controller.ModelStatusListener;
 /**
  * A simple mock ThreeTriosModel for testing purposes.
  */
-public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
+public class MockThreeTriosModel implements ThreeTriosModel {
   private final List<String> mockLog;
   private final int numRows;
   private final int numCols;
@@ -149,6 +149,18 @@ public class MockThreeTriosModel implements ReadOnlyThreeTriosModel {
   public ReadOnlyThreeTriosModel simulateMove(int row, int col, int handIdx) {
     mockLog.add("simulating move at cell (" + row + ", " + col + ") with the handInx : " + handIdx);
     return new BasicThreeTriosModel(this);
+  }
+
+  @Override
+  public void startGame(GridCell[][] grid, List<Card> deck, int numOfCardCells) {
+  }
+
+  @Override
+  public void playToGrid(int row, int col, int handIdx) {
+  }
+
+  @Override
+  public void battleCards(int row, int col) {
   }
 
   @Override

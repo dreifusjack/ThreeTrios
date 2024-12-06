@@ -2,17 +2,21 @@ package cs3500.threetrios.model.decorators.level1;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Direction;
-import cs3500.threetrios.model.ThreeTrioCard;
 
-public class ReverseCardDecorator extends ThreeTrioCard {
+public class ReverseCardDecorator extends PassThroughCardDecorator {
+  private final Card decoratedCard;
 
-  public ReverseCardDecorator(ThreeTrioCard decoratedCard) {
-    super(decoratedCard.getName(), decoratedCard.getNorth(), decoratedCard.getEast(), decoratedCard.getSouth(), decoratedCard.getWest());
+  public ReverseCardDecorator(Card delegate) {
+    super(delegate);
+    decoratedCard = createBaseCard(delegate);
   }
 
-    @Override
-    public boolean compare(Card other, Direction direction) {
-      System.out.println("compare triggered");
-      return !super.compare(other, direction);
+  @Override
+  public boolean compare(Card other, Direction direction) {
+    Card otherCard = createBaseCard(other);
+    if (other.getValue(direction.getOppositeDirection()) == decoratedCard.getValue(direction)) {
+      return false;
     }
+    return !decoratedCard.compare(otherCard, direction);
+  }
 }
