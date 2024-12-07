@@ -7,19 +7,13 @@ import java.util.Random;
 import cs3500.threetrios.controller.ThreeTriosListenerController;
 import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
-import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.decorators.level1.FallenAceCardDecorator;
 import cs3500.threetrios.model.decorators.level1.PassThroughCardDecorator;
 import cs3500.threetrios.model.decorators.level1.ReverseCardDecorator;
-import cs3500.threetrios.player.AIPlayer;
+import cs3500.threetrios.model.decorators.level1.VariantCardModelDecorator;
 import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.player.PlayerActions;
-import cs3500.threetrios.player.strategy.MaximizeFlipsStrategy;
-import cs3500.threetrios.provider.controller.AdapterListenerController;
-import cs3500.threetrios.provider.model.ModelAdapter;
-import cs3500.threetrios.provider.model.ThreeTriosModel;
-import cs3500.threetrios.provider.view.SimpleThreeTriosView;
 import cs3500.threetrios.view.TTGUIView;
 
 public class ThreeTrios3 {
@@ -30,9 +24,9 @@ public class ThreeTrios3 {
      ThreeTriosListenerController blueController;
 
 
-     ComboModelDecorator modelAce;
+    VariantCardModelDecorator modelAce;
 
-     ComboModelDecorator modelBoth;
+    VariantCardModelDecorator modelBoth;
 
      List<PassThroughCardDecorator> reverseList = new ArrayList<>(List.of(new ReverseCardDecorator(), new FallenAceCardDecorator()));
 
@@ -45,7 +39,7 @@ public class ThreeTrios3 {
 
       BasicThreeTriosModel model = new BasicThreeTriosModel(new Random(2));
 
-      ComboModelDecorator modelReverse = new ComboModelDecorator(model, reverseList);
+    VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(model, reverseList);
 //      modelAce = new ComboModelDecorator(model, aceList);
 //      modelBoth = new ComboModelDecorator(model, bothList);
 

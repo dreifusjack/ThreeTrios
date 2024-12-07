@@ -317,7 +317,7 @@ public class ThreeTrios {
     deck.add(createCard("WorldDragon", "1", "6", "5", "1"));
     deck.add(createCard("SkyWhale", "3", "1", "1", "2"));
     deck.add(createCard("FirePhoenix", "7", "3", "4", "2"));
-    deck.add(createCard("ThunderTiger", "3", "9", "5", "4"));
+    deck.add(createCard("ThunderTiger", "1", "9", "5", "4"));
     deck.add(createCard("SilverWolf", "4", "3", "1", "7"));
     deck.add(createCard("MysticFairy", "5", "5", "A", "2"));
     deck.add(createCard("OceanKraken", "1", "4", "8", "6"));
