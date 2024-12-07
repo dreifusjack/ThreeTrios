@@ -6,11 +6,22 @@ import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Direction;
 import cs3500.threetrios.model.ThreeTriosCard;
 
-public class ComboCardDecorator extends PassThroughCardDecorator {
+/**
+ * This Decorator allows for multiple decorators to be passed in, composes them together to modify
+ * the compare method however specified.
+ */
+public class ComposableCardDecorator extends PassThroughCardDecorator {
   private final List<PassThroughCardDecorator> decoratedCards;
   private final ThreeTriosCard decoratedCard;
 
-  public ComboCardDecorator(Card delegate, List<PassThroughCardDecorator> decorators) {
+  /**
+   * Constructs a ComposableCardDecorator in terms of the delegate to call methods on and the list
+   * of decorates to change the functionality of compare.
+   *
+   * @param delegate   given original card
+   * @param decorators added functionality to call
+   */
+  public ComposableCardDecorator(Card delegate, List<PassThroughCardDecorator> decorators) {
     super(delegate);
     decoratedCard = createBaseCard(delegate);
     decoratedCards = decorators;

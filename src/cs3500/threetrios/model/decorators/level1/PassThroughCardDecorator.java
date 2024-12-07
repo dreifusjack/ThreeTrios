@@ -4,9 +4,18 @@ import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Direction;
 import cs3500.threetrios.model.ThreeTriosCard;
 
+/**
+ * "Pass through" card, where this class simply takes a Card delegate to  call
+ * all of its methods for each method. Will be extended by decorated card variants.
+ */
 public abstract class PassThroughCardDecorator implements Card {
   private final Card delegate;
 
+  /**
+   * Constructs this pass through card in terms of the delegate that it will call on all methods.
+   *
+   * @param delegate card that handles all implementations.
+   */
   public PassThroughCardDecorator(Card delegate) {
     this.delegate = delegate;
   }

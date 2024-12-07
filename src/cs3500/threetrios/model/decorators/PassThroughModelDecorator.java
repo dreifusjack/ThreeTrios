@@ -12,9 +12,18 @@ import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
 
+/**
+ * "Pass through" model, where this class simply takes a ThreeTriosModel delegate to call
+ * all of its methods for each method. Will be extended by decorated model variants.
+ */
 public abstract class PassThroughModelDecorator implements ThreeTriosModel {
   private final ThreeTriosModel baseModel;
 
+  /**
+   * Constructs this pass through model in terms of the delegate that it will call on all methods.
+   *
+   * @param baseModel model that handles all implementations.
+   */
   public PassThroughModelDecorator(ThreeTriosModel baseModel) {
     this.baseModel = baseModel;
   }
@@ -109,10 +118,25 @@ public abstract class PassThroughModelDecorator implements ThreeTriosModel {
     this.baseModel.battleCards(row, col);
   }
 
+  /**
+   * Determines if the given coordinate is in the range of the models board.
+   *
+   * @param row given row
+   * @param col given col
+   * @return true iff this coordinate is in bounds in the grid
+   */
   protected boolean isValidCoordinate(int row, int col) {
     return row >= 0 && row < baseModel.numRows() && col >= 0 && col < baseModel.numCols();
   }
 
+  /**
+   * Flips this cell's adjacent cell's card if they are on the same team.
+   *
+   * @param row         given row
+   * @param col         given col
+   * @param dir         direction of the cell to operate on
+   * @param playerColor this cells color
+   */
   protected void flipAdjacentCardIfMatchesColor(
           int row, int col, Direction dir, TeamColor playerColor) {
     int adjRow = row + Direction.getRowHelper(dir);
