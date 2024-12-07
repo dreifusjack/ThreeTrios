@@ -21,25 +21,24 @@ public class ThreeTrios3 {
 
   public static void main(String[] args) {
 
-     ThreeTriosListenerController redController;
-     ThreeTriosListenerController blueController;
+    ThreeTriosListenerController redController;
+    ThreeTriosListenerController blueController;
 
 
     VariantCardModelDecorator modelAce;
 
     VariantCardModelDecorator modelBoth;
 
-     List<PassThroughCardDecorator> reverseList = new ArrayList<>(List.of(new ReverseCardDecorator(), new FallenAceCardDecorator()));
+    List<PassThroughCardDecorator> reverseList = new ArrayList<>(List.of(new ReverseCardDecorator(), new FallenAceCardDecorator()));
 
-     List<PassThroughCardDecorator> aceList = new ArrayList<>(List.of(new FallenAceCardDecorator()));
+    List<PassThroughCardDecorator> aceList = new ArrayList<>(List.of(new FallenAceCardDecorator()));
 
-     List<PassThroughCardDecorator> bothList = new ArrayList<>();
+    List<PassThroughCardDecorator> bothList = new ArrayList<>();
 
-      bothList.add(new ReverseCardDecorator());
-      bothList.add(new FallenAceCardDecorator());
+    bothList.add(new ReverseCardDecorator());
+    bothList.add(new FallenAceCardDecorator());
 
-      BasicThreeTriosModel model = new BasicThreeTriosModel(new Random(2));
-
+    BasicThreeTriosModel model = new BasicThreeTriosModel(new Random(2));
 
 
     VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(model, reverseList);
@@ -50,18 +49,18 @@ public class ThreeTrios3 {
 //      modelBoth = new ComboModelDecorator(model, bothList);
 
 
-      ThreeTriosSetupController setupController = new ThreeTriosSetupController(
-              "worldbig.txt",
-              "bigcards.txt");
-      setupController.playGame(modelSame);
+    ThreeTriosSetupController setupController = new ThreeTriosSetupController(
+            "worldbig.txt",
+            "bigcards.txt");
+    setupController.playGame(modelSame);
 
-      PlayerActions redPlayerActions = new HumanPlayer(TeamColor.RED);
-      PlayerActions bluePlayerActions = new HumanPlayer(TeamColor.BLUE);
+    PlayerActions redPlayerActions = new HumanPlayer(TeamColor.RED);
+    PlayerActions bluePlayerActions = new HumanPlayer(TeamColor.BLUE);
 
-      TTGUIView redView = new TTGUIView(modelSame);
-      TTGUIView blueView = new TTGUIView(modelSame);
+    TTGUIView redView = new TTGUIView(modelSame);
+    TTGUIView blueView = new TTGUIView(modelSame);
 
-      ThreeTriosListenerController controllerRed = new ThreeTriosListenerController(modelSame, redView, redPlayerActions);
-      ThreeTriosListenerController controllerBlue = new ThreeTriosListenerController(modelSame, blueView, bluePlayerActions);
+    ThreeTriosListenerController controllerRed = new ThreeTriosListenerController(modelSame, redView, redPlayerActions);
+    ThreeTriosListenerController controllerBlue = new ThreeTriosListenerController(modelSame, blueView, bluePlayerActions);
   }
 }
