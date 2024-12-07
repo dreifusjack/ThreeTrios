@@ -12,6 +12,7 @@ import cs3500.threetrios.model.decorators.level1.FallenAceCardDecorator;
 import cs3500.threetrios.model.decorators.level1.PassThroughCardDecorator;
 import cs3500.threetrios.model.decorators.level1.ReverseCardDecorator;
 import cs3500.threetrios.model.decorators.level1.VariantCardModelDecorator;
+import cs3500.threetrios.model.decorators.level2.PlusModelDecorator;
 import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
@@ -39,7 +40,12 @@ public class ThreeTrios3 {
 
       BasicThreeTriosModel model = new BasicThreeTriosModel(new Random(2));
 
+
+
     VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(model, reverseList);
+
+    PlusModelDecorator modelSame = new PlusModelDecorator(modelReverse);
+
 //      modelAce = new ComboModelDecorator(model, aceList);
 //      modelBoth = new ComboModelDecorator(model, bothList);
 
@@ -47,15 +53,15 @@ public class ThreeTrios3 {
       ThreeTriosSetupController setupController = new ThreeTriosSetupController(
               "worldbig.txt",
               "bigcards.txt");
-      setupController.playGame(modelReverse);
+      setupController.playGame(modelSame);
 
       PlayerActions redPlayerActions = new HumanPlayer(TeamColor.RED);
       PlayerActions bluePlayerActions = new HumanPlayer(TeamColor.BLUE);
 
-      TTGUIView redView = new TTGUIView(modelReverse);
-      TTGUIView blueView = new TTGUIView(modelReverse);
+      TTGUIView redView = new TTGUIView(modelSame);
+      TTGUIView blueView = new TTGUIView(modelSame);
 
-      ThreeTriosListenerController controllerRed = new ThreeTriosListenerController(modelReverse, redView, redPlayerActions);
-      ThreeTriosListenerController controllerBlue = new ThreeTriosListenerController(modelReverse, blueView, bluePlayerActions);
+      ThreeTriosListenerController controllerRed = new ThreeTriosListenerController(modelSame, redView, redPlayerActions);
+      ThreeTriosListenerController controllerBlue = new ThreeTriosListenerController(modelSame, blueView, bluePlayerActions);
   }
 }

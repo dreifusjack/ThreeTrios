@@ -1,11 +1,10 @@
-package cs3500.threetrios.model.decorators.level2;
-
-import junit.framework.TestCase;
+package cs3500.threetrios.model.decorators.level3;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -14,16 +13,17 @@ import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.model.decorators.PassThroughModelDecorator;
+import cs3500.threetrios.model.decorators.level1.FallenAceCardDecorator;
 import cs3500.threetrios.model.decorators.level1.PassThroughCardDecorator;
+import cs3500.threetrios.model.decorators.level1.ReverseCardDecorator;
 import cs3500.threetrios.model.decorators.level1.VariantCardModelDecorator;
+import cs3500.threetrios.model.decorators.level2.PlusModelDecorator;
+import cs3500.threetrios.model.decorators.level2.SameModelDecorator;
 import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
 
-public class SameModelDecoratorTest {
-
-  private ThreeTriosModel modelBase;
+public class FallenAceWithSameModelTest {
 
   private ThreeTriosListenerController redControllerSame;
   private ThreeTriosListenerController blueControllerSame;
@@ -33,9 +33,13 @@ public class SameModelDecoratorTest {
   @Before
   public void setUp() {
 
-    modelBase = new BasicThreeTriosModel(new Random(2));
+    ThreeTriosModel modelBase = new BasicThreeTriosModel(new Random(2));
 
-    modelSame = new SameModelDecorator(modelBase);
+    List<PassThroughCardDecorator> fallenAceList = new ArrayList<>(List.of(new FallenAceCardDecorator()));
+
+    VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(modelBase, fallenAceList);
+
+    modelSame = new SameModelDecorator(modelReverse);
 
     ThreeTriosSetupController setupControllerSame = new ThreeTriosSetupController(
             "worldbig.txt",
@@ -50,15 +54,24 @@ public class SameModelDecoratorTest {
 
     redControllerSame = new ThreeTriosListenerController(modelSame, redViewSame, redPlayerActionsR);
     blueControllerSame = new ThreeTriosListenerController(modelSame, blueViewSame, bluePlayerActionsR);
-
   }
 
-
-
-  // When both adjacent cards are Blue and have the same attack value with the RED card. (1, 1) and
-  // (3, 3)
+  // Check if you can perform a flip with a 1 vs an A
   @Test
-  public void testSameNormalCase() {
+  public void fallenAce1WinsA() {
+    redControllerSame.handleCardSelection(TeamColor.RED, 5);
+    redControllerSame.handleBoardSelection(0, 0);
+
+    blueControllerSame.handleCardSelection(TeamColor.BLUE, 5);
+    blueControllerSame.handleBoardSelection(0, 1);
+
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(0).getColor(), TeamColor.BLUE);
+    // Does flip since 1>A under FallenAce rule
+  }
+
+  // When the same variant did apply
+  @Test
+  public void testSameFLip() {
     redControllerSame.handleCardSelection(TeamColor.RED, 0);
     redControllerSame.handleBoardSelection(3, 1);
 
@@ -79,36 +92,9 @@ public class SameModelDecoratorTest {
     // Both used to be blue
   }
 
-
-  // When 2 adjacent cards (1 blue and 1 red) and they have the same attack value with the
-  // RED card. (1, 1) and (3, 3).
+  // When the same variant did not apply
   @Test
-  public void testSameNormalCaseVer2() {
-
-    redControllerSame.handleCardSelection(TeamColor.RED, 1);
-    redControllerSame.handleBoardSelection(0, 1);
-
-    blueControllerSame.handleCardSelection(TeamColor.BLUE, 0);
-    blueControllerSame.handleBoardSelection(2, 1);
-
-    redControllerSame.handleCardSelection(TeamColor.RED, 0);
-    redControllerSame.handleBoardSelection(3, 1);
-
-    blueControllerSame.handleCardSelection(TeamColor.BLUE, 0);
-    blueControllerSame.handleBoardSelection(1, 2);
-
-    redControllerSame.handleCardSelection(TeamColor.RED, 0);
-    redControllerSame.handleBoardSelection(1, 1);
-
-    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(1).getColor(), TeamColor.RED);
-    Assert.assertEquals(this.modelSame.getGridReadOnly().get(1).get(2).getColor(), TeamColor.RED);
-    // One of them used to be blue
-  }
-
-
-  // Cannot apply the rule (can't flip since 1 pair of sides are not equal)
-  @Test
-  public void testSameCannotFlip1Side() {
+  public void testSameNoFLip() {
     redControllerSame.handleCardSelection(TeamColor.RED, 0);
     redControllerSame.handleBoardSelection(0, 1);
 
@@ -122,47 +108,32 @@ public class SameModelDecoratorTest {
     Assert.assertEquals(this.modelSame.getGridReadOnly().get(1).get(2).getColor(), TeamColor.BLUE);
   }
 
-  // Cannot apply the rule (can't flip since 2 pair of sides are not equal)
+  // Test for the normal logic of the game (a higher attack value card should flip the lesser attack
+  // value card)
   @Test
-  public void testSameCannotFlip2Sides() {
-    redControllerSame.handleCardSelection(TeamColor.RED, 0);
-    redControllerSame.handleBoardSelection(0, 1);
-
-    blueControllerSame.handleCardSelection(TeamColor.BLUE, 2);
-    blueControllerSame.handleBoardSelection(1, 2);
-
+  public void fallenAceTestOGRuleFlip() {
     redControllerSame.handleCardSelection(TeamColor.RED, 1);
-    redControllerSame.handleBoardSelection(1, 1);
-
-    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(1).getColor(), TeamColor.RED);
-    Assert.assertEquals(this.modelSame.getGridReadOnly().get(1).get(2).getColor(), TeamColor.BLUE);
-  }
-
-
-  // Rule apply and then the flipped cards won't perform combo flips
-  @Test
-  public void testSameNoTriggerComboFlip() {
-    redControllerSame.handleCardSelection(TeamColor.RED, 1);
-    redControllerSame.handleBoardSelection(0, 1);
-
-    blueControllerSame.handleCardSelection(TeamColor.BLUE, 5);
-    blueControllerSame.handleBoardSelection(1, 2);
-
-    redControllerSame.handleCardSelection(TeamColor.RED, 4);
-    redControllerSame.handleBoardSelection(3, 1);
+    redControllerSame.handleBoardSelection(0, 0);
 
     blueControllerSame.handleCardSelection(TeamColor.BLUE, 0);
-    blueControllerSame.handleBoardSelection(2, 2);
+    blueControllerSame.handleBoardSelection(0, 1);
 
-    redControllerSame.handleCardSelection(TeamColor.RED, 1);
-    redControllerSame.handleBoardSelection(1, 1);
-
-    Assert.assertEquals(this.modelSame.getGridReadOnly().get(2).get(2).getColor(), TeamColor.BLUE);
-    // This card is still because even though adjacent card's south is 6 (RED) and it's north is 4.
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(0).getColor(), TeamColor.BLUE);
+    // Does flip since 7>4
   }
 
+  // Test for the normal logic of the game (a lesser attack value card should not flip the higher
+  // attack value card)
+  @Test
+  public void fallenAceTestOGRuleNoFlip() {
+    redControllerSame.handleCardSelection(TeamColor.RED, 1);
+    redControllerSame.handleBoardSelection(0, 0);
 
+    blueControllerSame.handleCardSelection(TeamColor.BLUE, 1);
+    blueControllerSame.handleBoardSelection(0, 1);
 
-
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(0).getColor(), TeamColor.RED);
+    // Does not flip since 1<4
+  }
 
 }
