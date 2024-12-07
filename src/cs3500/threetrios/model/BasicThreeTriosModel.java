@@ -2,8 +2,10 @@ package cs3500.threetrios.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import cs3500.threetrios.controller.ModelStatusListener;
 
@@ -45,7 +47,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * Constructs a BasicThreeTrioModel that same as before but takes a Random object to seed
    * randomness for testing purposes.
    *
-   * @param rand         seed for testing
+   * @param rand seed for testing
    * @throws IllegalArgumentException cannot find a file for either file name
    * @throws IllegalArgumentException if gridFileName or cardFileName are null
    */
@@ -84,6 +86,7 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
 
   /**
    * Used for converting a ReadOnlyGridCell to a GridCell.
+   *
    * @param readOnlyCell to convert to the corresponding GridCell
    * @return GridCell version of the given ReadOnlyGridCell
    */
@@ -255,7 +258,6 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
   }
 
 
-
   @Override
   public ReadOnlyGridCell getCell(int row, int col) {
     isGameNotStarted();
@@ -305,23 +307,10 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
     } catch (IllegalStateException e) {
       throw new IllegalArgumentException("Coordinates map to hole");
     }
-    int flips = 0;
-    for (Direction dir : Direction.values()) {
-      int adjRow = row + Direction.getRowHelper(dir);
-      int adjCol = col + Direction.getColHelper(dir);
 
-      if (isValidCoordinate(adjRow, adjCol)) {
-        try {
-          Card adjCard = grid[adjRow][adjCol].getCard();
-          GridCell adjCell = grid[adjRow][adjCol];
-          if (adjCard != null) {
-            flips += flipCounterHelper(dir, adjCell, card, adjRow, adjCol, flips, player);
-          }
-        } catch (IllegalStateException ignored) { // case where cell is a hole
-        }
-      }
-    }
-    return flips;
+    // Use a Set to track flipped cards
+    Set<String> flippedCards = new HashSet<>();
+    return flipCounterHelper(card, row, col, player, flippedCards);
   }
 
   /**
@@ -330,26 +319,42 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * This method will recursively add the number of flips the given card would have after battle
    * with the adjacent card and potentially starting a chain reaction (dfs).
    *
-   * @param dir        direction of battle
-   * @param adjCell    adjacent card to compared with
    * @param card       card that is comparing to adjacent card
-   * @param adjRow     row of the adjacent card
-   * @param adjCol     column of the adjacent card
-   * @param flipsSoFar counter for the flips so far
+   * @param row        row of the card
+   * @param col     column of the card
+   * @param player current player
+   * @param flippedCards set of cards that would have been flipped
    * @return number of flips the given card has after comparing with the adjacent card
    */
-  protected int flipCounterHelper(Direction dir, GridCell adjCell, Card card,
-                                int adjRow, int adjCol, int flipsSoFar, Player player) {
-    if (adjCell.getColor() != player.getColor()) {
-      Card adjCard = grid[adjRow][adjCol].getCard();
-      if (card.compare(adjCard, dir)) {
-        flipsSoFar++;
-        flipsSoFar += numCardFlips(adjCard, adjRow, adjCol, player);
-        return flipsSoFar;
+  protected int flipCounterHelper(
+          Card card, int row, int col, Player player, Set<String> flippedCards) {
+    String cardKey = row + "," + col;
+    if (flippedCards.contains(cardKey)) {
+      return -1;
+    }
+    flippedCards.add(cardKey);
+
+    int flips = 0;
+
+    for (Direction dir : Direction.values()) {
+      int adjRow = row + Direction.getRowHelper(dir);
+      int adjCol = col + Direction.getColHelper(dir);
+      if (isValidCoordinate(adjRow, adjCol)) {
+        try {
+          GridCell adjCell = grid[adjRow][adjCol];
+          Card adjCard = adjCell.getCard();
+
+          if (adjCard != null && adjCell.getColor() != player.getColor() && card.compare(adjCard, dir)) {
+            flips += 1;
+            flips += flipCounterHelper(adjCard, adjRow, adjCol, player, flippedCards);
+          }
+        } catch (IllegalStateException ignored) { // hole case
+        }
       }
     }
-    return 0;
+    return flips;
   }
+
 
   /**
    * Deals the given number of cards to the given player's list of cards to play with.
