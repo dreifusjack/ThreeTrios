@@ -36,12 +36,12 @@ public class ComboModelDecoratorTest {
   private ThreeTriosListenerController redControllerAR;
   private ThreeTriosListenerController blueControllerAR;
 
-  private ComboModelDecorator modelReverse;
+  private VariantCardModelDecorator modelReverse;
 
-  private ComboModelDecorator modelAce;
+  private VariantCardModelDecorator modelAce;
 
-  private ComboModelDecorator modelReverseAce;
-  private ComboModelDecorator modelAceReverse;
+  private VariantCardModelDecorator modelReverseAce;
+  private VariantCardModelDecorator modelAceReverse;
 
 
   private List<PassThroughCardDecorator> reverseList;
@@ -68,7 +68,7 @@ public class ComboModelDecoratorTest {
     modelR = new BasicThreeTriosModel(new Random(2));
 
 
-    modelReverse = new ComboModelDecorator(modelR, reverseList);
+    modelReverse = new VariantCardModelDecorator(modelR, reverseList);
 
 
     ThreeTriosSetupController setupControllerR = new ThreeTriosSetupController(
@@ -87,7 +87,7 @@ public class ComboModelDecoratorTest {
 
     modelA = new BasicThreeTriosModel(new Random(2));
 
-    modelAce = new ComboModelDecorator(modelA, aceList);
+    modelAce = new VariantCardModelDecorator(modelA, aceList);
 
     ThreeTriosSetupController setupControllerA = new ThreeTriosSetupController(
             "worldbig.txt",
@@ -105,7 +105,7 @@ public class ComboModelDecoratorTest {
 
 
     modelRA = new BasicThreeTriosModel(new Random(2));
-    modelReverseAce = new ComboModelDecorator(modelRA, bothListRA);
+    modelReverseAce = new VariantCardModelDecorator(modelRA, bothListRA);
     ThreeTriosSetupController setupControllerRA = new ThreeTriosSetupController(
             "worldbig.txt",
             "bigcards.txt");
@@ -123,7 +123,7 @@ public class ComboModelDecoratorTest {
 
 
     modelAR = new BasicThreeTriosModel(new Random(2));
-    modelAceReverse = new ComboModelDecorator(modelAR, bothListAR);
+    modelAceReverse = new VariantCardModelDecorator(modelAR, bothListAR);
     ThreeTriosSetupController setupControllerAR = new ThreeTriosSetupController(
             "worldbig.txt",
             "bigcards.txt");

@@ -9,7 +9,6 @@ import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.TeamColor;
-import cs3500.threetrios.model.decorators.level1.ComboModelDecorator;
 import cs3500.threetrios.model.decorators.level1.FallenAceCardDecorator;
 import cs3500.threetrios.model.decorators.level1.PassThroughCardDecorator;
 import cs3500.threetrios.model.decorators.level1.ReverseCardDecorator;
