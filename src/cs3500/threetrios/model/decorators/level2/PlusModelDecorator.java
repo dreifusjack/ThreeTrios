@@ -12,8 +12,17 @@ import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.decorators.PassThroughModelDecorator;
 
+/**
+ * A model decorator that adds the "Plus Rule" functionality.
+ * When a card is placed, it evaluates adjacent cards based on their directional values.
+ * Adds new flipping cases when there are directions with matching sums appearing two or more times.
+ */
 public class PlusModelDecorator extends PassThroughModelDecorator {
-
+  /**
+   * Constructs a PlusModelDecorator with the given base model.
+   *
+   * @param baseModel the base model to decorate
+   */
   public PlusModelDecorator(ThreeTriosModel baseModel) {
     super(baseModel);
   }
@@ -25,6 +34,13 @@ public class PlusModelDecorator extends PassThroughModelDecorator {
     applyPlusRule(row, col);
   }
 
+  /**
+   * Applies the "Plus Rule" to the card placed at the specified grid cell.
+   * This checks adjacent cards for matching directional sums and flips them if their colors match.
+   *
+   * @param row given row
+   * @param col given col
+   */
   private void applyPlusRule(int row, int col) {
     Card placedCard = getCell(row, col).getCardCopy();
     TeamColor currentPlayerColor = getCurrentPlayer().getColor();
@@ -38,6 +54,15 @@ public class PlusModelDecorator extends PassThroughModelDecorator {
     notifyPlayerTurnChange();
   }
 
+  /**
+   * Calculates the sums of directional values for the card at the specified grid cell
+   * and its adjacent cards.
+   *
+   * @param row        given row
+   * @param col        given col
+   * @param placedCard the card placed
+   * @return a map of directions to their corresponding sums
+   */
   private Map<Direction, Integer> calculateDirectionSums(int row, int col, Card placedCard) {
     Map<Direction, Integer> directionSums = new HashMap<>();
 
@@ -52,14 +77,19 @@ public class PlusModelDecorator extends PassThroughModelDecorator {
             int sum = placedCard.getValue(dir) + adjCard.getValue(dir.getOppositeDirection());
             directionSums.put(dir, sum);
           }
-        } catch (IllegalStateException e) {
-          // ignore, hole case
+        } catch (IllegalStateException ignored) {// hole case
         }
       }
     }
     return directionSums;
   }
 
+  /**
+   * Finds directions with matching sums appearing two or more times.
+   *
+   * @param directionSums a map of directions to their corresponding sums
+   * @return a set of directions with matching sums
+   */
   private Set<Direction> findMatchingSums(Map<Direction, Integer> directionSums) {
     // Count occurrences of each sum
     Map<Integer, Integer> sumFrequencies = new HashMap<>();

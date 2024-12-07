@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import cs3500.threetrios.model.decorators.level1.ComboModelDecorator;
+import cs3500.threetrios.model.decorators.level1.VariantCardModelDecorator;
 import cs3500.threetrios.model.decorators.level1.FallenAceCardDecorator;
 import cs3500.threetrios.model.decorators.level1.PassThroughCardDecorator;
 import cs3500.threetrios.model.decorators.level1.ReverseCardDecorator;
@@ -188,7 +188,7 @@ public class ThreeTrios {
         case "done":
           model4x3 = decorators.isEmpty()
                   ? model4x3
-                  : new ComboModelDecorator(model4x3, decorators);
+                  : new VariantCardModelDecorator(model4x3, decorators);
           break;
         default:
           System.out.println("Invalid rule. Valid options are reverse, fallenace, or done.");

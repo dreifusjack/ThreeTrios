@@ -3,6 +3,7 @@ package cs3500.threetrios.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import cs3500.threetrios.controller.ModelStatusListener;
 
@@ -103,18 +104,17 @@ public class MockNormalThreeTriosModel extends BasicThreeTriosModel {
    * This method will recursively add the number of flips the given card would have after battle
    * with the adjacent card and potentially starting a chain reaction (dfs).
    *
-   * @param dir        direction of battle
-   * @param adjCell    adjacent card to compared with
-   * @param card       card that is comparing to adjacent card
-   * @param adjRow     row of the adjacent card
-   * @param adjCol     column of the adjacent card
-   * @param flipsSoFar counter for the flips so far
+   * @param card         card that is comparing to adjacent card
+   * @param row          row of the card
+   * @param col          column of the card
+   * @param player       current player
+   * @param flippedCards set of cards that would have been flipped
    * @return number of flips the given card has after comparing with the adjacent card
    */
-  protected int flipCounterHelper(Direction dir, GridCell adjCell, Card card,
-                                  int adjRow, int adjCol, int flipsSoFar, Player player) {
+  protected int flipCounterHelper(
+          Card card, int row, int col, Player player, Set<String> flippedCards) {
     log.add("flipCounterHelper called");
-    return super.flipCounterHelper(dir, adjCell, card, adjRow, adjCol, flipsSoFar, player);
+    return super.flipCounterHelper(card, row, col, player, flippedCards);
   }
 
   /**
