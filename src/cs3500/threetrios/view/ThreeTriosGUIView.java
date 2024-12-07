@@ -63,4 +63,11 @@ public interface ThreeTriosGUIView {
    * @param flips flips to render
    */
   void cellExposeHint(int row, int col, int flips);
+
+
+  /**
+   * Method that allows this view to listen for the key pressed event of 'h' which indicates to
+   * toggle the hints.
+   */
+  void setupHintListeners();
 }

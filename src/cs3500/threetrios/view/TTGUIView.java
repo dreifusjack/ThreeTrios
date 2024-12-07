@@ -78,11 +78,9 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
     setupHintListeners();
   }
 
-  /**
-   * Method that allows this view to listen for the key pressed event of 'h' which indicates to
-   * toggle the hints.
-   */
-  private void setupHintListeners() {
+
+  @Override
+  public void setupHintListeners() {
     for (HintToggleListener listener : hintToggleListeners) {
       this.addKeyListener(new KeyAdapter() {
         @Override
@@ -99,4 +97,6 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   public void cellExposeHint(int row, int col, int flips) {
     gamePanel.cellExposeHint(row, col, flips);
   }
+
+
 }
