@@ -10,7 +10,17 @@ import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.decorators.PassThroughModelDecorator;
 
+/**
+ * A model decorator that implements the "Same Rule".
+ * When a card is placed, it evaluates adjacent cards to determine if they have matching opposing
+ * values. If this happens two or more times, new flipping functionality is added.
+ */
 public class SameModelDecorator extends PassThroughModelDecorator {
+  /**
+   * Constructs a SameModelDecorator with the given base model.
+   *
+   * @param baseModel the base model to decorate
+   */
   public SameModelDecorator(ThreeTriosModel baseModel) {
     super(baseModel);
   }
@@ -22,6 +32,13 @@ public class SameModelDecorator extends PassThroughModelDecorator {
     applySameRule(row, col);
   }
 
+  /**
+   * Applies the "Same Rule" to the card placed at the specified grid cell.
+   * This rule checks for adjacent cards with matching opposing values and flips them if opposing.
+   *
+   * @param row given row
+   * @param col given col
+   */
   private void applySameRule(int row, int col) {
     Card placedCard = getCell(row, col).getCardCopy();
     TeamColor currentPlayerColor = getCurrentPlayer().getColor();
@@ -37,6 +54,15 @@ public class SameModelDecorator extends PassThroughModelDecorator {
     notifyPlayerTurnChange();
   }
 
+  /**
+   * Calculates the adjacent cards with matching opposing values
+   * for the card at the specified grid cell.
+   *
+   * @param row        given row
+   * @param col        given col
+   * @param placedCard the card placed
+   * @return a map of directions to the adjacent cards with matching opposing values
+   */
   private Map<Direction, Card> calculateMatchingOpposingCards(int row, int col, Card placedCard) {
     Map<Direction, Card> opponentMatchingCards = new HashMap<>();
     for (Direction dir : Direction.values()) {
@@ -52,8 +78,7 @@ public class SameModelDecorator extends PassThroughModelDecorator {
               opponentMatchingCards.put(dir, adjCard);
             }
           }
-        } catch (IllegalStateException e) {
-          // ignored, hole case
+        } catch (IllegalStateException ignored) {// hole case
         }
       }
     }
