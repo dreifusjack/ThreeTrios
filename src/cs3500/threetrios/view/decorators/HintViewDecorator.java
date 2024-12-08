@@ -2,11 +2,9 @@ package cs3500.threetrios.view.decorators;
 
 import java.util.List;
 
-import cs3500.threetrios.controller.PlayerActionListener;
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Player;
 import cs3500.threetrios.model.ReadOnlyGridCell;
-import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.view.TTGUIView;
 
@@ -41,11 +39,6 @@ public class HintViewDecorator extends TTGUIView {
     showHints(cardIdx);
   }
 
-  @Override
-  public void updateTitle(String title) {
-    decoratedView.updateTitle(title);
-  }
-
   /**
    * For each unoccupied grid cell, show the number of cards it would flip on the opposing team
    * if the given cardIdx was played from the models current player. If the given card index
@@ -69,21 +62,5 @@ public class HintViewDecorator extends TTGUIView {
         decoratedView.cellExposeHint(row, col, flips);
       }
     }
-  }
-
-
-  @Override
-  public void addPlayerActionListener(PlayerActionListener listener) {
-    decoratedView.addPlayerActionListener(listener);
-  }
-
-  @Override
-  public void notifySelectedCard(int cardIndex, TeamColor color) {
-    decoratedView.notifySelectedCard(cardIndex, color);
-  }
-
-  @Override
-  public void notifyPlacedCard(int row, int col) {
-    decoratedView.notifyPlacedCard(row, col);
   }
 }
