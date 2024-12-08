@@ -144,6 +144,7 @@ public abstract class PassThroughModelDecorator implements ThreeTriosModel {
 
     if (playerColor == getCell(adjRow, adjCol).getColor()) {
       ((GridCell) getCell(adjRow, adjCol)).toggleColor();
+      battleCards(adjRow, adjCol);
     }
   }
 }
