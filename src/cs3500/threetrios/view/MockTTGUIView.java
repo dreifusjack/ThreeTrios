@@ -57,6 +57,12 @@ public class MockTTGUIView extends TTGUIView {
     super.notifyPlacedCard(row, col);
   }
 
+  @Override
+  public void setupHintListeners() {
+    log.add("setupHintListeners called");
+    super.setupHintListeners();;
+  }
+
   public List<String> getLog() {
     return this.log;
   }

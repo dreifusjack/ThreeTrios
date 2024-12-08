@@ -122,4 +122,12 @@ public class MockTTGUIViewTest {
 
   }
 
+  //--------------------------------hw9------------------------------------
+
+  // Check to see if the view set up the hint listener after the controller has been constructed
+  @Test
+  public void testSetupHintListeners() {
+    Assert.assertTrue(guiViewLogRed.contains("setupHintListeners called"));
+  }
+
 }
