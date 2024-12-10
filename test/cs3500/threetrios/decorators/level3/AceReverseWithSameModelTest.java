@@ -152,4 +152,35 @@ public class AceReverseWithSameModelTest {
     Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(0).getColor(), TeamColor.RED);
     // Does not flip since 1<A under FallenAce and the Reverse
   }
+
+  // Same rule failed but then trigger reverse rule.
+  @Test
+  public void testSameFailTriggerReverse() {
+    redControllerSame.handleCardSelection(TeamColor.RED, 2);
+    redControllerSame.handleBoardSelection(1, 2);
+
+    blueControllerSame.handleCardSelection(TeamColor.BLUE, 5);
+    blueControllerSame.handleBoardSelection(0, 1);
+
+    redControllerSame.handleCardSelection(TeamColor.RED, 2);
+    redControllerSame.handleBoardSelection(1, 1);
+
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(1).getColor(), TeamColor.RED);
+  }
+
+  // Test when the same rule failed but then trigger fallen ace rule.
+  @Test
+  public void testPlusFailTriggerAce() {
+    redControllerSame.handleCardSelection(TeamColor.RED, 0);
+    redControllerSame.handleBoardSelection(0, 1);
+
+    blueControllerSame.handleCardSelection(TeamColor.BLUE, 1);
+    blueControllerSame.handleBoardSelection(1, 2);
+
+    redControllerSame.handleCardSelection(TeamColor.RED, 4);
+    redControllerSame.handleBoardSelection(1, 1);
+
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(1).get(2).getColor(), TeamColor.RED);
+  }
+
 }

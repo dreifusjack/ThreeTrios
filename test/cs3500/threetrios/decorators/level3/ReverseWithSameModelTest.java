@@ -124,5 +124,40 @@ public class ReverseWithSameModelTest {
     Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(1).getColor(), TeamColor.RED);
     Assert.assertEquals(this.modelSame.getGridReadOnly().get(1).get(2).getColor(), TeamColor.BLUE);
   }
+
+  // Test to see if you can still perform combo flips under reverse rule.
+  @Test
+  public void testReverseComboFlip() {
+    redControllerSame.handleCardSelection(TeamColor.RED, 0);
+    redControllerSame.handleBoardSelection(0, 0);
+
+    blueControllerSame.handleCardSelection(TeamColor.BLUE, 0);
+    blueControllerSame.handleBoardSelection(2, 2);
+
+    redControllerSame.handleCardSelection(TeamColor.RED, 0);
+    redControllerSame.handleBoardSelection(1, 0);
+
+    blueControllerSame.handleCardSelection(TeamColor.BLUE, 0);
+    blueControllerSame.handleBoardSelection(0, 1);
+
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(0).getColor(), TeamColor.BLUE);
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(1).get(0).getColor(), TeamColor.BLUE);
+    // Both used to be red.
+  }
+
+  // Same rule failed but then trigger reverse rule.
+  @Test
+  public void testSameFailTriggerReverse() {
+    redControllerSame.handleCardSelection(TeamColor.RED, 2);
+    redControllerSame.handleBoardSelection(1, 2);
+
+    blueControllerSame.handleCardSelection(TeamColor.BLUE, 5);
+    blueControllerSame.handleBoardSelection(0, 1);
+
+    redControllerSame.handleCardSelection(TeamColor.RED, 2);
+    redControllerSame.handleBoardSelection(1, 1);
+
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(1).getColor(), TeamColor.RED);
+  }
 }
 

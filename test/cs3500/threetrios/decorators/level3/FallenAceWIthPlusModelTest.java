@@ -167,4 +167,19 @@ public class FallenAceWIthPlusModelTest {
     // The card (2, 0) is now RED  as the flipped card above it turned to RED and then
     // performed the combo flip on it.
   }
+
+  // Test when the plus rule failed but then trigger fallen ace rule.
+  @Test
+  public void testPlusFailTriggerAce() {
+    redControllerPlus.handleCardSelection(TeamColor.RED, 0);
+    redControllerPlus.handleBoardSelection(0, 1);
+
+    blueControllerPlus.handleCardSelection(TeamColor.BLUE, 4);
+    blueControllerPlus.handleBoardSelection(1, 2);
+
+    redControllerPlus.handleCardSelection(TeamColor.RED, 1);
+    redControllerPlus.handleBoardSelection(1, 1);
+
+    Assert.assertEquals(this.modelPlus.getGridReadOnly().get(1).get(2).getColor(), TeamColor.RED);
+  }
 }

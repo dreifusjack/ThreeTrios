@@ -164,4 +164,19 @@ public class FallenAceWithSameModelTest {
     // The card (2, 2) is now turn to RED after the card above it turned to RED and then applied
     // combo flip on it.
   }
+
+  // Test when the same rule failed but then trigger fallen ace rule.
+  @Test
+  public void testPlusFailTriggerAce() {
+    redControllerSame.handleCardSelection(TeamColor.RED, 0);
+    redControllerSame.handleBoardSelection(0, 1);
+
+    blueControllerSame.handleCardSelection(TeamColor.BLUE, 4);
+    blueControllerSame.handleBoardSelection(1, 2);
+
+    redControllerSame.handleCardSelection(TeamColor.RED, 1);
+    redControllerSame.handleBoardSelection(1, 1);
+
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(1).get(2).getColor(), TeamColor.RED);
+  }
 }

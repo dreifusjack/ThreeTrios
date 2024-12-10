@@ -126,4 +126,39 @@ public class ReverseWIthPlusModelTest {
     Assert.assertEquals(this.modelPlus.getGridReadOnly().get(1).get(0).getColor(), TeamColor.BLUE);
     // This card is still blue because the rule failed to be applied.
   }
+
+  // Test to see if you can still perform combo flips under reverse rule.
+  @Test
+  public void testReverseComboFlip() {
+    redControllerPlus.handleCardSelection(TeamColor.RED, 0);
+    redControllerPlus.handleBoardSelection(0, 0);
+
+    blueControllerPlus.handleCardSelection(TeamColor.BLUE, 0);
+    blueControllerPlus.handleBoardSelection(2, 2);
+
+    redControllerPlus.handleCardSelection(TeamColor.RED, 0);
+    redControllerPlus.handleBoardSelection(1, 0);
+
+    blueControllerPlus.handleCardSelection(TeamColor.BLUE, 0);
+    blueControllerPlus.handleBoardSelection(0, 1);
+
+    Assert.assertEquals(this.modelPlus.getGridReadOnly().get(0).get(0).getColor(), TeamColor.BLUE);
+    Assert.assertEquals(this.modelPlus.getGridReadOnly().get(1).get(0).getColor(), TeamColor.BLUE);
+    // Both used to be red.
+  }
+
+  // Plus rule failed but then trigger reverse rule.
+  @Test
+  public void tetPlusFailTriggerReverse() {
+    redControllerPlus.handleCardSelection(TeamColor.RED, 2);
+    redControllerPlus.handleBoardSelection(1, 2);
+
+    blueControllerPlus.handleCardSelection(TeamColor.BLUE, 2);
+    blueControllerPlus.handleBoardSelection(0, 1);
+
+    redControllerPlus.handleCardSelection(TeamColor.RED, 2);
+    redControllerPlus.handleBoardSelection(1, 1);
+
+    Assert.assertEquals(this.modelPlus.getGridReadOnly().get(0).get(1).getColor(), TeamColor.RED);
+  }
 }

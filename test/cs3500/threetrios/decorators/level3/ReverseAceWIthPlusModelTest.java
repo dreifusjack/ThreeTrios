@@ -154,4 +154,34 @@ public class ReverseAceWIthPlusModelTest {
     Assert.assertEquals(this.modelPlus.getGridReadOnly().get(1).get(0).getColor(), TeamColor.BLUE);
     // This card is still blue because the rule failed to be applied.
   }
+
+  // Plus rule failed but then trigger reverse rule.
+  @Test
+  public void tetPlusFailTriggerReverse() {
+    redControllerPlus.handleCardSelection(TeamColor.RED, 2);
+    redControllerPlus.handleBoardSelection(1, 2);
+
+    blueControllerPlus.handleCardSelection(TeamColor.BLUE, 2);
+    blueControllerPlus.handleBoardSelection(0, 1);
+
+    redControllerPlus.handleCardSelection(TeamColor.RED, 2);
+    redControllerPlus.handleBoardSelection(1, 1);
+
+    Assert.assertEquals(this.modelPlus.getGridReadOnly().get(0).get(1).getColor(), TeamColor.RED);
+  }
+
+  // Test when the plus rule failed but then trigger fallen ace rule.
+  @Test
+  public void testPlusFailTriggerAce() {
+    redControllerPlus.handleCardSelection(TeamColor.RED, 0);
+    redControllerPlus.handleBoardSelection(0, 1);
+
+    blueControllerPlus.handleCardSelection(TeamColor.BLUE, 4);
+    blueControllerPlus.handleBoardSelection(1, 2);
+
+    redControllerPlus.handleCardSelection(TeamColor.RED, 1);
+    redControllerPlus.handleBoardSelection(1, 1);
+
+    Assert.assertEquals(this.modelPlus.getGridReadOnly().get(1).get(2).getColor(), TeamColor.RED);
+  }
 }

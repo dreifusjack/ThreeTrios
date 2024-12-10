@@ -30,7 +30,7 @@ public class ThreeTrios3 {
 
     VariantCardModelDecorator modelBoth;
 
-    List<PassThroughCardDecorator> reverseList = new ArrayList<>(List.of(new ReverseCardDecorator(), new FallenAceCardDecorator()));
+    List<PassThroughCardDecorator> reverseList = new ArrayList<>(List.of(new ReverseCardDecorator()));
 
     List<PassThroughCardDecorator> aceList = new ArrayList<>(List.of(new FallenAceCardDecorator()));
 
@@ -44,7 +44,7 @@ public class ThreeTrios3 {
 
     VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(model, reverseList);
 
-    SameModelDecorator modelSame = new SameModelDecorator(model);
+    PlusModelDecorator modelSame = new PlusModelDecorator(modelReverse);
 
 //      modelAce = new ComboModelDecorator(model, aceList);
 //      modelBoth = new ComboModelDecorator(model, bothList);
