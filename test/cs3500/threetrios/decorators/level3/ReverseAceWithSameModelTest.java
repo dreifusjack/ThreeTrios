@@ -40,7 +40,8 @@ public class ReverseAceWithSameModelTest {
     List<PassThroughCardDecorator> reverseAndAceList = new ArrayList<>(List.of(
             new ReverseCardDecorator(), new FallenAceCardDecorator()));
 
-    VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(modelBase, reverseAndAceList);
+    VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(
+            modelBase, reverseAndAceList);
 
     modelSame = new SameModelDecorator(modelReverse);
 

@@ -7,7 +7,6 @@ import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
-import cs3500.threetrios.view.ThreeTriosCardPanel;
 
 /**
  * Mock class for the ThreeTriosFeaturesController class.

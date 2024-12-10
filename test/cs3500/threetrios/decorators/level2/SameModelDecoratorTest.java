@@ -21,8 +21,6 @@ import cs3500.threetrios.view.TTGUIView;
  */
 public class SameModelDecoratorTest {
 
-  private ThreeTriosModel modelBase;
-
   private ThreeTriosListenerController redControllerSame;
   private ThreeTriosListenerController blueControllerSame;
 
@@ -31,7 +29,7 @@ public class SameModelDecoratorTest {
   @Before
   public void setUp() {
 
-    modelBase = new BasicThreeTriosModel(new Random(2));
+    ThreeTriosModel modelBase = new BasicThreeTriosModel(new Random(2));
 
     modelSame = new SameModelDecorator(modelBase);
 

@@ -36,9 +36,11 @@ public class FallenAceWIthPlusModelTest {
 
     ThreeTriosModel modelBase = new BasicThreeTriosModel(new Random(2));
 
-    List<PassThroughCardDecorator> fallenAceList = new ArrayList<>(List.of(new FallenAceCardDecorator()));
+    List<PassThroughCardDecorator> fallenAceList = new ArrayList<>(
+            List.of(new FallenAceCardDecorator()));
 
-    VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(modelBase, fallenAceList);
+    VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(
+            modelBase, fallenAceList);
 
 
     modelPlus = new PlusModelDecorator(modelReverse);

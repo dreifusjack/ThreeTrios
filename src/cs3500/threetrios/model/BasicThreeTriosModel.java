@@ -319,10 +319,10 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
    * This method will recursively add the number of flips the given card would have after battle
    * with the adjacent card and potentially starting a chain reaction (dfs).
    *
-   * @param card       card that is comparing to adjacent card
-   * @param row        row of the card
-   * @param col     column of the card
-   * @param player current player
+   * @param card         card that is comparing to adjacent card
+   * @param row          row of the card
+   * @param col          column of the card
+   * @param player       current player
    * @param flippedCards set of cards that would have been flipped
    * @return number of flips the given card has after comparing with the adjacent card
    */
@@ -344,7 +344,8 @@ public class BasicThreeTriosModel implements ThreeTriosModel {
           GridCell adjCell = grid[adjRow][adjCol];
           Card adjCard = adjCell.getCard();
 
-          if (adjCard != null && adjCell.getColor() != player.getColor() && card.compare(adjCard, dir)) {
+          if (adjCard != null && adjCell.getColor() != player.getColor()
+                  && card.compare(adjCard, dir)) {
             flips += 1;
             flips += flipCounterHelper(adjCard, adjRow, adjCol, player, flippedCards);
           }

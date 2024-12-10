@@ -43,39 +43,25 @@ public class ComboModelDecoratorTest {
   private ThreeTriosListenerController redControllerAR;
   private ThreeTriosListenerController blueControllerAR;
 
-  private VariantCardModelDecorator modelReverse;
-
-  private VariantCardModelDecorator modelAce;
-
-  private VariantCardModelDecorator modelReverseAce;
-  private VariantCardModelDecorator modelAceReverse;
-
-
-  private List<PassThroughCardDecorator> reverseList;
-
-  private List<PassThroughCardDecorator> aceList;
-
-  private List<PassThroughCardDecorator> bothListRA;
-  private List<PassThroughCardDecorator> bothListAR;
-
-
   @Before
   public void setUp() {
 
-    reverseList = new ArrayList<>(List.of(new ReverseCardDecorator()));
-    aceList = new ArrayList<>(List.of(new FallenAceCardDecorator()));
-    bothListRA = new ArrayList<>();
+    List<PassThroughCardDecorator> reverseList = new ArrayList<>(
+            List.of(new ReverseCardDecorator()));
+    List<PassThroughCardDecorator> aceList = new ArrayList<>(
+            List.of(new FallenAceCardDecorator()));
+    List<PassThroughCardDecorator> bothListRA = new ArrayList<>();
     bothListRA.add(new ReverseCardDecorator());
     bothListRA.add(new FallenAceCardDecorator());
 
-    bothListAR = new ArrayList<>();
+    List<PassThroughCardDecorator> bothListAR = new ArrayList<>();
     bothListAR.add(new FallenAceCardDecorator());
     bothListAR.add(new ReverseCardDecorator());
 
     modelR = new BasicThreeTriosModel(new Random(2));
 
 
-    modelReverse = new VariantCardModelDecorator(modelR, reverseList);
+    VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(modelR, reverseList);
 
 
     ThreeTriosSetupController setupControllerR = new ThreeTriosSetupController(
@@ -89,12 +75,14 @@ public class ComboModelDecoratorTest {
     TTGUIView redViewReverse = new TTGUIView(modelReverse);
     TTGUIView blueViewReverse = new TTGUIView(modelReverse);
 
-    redControllerReverse = new ThreeTriosListenerController(modelReverse, redViewReverse, redPlayerActionsR);
-    blueControllerReverse = new ThreeTriosListenerController(modelReverse, blueViewReverse, bluePlayerActionsR);
+    redControllerReverse = new ThreeTriosListenerController(
+            modelReverse, redViewReverse, redPlayerActionsR);
+    blueControllerReverse = new ThreeTriosListenerController(
+            modelReverse, blueViewReverse, bluePlayerActionsR);
 
     modelA = new BasicThreeTriosModel(new Random(2));
 
-    modelAce = new VariantCardModelDecorator(modelA, aceList);
+    VariantCardModelDecorator modelAce = new VariantCardModelDecorator(modelA, aceList);
 
     ThreeTriosSetupController setupControllerA = new ThreeTriosSetupController(
             "worldbig.txt",
@@ -112,7 +100,7 @@ public class ComboModelDecoratorTest {
 
 
     modelRA = new BasicThreeTriosModel(new Random(2));
-    modelReverseAce = new VariantCardModelDecorator(modelRA, bothListRA);
+    VariantCardModelDecorator modelReverseAce = new VariantCardModelDecorator(modelRA, bothListRA);
     ThreeTriosSetupController setupControllerRA = new ThreeTriosSetupController(
             "worldbig.txt",
             "bigcards.txt");
@@ -124,13 +112,15 @@ public class ComboModelDecoratorTest {
     TTGUIView redViewBoth = new TTGUIView(modelReverseAce);
     TTGUIView blueViewBoth = new TTGUIView(modelReverseAce);
 
-    redControllerRA = new ThreeTriosListenerController(modelReverseAce, redViewBoth, redPlayerActionsB);
-    blueControllerRA = new ThreeTriosListenerController(modelReverseAce, blueViewBoth, bluePlayerActionsB);
+    redControllerRA = new ThreeTriosListenerController(
+            modelReverseAce, redViewBoth, redPlayerActionsB);
+    blueControllerRA = new ThreeTriosListenerController(
+            modelReverseAce, blueViewBoth, bluePlayerActionsB);
 
 
 
     modelAR = new BasicThreeTriosModel(new Random(2));
-    modelAceReverse = new VariantCardModelDecorator(modelAR, bothListAR);
+    VariantCardModelDecorator modelAceReverse = new VariantCardModelDecorator(modelAR, bothListAR);
     ThreeTriosSetupController setupControllerAR = new ThreeTriosSetupController(
             "worldbig.txt",
             "bigcards.txt");
@@ -142,8 +132,10 @@ public class ComboModelDecoratorTest {
     TTGUIView redViewAR = new TTGUIView(modelAceReverse);
     TTGUIView blueViewAR = new TTGUIView(modelAceReverse);
 
-    redControllerAR = new ThreeTriosListenerController(modelAceReverse, redViewAR, redPlayerActionsAR);
-    blueControllerAR = new ThreeTriosListenerController(modelAceReverse, blueViewAR, bluePlayerActionsAR);
+    redControllerAR = new ThreeTriosListenerController(
+            modelAceReverse, redViewAR, redPlayerActionsAR);
+    blueControllerAR = new ThreeTriosListenerController(
+            modelAceReverse, blueViewAR, bluePlayerActionsAR);
   }
 
   //--------------------------- reverse--------------------------

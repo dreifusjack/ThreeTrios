@@ -40,7 +40,8 @@ public class ReverseAceWIthPlusModelTest {
     List<PassThroughCardDecorator> reverseAndAveList = new ArrayList<>(List.of(
             new ReverseCardDecorator(), new FallenAceCardDecorator()));
 
-    VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(modelBase, reverseAndAveList);
+    VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(
+            modelBase, reverseAndAveList);
 
 
     modelPlus = new PlusModelDecorator(modelReverse);

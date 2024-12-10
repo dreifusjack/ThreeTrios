@@ -2,8 +2,6 @@ package cs3500.threetrios.model;
 
 import java.util.List;
 
-import cs3500.threetrios.controller.ModelStatusListener;
-
 /**
  * All observation behaviors of the Three Trios Model. These behaviors are to be used
  * in the view/client side, so it has no access to the models operations (internal state).

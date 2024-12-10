@@ -193,7 +193,9 @@ public class ThreeTrios {
         default:
           System.out.println("Invalid rule. Valid options are reverse, fallenace, or done.");
       }
-      if ("done".equals(ruleInput)) break;
+      if ("done".equals(ruleInput)) {
+        break;
+      }
     }
 
 
@@ -222,8 +224,14 @@ public class ThreeTrios {
     return model4x3;
   }
 
-
-  // Helper method to create PlayerActions based on the input argument.
+  /**
+   * Helper method to create PlayerActions based on the input argument.
+   *
+   * @param arg        user input
+   * @param teamColor  given color
+   * @param strategies given user specified strategies
+   * @return given player actions.
+   */
   private static PlayerActions createPlayerActions(String arg, TeamColor teamColor,
                                                    List<String> strategies) {
     if (arg == null) {
@@ -255,7 +263,12 @@ public class ThreeTrios {
     }
   }
 
-  // Helper method to retrieve a ThreeTriosStrategy based on the input string.
+  /**
+   * Helper method to retrieve a ThreeTriosStrategy based on the input string.
+   *
+   * @param input user input
+   * @return strategy
+   */
   private static ThreeTriosStrategy getStrategyFromChain(String input) {
     switch (input) {
       case "strategy1":
@@ -271,7 +284,12 @@ public class ThreeTrios {
     }
   }
 
-  // Helper method to checks if a player type is valid.
+  /**
+   * Helper method to checks if a player type is valid.
+   *
+   * @param playerType player
+   * @return true if valid player
+   */
   private static boolean isValidPlayerType(String playerType) {
     return playerType.equalsIgnoreCase("human") ||
             playerType.equalsIgnoreCase("strategy1") ||

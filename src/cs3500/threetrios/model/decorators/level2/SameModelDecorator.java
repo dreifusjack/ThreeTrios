@@ -78,7 +78,7 @@ public class SameModelDecorator extends PassThroughModelDecorator {
               opponentMatchingCards.put(dir, adjCard);
             }
           }
-        } catch (IllegalStateException ignored) {// hole case
+        } catch (IllegalStateException ignored) { // hole case
         }
       }
     }

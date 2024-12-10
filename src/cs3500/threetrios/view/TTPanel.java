@@ -5,9 +5,15 @@ import cs3500.threetrios.model.ReadOnlyThreeTriosModel;
 import cs3500.threetrios.model.ReadOnlyGridCell;
 import cs3500.threetrios.model.TeamColor;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -42,7 +48,9 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
 
     // Create grid panel
     gridPanel = new JPanel();
-    gridPanel.setLayout(new GridLayout(model.getGridReadOnly().size(), model.getGridReadOnly().get(0).size(), 0, 0));
+    gridPanel.setLayout(new GridLayout(
+            model.getGridReadOnly().size(),
+            model.getGridReadOnly().get(0).size(), 0, 0));
     this.add(gridPanel, BorderLayout.CENTER);
 
     // Initialize the grid cells for easy reference
@@ -91,22 +99,22 @@ class TTPanel extends JPanel implements ThreeTriosPanel {
    * the newly created card panel to the corresponding player panel.
    */
   private void renderPlayerCards() {
-    for (int redHandIndex = 0; redHandIndex < model.getRedPlayer().getHand().size(); redHandIndex++) {
-      Card card = model.getRedPlayer().getHand().get(redHandIndex);
-      CardPanel cardPanel = createCardPanel(TeamColor.RED, card.toString(), redHandIndex);
+    for (int redHandIdx = 0; redHandIdx < model.getRedPlayer().getHand().size(); redHandIdx++) {
+      Card card = model.getRedPlayer().getHand().get(redHandIdx);
+      CardPanel cardPanel = createCardPanel(TeamColor.RED, card.toString(), redHandIdx);
       cardPanel.addMouseListener(
-              new CardInHandClickListener(redHandIndex, TeamColor.RED, view));
+              new CardInHandClickListener(redHandIdx, TeamColor.RED, view));
       redPlayerPanel.add(cardPanel);
-      redCardPanels[redHandIndex] = cardPanel;
+      redCardPanels[redHandIdx] = cardPanel;
     }
 
-    for (int blueHandIndex = 0; blueHandIndex < model.getBluePlayer().getHand().size(); blueHandIndex++) {
-      Card card = model.getBluePlayer().getHand().get(blueHandIndex);
-      CardPanel cardPanel = createCardPanel(TeamColor.BLUE, card.toString(), blueHandIndex);
+    for (int blueHandIdx = 0; blueHandIdx < model.getBluePlayer().getHand().size(); blueHandIdx++) {
+      Card card = model.getBluePlayer().getHand().get(blueHandIdx);
+      CardPanel cardPanel = createCardPanel(TeamColor.BLUE, card.toString(), blueHandIdx);
       cardPanel.addMouseListener(
-              new CardInHandClickListener(blueHandIndex, TeamColor.BLUE, view));
+              new CardInHandClickListener(blueHandIdx, TeamColor.BLUE, view));
       bluePlayerPanel.add(cardPanel);
-      blueCardPanels[blueHandIndex] = cardPanel;
+      blueCardPanels[blueHandIdx] = cardPanel;
     }
   }
 

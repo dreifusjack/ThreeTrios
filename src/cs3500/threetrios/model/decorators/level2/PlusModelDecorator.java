@@ -76,7 +76,7 @@ public class PlusModelDecorator extends PassThroughModelDecorator {
             int sum = placedCard.getValue(dir) + adjCard.getValue(dir.getOppositeDirection());
             directionSums.put(dir, sum);
           }
-        } catch (IllegalStateException ignored) {// hole case
+        } catch (IllegalStateException ignored) { // hole case
         }
       }
     }

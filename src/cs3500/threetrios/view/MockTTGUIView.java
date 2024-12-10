@@ -60,9 +60,14 @@ public class MockTTGUIView extends TTGUIView {
   @Override
   public void setupHintListeners() {
     log.add("setupHintListeners called");
-    super.setupHintListeners();;
+    super.setupHintListeners();
   }
 
+  /**
+   * Returns the log.
+   *
+   * @return the log
+   */
   public List<String> getLog() {
     return this.log;
   }

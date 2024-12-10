@@ -1,7 +1,6 @@
 package cs3500.threetrios.controller;
 
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.view.TTGUIView;
 
 /**
  * Implements the behaviors of ThreeTriosController interface.
