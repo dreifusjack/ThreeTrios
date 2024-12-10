@@ -12,7 +12,7 @@ import cs3500.threetrios.model.ThreeTriosCard;
  */
 public class ComposableCardDecorator extends PassThroughCardDecorator {
   private final List<PassThroughCardDecorator> decoratedCards;
-  private final ThreeTriosCard decoratedCard;
+  private final ThreeTriosCard baseCard;
 
   /**
    * Constructs a ComposableCardDecorator in terms of the delegate to call methods on and the list
@@ -23,17 +23,17 @@ public class ComposableCardDecorator extends PassThroughCardDecorator {
    */
   public ComposableCardDecorator(Card delegate, List<PassThroughCardDecorator> decorators) {
     super(delegate);
-    decoratedCard = createBaseCard(delegate);
+    baseCard = createBaseCard(delegate);
     decoratedCards = decorators;
   }
 
   @Override
   public boolean compare(Card other, Direction direction) {
     Card otherCard = createBaseCard(other);
-    boolean result = decoratedCard.compare(otherCard, direction);
+    boolean result = baseCard.compare(otherCard, direction);
     // Apply each decorator's modifyComparison method in sequence
-    for (PassThroughCardDecorator decorator : decoratedCards) {
-      result = decorator.modifyComparison(result, this, other, direction);
+    for (PassThroughCardDecorator variant : decoratedCards) {
+      result = variant.modifyComparison(result, this, other, direction);
     }
     return result;
   }

@@ -34,7 +34,6 @@ public class ThreeTriosSetupController implements ThreeTriosController {
     cardConfig.readFile();
     // assuming readers throw exceptions for all invalid file cases
     // (refer to readers interfaces for all cases)
-
     model.startGame(gridConfig.getGrid(), cardConfig.getCards(), gridConfig.getNumberOfCardCells());
   }
 }

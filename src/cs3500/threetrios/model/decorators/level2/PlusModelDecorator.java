@@ -7,7 +7,6 @@ import java.util.Set;
 
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.Direction;
-import cs3500.threetrios.model.GridCell;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
 import cs3500.threetrios.model.decorators.PassThroughModelDecorator;

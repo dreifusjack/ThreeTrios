@@ -198,7 +198,8 @@ public class ThreeTrios {
 
 
     Scanner scanner2 = new Scanner(System.in);
-    System.out.println("Enter the game logic you want to apply (same, plus). Type 'none' for no game logic:");
+    System.out.println("Enter the game logic you want to apply (same, plus). " +
+            "Type 'none' for no game logic:");
     String ruleInput2 = scanner2.nextLine().trim().toLowerCase();
 
 

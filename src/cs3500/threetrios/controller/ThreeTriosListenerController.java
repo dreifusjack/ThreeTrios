@@ -16,7 +16,8 @@ import cs3500.threetrios.view.TTGUIView;
  * provide a complete control layer for managing user interactions, updating the game state, and
  * responding to model changes.
  */
-public class ThreeTriosListenerController implements PlayerActionListener, ModelStatusListener, HintToggleListener {
+public class ThreeTriosListenerController implements
+        PlayerActionListener, ModelStatusListener, HintToggleListener {
   private final ThreeTriosModel model;
   private final TTGUIView originalView;
   private TTGUIView currentView;
@@ -35,8 +36,8 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
   public ThreeTriosListenerController(ThreeTriosModel model, TTGUIView view,
                                       PlayerActions playerActions) {
     this.model = model;
-    this.originalView = view;
-    this.currentView = view;
+    originalView = view;
+    currentView = view;
     this.playerActions = playerActions;
 
     selectedCardIndex = -1;
@@ -47,10 +48,10 @@ public class ThreeTriosListenerController implements PlayerActionListener, Model
     if (playerActions.addsPlayerActions()) {
       this.playerActions.addPlayerActionListener(this);
     } else {
-      this.currentView.addPlayerActionListener(this);
+      currentView.addPlayerActionListener(this);
     }
-    this.currentView.addHintToggleListeners(this);
-    this.currentView.setVisible(true);
+    currentView.addHintToggleListeners(this);
+    currentView.setVisible(true);
     handlePlayerTurn();
   }
 

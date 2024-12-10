@@ -13,9 +13,7 @@ import cs3500.threetrios.view.ThreeTriosCardPanel;
  * Mock class for the ThreeTriosFeaturesController class.
  */
 public class MockThreeTriosListenerController extends ThreeTriosListenerController {
-
   private List<String> log;
-
 
   /**
    * Constructs a ThreeTriosController2 with the given model, view, and player actions.
@@ -26,7 +24,6 @@ public class MockThreeTriosListenerController extends ThreeTriosListenerControll
    */
   public MockThreeTriosListenerController(ThreeTriosModel model, TTGUIView view,
                                           PlayerActions playerActions) {
-
     super(model, view, playerActions);
   }
 

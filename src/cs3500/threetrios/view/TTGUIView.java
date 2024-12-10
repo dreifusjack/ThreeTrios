@@ -2,7 +2,8 @@ package cs3500.threetrios.view;
 
 import javax.swing.JFrame;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
 
 import cs3500.threetrios.controller.HintToggleListener;
 import cs3500.threetrios.controller.PlayerActionListener;
@@ -97,6 +98,4 @@ public class TTGUIView extends JFrame implements ThreeTriosGUIView {
   public void cellExposeHint(int row, int col, int flips) {
     gamePanel.cellExposeHint(row, col, flips);
   }
-
-
 }
