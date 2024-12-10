@@ -1,4 +1,4 @@
-package cs3500.threetrios.model.decorators.level3;
+package cs3500.threetrios.decorators.level3;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,13 +17,15 @@ import cs3500.threetrios.model.decorators.level1.FallenAceCardDecorator;
 import cs3500.threetrios.model.decorators.level1.PassThroughCardDecorator;
 import cs3500.threetrios.model.decorators.level1.ReverseCardDecorator;
 import cs3500.threetrios.model.decorators.level1.VariantCardModelDecorator;
-import cs3500.threetrios.model.decorators.level2.PlusModelDecorator;
 import cs3500.threetrios.model.decorators.level2.SameModelDecorator;
 import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
 
-public class FallenAceWithSameModelTest {
+/**
+ * Tests the reverse variant with same variant.
+ */
+public class ReverseAceWithSameModelTest {
 
   private ThreeTriosListenerController redControllerSame;
   private ThreeTriosListenerController blueControllerSame;
@@ -35,9 +37,10 @@ public class FallenAceWithSameModelTest {
 
     ThreeTriosModel modelBase = new BasicThreeTriosModel(new Random(2));
 
-    List<PassThroughCardDecorator> fallenAceList = new ArrayList<>(List.of(new FallenAceCardDecorator()));
+    List<PassThroughCardDecorator> reverseAndAceList = new ArrayList<>(List.of(
+            new ReverseCardDecorator(), new FallenAceCardDecorator()));
 
-    VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(modelBase, fallenAceList);
+    VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(modelBase, reverseAndAceList);
 
     modelSame = new SameModelDecorator(modelReverse);
 
@@ -52,26 +55,15 @@ public class FallenAceWithSameModelTest {
     TTGUIView redViewSame = new TTGUIView(modelSame);
     TTGUIView blueViewSame = new TTGUIView(modelSame);
 
-    redControllerSame = new ThreeTriosListenerController(modelSame, redViewSame, redPlayerActionsR);
-    blueControllerSame = new ThreeTriosListenerController(modelSame, blueViewSame, bluePlayerActionsR);
+    redControllerSame = new ThreeTriosListenerController(
+            modelSame, redViewSame, redPlayerActionsR);
+    blueControllerSame = new ThreeTriosListenerController(
+            modelSame, blueViewSame, bluePlayerActionsR);
   }
 
-  // Check if you can perform a flip with a 1 vs an A
+  // Test to see that the variant for Same model will trigger
   @Test
-  public void fallenAce1WinsA() {
-    redControllerSame.handleCardSelection(TeamColor.RED, 5);
-    redControllerSame.handleBoardSelection(0, 0);
-
-    blueControllerSame.handleCardSelection(TeamColor.BLUE, 5);
-    blueControllerSame.handleBoardSelection(0, 1);
-
-    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(0).getColor(), TeamColor.BLUE);
-    // Does flip since 1>A under FallenAce rule
-  }
-
-  // When the same variant did apply
-  @Test
-  public void testSameFLip() {
+  public void testForSameFlip() {
     redControllerSame.handleCardSelection(TeamColor.RED, 0);
     redControllerSame.handleBoardSelection(3, 1);
 
@@ -92,9 +84,9 @@ public class FallenAceWithSameModelTest {
     // Both used to be blue
   }
 
-  // When the same variant did not apply
+  // Test to see that the variant for Same model won't trigger
   @Test
-  public void testSameNoFLip() {
+  public void testForSameNoFlip() {
     redControllerSame.handleCardSelection(TeamColor.RED, 0);
     redControllerSame.handleBoardSelection(0, 1);
 
@@ -108,57 +100,55 @@ public class FallenAceWithSameModelTest {
     Assert.assertEquals(this.modelSame.getGridReadOnly().get(1).get(2).getColor(), TeamColor.BLUE);
   }
 
-  // Test for the normal logic of the game (a higher attack value card should flip the lesser attack
-  // value card)
+  // Test to see under Reverse and FallenAce, a higher attack value won't flip a lower attack value
   @Test
-  public void fallenAceTestOGRuleFlip() {
+  public void bothReverseDoesNotFlip() {
     redControllerSame.handleCardSelection(TeamColor.RED, 1);
     redControllerSame.handleBoardSelection(0, 0);
 
     blueControllerSame.handleCardSelection(TeamColor.BLUE, 0);
     blueControllerSame.handleBoardSelection(0, 1);
 
-    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(0).getColor(), TeamColor.BLUE);
-    // Does flip since 7>4
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(0).getColor(), TeamColor.RED);
+    // Does not change color since 7>4
   }
 
-  // Test for the normal logic of the game (a lesser attack value card should not flip the higher
-  // attack value card)
+  // Test to see under Reverse and FallenAce, a lower attack value won't flip a higher attack value
   @Test
-  public void fallenAceTestOGRuleNoFlip() {
+  public void bothReverseDoesFlip() {
     redControllerSame.handleCardSelection(TeamColor.RED, 1);
     redControllerSame.handleBoardSelection(0, 0);
 
     blueControllerSame.handleCardSelection(TeamColor.BLUE, 1);
     blueControllerSame.handleBoardSelection(0, 1);
 
-    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(0).getColor(), TeamColor.RED);
-    // Does not flip since 1<4
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(0).getColor(), TeamColor.BLUE);
+    // Should flip since 1<4
   }
 
-  // Rule apply and then the flipped cards will perform combo flips around them.
+  // Test if a 1 will flip an A (due to FallenAce being applied later)
   @Test
-  public void testSameThenTriggerComboFlip() {
-    redControllerSame.handleCardSelection(TeamColor.RED, 1);
-    redControllerSame.handleBoardSelection(0, 1);
+  public void bothTest1FlipA() {
+    redControllerSame.handleCardSelection(TeamColor.RED, 5);
+    redControllerSame.handleBoardSelection(0, 0);
 
     blueControllerSame.handleCardSelection(TeamColor.BLUE, 5);
-    blueControllerSame.handleBoardSelection(1, 2);
+    blueControllerSame.handleBoardSelection(0, 1);
 
-    redControllerSame.handleCardSelection(TeamColor.RED, 4);
-    redControllerSame.handleBoardSelection(3, 1);
-
-    blueControllerSame.handleCardSelection(TeamColor.BLUE, 0);
-    blueControllerSame.handleBoardSelection(2, 2);
-
-    redControllerSame.handleCardSelection(TeamColor.RED, 1);
-    redControllerSame.handleBoardSelection(1, 1);
-
-    Assert.assertEquals(this.modelSame.getGridReadOnly().get(1).get(2).getColor(), TeamColor.RED);
-    Assert.assertEquals(this.modelSame.getGridReadOnly().get(2).get(2).getColor(), TeamColor.RED);
-    // The card (2, 2) is now turn to RED after the card above it turned to RED and then applied
-    // combo flip on it.
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(0).getColor(), TeamColor.BLUE);
+    // Does flip since 1>A under FallenAce rule
   }
 
+  // Test if an A won't flip a 1 (due to FallenAce being applied later)
+  @Test
+  public void bothTestANoFlip1() {
+    redControllerSame.handleCardSelection(TeamColor.RED, 1);
+    redControllerSame.handleBoardSelection(0, 0);
 
+    blueControllerSame.handleCardSelection(TeamColor.BLUE, 4);
+    blueControllerSame.handleBoardSelection(0, 1);
+
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(0).get(0).getColor(), TeamColor.RED);
+    // Does flip since 1>A under FallenAce rule
+  }
 }

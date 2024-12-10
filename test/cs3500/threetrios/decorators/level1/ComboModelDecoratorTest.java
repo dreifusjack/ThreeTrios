@@ -1,4 +1,4 @@
-package cs3500.threetrios.model.decorators.level1;
+package cs3500.threetrios.decorators.level1;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,10 +13,17 @@ import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
+import cs3500.threetrios.model.decorators.level1.FallenAceCardDecorator;
+import cs3500.threetrios.model.decorators.level1.PassThroughCardDecorator;
+import cs3500.threetrios.model.decorators.level1.ReverseCardDecorator;
+import cs3500.threetrios.model.decorators.level1.VariantCardModelDecorator;
 import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
 
+/**
+ * Tests our decorators for level 1, both individually and together.
+ */
 public class ComboModelDecoratorTest {
 
   private ThreeTriosModel modelR;

@@ -1,4 +1,4 @@
-package cs3500.threetrios.model.decorators.level3;
+package cs3500.threetrios.decorators.level3;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,6 +22,9 @@ import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
 
+/**
+ * Tests the reverse variant with plus variant.
+ */
 public class ReverseAceWIthPlusModelTest {
 
   private ThreeTriosListenerController redControllerPlus;
@@ -34,7 +37,8 @@ public class ReverseAceWIthPlusModelTest {
 
     ThreeTriosModel modelBase = new BasicThreeTriosModel(new Random(2));
 
-    List<PassThroughCardDecorator> reverseAndAveList = new ArrayList<>(List.of(new ReverseCardDecorator(), new FallenAceCardDecorator()));
+    List<PassThroughCardDecorator> reverseAndAveList = new ArrayList<>(List.of(
+            new ReverseCardDecorator(), new FallenAceCardDecorator()));
 
     VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(modelBase, reverseAndAveList);
 
@@ -52,8 +56,10 @@ public class ReverseAceWIthPlusModelTest {
     TTGUIView redViewPlus = new TTGUIView(modelPlus);
     TTGUIView blueViewPlus = new TTGUIView(modelPlus);
 
-    redControllerPlus = new ThreeTriosListenerController(modelPlus, redViewPlus, redPlayerActionsR);
-    blueControllerPlus = new ThreeTriosListenerController(modelPlus, blueViewPlus, bluePlayerActionsR);
+    redControllerPlus = new ThreeTriosListenerController(
+            modelPlus, redViewPlus, redPlayerActionsR);
+    blueControllerPlus = new ThreeTriosListenerController(
+            modelPlus, blueViewPlus, bluePlayerActionsR);
   }
 
   // Test to see under Reverse and FallenAce, a higher attack value won't flip a lower attack value
@@ -147,5 +153,4 @@ public class ReverseAceWIthPlusModelTest {
     Assert.assertEquals(this.modelPlus.getGridReadOnly().get(1).get(0).getColor(), TeamColor.BLUE);
     // This card is still blue because the rule failed to be applied.
   }
-
 }

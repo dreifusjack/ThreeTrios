@@ -1,12 +1,9 @@
-package cs3500.threetrios.model.decorators.level2;
-
-import junit.framework.TestCase;
+package cs3500.threetrios.decorators.level2;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
 import java.util.Random;
 
 import cs3500.threetrios.controller.ThreeTriosListenerController;
@@ -14,13 +11,14 @@ import cs3500.threetrios.controller.ThreeTriosSetupController;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.TeamColor;
 import cs3500.threetrios.model.ThreeTriosModel;
-import cs3500.threetrios.model.decorators.PassThroughModelDecorator;
-import cs3500.threetrios.model.decorators.level1.PassThroughCardDecorator;
-import cs3500.threetrios.model.decorators.level1.VariantCardModelDecorator;
+import cs3500.threetrios.model.decorators.level2.SameModelDecorator;
 import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
 
+/**
+ * Tests our Same variant from level 2.
+ */
 public class SameModelDecoratorTest {
 
   private ThreeTriosModel modelBase;
@@ -48,12 +46,12 @@ public class SameModelDecoratorTest {
     TTGUIView redViewSame = new TTGUIView(modelSame);
     TTGUIView blueViewSame = new TTGUIView(modelSame);
 
-    redControllerSame = new ThreeTriosListenerController(modelSame, redViewSame, redPlayerActionsR);
-    blueControllerSame = new ThreeTriosListenerController(modelSame, blueViewSame, bluePlayerActionsR);
+    redControllerSame = new ThreeTriosListenerController(
+            modelSame, redViewSame, redPlayerActionsR);
+    blueControllerSame = new ThreeTriosListenerController(
+            modelSame, blueViewSame, bluePlayerActionsR);
 
   }
-
-
 
   // When both adjacent cards are Blue and have the same attack value with the RED card. (1, 1) and
   // (3, 3)
@@ -162,5 +160,4 @@ public class SameModelDecoratorTest {
     // The card (2, 2) is now turn to RED after the card above it turned to RED and then applied
     // combo flip on it.
   }
-
 }
