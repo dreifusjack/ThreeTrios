@@ -13,6 +13,7 @@ import cs3500.threetrios.model.decorators.level1.PassThroughCardDecorator;
 import cs3500.threetrios.model.decorators.level1.ReverseCardDecorator;
 import cs3500.threetrios.model.decorators.level1.VariantCardModelDecorator;
 import cs3500.threetrios.model.decorators.level2.PlusModelDecorator;
+import cs3500.threetrios.model.decorators.level2.SameModelDecorator;
 import cs3500.threetrios.player.HumanPlayer;
 import cs3500.threetrios.player.PlayerActions;
 import cs3500.threetrios.view.TTGUIView;
@@ -43,7 +44,7 @@ public class ThreeTrios3 {
 
     VariantCardModelDecorator modelReverse = new VariantCardModelDecorator(model, reverseList);
 
-    PlusModelDecorator modelSame = new PlusModelDecorator(modelReverse);
+    SameModelDecorator modelSame = new SameModelDecorator(model);
 
 //      modelAce = new ComboModelDecorator(model, aceList);
 //      modelBoth = new ComboModelDecorator(model, bothList);

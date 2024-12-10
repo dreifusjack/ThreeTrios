@@ -136,4 +136,29 @@ public class FallenAceWithSameModelTest {
     // Does not flip since 1<4
   }
 
+  // Rule apply and then the flipped cards will perform combo flips around them.
+  @Test
+  public void testSameThenTriggerComboFlip() {
+    redControllerSame.handleCardSelection(TeamColor.RED, 1);
+    redControllerSame.handleBoardSelection(0, 1);
+
+    blueControllerSame.handleCardSelection(TeamColor.BLUE, 5);
+    blueControllerSame.handleBoardSelection(1, 2);
+
+    redControllerSame.handleCardSelection(TeamColor.RED, 4);
+    redControllerSame.handleBoardSelection(3, 1);
+
+    blueControllerSame.handleCardSelection(TeamColor.BLUE, 0);
+    blueControllerSame.handleBoardSelection(2, 2);
+
+    redControllerSame.handleCardSelection(TeamColor.RED, 1);
+    redControllerSame.handleBoardSelection(1, 1);
+
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(1).get(2).getColor(), TeamColor.RED);
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(2).get(2).getColor(), TeamColor.RED);
+    // The card (2, 2) is now turn to RED after the card above it turned to RED and then applied
+    // combo flip on it.
+  }
+
+
 }

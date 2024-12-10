@@ -87,10 +87,10 @@ public class PlusModelDecoratorTest {
     // This used to be BLUE but after the rule applied, it became RED.
   }
 
-  // Test to see that when the rule applied, the flipped adjacent cards won't perform any combo
+  // Test to see that when the rule applied, the flipped adjacent cards will also perform combo
   // flip around them
   @Test
-  public void testPLusNoCombo() {
+  public void testPLusThenComboFlip() {
     redControllerPlus.handleCardSelection(TeamColor.RED, 0);
     redControllerPlus.handleBoardSelection(0, 1);
 
@@ -106,9 +106,11 @@ public class PlusModelDecoratorTest {
     redControllerPlus.handleCardSelection(TeamColor.RED, 1);
     redControllerPlus.handleBoardSelection(1, 1);
 
-    Assert.assertEquals(this.modelPlus.getGridReadOnly().get(2).get(0).getColor(), TeamColor.BLUE);
-    // This is still BLUE as the flipped card above it (due to the rule) didn't perform any combo
-    // flip
+    Assert.assertEquals(this.modelPlus.getGridReadOnly().get(1).get(0).getColor(), TeamColor.RED);
+    Assert.assertEquals(this.modelPlus.getGridReadOnly().get(2).get(0).getColor(), TeamColor.RED);
+
+    // The card (2, 0) is now RED  as the flipped card above it turned to RED and then
+    // performed the combo flip on it.
   }
 
   // Test when there are not more than 2 pair os adjacent cards with similar sum then the rule

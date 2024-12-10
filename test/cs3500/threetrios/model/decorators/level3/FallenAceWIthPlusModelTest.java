@@ -136,4 +136,28 @@ public class FallenAceWIthPlusModelTest {
     // Does not flip since 1<4
   }
 
+  // Check to see if the combo flip still applied for these rules.
+  @Test
+  public void testPLusThenComboFlip() {
+    redControllerPlus.handleCardSelection(TeamColor.RED, 0);
+    redControllerPlus.handleBoardSelection(0, 1);
+
+    blueControllerPlus.handleCardSelection(TeamColor.BLUE, 4);
+    blueControllerPlus.handleBoardSelection(1, 0);
+
+    redControllerPlus.handleCardSelection(TeamColor.RED, 3);
+    redControllerPlus.handleBoardSelection(3, 0);
+
+    blueControllerPlus.handleCardSelection(TeamColor.BLUE, 1);
+    blueControllerPlus.handleBoardSelection(2, 0);
+
+    redControllerPlus.handleCardSelection(TeamColor.RED, 1);
+    redControllerPlus.handleBoardSelection(1, 1);
+
+    Assert.assertEquals(this.modelPlus.getGridReadOnly().get(1).get(0).getColor(), TeamColor.RED);
+    Assert.assertEquals(this.modelPlus.getGridReadOnly().get(2).get(0).getColor(), TeamColor.RED);
+
+    // The card (2, 0) is now RED  as the flipped card above it turned to RED and then
+    // performed the combo flip on it.
+  }
 }

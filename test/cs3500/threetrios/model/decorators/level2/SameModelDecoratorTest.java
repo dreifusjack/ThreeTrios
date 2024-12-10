@@ -139,9 +139,9 @@ public class SameModelDecoratorTest {
   }
 
 
-  // Rule apply and then the flipped cards won't perform combo flips
+  // Rule apply and then the flipped cards will perform combo flips around them.
   @Test
-  public void testSameNoTriggerComboFlip() {
+  public void testSameThenTriggerComboFlip() {
     redControllerSame.handleCardSelection(TeamColor.RED, 1);
     redControllerSame.handleBoardSelection(0, 1);
 
@@ -157,12 +157,10 @@ public class SameModelDecoratorTest {
     redControllerSame.handleCardSelection(TeamColor.RED, 1);
     redControllerSame.handleBoardSelection(1, 1);
 
-    Assert.assertEquals(this.modelSame.getGridReadOnly().get(2).get(2).getColor(), TeamColor.BLUE);
-    // This card is still because even though adjacent card's south is 6 (RED) and it's north is 4.
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(1).get(2).getColor(), TeamColor.RED);
+    Assert.assertEquals(this.modelSame.getGridReadOnly().get(2).get(2).getColor(), TeamColor.RED);
+    // The card (2, 2) is now turn to RED after the card above it turned to RED and then applied
+    // combo flip on it.
   }
-
-
-
-
 
 }
