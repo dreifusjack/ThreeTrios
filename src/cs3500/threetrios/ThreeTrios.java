@@ -50,12 +50,9 @@ public class ThreeTrios {
    * @param args two strings, first specifying the RED player then the BLUE player
    */
   public static void main(String[] args) {
-
-
     ThreeTriosModel model = createAndSetupModel();
-
-    String redPlayerType = null;
-    String bluePlayerType = null;
+    String redPlayerType;
+    String bluePlayerType;
     List<String> redStrategies = new ArrayList<>();
     List<String> blueStrategies = new ArrayList<>();
 
@@ -67,10 +64,8 @@ public class ThreeTrios {
       bluePlayerType = blueStrategies.remove(0);
     }
 
-
     TTGUIView redView = new TTGUIView(model);
     TTGUIView blueView = new TTGUIView(model);
-
 
     PlayerActions redPlayerActions = createPlayerActions(
             redPlayerType, TeamColor.RED, redStrategies);
@@ -130,7 +125,6 @@ public class ThreeTrios {
       return null;
     }
   }
-
 
   /**
    * Helper method to parses player input from the terminal if no valid

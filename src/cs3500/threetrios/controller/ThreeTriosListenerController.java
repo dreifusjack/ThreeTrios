@@ -51,6 +51,11 @@ public class ThreeTriosListenerController implements
       currentView.addPlayerActionListener(this);
     }
     currentView.addHintToggleListeners(this);
+    if (controllerTeam.equals(TeamColor.RED)) {
+      currentView.setLocation(0, 0);
+    } else {
+      currentView.setLocation(currentView.getSize().width, 0);
+    }
     currentView.setVisible(true);
     handlePlayerTurn();
   }

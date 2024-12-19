@@ -135,10 +135,4 @@ public class PlusModelDecoratorTest {
     Assert.assertEquals(this.modelPlus.getGridReadOnly().get(1).get(0).getColor(), TeamColor.BLUE);
     // This card is still blue because the rule failed to be applied.
   }
-
-
-
-
-
-
 }
