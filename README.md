@@ -11,7 +11,7 @@ Both of these game settings are determined via the command-line when the game st
 When the game starts two windows will appear, one for each player. To make a move a user must click a card from their and hand a valid board cell to play to. If playing against AI, a move will automatically be played, else the user must wait for the other player to make a move. 
 
 ## Running Three Trios ##
-1. Download ThreeTrios.jar
+1. Download ThreeTrios.jar, found in src/cs3500/threetrios/
 2. Open terminal
 3. cd into directory with ThreeTrios.jar
 4. run the following command `java -jar ThreeTrios.jar`
