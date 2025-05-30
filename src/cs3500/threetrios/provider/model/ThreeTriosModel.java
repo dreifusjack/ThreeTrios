@@ -1,7 +1,6 @@
 package cs3500.threetrios.provider.model;
 
 import cs3500.threetrios.provider.controller.ModelStatusListener;
-import cs3500.threetrios.provider.model.ReadOnlyThreeTriosModel;
 
 /**
  * This class covers the model operations of the Three Trios Game.
@@ -10,13 +9,16 @@ import cs3500.threetrios.provider.model.ReadOnlyThreeTriosModel;
 public interface ThreeTriosModel extends ReadOnlyThreeTriosModel {
 
   /**
-   * This method plays a card to the board and handles the placing phase and the battle phase.
+   * This method plays a card to the board and handles the placing phase and the
+   * battle phase.
    *
-   * @param cardIndex The index of the card to place from the current player's hand.
+   * @param cardIndex The index of the card to place from the current player's
+   *                  hand.
    * @param row       The row to place the card. Row is 0-indexed.
    * @param col       The column to place the card. Col is 0-indexed.
    * @throws IllegalStateException    if the game is over.
-   * @throws IllegalArgumentException if the row or column is invalid. That is less than 0 or
+   * @throws IllegalArgumentException if the row or column is invalid. That is
+   *                                  less than 0 or
    *                                  greater than the len - 1.
    * @throws IllegalArgumentException if the card index is invalid.
    * @throws IllegalArgumentException if the move is illegal.

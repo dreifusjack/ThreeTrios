@@ -44,12 +44,21 @@ public class ThreeTrios {
    * "strategy2" represents an AIPlayer using the CornerStrategy.
    * "strategy3" represents an AIPlayer using the MinimizeFlipsStrategy.
    * "strategy4" represents an AIPlayer using the MinimaxStrategy.
-   * "strategychain:strategyX,strategyY,..." represents an AIPlayer using a specified chain of
+   * "strategychain:strategyX,strategyY,..." represents an AIPlayer using a
+   * specified chain of
    * strategies, where each strategy is one of the above.
+   * "network" starts the game in network mode for multiplayer across devices.
    *
-   * @param args two strings, first specifying the RED player then the BLUE player
+   * @param args two strings, first specifying the RED player then the BLUE
+   *             player,
+   *             or "network" for networked multiplayer
    */
   public static void main(String[] args) {
+    // Check if network mode is requested
+    if (args.length > 0 && args[0].equalsIgnoreCase("network")) {
+      startNetworkMode(args);
+      return;
+    }
     ThreeTriosModel model = createAndSetupModel();
     String redPlayerType;
     String bluePlayerType;
@@ -68,19 +77,80 @@ public class ThreeTrios {
     TTGUIView blueView = new TTGUIView(model);
 
     PlayerActions redPlayerActions = createPlayerActions(
-            redPlayerType, TeamColor.RED, redStrategies);
+        redPlayerType, TeamColor.RED, redStrategies);
     PlayerActions bluePlayerActions = createPlayerActions(
-            bluePlayerType, TeamColor.BLUE, blueStrategies);
+        bluePlayerType, TeamColor.BLUE, blueStrategies);
 
     new ThreeTriosListenerController(model, redView, redPlayerActions);
     new ThreeTriosListenerController(model, blueView, bluePlayerActions);
   }
 
   /**
+   * Starts the game in network mode.
+   * 
+   * @param args command line arguments
+   */
+  private static void startNetworkMode(String[] args) {
+    System.out.println("Starting Three Trios in network mode...");
+    System.out.println("Usage for network mode:");
+    System.out.println("  To start server: java ThreeTrios network server [port]");
+    System.out.println("  To start client: java ThreeTrios network client [host] [port] [playerName]");
+
+    if (args.length < 2) {
+      System.out.println("Please specify 'server' or 'client' after 'network'");
+      return;
+    }
+
+    String mode = args[1].toLowerCase();
+
+    if (mode.equals("server")) {
+      startServer(args);
+    } else if (mode.equals("client")) {
+      startClient(args);
+    } else {
+      System.out.println("Invalid network mode. Use 'server' or 'client'");
+    }
+  }
+
+  /**
+   * Starts the game server.
+   * 
+   * @param args command line arguments
+   */
+  private static void startServer(String[] args) {
+    int port = 8080; // Default port
+    if (args.length > 2) {
+      try {
+        port = Integer.parseInt(args[2]);
+      } catch (NumberFormatException e) {
+        System.err.println("Invalid port number, using default: " + port);
+      }
+    }
+
+    try {
+      cs3500.threetrios.network.ThreeTriosServer server = new cs3500.threetrios.network.ThreeTriosServer(port);
+      server.start();
+    } catch (Exception e) {
+      System.err.println("Failed to start server: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Starts the game client.
+   * 
+   * @param args command line arguments
+   */
+  private static void startClient(String[] args) {
+    String[] clientArgs = new String[args.length - 2];
+    System.arraycopy(args, 2, clientArgs, 0, clientArgs.length);
+    NetworkThreeTrios.main(clientArgs);
+  }
+
+  /**
    * Helper method to parses the command-line arguments.
    */
   private static boolean parseCommandLine(String[] args, List<String> redStrategies,
-                                          List<String> blueStrategies) {
+      List<String> blueStrategies) {
     if (args.length >= 2) {
       int index = 0;
 
@@ -103,7 +173,8 @@ public class ThreeTrios {
   }
 
   /**
-   * Helper method to parses player type and strategies from command-line arguments.
+   * Helper method to parses player type and strategies from command-line
+   * arguments.
    */
   private static String parsePlayerType(String[] args, int index, List<String> strategies) {
     if (index < args.length && args[index].equalsIgnoreCase("chainstrategy")) {
@@ -133,7 +204,7 @@ public class ThreeTrios {
   private static String parseITerminalInput(String team, List<String> strategies) {
     Scanner scanner = new Scanner(System.in);
     System.out.println("Enter player type for " + team +
-            " team (human, strategy1, strategy2, strategy3, strategy4, chainstrategy): ");
+        " team (human, strategy1, strategy2, strategy3, strategy4, chainstrategy): ");
     String playerType = scanner.nextLine().trim().toLowerCase();
     parseChainStrategies(scanner, playerType, strategies);
     return playerType;
@@ -141,10 +212,10 @@ public class ThreeTrios {
 
   // Parses chain strategies in the terminal.
   private static void parseChainStrategies(
-          Scanner scanner, String playerType, List<String> strategies) {
+      Scanner scanner, String playerType, List<String> strategies) {
     if (playerType.equals("chainstrategy")) {
       System.out.println("Enter the strategies for ChainStrategy one by one " +
-              "(strategy1, strategy2,...) Type 'end' to finish:");
+          "(strategy1, strategy2,...) Type 'end' to finish:");
       while (true) {
         String strategyInput = scanner.nextLine().trim().toLowerCase();
         if ("end".equals(strategyInput)) {
@@ -181,8 +252,8 @@ public class ThreeTrios {
           break;
         case "done":
           model4x3 = decorators.isEmpty()
-                  ? model4x3
-                  : new VariantCardModelDecorator(model4x3, decorators);
+              ? model4x3
+              : new VariantCardModelDecorator(model4x3, decorators);
           break;
         default:
           System.out.println("Invalid rule. Valid options are reverse, fallenace, or done.");
@@ -192,12 +263,10 @@ public class ThreeTrios {
       }
     }
 
-
     Scanner scanner2 = new Scanner(System.in);
     System.out.println("Enter the game logic you want to apply (same, plus). " +
-            "Type 'none' for no game logic:");
+        "Type 'none' for no game logic:");
     String ruleInput2 = scanner2.nextLine().trim().toLowerCase();
-
 
     switch (ruleInput2) {
       case "same":
@@ -213,7 +282,6 @@ public class ThreeTrios {
         break;
     }
 
-
     model4x3.startGame(grid(), deck(), 7);
     return model4x3;
   }
@@ -227,7 +295,7 @@ public class ThreeTrios {
    * @return given player actions.
    */
   private static PlayerActions createPlayerActions(String arg, TeamColor teamColor,
-                                                   List<String> strategies) {
+      List<String> strategies) {
     if (arg == null) {
       throw new IllegalArgumentException("Player type must be provided.");
     }
@@ -286,16 +354,18 @@ public class ThreeTrios {
    */
   private static boolean isValidPlayerType(String playerType) {
     return playerType.equalsIgnoreCase("human") ||
-            playerType.equalsIgnoreCase("strategy1") ||
-            playerType.equalsIgnoreCase("strategy2") ||
-            playerType.equalsIgnoreCase("strategy3") ||
-            playerType.equalsIgnoreCase("strategy4") ||
-            playerType.equalsIgnoreCase("chainstrategy");
+        playerType.equalsIgnoreCase("strategy1") ||
+        playerType.equalsIgnoreCase("strategy2") ||
+        playerType.equalsIgnoreCase("strategy3") ||
+        playerType.equalsIgnoreCase("strategy4") ||
+        playerType.equalsIgnoreCase("chainstrategy");
   }
 
   /**
-   * Used to create an instance of the grid for ThreeTrios.jar purposes. This allows the jar file
-   * to be run outside the project and not requiring access to grid configuration files.
+   * Used to create an instance of the grid for ThreeTrios.jar purposes. This
+   * allows the jar file
+   * to be run outside the project and not requiring access to grid configuration
+   * files.
    *
    * @return grid of GridCells for model construction
    */
@@ -316,7 +386,8 @@ public class ThreeTrios {
 
   /**
    * Used to create an instance of the deck for ThreeTrios.jar purposes.
-   * This allows the jar file to be run outside the project and not requiring access
+   * This allows the jar file to be run outside the project and not requiring
+   * access
    * to card configuration files.
    *
    * @return List of cards for model construction
@@ -349,13 +420,12 @@ public class ThreeTrios {
    * @return A new instance of ThreeTrioCard
    */
   private static ThreeTriosCard createCard(
-          String name, String attack1, String attack2, String attack3, String attack4) {
+      String name, String attack1, String attack2, String attack3, String attack4) {
     return new ThreeTriosCard(
-            name,
-            ThreeTriosCard.AttackValue.fromString(attack1),
-            ThreeTriosCard.AttackValue.fromString(attack2),
-            ThreeTriosCard.AttackValue.fromString(attack3),
-            ThreeTriosCard.AttackValue.fromString(attack4)
-    );
+        name,
+        ThreeTriosCard.AttackValue.fromString(attack1),
+        ThreeTriosCard.AttackValue.fromString(attack2),
+        ThreeTriosCard.AttackValue.fromString(attack3),
+        ThreeTriosCard.AttackValue.fromString(attack4));
   }
 }
