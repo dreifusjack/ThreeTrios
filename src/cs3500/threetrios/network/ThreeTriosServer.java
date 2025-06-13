@@ -11,10 +11,7 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import cs3500.threetrios.network.messages.JoinGameMessage;
-import cs3500.threetrios.network.messages.PlayCardMessage;
-import cs3500.threetrios.network.messages.GameStateUpdateMessage;
-import cs3500.threetrios.network.messages.PlayerAssignedMessage;
+import cs3500.threetrios.network.messages.*;
 import cs3500.threetrios.model.BasicThreeTriosModel;
 import cs3500.threetrios.model.Card;
 import cs3500.threetrios.model.CardCell;
@@ -37,11 +34,6 @@ public class ThreeTriosServer implements ModelStatusListener {
   private final AtomicInteger nextGameId;
   private final AtomicInteger nextClientId;
 
-  /**
-   * Creates a new Three Trios game server.
-   * 
-   * @param port the port to listen on
-   */
   public ThreeTriosServer(int port) {
     this.port = port;
     this.running = false;
@@ -50,11 +42,6 @@ public class ThreeTriosServer implements ModelStatusListener {
     this.nextClientId = new AtomicInteger(1);
   }
 
-  /**
-   * Starts the server and begins accepting client connections.
-   * 
-   * @throws IOException if the server cannot be started
-   */
   public void start() throws IOException {
     serverSocket = new ServerSocket(port);
     running = true;
@@ -73,9 +60,6 @@ public class ThreeTriosServer implements ModelStatusListener {
     }
   }
 
-  /**
-   * Stops the server.
-   */
   public void stop() {
     running = false;
     try {
@@ -87,11 +71,6 @@ public class ThreeTriosServer implements ModelStatusListener {
     }
   }
 
-  /**
-   * Handles a new client connection.
-   * 
-   * @param clientSocket the client socket
-   */
   private void handleNewClient(Socket clientSocket) {
     Thread clientThread = new Thread(() -> {
       try {
@@ -130,12 +109,6 @@ public class ThreeTriosServer implements ModelStatusListener {
     clientThread.start();
   }
 
-  /**
-   * Handles a client joining a game.
-   * 
-   * @param clientHandler the client handler
-   * @param playerName    the player name
-   */
   private void handleJoinGame(ClientHandler clientHandler, String playerName) {
     // Find an existing game waiting for a player or create a new one
     GameSession gameSession = findOrCreateGameSession();
@@ -146,20 +119,16 @@ public class ThreeTriosServer implements ModelStatusListener {
       // Assign team color and notify client
       TeamColor assignedColor = gameSession.getPlayerColor(clientHandler);
       clientHandler.sendMessage(new PlayerAssignedMessage(assignedColor));
+      System.out.println("Player " + playerName + " assigned color: " + assignedColor);
 
       // If game is full, start it
       if (gameSession.isFull()) {
+        System.out.println("Starting game with two players");
         gameSession.startGame();
       }
     }
   }
 
-  /**
-   * Handles a message from a client.
-   * 
-   * @param clientHandler the client handler
-   * @param message       the message
-   */
   private void handleClientMessage(ClientHandler clientHandler, GameMessage message) {
     GameSession gameSession = clientHandler.getGameSession();
     if (gameSession == null) {
@@ -181,11 +150,6 @@ public class ThreeTriosServer implements ModelStatusListener {
     }
   }
 
-  /**
-   * Finds an existing game session waiting for players or creates a new one.
-   * 
-   * @return a game session
-   */
   private GameSession findOrCreateGameSession() {
     // Look for existing game waiting for players
     for (GameSession session : gameSessions.values()) {
@@ -198,6 +162,7 @@ public class ThreeTriosServer implements ModelStatusListener {
     int gameId = nextGameId.getAndIncrement();
     GameSession newSession = new GameSession(gameId, this);
     gameSessions.put(gameId, newSession);
+    System.out.println("Created new game session: " + gameId);
     return newSession;
   }
 
@@ -266,18 +231,18 @@ public class ThreeTriosServer implements ModelStatusListener {
 
   /**
    * Represents a game session between two players.
+   * IMPORTANT: Made static to avoid serialization issues with outer class
+   * reference.
    */
   private static class GameSession implements ModelStatusListener {
     private final int gameId;
     private final ThreeTriosModel model;
-    private final ThreeTriosServer server;
     private ClientHandler redPlayer;
     private ClientHandler bluePlayer;
     private boolean gameStarted;
 
     public GameSession(int gameId, ThreeTriosServer server) {
       this.gameId = gameId;
-      this.server = server;
       this.model = new BasicThreeTriosModel(new Random());
       this.model.addModelStatusListener(this);
       this.gameStarted = false;
@@ -288,9 +253,11 @@ public class ThreeTriosServer implements ModelStatusListener {
 
       if (redPlayer == null) {
         redPlayer = clientHandler;
+        System.out.println("Added red player: " + playerName);
         return true;
       } else if (bluePlayer == null) {
         bluePlayer = clientHandler;
+        System.out.println("Added blue player: " + playerName);
         return true;
       }
       return false; // Game is full
@@ -330,20 +297,22 @@ public class ThreeTriosServer implements ModelStatusListener {
         return;
       }
 
-      // Initialize the game with default grid and deck
-      model.startGame(createDefaultGrid(), createDefaultDeck(), 7);
-      gameStarted = true;
+      try {
+        // Initialize the game with default grid and deck
+        model.startGame(createDefaultGrid(), createDefaultDeck(), 7);
+        gameStarted = true;
+        System.out.println("Game started for session " + gameId);
 
-      // Notify both players that the game has started
-      broadcastMessage(new GameMessage() {
-        @Override
-        public MessageType getType() {
-          return MessageType.GAME_STARTED;
-        }
-      });
+        // Notify both players that the game has started - FIXED: Use proper message
+        // class
+        broadcastMessage(new GameStartedMessage());
 
-      // Send initial game state
-      broadcastGameState();
+        // Send initial game state
+        broadcastGameState();
+      } catch (Exception e) {
+        System.err.println("Error starting game: " + e.getMessage());
+        e.printStackTrace();
+      }
     }
 
     public void handlePlayCard(ClientHandler clientHandler, int row, int col, int handIndex) {
@@ -356,12 +325,8 @@ public class ThreeTriosServer implements ModelStatusListener {
       TeamColor clientColor = getPlayerColor(clientHandler);
 
       if (currentPlayerColor != clientColor) {
-        clientHandler.sendMessage(new GameMessage() {
-          @Override
-          public MessageType getType() {
-            return MessageType.INVALID_MOVE;
-          }
-        });
+        // FIXED: Use proper message class instead of anonymous class
+        clientHandler.sendMessage(new InvalidMoveMessage());
         return;
       }
 
@@ -369,12 +334,8 @@ public class ThreeTriosServer implements ModelStatusListener {
         model.playToGrid(row, col, handIndex);
         broadcastGameState();
       } catch (IllegalArgumentException | IllegalStateException e) {
-        clientHandler.sendMessage(new GameMessage() {
-          @Override
-          public MessageType getType() {
-            return MessageType.INVALID_MOVE;
-          }
-        });
+        // FIXED: Use proper message class instead of anonymous class
+        clientHandler.sendMessage(new InvalidMoveMessage());
       }
     }
 
@@ -388,35 +349,27 @@ public class ThreeTriosServer implements ModelStatusListener {
     }
 
     private void broadcastGameState() {
-      GameStateUpdateMessage stateMessage = new GameStateUpdateMessage(model);
-      broadcastMessage(stateMessage);
+      try {
+        GameStateUpdateMessage stateMessage = new GameStateUpdateMessage(model);
+        broadcastMessage(stateMessage);
+      } catch (Exception e) {
+        System.err.println("Error broadcasting game state: " + e.getMessage());
+        e.printStackTrace();
+      }
     }
 
     @Override
     public void onPlayerTurnChange() {
-      broadcastMessage(new GameMessage() {
-        @Override
-        public MessageType getType() {
-          return MessageType.PLAYER_TURN_CHANGE;
-        }
-      });
+      // FIXED: Use proper message class instead of anonymous class
+      broadcastMessage(new PlayerTurnChangeMessage());
     }
 
     @Override
     public void onGameOver() {
-      broadcastMessage(new GameMessage() {
-        @Override
-        public MessageType getType() {
-          return MessageType.GAME_OVER;
-        }
-      });
+      // FIXED: Use proper message class instead of anonymous class
+      broadcastMessage(new GameOverMessage());
     }
 
-    /**
-     * Creates the default grid for the game.
-     * 
-     * @return the default grid
-     */
     private GridCell[][] createDefaultGrid() {
       GridCell[][] grid = new GridCell[4][3];
       for (int row = 0; row < grid.length; row++) {
@@ -432,11 +385,6 @@ public class ThreeTriosServer implements ModelStatusListener {
       return grid;
     }
 
-    /**
-     * Creates the default deck for the game.
-     * 
-     * @return the default deck
-     */
     private List<Card> createDefaultDeck() {
       List<Card> deck = new ArrayList<>();
       deck.add(createCard("CorruptKing", "3", "1", "1", "2"));
@@ -454,16 +402,6 @@ public class ThreeTriosServer implements ModelStatusListener {
       return deck;
     }
 
-    /**
-     * Helper method to create a ThreeTrioCard.
-     * 
-     * @param name    Name of the card
-     * @param attack1 First attack value
-     * @param attack2 Second attack value
-     * @param attack3 Third attack value
-     * @param attack4 Fourth attack value
-     * @return A new instance of ThreeTrioCard
-     */
     private ThreeTriosCard createCard(String name, String attack1, String attack2,
         String attack3, String attack4) {
       return new ThreeTriosCard(
@@ -475,11 +413,6 @@ public class ThreeTriosServer implements ModelStatusListener {
     }
   }
 
-  /**
-   * Main method to start the server.
-   * 
-   * @param args command line arguments (optional port number)
-   */
   public static void main(String[] args) {
     int port = 8080; // Default port
     if (args.length > 0) {
